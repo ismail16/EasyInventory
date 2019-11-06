@@ -1,56 +1,85 @@
- #Middleware Create
+#Database Create
+    //User
+    $table->increments('id');
+    $table->integer('role_id')->default(2);
+    $table->string('firstname');
+    $table->string('lastname');
+    $table->string('email')->unique();
+    $table->string('department')->nullable();
+    $table->string('address');
+    $table->timestamp('email_verified_at')->nullable();
+    $table->string('password');
+    $table->string('image')->default('default.png');
+    $table->string('verifyToken')->nullable();
+    $table->boolean('status')->default(0);
+    $table->rememberToken();
+    $table->timestamps();
 
- #Registration middleware from kernal.php
+    //Role
+    $table->increments('id');
+    $table->string('name');
+    $table->string('slug');
+    $table->timestamps();
 
+#Model create and Make a Relation between
+    //Role
+    public function users() {
+        return $this->hasMany(User::class);
+    }
 
- #Create Route group 
+    //User
+    public function role() {
+        return $this->belongsTo(Role::class);
+    }
 
- Route::group(['as'=>'admin.', 'prefix'=>'admin', 'namespace'=>'Admin', 'middleware'=['admin','auth']], funtion(){
+#Middleware Create
+    AdminMiddleware.php
+    AuthorMiddleware.php
+#Registration middleware from kernal.php
+    'admin' => AdminMiddleware::class,
+    'author' => AuthorMiddleware::class,
+#Create Route group
+    Route::group(['as'=>'admin.', 'prefix'=>'admin', 'namespace'=>'Admin', 'middleware'=['admin','auth']], funtion(){
 
-
- });
+    });
 
 #Logic implement in middleware Http > Middleware > 'Created middleware'
-
-public function handle($request, Closure $next)
-{
-    if(Auth::check() && Auth::user()->role->id == 1) {
-        return $next($request);
-    }else{
-        return redirect()->route('login');
+    public function handle($request, Closure $next)
+    {
+        if(Auth::check() && Auth::user()->role->id == 1) {
+            return $next($request);
+        }else{
+            return redirect()->route('login');
+        }
     }
-
-}
 
 #Logic implement in middleware Http > Middleware > 'RedirectIfAuthenticated.php'
-public function handle($request, Closure $next, $guard = null)
-{
-    if (Auth::guard($guard)->check() && Auth::user()->role->id == 1 ) {
-        return redirect()->route('admin.dashboard');
-    }elseif(Auth::guard($guard)->check() && Auth::user()->role->id == 2){
-        return redirect()->route('author.dashboard');
-    }else{
-        return $next($request);
-    }
-}
-
-#LoginController 
-
-protected $redirectTo;
-
-public function __construct()
-{
-    if (Auth::check() && Auth::user()->role->id == 1) {
-        $this->redirectTo = route('admin.dashboard');
-    } else {
-        $this->redirectTo = route('author.dashboard');
+    public function handle($request, Closure $next, $guard = null)
+    {
+        if (Auth::guard($guard)->check() && Auth::user()->role->id == 1 ) {
+            return redirect()->route('admin.dashboard');
+        }elseif(Auth::guard($guard)->check() && Auth::user()->role->id == 2){
+            return redirect()->route('author.dashboard');
+        }else{
+            return $next($request);
+        }
     }
 
-    $this->middleware('guest')->except('logout');
-}
+#LoginController
+    protected $redirectTo;
+    public function __construct()
+    {
+        if (Auth::check() && Auth::user()->role->id == 1) {
+            $this->redirectTo = route('admin.dashboard');
+        } else {
+            $this->redirectTo = route('author.dashboard');
+        }
+        $this->middleware('guest')->except('logout');
+    }
 
 
 #registration
 
 
 #reset password
+?>
