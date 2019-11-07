@@ -1,21 +1,21 @@
 <?php
 
-namespace App\Http\Controllers\Author;
+namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class PagesController extends Controller
+class SupplierInvoiceController extends Controller
 {
 
     public function index()
     {
-        return view('author.layouts.dashboard');
+        return "hello ";
     }
 
     public function create()
     {
-        //
+        return view('admin.supplier_invoice.add_invoice');
     }
 
     public function store(Request $request)

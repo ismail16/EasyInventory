@@ -7,6 +7,7 @@ Auth::routes();
 
 Route::group(['as'=>'admin.', 'prefix'=>'admin','namespace'=>'Admin', 'middleware'=>['auth','admin']], function(){
 	Route::get('/dashboard', 'PagesController@index')->name('dashboard');
+	Route::resource('supplier-invoice', 'SupplierInvoiceController');
 });
 
 
