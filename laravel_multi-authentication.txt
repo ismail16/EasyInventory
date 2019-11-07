@@ -65,16 +65,17 @@
         }
     }
 
-#LoginController
+#LoginController [if = admin, else = author. otherwise login button dubble click]
     protected $redirectTo;
+
     public function __construct()
     {
-        if (Auth::check() && Auth::user()->role->id == 1) {
-            $this->redirectTo = route('admin.dashboard');
-        } else {
-            $this->redirectTo = route('author.dashboard');
+        if (Auth::check() && Auth::user()->role->id == 1){
+            $this->redirectTo = 'admin/dashboard';
+        }else{
+            $this->redirectTo = 'author/dashboard';
         }
-        $this->middleware('guest')->except('logout');
+        $this->middleware('guest');
     }
 
 

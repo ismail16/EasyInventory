@@ -1,7 +1,7 @@
 
-@include('admin.layouts.partials.header')
-@include('admin.layouts.partials.navbar')
-@include('admin.layouts.partials.sidebar')
+@include('author.layouts.partials.header')
+@include('author.layouts.partials.navbar')
+@include('author.layouts.partials.sidebar')
 
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -9,7 +9,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0 text-dark">Admin Dashboard v2</h1>
+            <h1 class="m-0 text-dark">Author Dashboard v2</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -93,4 +93,4 @@
     <!-- /.content -->
   </div>
 
-@include('admin.layouts.partials.footer')
+@include('author.layouts.partials.footer')

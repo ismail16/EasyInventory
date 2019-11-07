@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Author;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -10,9 +10,7 @@ class PagesController extends Controller
 
     public function index()
     {
-
-        return view('admin.layouts.master');
-        
+        return view('author.layouts.master');
     }
 
     public function create()

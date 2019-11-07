@@ -10,4 +10,6 @@ Route::group(['as'=>'admin.', 'prefix'=>'admin','namespace'=>'Admin', 'middlewar
 });
 
 
-
+Route::group(['as'=>'author.', 'prefix'=>'author','namespace'=>'Author', 'middleware'=>['auth','author']], function(){
+    Route::get('/dashboard', 'PagesController@index')->name('dashboard');
+});
