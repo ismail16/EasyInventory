@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>AdminLTE 3 | Log in</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="{{ asset('backend/plugins/fontawesome-free/css/all.min.css')}}">
+    <link rel="stylesheet" href="{{ asset('backend_assets')}}">
     <link rel="stylesheet" href="{{ asset('backend/code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css')}}">
     <link rel="stylesheet" href="{{ asset('backend/plugins/icheck-bootstrap/icheck-bootstrap.min.css')}}">
     <link rel="stylesheet" href="{{ asset('backend/dist/css/adminlte.min.css')}}">
@@ -70,6 +70,6 @@
     </div>
 
     <script src="{{ asset('backend/plugins/jquery/jquery.min.js')}}"></script>
-    <script src="{{ asset('backend/plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+    <script src="{{ asset('backend_assets')}}"></script>
 </body>
 </html>
