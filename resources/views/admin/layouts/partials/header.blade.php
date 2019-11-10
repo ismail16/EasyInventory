@@ -22,7 +22,7 @@
   <style>
     .btn-group-xs > .btn, .btn-xs {
       padding: .25rem .4rem;
-      font-size: .875rem;
+      font-size: .65rem;
       line-height: .5;
       border-radius: .2rem;
     }

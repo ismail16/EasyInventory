@@ -48,65 +48,24 @@
                                     @foreach($suppliers as $supplier)
                                     <tr>
                                         <td>{{ $supplier->supplier_name }}</td>
-                                        <td>Internet
-                                            Explorer 4.0
-                                        </td>
-                                        <td>Win 95+</td>
-                                        <td> 4</td>
-                                        <td> 4</td>
+                                        <td>{{ $supplier->supplier_contact_name }}</td>
+                                        <td>{{ $supplier->supplier_email }}</td>
+                                        <td>{{ $supplier->supplier_phone }}</td>
+                                        <td>{!! $supplier->supplier_address !!}</td>
                                         <td class="text-center">
-                                            <a href="" class="btn btn-xs btn-success">
+                                            <a href="{{ route('admin.supplier.show',$supplier->id) }}" class="btn btn-xs btn-success">
                                                 <i class="fa fa-eye"></i>
                                             </a>
-                                            <a href="" class="btn btn-xs btn-success">
+                                            <a href="{{ route('admin.supplier.edit',$supplier->id) }}" class="btn btn-xs btn-success">
                                                 <i class="fa fa-edit"></i>
                                             </a>
-                                            <form action="" method="post" style="display: inline;" onsubmit="return confirm('Are you Sure? Want to delete')">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button class="btn btn-xs btn-danger" type="submit"><i class="fa fa-trash"></i>
-                                                </button>
-                                            </form>
+                                            <button class="btn btn-xs btn-danger" @click.prevent="deleteSupplier({{$supplier->id}})">
+                                                <i class="fa fa-trash"></i>
+                                            </button>
                                         </td>
                                     </tr>
                                     @endforeach
-
-                                    <tr>
-                                        <td>Trident</td>
-                                        <td>Internet
-                                            Explorer 4.0
-                                        </td>
-                                        <td>Win 95+</td>
-                                        <td> 4</td>
-                                        <td> 4</td>
-                                        <td class="text-center">
-                                            <a href="" class="btn btn-xs btn-success">
-                                                <i class="fa fa-eye"></i>
-                                            </a>
-                                            <a href="" class="btn btn-xs btn-success">
-                                                <i class="fa fa-edit"></i>
-                                            </a>
-                                            <form action="" method="post" style="display: inline;" onsubmit="return confirm('Are you Sure? Want to delete')">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button class="btn btn-xs btn-danger" type="submit"><i class="fa fa-trash"></i>
-                                                </button>
-                                            </form>
-                                        </td>
-                                    </tr>
-
-
                                 </tbody>
-                                <tfoot>
-                                <tr>
-                                    <th>Name</th>
-                                    <th>Contact Name</th>
-                                    <th>Email</th>
-                                    <th>Phone</th>
-                                    <th>Address</th>
-                                    <th>Action</th>
-                                </tr>
-                                </tfoot>
                             </table>
                         </div>
                     </div>
@@ -179,7 +138,6 @@
             el: '#supplier_app',
 
             data() {
-
                 return{
                     supplier_name : '',
                     supplier_contact_name : '',
@@ -187,7 +145,6 @@
                     supplier_phone : '',
                     supplier_address : ''
                 }
-                
             },
 
             mounted(){
@@ -196,21 +153,33 @@
 
             methods:{
                 addNewSupplier(){
-                    console.log('addNewSupplier ok')
                     axios.post('/admin/supplier', {
                         supplier_name : this.supplier_name,
-                        supplier_contact_name : this.supplier_name,
-                        supplier_email : this.supplier_name,
-                        supplier_phone : this.supplier_name,
-                        supplier_address : this.supplier_name,
+                        supplier_contact_name : this.supplier_contact_name,
+                        supplier_email : this.supplier_email,
+                        supplier_phone : this.supplier_phone,
+                        supplier_address : this.supplier_address,
                     })
                     .then(function (response) {
                         console.log(response.data, 'then');
+                        location.reload();
                     })
                     .catch(function (error) {
                         console.log(error,'error');
                     });
-                }
+                },
+                deleteSupplier(id){
+                    axios.delete('supplier/'+id)
+                        .then(function (response) {
+                            console.log(response.data, 'then');
+                            location.reload();
+                        })
+                        .catch(function (error) {
+                            // handle error
+                            console.log(error);
+                        });
+                },
+
             }
         })
     </script>
@@ -219,12 +188,11 @@
     <script src="{{ asset('backend_assets/plugins/datatables/dataTables.bootstrap4.js') }}"></script>
     <script>
         $(function () {
-            $("#example1").DataTable();
-            $('#example2').DataTable({
+            $('#example1').DataTable({
                 "paging": true,
                 "lengthChange": false,
                 "searching": false,
-                "ordering": true,
+                "ordering": false,
                 "info": true,
                 "autoWidth": false,
             });

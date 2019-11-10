@@ -11,7 +11,7 @@ class SupplierController extends Controller
 
     public function index()
     {
-        $suppliers = Supplier::where('id','desc')->get();
+        $suppliers = Supplier::orderBy('id','desc')->get();
         return view('admin.supplier.index',compact('suppliers'));
     }
 
@@ -22,15 +22,12 @@ class SupplierController extends Controller
 
     public function store(Request $request)
     {
-
         $supplier = new Supplier;
-
         $supplier->supplier_name = $request->supplier_name;
         $supplier->supplier_contact_name = $request->supplier_contact_name;
         $supplier->supplier_email = $request->supplier_email;
         $supplier->supplier_phone = $request->supplier_phone;
         $supplier->supplier_address = $request->supplier_address;
-
         $supplier->save();
     }
 
@@ -51,6 +48,8 @@ class SupplierController extends Controller
 
     public function destroy($id)
     {
-        //
+        $supplier = Supplier::find($id);
+        $supplier->delete();
+
     }
 }
