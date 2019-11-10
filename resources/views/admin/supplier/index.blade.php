@@ -6,7 +6,7 @@
 @endpush
 
 @section('content')
-    <div class="content-wrapper" id="app">
+    <div class="content-wrapper" id="supplier_app">
         <section class="content-header pb-2 pt-2">
             <div class="container-fluid">
                 <div class="row">
@@ -45,29 +45,55 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr>
-                                    <td>Trident</td>
-                                    <td>Internet
-                                        Explorer 4.0
-                                    </td>
-                                    <td>Win 95+</td>
-                                    <td> 4</td>
-                                    <td> 4</td>
-                                    <td class="text-center">
-                                        <a href="" class="btn btn-xs btn-success">
-                                            <i class="fa fa-eye"></i>
-                                        </a>
-                                        <a href="" class="btn btn-xs btn-success">
-                                            <i class="fa fa-edit"></i>
-                                        </a>
-                                        <form action="" method="post" style="display: inline;" onsubmit="return confirm('Are you Sure? Want to delete')">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button class="btn btn-xs btn-danger" type="submit"><i class="fa fa-trash"></i>
-                                            </button>
-                                        </form>
-                                    </td>
-                                </tr>
+                                    @foreach($suppliers as $supplier)
+                                    <tr>
+                                        <td>{{ $supplier->supplier_name }}</td>
+                                        <td>Internet
+                                            Explorer 4.0
+                                        </td>
+                                        <td>Win 95+</td>
+                                        <td> 4</td>
+                                        <td> 4</td>
+                                        <td class="text-center">
+                                            <a href="" class="btn btn-xs btn-success">
+                                                <i class="fa fa-eye"></i>
+                                            </a>
+                                            <a href="" class="btn btn-xs btn-success">
+                                                <i class="fa fa-edit"></i>
+                                            </a>
+                                            <form action="" method="post" style="display: inline;" onsubmit="return confirm('Are you Sure? Want to delete')">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button class="btn btn-xs btn-danger" type="submit"><i class="fa fa-trash"></i>
+                                                </button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                    @endforeach
+
+                                    <tr>
+                                        <td>Trident</td>
+                                        <td>Internet
+                                            Explorer 4.0
+                                        </td>
+                                        <td>Win 95+</td>
+                                        <td> 4</td>
+                                        <td> 4</td>
+                                        <td class="text-center">
+                                            <a href="" class="btn btn-xs btn-success">
+                                                <i class="fa fa-eye"></i>
+                                            </a>
+                                            <a href="" class="btn btn-xs btn-success">
+                                                <i class="fa fa-edit"></i>
+                                            </a>
+                                            <form action="" method="post" style="display: inline;" onsubmit="return confirm('Are you Sure? Want to delete')">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button class="btn btn-xs btn-danger" type="submit"><i class="fa fa-trash"></i>
+                                                </button>
+                                            </form>
+                                        </td>
+                                    </tr>
 
 
                                 </tbody>
@@ -120,7 +146,7 @@
                                 <div class="form-group row">
                                     <label class="col-sm-2 col-form-label">Phone</label>
                                     <div class="col-sm-10">
-                                        <input type="text" v-model="supplier_email" id="supplier_phone" name="supplier_phone" class="form-control" placeholder="Supplier Phone">
+                                        <input type="text" v-model="supplier_phone" id="supplier_phone" name="supplier_phone" class="form-control" placeholder="Supplier Phone">
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -135,7 +161,7 @@
                             <button type="button" class="btn btn-default" data-dismiss="modal">
                                 Cancel
                             </button>
-                            <button type="submit" class="btn btn-primary" :onclick="addSupplier" data-dismiss="modal">
+                            <button type="submit" class="btn btn-primary" @click.prevent="addNewSupplier()" data-dismiss="modal">
                                 <i class="fa fa-plus"></i> Add
                             </button>
                         </div>
@@ -149,20 +175,41 @@
 @endsection
 @push('scripts')
     <script>
-        var app = new Vue({
-            el: '#app',
-            data: {
-                supplier_name : '',
-                contact_name : '',
-                email : '',
-                phone : '',
-                address : '',
-                message: 'Hello Vue! hhhhhhh'
+        var supplier_app = new Vue({
+            el: '#supplier_app',
+
+            data() {
+
+                return{
+                    supplier_name : '',
+                    supplier_contact_name : '',
+                    supplier_email : '',
+                    supplier_phone : '',
+                    supplier_address : ''
+                }
+                
+            },
+
+            mounted(){
+                this.addNewSupplier()
             },
 
             methods:{
-                addSupplier(){
-                    console.log(this.data())
+                addNewSupplier(){
+                    console.log('addNewSupplier ok')
+                    axios.post('/admin/supplier', {
+                        supplier_name : this.supplier_name,
+                        supplier_contact_name : this.supplier_name,
+                        supplier_email : this.supplier_name,
+                        supplier_phone : this.supplier_name,
+                        supplier_address : this.supplier_name,
+                    })
+                    .then(function (response) {
+                        console.log(response.data, 'then');
+                    })
+                    .catch(function (error) {
+                        console.log(error,'error');
+                    });
                 }
             }
         })

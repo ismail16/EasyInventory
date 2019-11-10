@@ -34,7 +34,7 @@
 
 
 <!-- PAGE SCRIPTS -->
-<script src="{{ asset('backend_assets/dist/js/pages/dashboard2.js') }}"></script>
+{{-- <script src="{{ asset('backend_assets/dist/js/pages/dashboard2.js') }}"></script> --}}
   @stack('scripts')
 </body>
 </html>

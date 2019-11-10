@@ -6,7 +6,7 @@
 @endpush
 
 @section('content')
-    <div class="content-wrapper">
+    <div class="content-wrapper" id="category_app">
         <section class="content-header pb-2 pt-2">
             <div class="container-fluid">
                 <div class="row">
@@ -126,65 +126,77 @@
                 </div>
             </div>
         </section>
-    </div>
 
-    <!-- The Modal -->
-    <div class="modal fade" id="myModal">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <form class="form-horizontal">
-                <div class="modal-header">
-                    <h4 class="modal-title">Add New Supplier</h4>
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                </div>
-                <div class="modal-body">
-                    <div class="card-body">
-                        <div class="form-group row">
-                            <label class="col-sm-2 col-form-label">Name</label>
-                            <div class="col-sm-10">
-                                <input type="text" class="form-control" placeholder="Supplier Name">
+        <!-- The Modal -->
+        <div class="modal fade" id="myModal">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <form class="form-horizontal">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Add New Supplier @{{ message }}</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="card-body">
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label">Name</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" placeholder="Supplier Name">
+                                </div>
                             </div>
-                        </div>
-                        <div class="form-group row">
-                            <label class="col-sm-2 col-form-label">Contact Name</label>
-                            <div class="col-sm-10">
-                                <input type="text" class="form-control" placeholder="Supplier Contact Name">
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label">Contact Name</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" placeholder="Supplier Contact Name">
+                                </div>
                             </div>
-                        </div>
-                        <div class="form-group row">
-                            <label class="col-sm-2 col-form-label">Email</label>
-                            <div class="col-sm-10">
-                                <input type="text" class="form-control" placeholder="Supplier Email">
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label">Email</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" placeholder="Supplier Email">
+                                </div>
                             </div>
-                        </div>
-                        <div class="form-group row">
-                            <label class="col-sm-2 col-form-label">Phone</label>
-                            <div class="col-sm-10">
-                                <input type="text" class="form-control" placeholder="Supplier Phone">
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label">Phone</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" placeholder="Supplier Phone">
+                                </div>
                             </div>
-                        </div>
-                        <div class="form-group row">
-                            <label class="col-sm-2 col-form-label">Address</label>
-                            <div class="col-sm-10">
-                                <textarea class="form-control" rows="3" placeholder="Supplier Address"></textarea>
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label">Address</label>
+                                <div class="col-sm-10">
+                                    <textarea class="form-control" rows="3" placeholder="Supplier Address"></textarea>
+                                </div>
                             </div>
                         </div>
                     </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">
+                            Cancel
+                        </button>
+                        <button type="submit" class="btn btn-primary" data-dismiss="modal">
+                            <i class="fa fa-plus"></i> Add
+                        </button>
+                    </div>
+                    </form>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">
-                        Cancel
-                    </button>
-                    <button type="submit" class="btn btn-primary" data-dismiss="modal">
-                        <i class="fa fa-plus"></i> Add
-                    </button>
-                </div>
-                </form>
             </div>
         </div>
     </div>
 @endsection
 @push('scripts')
+    <!-- Vue Js here -->
+    <script>
+        var category_app = new Vue({
+          el: '#category_app',
+          data: {
+            message: 'Hello Vue!'
+          }
+        })
+
+    </script>
+
+
     <!-- DataTables -->
     <script src="{{ asset('backend_assets/plugins/datatables/jquery.dataTables.js') }}"></script>
     <script src="{{ asset('backend_assets/plugins/datatables/dataTables.bootstrap4.js') }}"></script>
