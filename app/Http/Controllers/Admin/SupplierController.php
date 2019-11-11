@@ -43,7 +43,13 @@ class SupplierController extends Controller
 
     public function update(Request $request, $id)
     {
-        //
+        $supplier = Supplier::find($id);
+        $supplier->supplier_name = $request->supplier_name;
+        $supplier->supplier_contact_name = $request->supplier_contact_name;
+        $supplier->supplier_email = $request->supplier_email;
+        $supplier->supplier_phone = $request->supplier_phone;
+        $supplier->supplier_address = $request->supplier_address;
+        $supplier->save();
     }
 
     public function destroy($id)
