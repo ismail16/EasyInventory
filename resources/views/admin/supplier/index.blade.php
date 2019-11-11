@@ -27,6 +27,8 @@
 
         <section class="content">
 
+            <button class="swalDefaultSuccess">Click me</button>
+
             <div class="row">
                 <div class="col-12">
                     <div class="card">
@@ -133,7 +135,48 @@
 
 @endsection
 @push('scripts')
-    <script>
+
+       <script type="text/javascript">
+          // $(function() {
+          //   const Toast = Swal.mixin({
+          //     toast: true,
+          //     position: 'top-end',
+          //     showConfirmButton: false,
+          //     timer: 3000
+          //   });
+
+          toastr.success('Have fun storming the castle!', 'Miracle Max Says')
+
+        
+            $('.swalDefaultSuccess').click(function() {
+
+                console.log('jjjjj')
+               // toastr["success"]("Inconceivable!")
+               // toastr.options = {
+               //    "closeButton": false,
+               //    "debug": false,
+               //    "newestOnTop": false,
+               //    "progressBar": false,
+               //    "positionClass": "toast-bottom-left",
+               //    "preventDuplicates": false,
+               //    "onclick": null,
+               //    "showDuration": "300",
+               //    "hideDuration": "1000",
+               //    "timeOut": "5000",
+               //    "extendedTimeOut": "1000",
+               //    "showEasing": "swing",
+               //    "hideEasing": "linear",
+               //    "showMethod": "fadeIn",
+               //    "hideMethod": "fadeOut"
+               //  }
+                              // Toast.fire({
+              //   type: 'success',
+              //   title: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.'
+              // })
+            });
+
+          // });
+
         var supplier_app = new Vue({
             el: '#supplier_app',
 
@@ -162,10 +205,11 @@
                     })
                     .then(function (response) {
                         console.log(response.data, 'then');
-                        location.reload();
+                        // location.reload();
+                        toastr.success('Have fun storming the castle!', 'Miracle Max Says')
                     })
                     .catch(function (error) {
-                        console.log(error,'error');
+                       
                     });
                 },
                 deleteSupplier(id){
