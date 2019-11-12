@@ -3,30 +3,6 @@
 
 @push('css')
     <link rel="stylesheet" href="{{ asset('backend_assets/plugins/datatables/dataTables.bootstrap4.css')}}">
-    <style>
-        .swal2-icon {
-            position: relative;
-            box-sizing: content-box;
-            justify-content: center;
-            width: 2em;
-            height: 2em;
-            margin: 10px auto;
-            border: .25em solid transparent;
-            border-radius: 50%;
-            font-family: inherit;
-            line-height: 2em;
-            cursor: default;
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-            user-select: none;
-        }
-        .swal2-icon .swal2-icon-content {
-            display: flex;
-            align-items: center;
-            font-size: 34px;
-        }
-    </style>
 @endpush
 
 @section('content')
@@ -54,13 +30,13 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-body">
+
                             <table id="example1" class="table table-bordered table-striped table-sm">
                                 <a href="" class="btn btn-sm btn-primary float-right" data-toggle="modal" data-target="#addModal">
                                     <i class="fa fa-plus"></i> Add Supplier
                                 </a>
                                 <thead>
                                 <tr>
-                                    <th>S.N</th>
                                     <th>Name</th>
                                     <th>Contact Name</th>
                                     <th>Email</th>
@@ -72,17 +48,16 @@
                                 <tbody>
                                     @foreach($suppliers as $supplier)
                                         <tr>
-                                            <td>{{ $loop->index+1 }}</td>
                                             <td>{{ $supplier->supplier_name }}</td>
                                             <td>{{ $supplier->supplier_contact_name }}</td>
                                             <td>{{ $supplier->supplier_email }}</td>
                                             <td>{{ $supplier->supplier_phone }}</td>
                                             <td>{!! $supplier->supplier_address !!}</td>
                                             <td class="text-center">
-                                                {{-- <a href="{{ route('admin.supplier.show',$supplier->id) }}" class="btn btn-xs btn-success">
+                                                <a href="{{ route('admin.supplier.show',$supplier->id) }}" class="btn btn-xs btn-success">
                                                     <i class="fa fa-eye"></i>
-                                                </a> --}}
-                                                <a class="btn btn-xs btn-success mr-1"  @click.prevent="editSupplier({{$supplier}})" data-toggle="modal" data-target="#editModal">
+                                                </a>
+                                                <a class="btn btn-xs btn-success" @click.prevent="editSupplier({{$supplier}})" data-toggle="modal" data-target="#editModal">
                                                     <i class="fa fa-edit"></i>
                                                 </a>
                                                 <button class="btn btn-xs btn-danger" @click.prevent="deleteSupplier({{$supplier->id}})">
@@ -108,8 +83,8 @@
                             <h4 class="modal-title">Add New Supplier</h4>
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
                         </div>
-                        <div class="modal-body pb-0 pt-0">
-                            <div class="card-body pb-0">
+                        <div class="modal-body">
+                            <div class="card-body">
                                 <div class="form-group row">
                                     <label class="col-sm-2 col-form-label">Name</label>
                                     <div class="col-sm-10">
@@ -143,11 +118,11 @@
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">
                                 Cancel
                             </button>
-                            <button @click.prevent="addNewSupplier()" type="submit" class="btn btn-primary btn-sm"  data-dismiss="modal">
-                                <i class="fa fa-plus"></i> ADD
+                            <button @click.prevent="addNewSupplier()" type="submit" class="btn btn-primary"  data-dismiss="modal">
+                                <i class="fa fa-plus"></i> Add
                             </button>
                         </div>
                     </form>
@@ -164,8 +139,8 @@
                             <h4 class="modal-title">Edit Supplier</h4>
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
                         </div>
-                        <div class="modal-body pb-0 pt-0">
-                            <div class="card-body pb-0">
+                        <div class="modal-body">
+                            <div class="card-body">
                                 <div class="form-group row">
                                     <label class="col-sm-2 col-form-label">Name</label>
                                     <div class="col-sm-10">
@@ -200,19 +175,20 @@
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">
                                 Cancel
                             </button>
-                            <button @click.prevent="updateSupplier(supplier_id)" type="submit" class="btn btn-primary btn-sm"  data-dismiss="modal">
-                                <i class="fa fa-sync"></i> Update
+                            <button @click.prevent="updateSupplier(supplier_id)" type="submit" class="btn btn-primary"  data-dismiss="modal">
+                                <i class="fa fa-plus"></i> Update
                             </button>
-                          
                         </div>
                     </form>
                 </div>
             </div>
         </div>
     </div>
+    <!-- The Modal -->
+
 @endsection
 @push('scripts')
     <script>
@@ -231,12 +207,10 @@
 
             mounted(){
                 // this.addNewSupplier()
-
             },
 
             methods:{
                 addNewSupplier(){
-
                     axios.post('/admin/supplier', {
                         supplier_name : this.supplier_name,
                         supplier_contact_name : this.supplier_contact_name,
@@ -254,42 +228,63 @@
 
                 deleteSupplier(id){
 
-                   const swalWithBootstrapButtons = Swal.mixin({
-                      customClass: {
-                        confirmButton: 'btn btn-success btn-sm',
-                        cancelButton: 'btn btn-danger  btn-sm mr-2',
-                      },
-                      buttonsStyling: false
+                    const swalWithBootstrapButtons = Swal.mixin({
+                        customClass: {
+                            confirmButton: 'btn btn-success',
+                            cancelButton: 'btn btn-danger'
+                        },
+                        buttonsStyling: false
                     })
 
                     swalWithBootstrapButtons.fire({
-                      // title: '',
-                      text: "Are you sure Delete ?",
-                      icon: 'question',
-                      position: 'top',
-                      width: '18rem',
-                      padding: '10px',
-                      showCancelButton: true,
-                      confirmButtonText: 'Yes, delete it!',
-                      cancelButtonText: 'No, cancel!',
-                      reverseButtons: true
-
+                        title: 'Are you sure?',
+                        text: "You won't be able to revert this!",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonText: 'Yes, delete it!',
+                        cancelButtonText: 'No, cancel!',
+                        reverseButtons: true
                     }).then((result) => {
-                      if (result.value) {
-                         axios.delete('supplier/'+id)
-                            .then(function (response) {
-                                toastr.success('Deleted Supplier Successfully')
-                                setTimeout(function(){
-                                    location.reload();
-                                }, 700);
-                            })
-                            .catch(function (error) {
-                                toastr.error('Delete Supplier Failed')
-                            });
-                      } 
-                    })
-                },
 
+                        if (result.value) {
+                            axios.delete('supplier/'+id)
+                                .then(function (response) {
+                                    toastr.success('Deleted Supplier Successfully')
+                                    setTimeout(function(){
+                                        location.reload();
+                                    }, 700);
+                                })
+                                .catch(function (error) {
+                                    toastr.error('Delete Supplier Failed')
+                                });
+                            // swalWithBootstrapButtons.fire(
+                            //     'Deleted!',
+                            //     'Your file has been deleted.',
+                            //     'success'
+                            // )
+                        }
+                    })
+
+                    // Swal.fire({
+                    //     title: 'Are Sure want to delete',
+                    //     icon: 'question',
+                    //     iconHtml: '?',
+                    //     cancelButtonText: 'No',
+                    //     confirmButtonText: 'Yes',
+                    //     showCancelButton: true,
+                    //     showCloseButton: true
+                    // })
+                    // axios.delete('supplier/'+id)
+                    // .then(function (response) {
+                    //     toastr.success('Deleted Supplier Successfully')
+                    //     setTimeout(function(){
+                    //         location.reload();
+                    //     }, 700);
+                    // })
+                    // .catch(function (error) {
+                    //     toastr.error('Delete Supplier Failed')
+                    // });
+                },
                 editSupplier(supplier){
                     this.supplier_id = supplier.id,
                     this.supplier_name = supplier.supplier_name,
@@ -323,17 +318,6 @@
     <script src="{{ asset('backend_assets/plugins/datatables/dataTables.bootstrap4.js') }}"></script>
     <script>
         $(function () {
-            // $('.editBtn').click(function(){
-            //     $('.addNewSupplier').hide();
-            //     $('.updateSupplier').show()
-            //     $('.modal-title').text('Edit Supplier');
-            // });
-            // $('.addNewBtn').click(function(){
-            //     $('.updateSupplier').hide()
-            //     $('.addNewSupplier').show();
-            //     $('.modal-title').text('Add New Supplier');
-            // });
-
             $('#example1').DataTable({
                 "paging": true,
                 "lengthChange": true,

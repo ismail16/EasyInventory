@@ -31,8 +31,7 @@
 <script src="{{ asset('backend_assets/plugins/jquery-mapael/maps/world_countries.min.js') }}"></script>
 <!-- ChartJS -->
 <script src="{{ asset('backend_assets/plugins/chart.js/Chart.min.js') }}"></script>
-<!-- SweetAlert2 -->
-<script src="{{ asset('backend_assets/plugins/sweetalert2/sweetalert2.min.js') }}"></script>
+
 <!-- Toastr -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
