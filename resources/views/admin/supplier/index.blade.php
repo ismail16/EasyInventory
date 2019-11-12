@@ -103,7 +103,7 @@
         <div class="modal fade" id="addModal">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
-                    <form class="form-horizontal">
+                    <form class="form-horizontal" onsubmit="return validatorFormSubmit()">
                         <div class="modal-header">
                             <h4 class="modal-title">Add New Supplier</h4>
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -111,7 +111,7 @@
                         <div class="modal-body pb-0 pt-0">
                             <div class="card-body pb-0">
                                 <div class="form-group row">
-                                    <label class="col-sm-2 col-form-label">Name</label>
+                                    <label class="col-sm-2 col-form-label">Name <span class="text-red">*</span></label>
                                     <div class="col-sm-10">
                                         <input type="text" v-model="supplier_name" id="supplier_name" name="supplier_name" class="form-control" placeholder="Supplier Name">
                                     </div>
@@ -125,13 +125,13 @@
                                 <div class="form-group row">
                                     <label class="col-sm-2 col-form-label">Email</label>
                                     <div class="col-sm-10">
-                                        <input type="text" v-model="supplier_email" id="supplier_email" name="supplier_email" class="form-control" placeholder="Supplier Email">
+                                        <input type="email" v-model="supplier_email" id="supplier_email" name="supplier_email" class="form-control" placeholder="Supplier Email">
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label class="col-sm-2 col-form-label">Phone</label>
                                     <div class="col-sm-10">
-                                        <input type="text" v-model="supplier_phone" id="supplier_phone" name="supplier_phone" class="form-control" placeholder="Supplier Phone">
+                                        <input type="number" v-model="supplier_phone" id="supplier_phone" name="supplier_phone" class="form-control" placeholder="Supplier Phone">
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -146,7 +146,7 @@
                             <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">
                                 Cancel
                             </button>
-                            <button @click.prevent="addNewSupplier()" type="submit" class="btn btn-primary btn-sm"  data-dismiss="modal">
+                            <button @click="addNewSupplier()" type="submit" class="btn btn-primary btn-sm">
                                 <i class="fa fa-plus"></i> ADD
                             </button>
                         </div>
@@ -159,7 +159,7 @@
         <div class="modal fade" id="editModal">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
-                    <form class="form-horizontal">
+                    <form class="form-horizontal" onsubmit="return validatorFormEdit()">
                         <div class="modal-header">
                             <h4 class="modal-title">Edit Supplier</h4>
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -167,9 +167,9 @@
                         <div class="modal-body pb-0 pt-0">
                             <div class="card-body pb-0">
                                 <div class="form-group row">
-                                    <label class="col-sm-2 col-form-label">Name</label>
+                                    <label class="col-sm-2 col-form-label">Name <span class="text-red">*</span></label>
                                     <div class="col-sm-10">
-                                        <input type="text" v-model="supplier_name" id="supplier_name" name="supplier_name" class="form-control" placeholder="Supplier Name">
+                                        <input type="text" v-model="supplier_name" id="supplier_name" name="supplier_name" class="form-control supplier_name" placeholder="Supplier Name">
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -181,13 +181,13 @@
                                 <div class="form-group row">
                                     <label class="col-sm-2 col-form-label">Email</label>
                                     <div class="col-sm-10">
-                                        <input type="text" v-model="supplier_email" id="supplier_email" name="supplier_email" class="form-control" placeholder="Supplier Email">
+                                        <input type="email" v-model="supplier_email" id="supplier_email" name="supplier_email" class="form-control" placeholder="Supplier Email">
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label class="col-sm-2 col-form-label">Phone</label>
                                     <div class="col-sm-10">
-                                        <input type="text" v-model="supplier_phone" id="supplier_phone" name="supplier_phone" class="form-control" placeholder="Supplier Phone">
+                                        <input type="number" v-model="supplier_phone" id="supplier_phone" name="supplier_phone" class="form-control" placeholder="Supplier Phone">
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -203,7 +203,8 @@
                             <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">
                                 Cancel
                             </button>
-                            <button @click.prevent="updateSupplier(supplier_id)" type="submit" class="btn btn-primary btn-sm"  data-dismiss="modal">
+
+                            <button @click="updateSupplier(supplier_id)" type="submit" class="btn btn-primary btn-sm">
                                 <i class="fa fa-sync"></i> Update
                             </button>
                           
@@ -216,6 +217,32 @@
 @endsection
 @push('scripts')
     <script>
+
+        function validatorFormSubmit() {
+            if ($('#supplier_name').val() == "") {
+                $("#supplier_name").focus();
+                $("#supplier_name").css({"border-color": "red", "border-width":"1px", "border-style":"solid"});
+                return false;
+            }else{
+                $("#addModal").modal("hide");
+                return true;
+            }
+        }
+
+        function validatorFormEdit() {
+
+            if ($('.supplier_name').val() == "") {
+                $(".supplier_name").focus();
+                $(".supplier_name").css({"border-color": "red", "border-width":"1px", "border-style":"solid"});
+                return false;
+
+            }else{
+                $("#editModal").modal("hide");
+                return true;
+            }
+        }
+
+
         var supplier_app = new Vue({
             el: '#supplier_app',
             data() {
@@ -266,7 +293,7 @@
                       // title: '',
                       text: "Are you sure Delete ?",
                       icon: 'question',
-                      position: 'top',
+                      position: 'top-end',
                       width: '18rem',
                       padding: '10px',
                       showCancelButton: true,

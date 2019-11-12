@@ -29,6 +29,7 @@ class SupplierController extends Controller
         $supplier->supplier_phone = $request->supplier_phone;
         $supplier->supplier_address = $request->supplier_address;
         $supplier->save();
+//        return back();
     }
 
     public function show($id)
