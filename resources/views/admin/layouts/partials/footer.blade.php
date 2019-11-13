@@ -36,7 +36,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
 
-
+<script src="{{ mix('js/app.js') }}"></script>
 
 <!-- PAGE SCRIPTS -->
 {{-- <script src="{{ asset('backend_assets/dist/js/pages/dashboard2.js') }}"></script> --}}

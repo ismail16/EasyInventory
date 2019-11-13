@@ -6,6 +6,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="csrf-token" content="{{ csrf_token() }}">
 
   <title>@yield('title')</title>
 
@@ -30,8 +31,8 @@
     }
   </style>
   @stack('css')
-  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  {{-- <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script> --}}
+  {{-- <script src="https://unpkg.com/axios/dist/axios.min.js"></script> --}}
   
 </head>
 <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">

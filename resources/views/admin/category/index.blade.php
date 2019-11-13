@@ -17,7 +17,7 @@
                         </ol>
                     </div>
                     <div class="col-sm-6 pr-0">
-                        <a href="" class="btn btn-sm btn-primary float-right" data-toggle="modal" data-target="#myModal">
+                        <a href="{{ route('admin.category.create') }}" class="btn btn-sm btn-primary float-right">
                             <i class="fa fa-plus"></i> Add Category
                         </a>
                     </div>

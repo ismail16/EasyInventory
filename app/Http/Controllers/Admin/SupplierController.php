@@ -15,6 +15,12 @@ class SupplierController extends Controller
         return view('admin.supplier.index',compact('suppliers'));
     }
 
+    public function getSuppliers()
+    {
+        $suppliers = Supplier::orderBy('id','desc')->get();
+        return $suppliers;
+    }
+
     public function create()
     {
         //
@@ -29,7 +35,7 @@ class SupplierController extends Controller
         $supplier->supplier_phone = $request->supplier_phone;
         $supplier->supplier_address = $request->supplier_address;
         $supplier->save();
-//        return back();
+        return $supplier;
     }
 
     public function show($id)
@@ -51,6 +57,7 @@ class SupplierController extends Controller
         $supplier->supplier_phone = $request->supplier_phone;
         $supplier->supplier_address = $request->supplier_address;
         $supplier->save();
+        return $supplier;
     }
 
     public function destroy($id)
