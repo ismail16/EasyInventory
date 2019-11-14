@@ -1915,6 +1915,26 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   el: '#supplier_app',
   data: function data() {
@@ -37363,23 +37383,21 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "_container" }, [
-    _vm._m(0),
-    _vm._v(" "),
     _c("section", { staticClass: "content" }, [
       _c("div", { staticClass: "row" }, [
         _c("div", { staticClass: "col-12" }, [
           _c("div", { staticClass: "card" }, [
             _c("div", { staticClass: "card-body" }, [
-              _vm._m(1),
+              _vm._m(0),
               _vm._v(" "),
               _c(
                 "table",
                 {
                   staticClass: "table table-bordered table-striped table-sm",
-                  attrs: { id: "example1" }
+                  attrs: { id: "example1-" }
                 },
                 [
-                  _vm._m(2),
+                  _vm._m(1),
                   _vm._v(" "),
                   _c(
                     "tbody",
@@ -37400,7 +37418,7 @@ var render = function() {
                         _c("td", [_vm._v(_vm._s(supplier.supplier_address))]),
                         _vm._v(" "),
                         _c("td", { staticClass: "text-center" }, [
-                          _vm._m(3, true),
+                          _vm._m(2, true),
                           _vm._v(" "),
                           _c(
                             "a",
@@ -37456,12 +37474,12 @@ var render = function() {
               attrs: { onsubmit: "return validatorFormSubmit()" }
             },
             [
-              _vm._m(4),
+              _vm._m(3),
               _vm._v(" "),
               _c("div", { staticClass: "modal-body pb-0 pt-0" }, [
                 _c("div", { staticClass: "card-body pb-0" }, [
                   _c("div", { staticClass: "form-group row" }, [
-                    _vm._m(5),
+                    _vm._m(4),
                     _vm._v(" "),
                     _c("div", { staticClass: "col-sm-10" }, [
                       _c("input", {
@@ -37683,12 +37701,12 @@ var render = function() {
               attrs: { onsubmit: "return validatorFormEdit()" }
             },
             [
-              _vm._m(6),
+              _vm._m(5),
               _vm._v(" "),
               _c("div", { staticClass: "modal-body pb-0 pt-0" }, [
                 _c("div", { staticClass: "card-body pb-0" }, [
                   _c("div", { staticClass: "form-group row" }, [
-                    _vm._m(7),
+                    _vm._m(6),
                     _vm._v(" "),
                     _c("div", { staticClass: "col-sm-10" }, [
                       _c("input", {
@@ -37927,47 +37945,52 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("section", { staticClass: "content-header pb-2 pt-2" }, [
-      _c("div", { staticClass: "container-fluid" }, [
-        _c("div", { staticClass: "row" }, [
-          _c("div", { staticClass: "col-sm-6" }, [
-            _c("ol", { staticClass: "breadcrumb" }, [
-              _c("li", { staticClass: "breadcrumb-item active" }, [
-                _vm._v("Hello title")
-              ])
+    return _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-md-6 float-left" }, [
+        _c("p", [_vm._v("Home / Hello title")])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-md-6 " }, [
+        _c("div", { staticClass: "d-inline-flex float-right" }, [
+          _c("form", { staticClass: "form-inline ml-3 mr-2" }, [
+            _c("div", { staticClass: "input-group input-group-sm" }, [
+              _c("div", { staticClass: "input-group-append" }, [
+                _c(
+                  "button",
+                  { staticClass: "btn btn-default", attrs: { type: "submit" } },
+                  [_c("i", { staticClass: "fas fa-search" })]
+                )
+              ]),
+              _vm._v(" "),
+              _c("input", {
+                staticClass: "form-control",
+                attrs: {
+                  type: "search",
+                  placeholder: "Search",
+                  "aria-label": "Search"
+                }
+              })
             ])
           ]),
           _vm._v(" "),
-          _c("div", { staticClass: "col-sm-6" }, [
-            _c("ol", { staticClass: "breadcrumb float-right" }, [
-              _c("li", { staticClass: "breadcrumb-item" }, [
-                _c("a", { attrs: { href: "#" } }, [_vm._v("Home")])
-              ]),
-              _vm._v(" "),
-              _c("li", { staticClass: "breadcrumb-item active" }, [
-                _vm._v("Hello title")
-              ])
-            ])
-          ])
+          _c(
+            "a",
+            {
+              staticClass: "btn btn-sm btn-primary float-right",
+              attrs: {
+                href: "",
+                "data-toggle": "modal",
+                "data-target": "#addModal"
+              }
+            },
+            [
+              _c("i", { staticClass: "fa fa-plus" }),
+              _vm._v(" Add Supplier\n                                    ")
+            ]
+          )
         ])
       ])
     ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "a",
-      {
-        staticClass: "btn btn-sm btn-primary float-right",
-        attrs: { href: "", "data-toggle": "modal", "data-target": "#addModal" }
-      },
-      [
-        _c("i", { staticClass: "fa fa-plus" }),
-        _vm._v(" Add Supplier\n                            ")
-      ]
-    )
   },
   function() {
     var _vm = this
@@ -50449,8 +50472,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! E:\xampp\htdocs\EasyInventory\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! E:\xampp\htdocs\EasyInventory\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /home/mnbtech/Projects/EasyInventory/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /home/mnbtech/Projects/EasyInventory/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
