@@ -35,7 +35,16 @@
                                                         <i class="fas fa-search"></i>
                                                     </button>
                                                 </div>
-                                                <input class="form-control" type="search" placeholder="Search" aria-label="Search">
+                                                <select v-model="queryFiled" class="form-control" id="fileds">
+                                                    <option value="supplier_name">Supplier name</option>
+                                                    <option value="supplier_contact_name">Contact_name</option>
+                                                    <option value="supplier_email">Email</option>
+                                                    <option value="supplier_phone">Phone</option>
+                                                    <option value="supplier_address">Address</option>
+                                                    <option value="supplier_id">Id</option>
+                                                </select>
+<!--                                                <input class="form-control" v-model="queryFiled" type="search" placeholder="Search" aria-label="Search">-->
+                                                <input class="form-control" v-model="query" type="search" placeholder="Search" aria-label="Search">
                                             </div>
                                         </form>
                                         <a href="" class="btn btn-sm btn-primary float-right" data-toggle="modal" data-target="#addModal">
@@ -59,7 +68,7 @@
                                 </thead>
                                 <tbody>
                                     <tr v-for="(supplier, index) in suppliers">
-                                        <td>{{ index }}</td>
+                                        <td>{{ index+1 }}</td>
                                         <td>{{ supplier.supplier_name }}</td>
                                         <td>{{ supplier.supplier_contact_name }}</td>
                                         <td>{{ supplier.supplier_email }}</td>
@@ -79,6 +88,11 @@
                                     </tr>
                                 </tbody>
                             </table>
+                            <pagination v-if="pagination.last_page > 1"
+                                :pagination="pagination"
+                                :offset="5"
+                                @paginate="query === '' ? getData() : searchData()"
+                            ></pagination>
                         </div>
                     </div>
                 </div>
@@ -209,13 +223,29 @@
         // el: '#supplier_app',
         data() {
             return{
+                query: "",
+                queryFiled: "supplier_name",
                 suppliers:{},
+                pagination:{
+                    current_page: 1,
+                },
                 supplier_name : '',
                 supplier_contact_name : '',
                 supplier_email : '',
                 supplier_phone : '',
                 supplier_address : '',
                 supplier_id : '',
+            }
+        },
+
+        watch:{
+
+            query: function(newQ, old) {
+                if (newQ === "") {
+                    this.getData();
+                } else {
+                    this.searchData();
+                }
             }
         },
 
@@ -226,14 +256,29 @@
         methods:{
             getData(){
                 var temp = this
-                axios.get('getSuppliers')
+                axios.get('/api/suppliers?page='+this.pagination.current_page)
                   .then((response) => {
-                    temp.suppliers = response.data
-                    console.log(response.data);
+                    temp.suppliers = response.data.data
+                    temp.pagination = response.data.meta
+                    console.log(response.data.data);
                   })
                   .catch(function (error) {
                         toastr.error('Something is wrong Data Loaded')
                   });
+            },
+
+            searchData() {
+                var temp = this
+                axios.get("/api/search/suppliers/" + temp.queryFiled + "/" + temp.query + "?page=" +
+                    temp.pagination.current_page
+                    )
+                    .then(response => {
+                        temp.suppliers = response.data.data;
+                        temp.pagination = response.data.meta;
+                    })
+                    .catch(e => {
+                        console.log(e);
+                    });
             },
 
             addNewSupplier(){
@@ -266,9 +311,9 @@
                     cancelButton: 'btn btn-danger  btn-sm mr-2',
                   },
                   buttonsStyling: false
-                })
+               })
 
-                swalWithBootstrapButtons.fire({
+               swalWithBootstrapButtons.fire({
                   // title: '',
                   text: "Are you sure Delete ?",
                   icon: 'question',
@@ -279,11 +324,10 @@
                   confirmButtonText: 'Yes, delete it!',
                   cancelButtonText: 'No, cancel!',
                   reverseButtons: true
-
-                }).then((result) => {
+               }).then((result) => {
                   if (result.value) {
                     var temp = this
-                     axios.delete('supplier/'+id)
+                     axios.delete('/api/suppliers/'+id)
                         .then(function (response) {
                             toastr.success('Deleted Supplier Successfully')
                             temp.getData();
@@ -292,7 +336,7 @@
                             toastr.error('Delete Supplier Failed')
                         });
                   }
-                })
+               })
             },
 
             editSupplier(supplier){

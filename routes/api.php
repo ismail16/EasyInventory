@@ -21,4 +21,4 @@ use Illuminate\Http\Request;
 //     return $request->user();
 // });
 Route::apiResource('suppliers','Api\SupllierController');
-// Route::get('search/customers/{field}/{query}','CustomerController@search');
+Route::get('search/suppliers/{field}/{query}','Api\SupllierController@search');
