@@ -18,7 +18,7 @@
                                                 <option value="supplier_email">Email</option>
                                                 <option value="supplier_phone">Phone</option>
                                                 <option value="supplier_address">Address</option>
-                                                <option value="supplier_id">Id</option>
+<!--                                                <option value="id">Id</option>-->
                                             </select>
                                             <input class="form-control w-50" v-model="query" type="search" placeholder="Search" aria-label="Search">
                                             <div class="input-group-append">
@@ -42,16 +42,17 @@
                             <table id="example1-" class="table table-bordered table-striped table-sm">
                                 <thead>
                                 <tr>
-                                    <th>S.N</th>
-                                    <th>Name</th>
-                                    <th>Contact Name</th>
-                                    <th>Email</th>
-                                    <th>Phone</th>
-                                    <th>Address</th>
-                                    <th>Action</th>
+                                    <th class="text-center">S.N</th>
+                                    <th class="text-center">Name</th>
+                                    <th class="text-center">Contact Name</th>
+                                    <th class="text-center">Email</th>
+                                    <th class="text-center">Phone</th>
+                                    <th class="text-center">Address</th>
+                                    <th class="text-center">Action</th>
                                 </tr>
                                 </thead>
-                                <tbody>
+                                <tbody v-if="suppliers.length > 0 ">
+
                                     <tr v-for="(supplier, index) in suppliers">
                                         <td>{{ index+1 }}</td>
                                         <td>{{ supplier.supplier_name }}</td>
@@ -71,7 +72,29 @@
                                             </button>
                                         </td>
                                     </tr>
+
                                 </tbody>
+                                <tbody v-if="suppliers.length <= 0 ">
+                                    <tr>
+                                        <td colspan="7">
+                                            <div class="p-3 mb-2">
+                                                <h3 class="text-center text-danger">Opps!!</h3>
+                                                <p class="text-center">Data not found</p>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                                <tbody v-if="suppliers.length <= 0 ">
+                                    <tr>
+                                        <td colspan="7">
+                                            <div class="p-3 mb-2">
+                                                <h3 class="text-center text-danger">Opps!!</h3>
+                                                <p class="text-center">Data not found</p>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+
                             </table>
                             <pagination v-if="pagination.last_page > 1"
                                 :pagination="pagination"
@@ -210,10 +233,13 @@
             return{
                 query: "",
                 queryFiled: "supplier_name",
+
                 suppliers:{},
+
                 pagination:{
                     current_page: 1,
                 },
+
                 supplier_name : '',
                 supplier_contact_name : '',
                 supplier_email : '',
@@ -240,11 +266,11 @@
 
         methods:{
             getData(){
-                var temp = this
+                var temp = this;
                 axios.get('/api/suppliers?page='+this.pagination.current_page)
                   .then((response) => {
-                    temp.suppliers = response.data.data
-                    temp.pagination = response.data.meta
+                    temp.suppliers = response.data.data;
+                    temp.pagination = response.data.meta;
                     console.log(response.data.data);
                   })
                   .catch(function (error) {
@@ -253,7 +279,7 @@
             },
 
             searchData() {
-                var temp = this
+                var temp = this;
                 axios.get("/api/search/suppliers/" + temp.queryFiled + "/" + temp.query + "?page=" +
                     temp.pagination.current_page
                     )
@@ -268,7 +294,7 @@
 
             addNewSupplier(){
                 var temp = this
-                axios.post('/admin/supplier', {
+                axios.post('/api/suppliers', {
                     supplier_name : temp.supplier_name,
                     supplier_contact_name : temp.supplier_contact_name,
                     supplier_email : temp.supplier_email,
@@ -279,13 +305,15 @@
                     console.log(response.data)
                     temp.getData();
                     toastr.success('Saved Supplier Successfully'),
-
                     temp.supplier_name = '',
                     temp.supplier_contact_name = '',
                     temp.supplier_email = '',
                     temp.supplier_phone = '',
                     temp.supplier_address = ''
                 })
+                .catch(function (error) {
+                    toastr.error('Saved Supplier Failed')
+                });
             },
 
             deleteSupplier(id){
@@ -335,7 +363,7 @@
 
             updateSupplier(id){
                 var temp = this
-                axios.put('/admin/supplier/'+id, {
+                axios.put('/api/suppliers/'+id, {
                     supplier_name : this.supplier_name,
                     supplier_contact_name : this.supplier_contact_name,
                     supplier_email : this.supplier_email,
@@ -343,7 +371,7 @@
                     supplier_address : this.supplier_address,
                 })
                 .then(function (response) {
-                    toastr.success('Updated Supplier Successfully')
+                    toastr.success('Updated Supplier Successfully');
                     temp.getData();
                 })
             },

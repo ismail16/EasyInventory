@@ -13,17 +13,28 @@ class SupllierController extends Controller
 {
     public function index()
     {
-        return  SupplierResource::collection(Supplier::orderBy('id','desc')->paginate(2));
+        return  SupplierResource::collection(Supplier::orderBy('id','desc')->paginate(10));
     }
 
     public function search($field,$query)
     {
-        return  SupplierResource::collection(Supplier::where($field,'LIKE',"%$query%")->latest()->paginate(2));
+        return  SupplierResource::collection(Supplier::where($field,'LIKE',"%$query%")->latest()->paginate(10));
     }
 
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'supplier_name' => 'required'
+        ]);
+
+        $supplier = new Supplier;
+        $supplier->supplier_name = $request->supplier_name;
+        $supplier->supplier_contact_name = $request->supplier_contact_name;
+        $supplier->supplier_email = $request->supplier_email;
+        $supplier->supplier_phone = $request->supplier_phone;
+        $supplier->supplier_address = $request->supplier_address;
+        $supplier->save();
+        return $supplier;
     }
 
     public function show($id)
@@ -33,7 +44,18 @@ class SupllierController extends Controller
 
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'supplier_name' => 'required'
+        ]);
+
+        $supplier = Supplier::find($id);
+        $supplier->supplier_name = $request->supplier_name;
+        $supplier->supplier_contact_name = $request->supplier_contact_name;
+        $supplier->supplier_email = $request->supplier_email;
+        $supplier->supplier_phone = $request->supplier_phone;
+        $supplier->supplier_address = $request->supplier_address;
+        $supplier->save();
+        return $supplier;
     }
 
     public function destroy($id)

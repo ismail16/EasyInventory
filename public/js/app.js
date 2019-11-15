@@ -1934,6 +1934,29 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   // el: '#supplier_app',
   data: function data() {
@@ -1986,7 +2009,7 @@ __webpack_require__.r(__webpack_exports__);
     },
     addNewSupplier: function addNewSupplier() {
       var temp = this;
-      axios.post('/admin/supplier', {
+      axios.post('/api/suppliers', {
         supplier_name: temp.supplier_name,
         supplier_contact_name: temp.supplier_contact_name,
         supplier_email: temp.supplier_email,
@@ -1996,6 +2019,8 @@ __webpack_require__.r(__webpack_exports__);
         console.log(response.data);
         temp.getData();
         toastr.success('Saved Supplier Successfully'), temp.supplier_name = '', temp.supplier_contact_name = '', temp.supplier_email = '', temp.supplier_phone = '', temp.supplier_address = '';
+      })["catch"](function (error) {
+        toastr.error('Saved Supplier Failed');
       });
     },
     deleteSupplier: function deleteSupplier(id) {
@@ -2036,7 +2061,7 @@ __webpack_require__.r(__webpack_exports__);
     },
     updateSupplier: function updateSupplier(id) {
       var temp = this;
-      axios.put('/admin/supplier/' + id, {
+      axios.put('/api/suppliers/' + id, {
         supplier_name: this.supplier_name,
         supplier_contact_name: this.supplier_contact_name,
         supplier_email: this.supplier_email,
@@ -37588,12 +37613,6 @@ var render = function() {
                                     "option",
                                     { attrs: { value: "supplier_address" } },
                                     [_vm._v("Address")]
-                                  ),
-                                  _vm._v(" "),
-                                  _c(
-                                    "option",
-                                    { attrs: { value: "supplier_id" } },
-                                    [_vm._v("Id")]
                                   )
                                 ]
                               ),
@@ -37644,65 +37663,82 @@ var render = function() {
                     [
                       _vm._m(3),
                       _vm._v(" "),
-                      _c(
-                        "tbody",
-                        _vm._l(_vm.suppliers, function(supplier, index) {
-                          return _c("tr", [
-                            _c("td", [_vm._v(_vm._s(index + 1))]),
-                            _vm._v(" "),
-                            _c("td", [_vm._v(_vm._s(supplier.supplier_name))]),
-                            _vm._v(" "),
-                            _c("td", [
-                              _vm._v(_vm._s(supplier.supplier_contact_name))
-                            ]),
-                            _vm._v(" "),
-                            _c("td", [_vm._v(_vm._s(supplier.supplier_email))]),
-                            _vm._v(" "),
-                            _c("td", [_vm._v(_vm._s(supplier.supplier_phone))]),
-                            _vm._v(" "),
-                            _c("td", [
-                              _vm._v(_vm._s(supplier.supplier_address))
-                            ]),
-                            _vm._v(" "),
-                            _c("td", { staticClass: "text-center" }, [
-                              _vm._m(4, true),
-                              _vm._v(" "),
-                              _c(
-                                "a",
-                                {
-                                  staticClass: "btn btn-xs btn-success mr-1",
-                                  attrs: {
-                                    "data-toggle": "modal",
-                                    "data-target": "#editModal"
-                                  },
-                                  on: {
-                                    click: function($event) {
-                                      $event.preventDefault()
-                                      return _vm.editSupplier(supplier)
-                                    }
-                                  }
-                                },
-                                [_c("i", { staticClass: "fa fa-edit" })]
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "button",
-                                {
-                                  staticClass: "btn btn-xs btn-danger",
-                                  on: {
-                                    click: function($event) {
-                                      $event.preventDefault()
-                                      return _vm.deleteSupplier(supplier.id)
-                                    }
-                                  }
-                                },
-                                [_c("i", { staticClass: "fa fa-trash" })]
-                              )
-                            ])
-                          ])
-                        }),
-                        0
-                      )
+                      _vm.suppliers.length > 0
+                        ? _c(
+                            "tbody",
+                            _vm._l(_vm.suppliers, function(supplier, index) {
+                              return _c("tr", [
+                                _c("td", [_vm._v(_vm._s(index + 1))]),
+                                _vm._v(" "),
+                                _c("td", [
+                                  _vm._v(_vm._s(supplier.supplier_name))
+                                ]),
+                                _vm._v(" "),
+                                _c("td", [
+                                  _vm._v(_vm._s(supplier.supplier_contact_name))
+                                ]),
+                                _vm._v(" "),
+                                _c("td", [
+                                  _vm._v(_vm._s(supplier.supplier_email))
+                                ]),
+                                _vm._v(" "),
+                                _c("td", [
+                                  _vm._v(_vm._s(supplier.supplier_phone))
+                                ]),
+                                _vm._v(" "),
+                                _c("td", [
+                                  _vm._v(_vm._s(supplier.supplier_address))
+                                ]),
+                                _vm._v(" "),
+                                _c("td", { staticClass: "text-center" }, [
+                                  _vm._m(4, true),
+                                  _vm._v(" "),
+                                  _c(
+                                    "a",
+                                    {
+                                      staticClass:
+                                        "btn btn-xs btn-success mr-1",
+                                      attrs: {
+                                        "data-toggle": "modal",
+                                        "data-target": "#editModal"
+                                      },
+                                      on: {
+                                        click: function($event) {
+                                          $event.preventDefault()
+                                          return _vm.editSupplier(supplier)
+                                        }
+                                      }
+                                    },
+                                    [_c("i", { staticClass: "fa fa-edit" })]
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "button",
+                                    {
+                                      staticClass: "btn btn-xs btn-danger",
+                                      on: {
+                                        click: function($event) {
+                                          $event.preventDefault()
+                                          return _vm.deleteSupplier(supplier.id)
+                                        }
+                                      }
+                                    },
+                                    [_c("i", { staticClass: "fa fa-trash" })]
+                                  )
+                                ])
+                              ])
+                            }),
+                            0
+                          )
+                        : _vm._e(),
+                      _vm._v(" "),
+                      _vm.suppliers.length <= 0
+                        ? _c("tbody", [_vm._m(5)])
+                        : _vm._e(),
+                      _vm._v(" "),
+                      _vm.suppliers.length <= 0
+                        ? _c("tbody", [_vm._m(6)])
+                        : _vm._e()
                     ]
                   ),
                   _vm._v(" "),
@@ -37735,12 +37771,12 @@ var render = function() {
               attrs: { id: "form_id", onsubmit: "return validatorFormSubmit()" }
             },
             [
-              _vm._m(5),
+              _vm._m(7),
               _vm._v(" "),
               _c("div", { staticClass: "modal-body pb-0 pt-0" }, [
                 _c("div", { staticClass: "card-body pb-0" }, [
                   _c("div", { staticClass: "form-group row" }, [
-                    _vm._m(6),
+                    _vm._m(8),
                     _vm._v(" "),
                     _c("div", { staticClass: "col-sm-10" }, [
                       _c("input", {
@@ -37923,7 +37959,7 @@ var render = function() {
                   },
                   [
                     _vm._v(
-                      "\n                            Cancel\n                        "
+                      "\n                                Cancel\n                            "
                     )
                   ]
                 ),
@@ -37942,7 +37978,7 @@ var render = function() {
                   },
                   [
                     _c("i", { staticClass: "fa fa-plus" }),
-                    _vm._v(" ADD\n                        ")
+                    _vm._v(" ADD\n                            ")
                   ]
                 )
               ])
@@ -37962,12 +37998,12 @@ var render = function() {
               attrs: { onsubmit: "return validatorFormEdit()" }
             },
             [
-              _vm._m(7),
+              _vm._m(9),
               _vm._v(" "),
               _c("div", { staticClass: "modal-body pb-0 pt-0" }, [
                 _c("div", { staticClass: "card-body pb-0" }, [
                   _c("div", { staticClass: "form-group row" }, [
-                    _vm._m(8),
+                    _vm._m(10),
                     _vm._v(" "),
                     _c("div", { staticClass: "col-sm-10" }, [
                       _c("input", {
@@ -38171,7 +38207,7 @@ var render = function() {
                   },
                   [
                     _vm._v(
-                      "\n                            Cancel\n                        "
+                      "\n                                Cancel\n                            "
                     )
                   ]
                 ),
@@ -38190,7 +38226,7 @@ var render = function() {
                   },
                   [
                     _c("i", { staticClass: "fa fa-sync" }),
-                    _vm._v(" Update\n                        ")
+                    _vm._v(" Update\n                            ")
                   ]
                 )
               ])
@@ -38243,7 +38279,7 @@ var staticRenderFns = [
           },
           [
             _c("i", { staticClass: "fa fa-plus" }),
-            _vm._v(" Add Supplier\n                                   ")
+            _vm._v(" Add Supplier\n                                       ")
           ]
         )
       ])
@@ -38255,19 +38291,19 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("thead", [
       _c("tr", [
-        _c("th", [_vm._v("S.N")]),
+        _c("th", { staticClass: "text-center" }, [_vm._v("S.N")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Name")]),
+        _c("th", { staticClass: "text-center" }, [_vm._v("Name")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Contact Name")]),
+        _c("th", { staticClass: "text-center" }, [_vm._v("Contact Name")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Email")]),
+        _c("th", { staticClass: "text-center" }, [_vm._v("Email")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Phone")]),
+        _c("th", { staticClass: "text-center" }, [_vm._v("Phone")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Address")]),
+        _c("th", { staticClass: "text-center" }, [_vm._v("Address")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Action")])
+        _c("th", { staticClass: "text-center" }, [_vm._v("Action")])
       ])
     ])
   },
@@ -38280,6 +38316,38 @@ var staticRenderFns = [
       { staticClass: "btn btn-xs btn-success", attrs: { href: "" } },
       [_c("i", { staticClass: "fa fa-eye" })]
     )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("tr", [
+      _c("td", { attrs: { colspan: "7" } }, [
+        _c("div", { staticClass: "p-3 mb-2" }, [
+          _c("h3", { staticClass: "text-center text-danger" }, [
+            _vm._v("Opps!!")
+          ]),
+          _vm._v(" "),
+          _c("p", { staticClass: "text-center" }, [_vm._v("Data not found")])
+        ])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("tr", [
+      _c("td", { attrs: { colspan: "7" } }, [
+        _c("div", { staticClass: "p-3 mb-2" }, [
+          _c("h3", { staticClass: "text-center text-danger" }, [
+            _vm._v("Opps!!")
+          ]),
+          _vm._v(" "),
+          _c("p", { staticClass: "text-center" }, [_vm._v("Data not found")])
+        ])
+      ])
+    ])
   },
   function() {
     var _vm = this

@@ -6,7 +6,6 @@ use Illuminate\Http\Resources\Json\ResourceCollection;
 
 class SupplierCollection extends ResourceCollection
 {
-
     public function toArray($request)
     {
         return [
