@@ -1,55 +1,40 @@
 <template>
     <div class="container">
-        <!-- <section class="content-header pb-2 pt-2">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-sm-6">
-                        <ol class="breadcrumb">
-                            <li class="breadcrumb-item active">Hello title</li>
-                        </ol>
-                    </div>
-                    <div class="col-sm-6">
-                        <ol class="breadcrumb float-right">
-                            <li class="breadcrumb-item"><a href="#">Home</a></li>
-                            <li class="breadcrumb-item active">Hello title</li>
-                        </ol>
-                    </div>
-                </div>
-            </div>
-        </section> -->
-        <section class="content">
+        <section class="content mt-2">
             <div class="row">
                 <div class="col-12">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-md-6 float-left">
-                                    <p>Home / Hello title</p>
-                               </div>
-                               <div class="col-md-6 ">
-                                   <div class="d-inline-flex float-right">
-                                       <form class="form-inline ml-3 mr-2">
-                                            <div class="input-group input-group-sm">
-                                                <div class="input-group-append">
-                                                    <button class="btn btn-default" type="submit">
-                                                        <i class="fas fa-search"></i>
-                                                    </button>
-                                                </div>
-                                                <select v-model="queryFiled" class="form-control" id="fileds">
-                                                    <option value="supplier_name">Supplier name</option>
-                                                    <option value="supplier_contact_name">Contact_name</option>
-                                                    <option value="supplier_email">Email</option>
-                                                    <option value="supplier_phone">Phone</option>
-                                                    <option value="supplier_address">Address</option>
-                                                    <option value="supplier_id">Id</option>
-                                                </select>
-<!--                                                <input class="form-control" v-model="queryFiled" type="search" placeholder="Search" aria-label="Search">-->
-                                                <input class="form-control" v-model="query" type="search" placeholder="Search" aria-label="Search">
+                    <div class="card" style="background-color: #f4f6f9; box-shadow: 0 0 0 rgba(0,0,0,0), 0 0 0 rgba(0,0,0,0)">
+                        <div class="card-body pt-2 pr-1 pl-1 pb-0">
+                            <div class="row" style="margin: 0px 0px; padding: 7px 0px;background-color: #fff; border: 1px solid #c2ccd6; border-bottom: 0;">
+                                <div class="col-md-3 float-left">
+                                    <p><a href="/">Home</a> / Suppliers</p>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-inline ml-3 mr-2">
+                                        <div class="input-group input-group-sm w-100">
+                                            <select v-model="queryFiled" class="form-control w-25" id="fileds">
+                                                <option value="supplier_name">Supplier Name</option>
+                                                <option value="supplier_contact_name">Contact Name</option>
+                                                <option value="supplier_email">Email</option>
+                                                <option value="supplier_phone">Phone</option>
+                                                <option value="supplier_address">Address</option>
+                                                <option value="supplier_id">Id</option>
+                                            </select>
+                                            <input class="form-control w-50" v-model="query" type="search" placeholder="Search" aria-label="Search">
+                                            <div class="input-group-append">
+                                                <button class="btn btn-default" type="submit">
+                                                    <i class="fas fa-search"></i>
+                                                </button>
                                             </div>
-                                        </form>
-                                        <a href="" class="btn btn-sm btn-primary float-right" data-toggle="modal" data-target="#addModal">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                   <div class="d-inline-flex float-right">
+
+                                       <a href="" class="btn btn-sm btn-primary float-right" data-toggle="modal" data-target="#addModal">
                                             <i class="fa fa-plus"></i> Add Supplier
-                                        </a>
+                                       </a>
                                    </div>
                                </div>
                             </div>
