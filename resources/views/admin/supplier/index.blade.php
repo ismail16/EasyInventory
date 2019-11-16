@@ -31,23 +31,6 @@
 
 @section('content')
     <div class="content-wrapper mb-0" id="supplier_app">
-{{--        <section class="content-header pb-2 pt-2">--}}
-{{--            <div class="container-fluid">--}}
-{{--                <div class="row">--}}
-{{--                    <div class="col-sm-6">--}}
-{{--                        <ol class="breadcrumb">--}}
-{{--                            <li class="breadcrumb-item active"> @yield('title')</li>--}}
-{{--                        </ol>--}}
-{{--                    </div>--}}
-{{--                    <div class="col-sm-6">--}}
-{{--                        <ol class="breadcrumb float-right">--}}
-{{--                            <li class="breadcrumb-item"><a href="#">Home</a></li>--}}
-{{--                            <li class="breadcrumb-item active">@yield('title')</li>--}}
-{{--                        </ol>--}}
-{{--                    </div>--}}
-{{--                </div>--}}
-{{--            </div>--}}
-{{--        </section>--}}
         <supplier-component></supplier-component>   
     </div>
 @endsection

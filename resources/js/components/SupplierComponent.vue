@@ -18,7 +18,6 @@
                                                 <option value="supplier_email">Email</option>
                                                 <option value="supplier_phone">Phone</option>
                                                 <option value="supplier_address">Address</option>
-<!--                                                <option value="id">Id</option>-->
                                             </select>
                                             <input class="form-control w-50" v-model="query" type="search" placeholder="Search" aria-label="Search">
                                             <div class="input-group-append">
@@ -74,7 +73,7 @@
                                     </tr>
 
                                 </tbody>
-                                <tbody v-if="suppliers.length <= 0 ">
+                                <tbody v-else>
                                     <tr>
                                         <td colspan="7">
                                             <div class="p-3 mb-2">
@@ -84,16 +83,7 @@
                                         </td>
                                     </tr>
                                 </tbody>
-                                <tbody v-if="suppliers.length <= 0 ">
-                                    <tr>
-                                        <td colspan="7">
-                                            <div class="p-3 mb-2">
-                                                <h3 class="text-center text-danger">Opps!!</h3>
-                                                <p class="text-center">Data not found</p>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </tbody>
+                            
 
                             </table>
                             <pagination v-if="pagination.last_page > 1"
