@@ -71,8 +71,8 @@
                                             </button>
                                         </td>
                                     </tr>
-
                                 </tbody>
+
                                 <tbody v-else>
                                     <tr>
                                         <td colspan="7">
@@ -83,7 +83,7 @@
                                         </td>
                                     </tr>
                                 </tbody>
-                            
+                                
 
                             </table>
                             <pagination v-if="pagination.last_page > 1"
@@ -223,7 +223,6 @@
             return{
                 query: "",
                 queryFiled: "supplier_name",
-
                 suppliers:{},
 
                 pagination:{
@@ -240,7 +239,6 @@
         },
 
         watch:{
-
             query: function(newQ, old) {
                 if (newQ === "") {
                     this.getData();
@@ -261,9 +259,9 @@
                   .then((response) => {
                     temp.suppliers = response.data.data;
                     temp.pagination = response.data.meta;
-                    console.log(response.data.data);
                   })
                   .catch(function (error) {
+                    this.loadin = true; 
                         toastr.error('Something is wrong Data Loaded')
                   });
             },
@@ -279,6 +277,7 @@
                     })
                     .catch(e => {
                         console.log(e);
+                        toastr.error('Something is wrong Search Data')
                     });
             },
 
@@ -295,6 +294,7 @@
                     console.log(response.data)
                     temp.getData();
                     toastr.success('Saved Supplier Successfully'),
+                    
                     temp.supplier_name = '',
                     temp.supplier_contact_name = '',
                     temp.supplier_email = '',
@@ -307,7 +307,6 @@
             },
 
             deleteSupplier(id){
-
                const swalWithBootstrapButtons = Swal.mixin({
                   customClass: {
                     confirmButton: 'btn btn-success btn-sm',
@@ -315,7 +314,6 @@
                   },
                   buttonsStyling: false
                })
-
                swalWithBootstrapButtons.fire({
                   // title: '',
                   text: "Are you sure Delete ?",
@@ -364,6 +362,9 @@
                     toastr.success('Updated Supplier Successfully');
                     temp.getData();
                 })
+                .catch(function (error) {
+                    toastr.error('Updated Supplier Failed')
+                });
             },
         }
     }

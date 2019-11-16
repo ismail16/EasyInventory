@@ -115,7 +115,6 @@
         <li class="nav-item dropdown">
             <a href="#" class="_dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
                 <img src="https://www.searchpng.com/wp-content/uploads/2019/02/Deafult-Profile-Pitcher.png" class="user-image" alt="User Image" width="30" style="margin: 5px 10px 0px 10px;">
-{{--                <span class="hidden-xs">Alexander Pierce</span>--}}
             </a>
             <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
                 <span class="dropdown-item dropdown-header">
@@ -143,7 +142,7 @@
         </li>
         <li class="nav-item dropdown">
             <a class="nav-link text-red font-weight-bold" data-toggle="dropdown" href="#">
-                Language <i class="fas fa-angle-down"></i>
+                LN<i class="fas fa-angle-down"></i>
             </a>
             <div class="dropdown-menu dropdown-menu-right p-0">
                 <a href="#" class="dropdown-item active">
@@ -160,12 +159,6 @@
                 </a>
             </div>
         </li>
-
-{{--        <li class="nav-item">--}}
-{{--            <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#">--}}
-{{--                <i class="fas fa-th-large"></i>--}}
-{{--            </a>--}}
-{{--        </li>--}}
 
     </ul>
 </nav>

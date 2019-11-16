@@ -15,9 +15,19 @@ class PagesController extends Controller
         
     }
 
-    public function create()
+    public function supplier()
     {
-        //
+        return view('admin.supplier.index');
+    }
+
+    public function category()
+    {
+        return view('admin.category.index');
+    } 
+
+    public function warehouse()
+    {
+        return view('admin.warehouse.index');
     }
 
     public function store(Request $request)

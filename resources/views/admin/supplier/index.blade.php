@@ -30,7 +30,7 @@
 @endpush
 
 @section('content')
-    <div class="content-wrapper mb-0" id="supplier_app">
+    <div class="content-wrapper mb-0" id="app">
         <supplier-component></supplier-component>   
     </div>
 @endsection

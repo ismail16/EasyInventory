@@ -16,45 +16,28 @@
                     </a>
                 </li>
 
-                <li class="nav-item has-treeview">
-                    <a href="{{ route('admin.supplier.index') }}" class="nav-link">
+                <li class="nav-item">
+                    <a href="{{ route('admin.supplier') }}" class="nav-link">
                         <i class="nav-icon fas fa-users"></i>
                         <p>Suppliers</p>
                     </a>
                 </li>
 
-                <li class="nav-item has-treeview">
-                    <a href="{{ route('admin.category.index') }}" class="nav-link">
+                <li class="nav-item">
+                    <a href="{{ route('admin.category') }}" class="nav-link">
                         <i class="nav-icon fas fa-th-large"></i>
                         <p>Categories</p>
                     </a>
                 </li>
 
-                <li class="nav-item has-treeview">
-                    <a href="#" class="nav-link">
+                <li class="nav-item">
+                    <a href="{{ route('admin.warehouse') }}" class="nav-link">
                         <i class="nav-icon fas fa-home"></i>
-                        <p>
-                            Warehouse
-                            <i class="fas fa-angle-left right"></i>
-                        </p>
+                        <p> Warehouse</p>
                     </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="pages/mailbox/mailbox.html" class="nav-link ml-2">
-                                <i class="fas fa-plus-circle"></i>
-                                <p> Add Category</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="pages/mailbox/mailbox.html" class="nav-link ml-2">
-                                <i class="fas fa-tools"></i>
-                                <p> Manage Category</p>
-                            </a>
-                        </li>
-                    </ul>
                 </li>
 
-                <li class="nav-item has-treeview">
+                <li class="nav-item">
                     <a href="#" class="nav-link">
                         <i class="nav-icon far fa-file-alt"></i>
                         <p>
@@ -62,9 +45,9 @@
                             <i class="fas fa-angle-left right"></i>
                         </p>
                     </a>
-                    <ul class="nav nav-treeview">
+                    <ul class="nav">
                         <li class="nav-item">
-                            <a href="{{ route('admin.supplier-invoice.create') }}" class="nav-link ml-2">
+                            <a href="" class="nav-link ml-2">
                                 <i class="fas fa-plus-circle"></i>
                                 <p> Add Invoice</p>
                             </a>

@@ -22,6 +22,7 @@ window.Vue = require('vue');
 
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 Vue.component('supplier-component', require('./components/SupplierComponent.vue').default);
+Vue.component('category-component', require('./components/CategoryComponent.vue').default);
 Vue.component('pagination', require('./components/partials/PaginationComponent.vue').default);
 
 /**
@@ -30,6 +31,6 @@ Vue.component('pagination', require('./components/partials/PaginationComponent.v
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-const supplier_app= new Vue({
-    el: '#supplier_app'
+const app= new Vue({
+    el: '#app'
 });
