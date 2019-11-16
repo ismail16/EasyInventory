@@ -1,8 +1,8 @@
 @extends('admin.layouts.master')
-@section('title', 'Add Warehouse')
+@section('title', 'Add Supplier')
 
 @push('css')
-    <style>
+     <style>
         .swal2-icon {
             position: relative;
             box-sizing: content-box;
@@ -30,10 +30,9 @@
 
 @section('content')
     <div class="content-wrapper mb-0" id="app">
-        <warehouse-component></warehouse-component>
+        <supplier-invoice-component></supplier-invoice-component>
     </div>
 @endsection
 @push('scripts')
-
 
 @endpush
