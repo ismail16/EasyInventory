@@ -23,6 +23,9 @@ window.Vue = require('vue');
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 Vue.component('supplier-component', require('./components/SupplierComponent.vue').default);
 Vue.component('category-component', require('./components/CategoryComponent.vue').default);
+Vue.component('warehouse-component', require('./components/WarehouseComponent.vue').default);
+Vue.component('supplier-invoice-component', require('./components/SupplierInvoiceComponent.vue').default);
+Vue.component('supplier-invoice-create-component', require('./components/SupplierInvoiceCreateComponent.vue').default);
 Vue.component('pagination', require('./components/partials/PaginationComponent.vue').default);
 
 /**

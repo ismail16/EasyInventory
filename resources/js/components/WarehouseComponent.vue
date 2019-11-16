@@ -192,6 +192,10 @@
                 var temp = this;
                 axios.get('/api/warehouses?page='+this.pagination.current_page)
                   .then((response) => {
+                    toastr.options = {
+                        "positionClass": "toast-bottom-center",
+                    };
+                    toastr.success('Data Loaded Successfully')
                     temp.warehouses = response.data.data;
                     temp.pagination = response.data.meta;
                   })
@@ -211,6 +215,9 @@
                     })
                     .catch(e => {
                         console.log(e);
+                        toastr.options = {
+                            "positionClass": "toast-bottom-center",
+                        };
                         toastr.error('Something is wrong Search Data')
                     });
             },
@@ -223,6 +230,9 @@
                 .then(function (response) {
                     console.log(response.data)
                     temp.getData();
+                    toastr.options = {
+                        "positionClass": "toast-bottom-center",
+                    };
                     toastr.success('Saved warehouse Successfully'),
                     temp.warehouse_name = ''
                 })
@@ -255,10 +265,16 @@
                     var temp = this
                      axios.delete('/api/warehouses/'+id)
                         .then(function (response) {
+                            toastr.options = {
+                                "positionClass": "toast-bottom-center",
+                            };
                             toastr.success('Deleted warehouse Successfully')
                             temp.getData();
                         })
                         .catch(function (error) {
+                            toastr.options = {
+                                "positionClass": "toast-bottom-center",
+                            };
                             toastr.error('Delete warehouse Failed')
                         });
                   }
@@ -276,10 +292,16 @@
                     warehouse_name : temp.warehouse_name
                 })
                 .then(function (response) {
+                    toastr.options = {
+                        "positionClass": "toast-bottom-center",
+                    };
                     toastr.success('Updated warehouse Successfully');
                     temp.getData();
                 })
                 .catch(function (error) {
+                    toastr.options = {
+                        "positionClass": "toast-bottom-center",
+                    };
                     toastr.error('Updated warehouse Failed')
                 });
             },
