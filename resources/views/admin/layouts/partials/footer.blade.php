@@ -38,6 +38,10 @@
 
 <script src="{{ mix('js/app.js') }}"></script>
 
+<link rel="stylesheet" type="text/css" href="https://www.johnhopkinspress.com/datetime_picker/jquery.datetimepicker.min.css"/>
+<script src="https://www.johnhopkinspress.com/datetime_picker/bootstrap.min.js"></script>
+<script src="https://www.johnhopkinspress.com/datetime_picker/jquery.datetimepicker.js"></script>
+
 <!-- PAGE SCRIPTS -->
 {{-- <script src="{{ asset('backend_assets/dist/js/pages/dashboard2.js') }}"></script> --}}
   @stack('scripts')

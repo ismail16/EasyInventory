@@ -18,3 +18,6 @@ Route::get('search/categories/{field}/{query}','Api\CategoryController@search');
 
 Route::apiResource('warehouses','Api\WarehouseController');
 Route::get('search/warehouses/{field}/{query}','Api\WarehouseController@search');
+
+Route::apiResource('supllier-invoice','Api\SupllierInvoiceController');
+Route::get('search/supllier-invoice/{field}/{query}','Api\SupllierInvoiceController@search');

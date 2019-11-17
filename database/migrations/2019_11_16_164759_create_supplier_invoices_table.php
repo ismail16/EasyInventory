@@ -15,14 +15,14 @@ class CreateSupplierInvoicesTable extends Migration
     {
         Schema::create('supplier_invoices', function (Blueprint $table) {
             $table->increments('id');
-            $table->tinyInteger('supplier_id');
-            $table->tinyInteger('warehouse_id');
+            $table->string('supplier_id');
+            $table->string('warehouse_id')->nullable();
             $table->string('datepicker_invoice_exp');
-            $table->string('image');
-            $table->string('product_name');
-            $table->string('product_quantity');
-            $table->string('product_rate');
-            $table->string('total_price');
+            $table->string('image')->nullable();
+            $table->text('product_name');
+            $table->text('product_quantity');
+            $table->text('product_rate');
+            $table->text('total_price');
             $table->string('grand_total_price');
             $table->string('paid_amount');
             $table->string('due_amount');
