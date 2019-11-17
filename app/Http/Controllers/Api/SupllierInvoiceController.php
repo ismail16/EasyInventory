@@ -38,7 +38,7 @@ class SupllierInvoiceController extends Controller
 
     public function show($id)
     {
-        return new SupplierResource(Supplier::find($id));
+        return new SupplierInvoiceResource(SupplierInvoice::find($id));
     }
 
     public function update(Request $request, $id)

@@ -30,7 +30,8 @@
 
 @section('content')
     <div class="content-wrapper mb-0" id="app">
-        <supplier-invoice-component></supplier-invoice-component>
+        <router-view></router-view>
+{{--        <supplier-invoice-component></supplier-invoice-component>--}}
     </div>
 @endsection
 @push('scripts')
