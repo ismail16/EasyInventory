@@ -8,6 +8,9 @@
                             <div class="row" style="margin: 0px 0px; padding: 7px 0px;background-color: #fff; border: 1px solid #c2ccd6; border-bottom: 0;">
                                 <div class="col-md-3 float-left">
                                     <p><a href="/">Home</a> / Supplier Invoice</p>
+                                    <p>kkkkkkkkk</p>
+                                    <router-link to="/">Home</router-link>
+                                    <p>kkkkkkkkk</p>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-inline ml-3 mr-2">
@@ -59,15 +62,12 @@
                                         <td>{{ supplierInvoice.image }}</td>
                                         <td>{{ supplierInvoice.paid_amount }}</td>
                                         <td>{{ supplierInvoice.due_amount }}</td>
-                                        <td><router-link to="/foo">Go to Foo</router-link></td>
+                                        <td>{{ supplierInvoice.status }}</td>
                                         <td class="text-center">
                                             <a href="" class="btn btn-xs btn-success">
                                                 <i class="fa fa-eye"></i>
                                             </a>
-                                            
-                                            <a href="/admin/supplier-invoice-edit/" class="btn btn-xs btn-success mr-1">
-                                                <!-- @click.prevent="editSupplier(supplierInvoice) -->
-                                                {{ supplierInvoice.status }}
+                                            <a class="btn btn-xs btn-success mr-1" @click="editSupplier(supplierInvoice.id)">
                                                 <i class="fa fa-edit"></i>
                                             </a>
                                             <button class="btn btn-xs btn-danger" @click.prevent="deleteSupplier(supplierInvoice.id)">
@@ -103,11 +103,35 @@
 </template>
 
 <script>
+    import Vue from 'vue'
+    import VueRouter from 'vue-router'
+
+    Vue.use(VueRouter)
+
+    const Home  = {
+        template: '<div>Home</div>'
+    }
+
+    const router = new VueRouter({
+        routes: [
+            { path: '/llll', component: Home }
+            // { path: '/login', component: Login },
+            // { path: '/about', component: About }
+        ]
+    })
+
+    // new Vue({
+    //     rout: router
+    // }).$mount('#app')
+
     export default {
+
+
 
         // el: '#supplier_app',
         data() {
             return{
+                router,
                 query: "",
                 queryFiled: "supplier_name",
                 supplierInvoices:{},
@@ -227,13 +251,25 @@
                })
             },
 
-            editSupplier(supplier){
-                this.supplier_id = supplier.id,
-                this.supplier_name = supplier.supplier_name,
-                this.supplier_contact_name = supplier.supplier_contact_name,
-                this.supplier_email = supplier.supplier_email,
-                this.supplier_phone = supplier.supplier_phone,
-                this.supplier_address = supplier.supplier_address
+            editSupplier(supplierInvoiceId){
+                var temp = this;
+                var temp = this
+                axios.delete('/api/supllier-invoice/'+supplierInvoiceId)
+                .then((response) => {
+                    window.location.href = "/admin/supplier-invoice-edit";
+                    temp.supplierInvoices = response.data.data;
+                    temp.pagination = response.data.meta;
+                })
+                .catch(function (error) {
+                    this.loadin = true;
+                    toastr.error('Something is wrong Data Loaded')
+                });
+                // this.supplier_id = supplierInvoice.id,
+                // this.supplier_name = supplierInvoice.supplier_name,
+                // this.supplier_contact_name = supplierInvoice.supplier_contact_name,
+                // this.supplier_email = supplierInvoice.supplier_email,
+                // this.supplier_phone = supplierInvoice.supplier_phone,
+                // this.supplier_address = supplierInvoice.supplier_address
             },
 
             updateSupplier(id){

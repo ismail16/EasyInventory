@@ -82,7 +82,7 @@ class PagesController extends Controller
         $supplierInvoice->due_amount = $request->due_amount;
         $supplierInvoice->status = 1;
 
-       return $supplierInvoice;
+//       return $supplierInvoice;
 
 
         $supplierInvoice->save();
@@ -92,7 +92,7 @@ class PagesController extends Controller
 //        return view('admin.supplier_invoice.create');
     }
 
-    public function supplier_invoice_edit($id)
+    public function supplier_invoice_edit()
     {
         return view('admin.supplier_invoice.edit');
     }
