@@ -14,6 +14,7 @@ Route::group(['as'=>'admin.', 'prefix'=>'admin','namespace'=>'Admin', 'middlewar
 	Route::get('/supplier-invoice', 'PagesController@supplier_invoice')->name('supplier_invoice');
 	Route::get('/supplier-invoice-create', 'PagesController@supplier_invoice_create')->name('supplier_invoice_create');
 	Route::post('/supplier-invoice-store', 'PagesController@supplier_invoice_store')->name('supplier_invoice_store');
+	Route::get('/supplier-invoice-edit', 'PagesController@supplier_invoice_edit')->name('supplier_invoice_edit');
 
 
 	

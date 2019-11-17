@@ -41,31 +41,36 @@
                                 <thead>
                                 <tr>
                                     <th class="text-center">S.N</th>
-                                    <th class="text-center">Name</th>
-                                    <th class="text-center">Contact Name</th>
-                                    <th class="text-center">Email</th>
-                                    <th class="text-center">Phone</th>
-                                    <th class="text-center">Address</th>
+                                    <th class="text-center">Supplier Name</th>
+                                    <th class="text-center">Warehouse Name</th>
+                                    <th class="text-center">Image</th>
+                                    <th class="text-center">paid_amount</th>
+                                    <th class="text-center">due_amount</th>
+                                    <th class="text-center">status</th>
                                     <th class="text-center">Action</th>
                                 </tr>
                                 </thead>
-                                <tbody v-if="suppliers.length > 0 ">
+                                <tbody v-if="supplierInvoices.length > 0 ">
 
-                                    <tr v-for="(supplier, index) in suppliers">
+                                    <tr v-for="(supplierInvoice, index) in supplierInvoices">
                                         <td>{{ index+1 }}</td>
-                                        <td>{{ supplier.supplier_name }}</td>
-                                        <td>{{ supplier.supplier_contact_name }}</td>
-                                        <td>{{ supplier.supplier_email }}</td>
-                                        <td>{{ supplier.supplier_phone }}</td>
-                                        <td>{{ supplier.supplier_address }}</td>
+                                        <td>{{ supplierInvoice.supplier_id }}</td>
+                                        <td>{{ supplierInvoice.warehouse_id }}</td>
+                                        <td>{{ supplierInvoice.image }}</td>
+                                        <td>{{ supplierInvoice.paid_amount }}</td>
+                                        <td>{{ supplierInvoice.due_amount }}</td>
+                                        <td><router-link to="/foo">Go to Foo</router-link></td>
                                         <td class="text-center">
                                             <a href="" class="btn btn-xs btn-success">
                                                 <i class="fa fa-eye"></i>
                                             </a>
-                                            <a class="btn btn-xs btn-success mr-1" data-toggle="modal" data-target="#editModal" @click.prevent="editSupplier(supplier)">
+                                            
+                                            <a href="/admin/supplier-invoice-edit/" class="btn btn-xs btn-success mr-1">
+                                                <!-- @click.prevent="editSupplier(supplierInvoice) -->
+                                                {{ supplierInvoice.status }}
                                                 <i class="fa fa-edit"></i>
                                             </a>
-                                            <button class="btn btn-xs btn-danger" @click.prevent="deleteSupplier(supplier.id)">
+                                            <button class="btn btn-xs btn-danger" @click.prevent="deleteSupplier(supplierInvoice.id)">
                                                 <i class="fa fa-trash"></i>
                                             </button>
                                         </td>
@@ -74,7 +79,7 @@
 
                                 <tbody v-else>
                                     <tr>
-                                        <td colspan="7">
+                                        <td colspan="8">
                                             <div class="p-3 mb-2">
                                                 <h3 class="text-center text-danger">Opps!!</h3>
                                                 <p class="text-center">Data not found</p>
@@ -82,9 +87,8 @@
                                         </td>
                                     </tr>
                                 </tbody>
-
-
                             </table>
+
                             <pagination v-if="pagination.last_page > 1"
                                 :pagination="pagination"
                                 :offset="5"
@@ -95,123 +99,7 @@
                 </div>
             </div>
         </section>
-
-        <!-- Add Modal -->
-        <div class="modal fade" id="addModal">
-            <div class="modal-dialog modal-lg">
-                <div class="modal-content">
-                    <form class="form-horizontal" id="form_id" onsubmit="return validatorFormSubmit()">
-                        <div class="modal-header">
-                            <h4 class="modal-title">Add New Supplier</h4>
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        </div>
-                        <div class="modal-body pb-0 pt-0">
-                            <div class="card-body pb-0">
-                                <div class="form-group row">
-                                    <label class="col-sm-2 col-form-label">Name <span class="text-red">*</span></label>
-                                    <div class="col-sm-10">
-                                        <input type="text" v-model="supplier_name" id="supplier_name" name="supplier_name" class="form-control" placeholder="Supplier Name">
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label class="col-sm-2 col-form-label">Contact Name</label>
-                                    <div class="col-sm-10">
-                                        <input type="text" v-model="supplier_contact_name" id="supplier_contact_name" name="supplier_contact_name" class="form-control" placeholder="Supplier Contact Name">
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label class="col-sm-2 col-form-label">Email</label>
-                                    <div class="col-sm-10">
-                                        <input type="email" v-model="supplier_email" id="supplier_email" name="supplier_email" class="form-control" placeholder="Supplier Email">
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label class="col-sm-2 col-form-label">Phone</label>
-                                    <div class="col-sm-10">
-                                        <input type="number" v-model="supplier_phone" id="supplier_phone" name="supplier_phone" class="form-control" placeholder="Supplier Phone">
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label class="col-sm-2 col-form-label">Address</label>
-                                    <div class="col-sm-10">
-                                        <textarea v-model="supplier_address" id="supplier_address" name="supplier_address" class="form-control" rows="3" placeholder="Supplier Address"></textarea>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">
-                                Cancel
-                            </button>
-                            <button @click.prevent="addNewSupplier()" type="submit" class="btn btn-primary btn-sm" data-dismiss="modal">
-                                <i class="fa fa-plus"></i> ADD
-                            </button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-
-        <!-- Edit Modal -->
-        <div class="modal fade" id="editModal">
-            <div class="modal-dialog modal-lg">
-                <div class="modal-content">
-                    <form class="form-horizontal" onsubmit="return validatorFormEdit()">
-                        <div class="modal-header">
-                            <h4 class="modal-title">Edit Supplier</h4>
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        </div>
-                        <div class="modal-body pb-0 pt-0">
-                            <div class="card-body pb-0">
-                                <div class="form-group row">
-                                    <label class="col-sm-2 col-form-label">Name <span class="text-red">*</span></label>
-                                    <div class="col-sm-10">
-                                        <input type="text" v-model="supplier_name" id="supplier_name" name="supplier_name" class="form-control supplier_name" placeholder="Supplier Name">
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label class="col-sm-2 col-form-label">Contact Name</label>
-                                    <div class="col-sm-10">
-                                        <input type="text" v-model="supplier_contact_name" id="supplier_contact_name" name="supplier_contact_name" class="form-control" placeholder="Supplier Contact Name">
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label class="col-sm-2 col-form-label">Email</label>
-                                    <div class="col-sm-10">
-                                        <input type="email" v-model="supplier_email" id="supplier_email" name="supplier_email" class="form-control" placeholder="Supplier Email">
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label class="col-sm-2 col-form-label">Phone</label>
-                                    <div class="col-sm-10">
-                                        <input type="number" v-model="supplier_phone" id="supplier_phone" name="supplier_phone" class="form-control" placeholder="Supplier Phone">
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label class="col-sm-2 col-form-label">Address</label>
-                                    <div class="col-sm-10">
-                                        <textarea v-model="supplier_address" id="supplier_address" name="supplier_address" class="form-control" rows="3" placeholder="Supplier Address"></textarea>
-                                    </div>
-                                </div>
-                                <input type="hidden" v-model="supplier_id">
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">
-                                Cancel
-                            </button>
-
-                            <button @click.prevent="updateSupplier(supplier_id)" type="submit" class="btn btn-primary btn-sm" data-dismiss="modal">
-                                <i class="fa fa-sync"></i> Update
-                            </button>
-
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
     </div>
-
 </template>
 
 <script>
@@ -222,7 +110,7 @@
             return{
                 query: "",
                 queryFiled: "supplier_name",
-                suppliers:{},
+                supplierInvoices:{},
 
                 pagination:{
                     current_page: 1,
@@ -254,9 +142,9 @@
         methods:{
             getData(){
                 var temp = this;
-                axios.get('/api/suppliers?page='+this.pagination.current_page)
+                axios.get('/api/supllier-invoice?page='+this.pagination.current_page)
                   .then((response) => {
-                    temp.suppliers = response.data.data;
+                    temp.supplierInvoices = response.data.data;
                     temp.pagination = response.data.meta;
                   })
                   .catch(function (error) {
@@ -271,7 +159,7 @@
                     temp.pagination.current_page
                     )
                     .then(response => {
-                        temp.suppliers = response.data.data;
+                        temp.supplierInvoices = response.data.data;
                         temp.pagination = response.data.meta;
                     })
                     .catch(e => {
@@ -327,7 +215,7 @@
                }).then((result) => {
                   if (result.value) {
                     var temp = this
-                     axios.delete('/api/suppliers/'+id)
+                     axios.delete('/api/supllier-invoice/'+id)
                         .then(function (response) {
                             toastr.success('Deleted Supplier Successfully')
                             temp.getData();

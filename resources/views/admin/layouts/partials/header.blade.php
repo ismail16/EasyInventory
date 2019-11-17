@@ -30,7 +30,20 @@
       border-radius: .2rem;
     }
   </style>
+  <script src="https://www.johnhopkinspress.com/datetime_picker/jquery.min.js"></script>
+
+  <script type="text/javascript">
+      $(document).ready(function () {
+
+        //DatePicker Example
+        $('#datetimepicker').datetimepicker({
+                  format:'Y-m-d H:i:s'
+              });
+      });
+  </script>
+  
   @stack('css')
+    
   {{-- <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script> --}}
   {{-- <script src="https://unpkg.com/axios/dist/axios.min.js"></script> --}}
   
