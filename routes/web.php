@@ -8,13 +8,17 @@ Auth::routes();
 //=================== Admin Route ==========================
 Route::group(['as'=>'admin.', 'prefix'=>'admin','namespace'=>'Admin', 'middleware'=>['auth','admin']], function(){
 	Route::get('/dashboard', 'PagesController@index')->name('dashboard');
-	Route::get('/supplier', 'PagesController@supplier')->name('supplier');
-	Route::get('/category', 'PagesController@category')->name('category');
-	Route::get('/warehouse', 'PagesController@warehouse')->name('warehouse');
-	Route::get('/supplier-invoice', 'PagesController@supplier_invoice')->name('supplier_invoice');
-	Route::get('/supplier-invoice-create', 'PagesController@supplier_invoice_create')->name('supplier_invoice_create');
-	Route::post('/supplier-invoice-store', 'PagesController@supplier_invoice_store')->name('supplier_invoice_store');
-	Route::get('/supplier-invoice-edit', 'PagesController@supplier_invoice_edit')->name('supplier_invoice_edit');
+
+	// Route::any('/', function () {
+	//     return redirect()->route('dashboard');
+	// });
+	// Route::get('/supplier', 'PagesController@supplier')->name('supplier');
+	// Route::get('/category', 'PagesController@category')->name('category');
+	// Route::get('/warehouse', 'PagesController@warehouse')->name('warehouse');
+	// Route::get('/supplier-invoice', 'PagesController@supplier_invoice')->name('supplier_invoice');
+	// Route::get('/supplier-invoice-create', 'PagesController@supplier_invoice_create')->name('supplier_invoice_create');
+	// Route::post('/supplier-invoice-store', 'PagesController@supplier_invoice_store')->name('supplier_invoice_store');
+	// Route::get('/supplier-invoice-edit', 'PagesController@supplier_invoice_edit')->name('supplier_invoice_edit');
 
 
 	
@@ -28,3 +32,5 @@ Route::group(['as'=>'admin.', 'prefix'=>'admin','namespace'=>'Admin', 'middlewar
 Route::group(['as'=>'author.', 'prefix'=>'author','namespace'=>'Author', 'middleware'=>['auth','author']], function(){
     Route::get('/dashboard', 'PagesController@index')->name('dashboard');
 });
+
+Route::get('{path}',"HomeController@index")->where('path','([-a-z0-9_\s]+)');

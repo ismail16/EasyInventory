@@ -8,9 +8,6 @@
                             <div class="row" style="margin: 0px 0px; padding: 7px 0px;background-color: #fff; border: 1px solid #c2ccd6; border-bottom: 0;">
                                 <div class="col-md-3 float-left">
                                     <p><a href="/">Home</a> / Supplier Invoice</p>
-                                    <p>kkkkkkkkk</p>
-                                    <router-link to="/">Home</router-link>
-                                    <p>kkkkkkkkk</p>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-inline ml-3 mr-2">
@@ -32,11 +29,11 @@
                                     </div>
                                 </div>
                                 <div class="col-md-3">
-                                   <div class="d-inline-flex float-right">
-                                       <a href="/admin/supplier-invoice-create" class="btn btn-sm btn-primary float-right">
+                                    <div class="d-inline-flex float-right">
+                                       <router-link to="/supplier-invoice-create" class="btn btn-sm btn-primary float-right">
                                             <i class="fa fa-plus"></i> Supplier Invoice
-                                       </a>
-                                   </div>
+                                       </router-link>
+                                    </div>
                                </div>
                             </div>
 
@@ -164,6 +161,12 @@
         },
 
         methods:{
+            reload: function(){
+              this.isRouterAlive = false
+              setTimeout(()=>{
+                 this.isRouterAlive = true
+              },0)
+            },
             getData(){
                 var temp = this;
                 axios.get('/api/supllier-invoice?page='+this.pagination.current_page)

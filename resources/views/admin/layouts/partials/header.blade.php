@@ -43,11 +43,8 @@
   </script>
   
   @stack('css')
-    
-  {{-- <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script> --}}
-  {{-- <script src="https://unpkg.com/axios/dist/axios.min.js"></script> --}}
   
 </head>
 <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
-<div class="wrapper">
+<div class="wrapper" id="app">
   <!-- Navbar -->
