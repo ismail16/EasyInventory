@@ -17,6 +17,13 @@ class PagesController extends Controller
         
     }
 
+    public function dassss()
+    {
+
+        return view('admin.layouts.dashboard');
+        
+    }
+
     public function supplier()
     {
         return view('admin.supplier.index');

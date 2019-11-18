@@ -12,7 +12,7 @@
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 </head>
 <body class="hold-transition login-page">
-    <div class="login-box">
+    <div class="login-box" id="app">
         <div class="login-logo">
             <a href="#"><b>Admin</b>LTE</a>
         </div>
@@ -68,6 +68,8 @@
             </div>
         </div>
     </div>
+
+    
 
     <script src="{{ asset('backend_assets/plugins/jquery/jquery.min.js')}}"></script>
     <script src="{{ asset('backend_assets')}}"></script>
