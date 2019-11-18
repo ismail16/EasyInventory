@@ -3,8 +3,14 @@
         <section class="content">
             <div class="container-fluid">
                 <div class="row pt-2 pb-2">
-                    <div class="col-md-12 float-left">
+                    <div class="col-md-6 float-left">
                         <span><a href="/">Home</a> / SupplierInvoice</span>
+                    </div> 
+
+                    <div class="col-md-6">
+                        <router-link to="/supplier-invoice" class="btn btn-sm btn-primary float-right">
+                                <i class="fa fa-group"></i> Supplier Invoice
+                        </router-link>
                     </div>
                 </div>
                 <div class="row">

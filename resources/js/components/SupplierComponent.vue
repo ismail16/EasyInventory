@@ -283,6 +283,7 @@
 
             addNewSupplier(){
                 var temp = this
+                temp.$Progress.start()
                 axios.post('/api/suppliers', {
                     supplier_name : temp.supplier_name,
                     supplier_contact_name : temp.supplier_contact_name,
@@ -291,6 +292,7 @@
                     supplier_address : temp.supplier_address,
                 })
                 .then(function (response) {
+                    
                     console.log(response.data)
                     temp.getData();
                     toastr.success('Saved Supplier Successfully'),
@@ -300,6 +302,7 @@
                     temp.supplier_email = '',
                     temp.supplier_phone = '',
                     temp.supplier_address = ''
+                    temp.$Progress.finish()
                 })
                 .catch(function (error) {
                     toastr.error('Saved Supplier Failed')

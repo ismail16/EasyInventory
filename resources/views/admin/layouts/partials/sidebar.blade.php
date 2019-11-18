@@ -10,39 +10,46 @@
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                 <li class="nav-item has-treeview menu-open">
-                    <a href="{{ route('admin.dashboard') }}" class="nav-link">
+                    <router-link to="/dashboard" class="nav-link">
                         <i class="nav-icon fas fa-tachometer-alt"></i>
                         <p>Dashboard</p>
-                    </a>
+                    </router-link>
                 </li>
 
                 <li class="nav-item">
-                    <a href="{{ route('admin.supplier') }}" class="nav-link">
+                    <router-link to="/supplier" class="nav-link">
                         <i class="nav-icon fas fa-users"></i>
                         <p>Suppliers</p>
-                    </a>
+                    </router-link>
                 </li>
 
                 <li class="nav-item">
-                    <a href="{{ route('admin.category') }}" class="nav-link">
+                    <router-link to="/category" class="nav-link">
                         <i class="nav-icon fas fa-th-large"></i>
                         <p>Categories</p>
-                    </a>
+                    </router-link>
                 </li>
 
                 <li class="nav-item">
-                    <a href="{{ route('admin.warehouse') }}" class="nav-link">
+                    <router-link to="/warehouse" class="nav-link">
                         <i class="nav-icon fas fa-home"></i>
                         <p> Warehouse</p>
-                    </a>
+                    </router-link>
                 </li>
 
                 <li class="nav-item">
+                    <router-link to="/supplier-invoice" class="nav-link">
+                        <i class="nav-icon far fa-file-alt"></i>
+                        <p>Suppliers Invoice</p>
+                    </router-link>
+                </li> 
+
+         {{--        <li class="nav-item">
                     <a href="{{ route('admin.supplier_invoice') }}" class="nav-link">
                         <i class="nav-icon far fa-file-alt"></i>
                         <p>Suppliers Invoice</p>
                     </a>
-                </li>
+                </li> --}}
 
                 <li class="nav-item has-treeview">
                     <a href="#" class="nav-link">
