@@ -3,9 +3,9 @@
         <section class="content mt-2">
             <div class="row">
                 <div class="col-12">
-                    <div class="card" style="background-color: #f4f6f9; box-shadow: 0 0 0 rgba(0,0,0,0), 0 0 0 rgba(0,0,0,0)">
-                        <div class="card-body pt-2 pr-1 pl-1 pb-0">
-                            <div class="row" style="margin: 0px 0px; padding: 7px 0px;background-color: #fff; border: 1px solid #c2ccd6; border-bottom: 0;">
+                    <div class="card mt-2 rounded-0">
+                        <div class="card-header">
+                            <div class="row">
                                 <div class="col-md-3 float-left">
                                     <p><a href="/">Home</a> / Suppliers</p>
                                 </div>
@@ -34,9 +34,10 @@
                                             <i class="fas fa-user-plus fa-fw"></i> Add New Supplier
                                         </button>
                                     </div>
-                               </div>
+                                </div>
                             </div>
-                           
+                        </div>
+                        <div class="card-body p-2">
                             <table id="example1-" class="table table-bordered table-striped table-sm">
                                 <thead>
                                 <tr>
@@ -49,15 +50,14 @@
                                     <th class="text-center">Action</th>
                                 </tr>
                                 </thead>
-                                <tbody v-if="suppliers.length > 0 ">
-
-                                    <tr v-for="(supplier, index) in suppliers">
+                                <tbody v-if="suppliers.data">
+                                    <tr v-for="(supplier, index) in suppliers.data">
                                         <td>{{ index+1 }}</td>
                                         <td>{{ supplier.supplier_name }}</td>
                                         <td>{{ supplier.supplier_contact_name }}</td>
                                         <td>{{ supplier.supplier_email }}</td>
                                         <td>{{ supplier.supplier_phone }}</td>
-                                        <td>{{ supplier.supplier_address }}</td>
+                                        <td class="text-center">{{ supplier.create_at | myDate }}</td>
                                         <td class="text-center">
                                             <a href="" class="btn btn-xs btn-success">
                                                 <i class="fa fa-eye"></i>
@@ -82,21 +82,24 @@
                                         </td>
                                     </tr>
                                 </tbody>
-                                
-
                             </table>
-                            <pagination v-if="pagination.last_page > 1"
-                                :pagination="pagination"
-                                :offset="5"
-                                @paginate="query === '' ? getData() : searchData()"
-                            ></pagination>
+
+<!--                            <pagination v-if="pagination.last_page > 1"-->
+<!--                                :pagination="pagination"-->
+<!--                                :offset="5"-->
+<!--                                @paginate="query === '' ? getData() : searchData()"-->
+<!--                            ></pagination>-->
+                        </div>
+                        <div class="card-footer pb-0">
+                            <div class="float-right">
+                                <pagination :data="suppliers" @pagination-change-page="getResults"></pagination>
+                            </div>
                         </div>
                     </div>
+
                 </div>
             </div>
         </section>
-
-
 
         <!-- Add Modal -->
        <div class="modal fade" id="addNew" tabindex="-1" role="dialog" aria-labelledby="addNewLabel" aria-hidden="true">
@@ -182,9 +185,7 @@
                 queryFiled: "supplier_name",
                 suppliers:{},
 
-                pagination:{
-                    current_page: 1,
-                },
+                paginat: 1,
             }
         },
 
@@ -204,7 +205,7 @@
                 this.editMode = false;
                 this.form.reset()
                 $('#addNew').modal('show');
-            }, 
+            },
 
             editModal(supplier){
                 this.editMode = true;
@@ -213,27 +214,33 @@
                 this.form.fill(supplier);
             },
 
+            getResults(page = 1) {
+                axios.get('/api/suppliers?page=' + page)
+                    .then(response => {
+                        this.suppliers = response.data;
+                    });
+            },
+
             getData(){
                 var temp = this;
-                axios.get('/api/suppliers?page='+this.pagination.current_page)
+                axios.get('/api/suppliers')
                   .then((response) => {
-                    temp.suppliers = response.data.data;
-                    temp.pagination = response.data.meta;
+                    temp.suppliers = response.data;
                   })
                   .catch(function (error) {
-                    this.loadin = true; 
-                        toastr.error('Something is wrong Data Loaded')
+
                   });
             },
 
             searchData() {
                 var temp = this;
                 axios.get("/api/search/suppliers/" + temp.queryFiled + "/" + temp.query + "?page=" +
-                    temp.pagination.current_page
+                    temp.paginat
                     )
                     .then(response => {
-                        temp.suppliers = response.data.data;
-                        temp.pagination = response.data.meta;
+                        console.log(response.data)
+                        temp.suppliers = response.data;
+                        temp.paginat = response.data.last_page;
                     })
                     .catch(e => {
                         console.log(e);
@@ -243,7 +250,7 @@
 
             addNewSupplier(){
                 var temp = this
-                this.$Progress.start() 
+                this.$Progress.start()
                 $('#addNew').modal('hide')
 
                 this.form.post('/api/suppliers')
@@ -294,7 +301,7 @@
             },
 
             updateSupplier(id){
-                this.$Progress.start() 
+                this.$Progress.start()
                 var temp = this
                 $('#addNew').modal('hide')
                 this.form.put('/api/suppliers/'+this.form.id)
