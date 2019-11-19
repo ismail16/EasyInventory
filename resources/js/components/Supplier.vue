@@ -29,12 +29,11 @@
                                     </div>
                                 </div>
                                 <div class="col-md-3">
-                                   <div class="d-inline-flex float-right">
-
-                                       <a href="" class="btn btn-sm btn-primary float-right" data-toggle="modal" data-target="#addModal">
-                                            <i class="fa fa-plus"></i> Add Supplier
-                                       </a>
-                                   </div>
+                                    <div class="d-inline-flex float-right">
+                                        <button class="btn btn-outline-primary btn-sm" @click="newModal">
+                                            <i class="fas fa-user-plus fa-fw"></i> Add New Supplier
+                                        </button>
+                                    </div>
                                </div>
                             </div>
                            
@@ -63,7 +62,7 @@
                                             <a href="" class="btn btn-xs btn-success">
                                                 <i class="fa fa-eye"></i>
                                             </a>
-                                            <a class="btn btn-xs btn-success mr-1" data-toggle="modal" data-target="#editModal" @click.prevent="editSupplier(supplier)">
+                                            <a class="btn btn-xs btn-success mr-1" @click.prevent="editModal(supplier)">
                                                 <i class="fa fa-edit"></i>
                                             </a>
                                             <button class="btn btn-xs btn-danger" @click.prevent="deleteSupplier(supplier.id)">
@@ -97,119 +96,67 @@
             </div>
         </section>
 
+
+
         <!-- Add Modal -->
-        <div class="modal fade" id="addModal">
-            <div class="modal-dialog modal-lg">
-                <div class="modal-content">
-                    <form class="form-horizontal" id="form_id" onsubmit="return validatorFormSubmit()">
-                        <div class="modal-header">
-                            <h4 class="modal-title">Add New Supplier</h4>
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        </div>
-                        <div class="modal-body pb-0 pt-0">
-                            <div class="card-body pb-0">
-                                <div class="form-group row">
-                                    <label class="col-sm-2 col-form-label">Name <span class="text-red">*</span></label>
-                                    <div class="col-sm-10">
-                                        <input type="text" v-model="supplier_name" id="supplier_name" name="supplier_name" class="form-control" placeholder="Supplier Name">
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label class="col-sm-2 col-form-label">Contact Name</label>
-                                    <div class="col-sm-10">
-                                        <input type="text" v-model="supplier_contact_name" id="supplier_contact_name" name="supplier_contact_name" class="form-control" placeholder="Supplier Contact Name">
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label class="col-sm-2 col-form-label">Email</label>
-                                    <div class="col-sm-10">
-                                        <input type="email" v-model="supplier_email" id="supplier_email" name="supplier_email" class="form-control" placeholder="Supplier Email">
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label class="col-sm-2 col-form-label">Phone</label>
-                                    <div class="col-sm-10">
-                                        <input type="number" v-model="supplier_phone" id="supplier_phone" name="supplier_phone" class="form-control" placeholder="Supplier Phone">
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label class="col-sm-2 col-form-label">Address</label>
-                                    <div class="col-sm-10">
-                                        <textarea v-model="supplier_address" id="supplier_address" name="supplier_address" class="form-control" rows="3" placeholder="Supplier Address"></textarea>
-                                    </div>
-                                </div>
+       <div class="modal fade" id="addNew" tabindex="-1" role="dialog" aria-labelledby="addNewLabel" aria-hidden="true">
+          <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 v-show="!editMode" class="modal-title" id="addNewLabel">Add New Supplier</h5>
+                <h5 v-show="editMode" class="modal-title" id="addNewLabel">Update Supplier</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+                </div>
+                <form @submit.prevent="editMode? updateSupplier() : addNewSupplier()">
+                    <div class="modal-body">
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">Name <span class="text-red">*</span></label>
+                            <div class="col-sm-10">
+                                <input v-model="form.supplier_name" type="text" name="supplier_name"
+                                    placeholder="supplier_name"
+                                    class="form-control" :class="{ 'is-invalid': form.errors.has('supplier_name') }">
+                                <has-error :form="form" field="supplier_name"></has-error>
                             </div>
                         </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">
-                                Cancel
-                            </button>
-                            <button @click.prevent="addNewSupplier()" type="submit" class="btn btn-primary btn-sm" data-dismiss="modal">
-                                <i class="fa fa-plus"></i> ADD
-                            </button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-
-        <!-- Edit Modal -->
-        <div class="modal fade" id="editModal">
-            <div class="modal-dialog modal-lg">
-                <div class="modal-content">
-                    <form class="form-horizontal" onsubmit="return validatorFormEdit()">
-                        <div class="modal-header">
-                            <h4 class="modal-title">Edit Supplier</h4>
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        </div>
-                        <div class="modal-body pb-0 pt-0">
-                            <div class="card-body pb-0">
-                                <div class="form-group row">
-                                    <label class="col-sm-2 col-form-label">Name <span class="text-red">*</span></label>
-                                    <div class="col-sm-10">
-                                        <input type="text" v-model="supplier_name" id="supplier_name" name="supplier_name" class="form-control supplier_name" placeholder="Supplier Name">
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label class="col-sm-2 col-form-label">Contact Name</label>
-                                    <div class="col-sm-10">
-                                        <input type="text" v-model="supplier_contact_name" id="supplier_contact_name" name="supplier_contact_name" class="form-control" placeholder="Supplier Contact Name">
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label class="col-sm-2 col-form-label">Email</label>
-                                    <div class="col-sm-10">
-                                        <input type="email" v-model="supplier_email" id="supplier_email" name="supplier_email" class="form-control" placeholder="Supplier Email">
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label class="col-sm-2 col-form-label">Phone</label>
-                                    <div class="col-sm-10">
-                                        <input type="number" v-model="supplier_phone" id="supplier_phone" name="supplier_phone" class="form-control" placeholder="Supplier Phone">
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label class="col-sm-2 col-form-label">Address</label>
-                                    <div class="col-sm-10">
-                                        <textarea v-model="supplier_address" id="supplier_address" name="supplier_address" class="form-control" rows="3" placeholder="Supplier Address"></textarea>
-                                    </div>
-                                </div>
-                                <input type="hidden" v-model="supplier_id">
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">Contact Name</label>
+                            <div class="col-sm-10">
+                                <input type="text" v-model="form.supplier_contact_name" id="supplier_contact_name" name="supplier_contact_name" class="form-control" placeholder="Supplier Contact Name">
                             </div>
                         </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">
-                                Cancel
-                            </button>
-
-                            <button @click.prevent="updateSupplier(supplier_id)" type="submit" class="btn btn-primary btn-sm" data-dismiss="modal">
-                                <i class="fa fa-sync"></i> Update
-                            </button>
-                          
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">Email</label>
+                            <div class="col-sm-10">
+                                <input type="email" v-model="form.supplier_email" id="supplier_email" name="supplier_email" class="form-control" placeholder="Supplier Email">
+                            </div>
                         </div>
-                    </form>
-                </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">Phone</label>
+                            <div class="col-sm-10">
+                                <input type="number" v-model="form.supplier_phone" id="supplier_phone" name="supplier_phone" class="form-control" placeholder="Supplier Phone">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">Address</label>
+                            <div class="col-sm-10">
+                                <textarea v-model="form.supplier_address" id="supplier_address" name="supplier_address" class="form-control" rows="3" placeholder="Supplier Address"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Close</button>
+                        <button v-show="!editMode" type="submit" class="btn btn-primary btn-sm">
+                            <i class="fa fa-plus"></i> Create
+                        </button>
+                        <button v-show="editMode" type="submit" class="btn btn-primary btn-sm">
+                            <i class="fa fa-sync"></i> Update
+                        </button>
+                    </div>
+                </form>
             </div>
+          </div>
         </div>
     </div>
 
@@ -217,10 +164,20 @@
 
 <script>
     export default {
-
         // el: '#supplier_app',
         data() {
-            return{
+            return {
+                editMode: false,
+                form: new Form({
+                    id : '',
+                    supplier_name : '',
+                    supplier_contact_name : '',
+                    supplier_email : '',
+                    supplier_phone : '',
+                    supplier_address : '',
+                    supplier_id : '',
+                }),
+
                 query: "",
                 queryFiled: "supplier_name",
                 suppliers:{},
@@ -228,13 +185,6 @@
                 pagination:{
                     current_page: 1,
                 },
-
-                supplier_name : '',
-                supplier_contact_name : '',
-                supplier_email : '',
-                supplier_phone : '',
-                supplier_address : '',
-                supplier_id : '',
             }
         },
 
@@ -248,11 +198,21 @@
             }
         },
 
-        mounted(){
-            this.getData();
-        },
-
         methods:{
+
+            newModal(){
+                this.editMode = false;
+                this.form.reset()
+                $('#addNew').modal('show');
+            }, 
+
+            editModal(supplier){
+                this.editMode = true;
+                this.form.reset()
+                $('#addNew').modal('show');
+                this.form.fill(supplier);
+            },
+
             getData(){
                 var temp = this;
                 axios.get('/api/suppliers?page='+this.pagination.current_page)
@@ -283,26 +243,19 @@
 
             addNewSupplier(){
                 var temp = this
-                axios.post('/api/suppliers', {
-                    supplier_name : temp.supplier_name,
-                    supplier_contact_name : temp.supplier_contact_name,
-                    supplier_email : temp.supplier_email,
-                    supplier_phone : temp.supplier_phone,
-                    supplier_address : temp.supplier_address,
-                })
+                this.$Progress.start() 
+                $('#addNew').modal('hide')
+
+                this.form.post('/api/suppliers')
                 .then(function (response) {
                     console.log(response.data)
                     temp.getData();
                     toastr.success('Saved Supplier Successfully'),
-                    
-                    temp.supplier_name = '',
-                    temp.supplier_contact_name = '',
-                    temp.supplier_email = '',
-                    temp.supplier_phone = '',
-                    temp.supplier_address = ''
+                    temp.$Progress.finish()
                 })
                 .catch(function (error) {
                     toastr.error('Saved Supplier Failed')
+                    temp.$Progress.fail()
                 });
             },
 
@@ -340,32 +293,27 @@
                })
             },
 
-            editSupplier(supplier){
-                this.supplier_id = supplier.id,
-                this.supplier_name = supplier.supplier_name,
-                this.supplier_contact_name = supplier.supplier_contact_name,
-                this.supplier_email = supplier.supplier_email,
-                this.supplier_phone = supplier.supplier_phone,
-                this.supplier_address = supplier.supplier_address
-            },
-
             updateSupplier(id){
+                this.$Progress.start() 
                 var temp = this
-                axios.put('/api/suppliers/'+id, {
-                    supplier_name : this.supplier_name,
-                    supplier_contact_name : this.supplier_contact_name,
-                    supplier_email : this.supplier_email,
-                    supplier_phone : this.supplier_phone,
-                    supplier_address : this.supplier_address,
-                })
+                $('#addNew').modal('hide')
+                this.form.put('/api/suppliers/'+this.form.id)
                 .then(function (response) {
                     toastr.success('Updated Supplier Successfully');
                     temp.getData();
+                    temp.$Progress.finish()
                 })
                 .catch(function (error) {
                     toastr.error('Updated Supplier Failed')
+                    temp.$Progress.fail()
                 });
             },
-        }
+        },
+
+        mounted(){
+            this.getData();
+        },
+
+        
     }
 </script>

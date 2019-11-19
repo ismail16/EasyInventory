@@ -29,6 +29,23 @@
       line-height: .5;
       border-radius: .2rem;
     }
+
+
+    .fade.in {
+      opacity: 1;
+    }
+    .modal.in .modal-dialog {
+      -webkit-transform: translate(0, 0);
+      -o-transform: translate(0, 0);
+      transform: translate(0, 0);
+    }
+    .modal-backdrop .fade .in {
+      opacity: 0.5 !important;
+    }
+    .modal-backdrop.fade {
+        opacity: 0.5 !important;
+    }
+
   </style>
   <script src="https://www.johnhopkinspress.com/datetime_picker/jquery.min.js"></script>
 
@@ -43,9 +60,6 @@
   </script>
   
   @stack('css')
-    
-  {{-- <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script> --}}
-  {{-- <script src="https://unpkg.com/axios/dist/axios.min.js"></script> --}}
   
 </head>
 <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
