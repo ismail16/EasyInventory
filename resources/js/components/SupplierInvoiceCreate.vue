@@ -9,7 +9,7 @@
 
                     <div class="col-md-6">
                         <router-link to="/supplier-invoice" class="btn btn-sm btn-primary float-right">
-                                <i class="fa fa-group"></i> Supplier Invoice
+                                <i class="nav-icon far fa-file-alt"></i> Supplier Invoice
                         </router-link>
                     </div>
                 </div>
