@@ -13,12 +13,12 @@ class SupllierController extends Controller
 {
     public function index()
     {
-        return  SupplierResource::collection(Supplier::orderBy('id','desc')->paginate(10));
+       return  SupplierResource::collection(Supplier::orderBy('id','desc')->paginate(3));
     }
 
     public function search($field,$query)
     {
-        return  SupplierResource::collection(Supplier::where($field,'LIKE',"%$query%")->latest()->paginate(10));
+       return  SupplierResource::collection(Supplier::where($field,'LIKE',"%$query%")->latest()->paginate(3));
     }
 
     public function store(Request $request)
