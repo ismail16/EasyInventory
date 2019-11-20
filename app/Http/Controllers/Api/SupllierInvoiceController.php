@@ -5,19 +5,19 @@ namespace App\Http\Controllers\Api;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\SupplierInvoice;
-use App\Http\Resources\SupplierInvoiceCollection;
-use App\Http\Resources\SupplierInvoiceResource;
+use App\Http\Resources\DefaultCollection;
+use App\Http\Resources\DefaultResource;
 
 class SupllierInvoiceController extends Controller
 {
     public function index()
     {
-        return  SupplierInvoiceResource::collection(SupplierInvoice::orderBy('id','desc')->paginate(10));
+        return  DefaultResource::collection(SupplierInvoice::orderBy('id','desc')->paginate(10));
     }
 
     public function search($field,$query)
     {
-        return  SupplierResource::collection(Supplier::where($field,'LIKE',"%$query%")->latest()->paginate(10));
+        return  DefaultResource::collection(Supplier::where($field,'LIKE',"%$query%")->latest()->paginate(10));
     }
 
     public function store(Request $request)
@@ -38,7 +38,7 @@ class SupllierInvoiceController extends Controller
 
     public function show($id)
     {
-        return new SupplierInvoiceResource(SupplierInvoice::find($id));
+        return new DefaultResource(SupplierInvoice::find($id));
     }
 
     public function update(Request $request, $id)

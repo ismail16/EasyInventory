@@ -4,20 +4,20 @@ namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Resources\CategoryCollection;
-use App\Http\Resources\CategoryResource;
+use App\Http\Resources\DefaultCollection;
+use App\Http\Resources\DefaultResource;
 use App\Models\Category;
 
 class CategoryController extends Controller
 {
     public function index()
     {
-        return  CategoryResource::collection(Category::orderBy('id','desc')->paginate(10));
+        return  DefaultResource::collection(Category::orderBy('id','desc')->paginate(10));
     }
 
     public function search($field,$query)
     {
-        return  CategoryResource::collection(Category::where($field,'LIKE',"%$query%")->latest()->paginate(10));
+        return  DefaultResource::collection(Category::where($field,'LIKE',"%$query%")->latest()->paginate(10));
     }
 
     
@@ -36,7 +36,7 @@ class CategoryController extends Controller
 
     public function show($id)
     {
-        return new CategoryResource(Category::find($id));
+        return new DefaultResource(Category::find($id));
     }
 
     public function update(Request $request, $id)

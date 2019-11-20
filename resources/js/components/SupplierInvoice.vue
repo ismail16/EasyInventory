@@ -3,40 +3,41 @@
         <section class="content mt-2">
             <div class="row">
                 <div class="col-12">
-                    <div class="card" style="background-color: #f4f6f9; box-shadow: 0 0 0 rgba(0,0,0,0), 0 0 0 rgba(0,0,0,0)">
-                        <div class="card-body pt-2 pr-1 pl-1 pb-0">
-                            <div class="row" style="margin: 0px 0px; padding: 7px 0px;background-color: #fff; border: 1px solid #c2ccd6; border-bottom: 0;">
-                                <div class="col-md-3 float-left">
-                                    <p><a href="/">Home</a> / Supplier Invoice</p>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-inline ml-3 mr-2">
-                                        <div class="input-group input-group-sm w-100">
-                                            <select v-model="queryFiled" class="form-control w-25" id="fileds">
-                                                <option value="supplier_name">Supplier Name</option>
-                                                <option value="supplier_contact_name">Contact Name</option>
-                                                <option value="supplier_email">Email</option>
-                                                <option value="supplier_phone">Phone</option>
-                                                <option value="supplier_address">Address</option>
-                                            </select>
-                                            <input class="form-control w-50" v-model="query" type="search" placeholder="Search" aria-label="Search">
-                                            <div class="input-group-append">
-                                                <button class="btn btn-default" type="submit">
-                                                    <i class="fas fa-search"></i>
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="d-inline-flex float-right">
-                                       <router-link to="/supplier-invoice-create" class="btn btn-sm btn-primary float-right">
-                                            <i class="fa fa-plus"></i> Supplier Invoice
-                                       </router-link>
-                                    </div>
-                               </div>
+                    <div class="card mt-2 rounded-0" style="margin-bottom: 5px !important;">
+                        <div class="card-header pb-0">
+                          <div class="row">
+                            <div class="col-md-3 float-left">
+                              <p><a href="/">Home</a> / SupplierInvoice</p>
                             </div>
-
+                            <div class="col-md-6">
+                              <div class="form-inline ml-3 mr-2">
+                                <div class="input-group input-group-sm w-100">
+                                    <select v-model="queryFiled" class="form-control w-25" id="fileds">
+                                        <option value="supplier_name">Supplier Name</option>
+                                        <option value="supplier_contact_name">Contact Name</option>
+                                        <option value="supplier_email">Email</option>
+                                        <option value="supplier_phone">Phone</option>
+                                        <option value="supplier_address">Address</option>
+                                    </select>
+                                  <input class="form-control w-50" v-model="query" type="search" placeholder="Search" aria-label="Search">
+                                  <div class="input-group-append">
+                                    <button class="btn btn-default" type="submit">
+                                      <i class="fas fa-search"></i>
+                                    </button>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-md-3">
+                              <div class="d-inline-flex float-right">
+                                <router-link to="/supplier-invoice-create" class="btn btn-sm btn-primary float-right">
+                                    <i class="fa fa-plus"></i> Supplier Invoice
+                                </router-link>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="card-body p-2">
                             <table id="example1-" class="table table-bordered table-striped table-sm">
                                 <thead>
                                 <tr>
@@ -85,12 +86,16 @@
                                     </tr>
                                 </tbody>
                             </table>
-
-                            <pagination v-if="pagination.last_page > 1"
-                                :pagination="pagination"
-                                :offset="5"
-                                @paginate="query === '' ? getData() : searchData()"
-                            ></pagination>
+                        </div>
+                        <div class="card-footer pb-0 pt-0">
+                          <div class="float-right">
+                            <pagination-component v-if="pagination.last_page > 1"
+                              :pagination="pagination"
+                              :offset="5"
+                              @paginate="query === '' ? getData() : searchData()"
+                              >
+                            </pagination-component>
+                          </div>
                         </div>
                     </div>
                 </div>

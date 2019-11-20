@@ -1830,41 +1830,22 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  // el: '#supplier_app',
+  // el: '#category_app',
   data: function data() {
     return {
+      editMode: false,
+      form: new Form({
+        id: '',
+        category_name: '',
+        category_id: ''
+      }),
       query: "",
       queryFiled: "category_name",
       categories: {},
       pagination: {
         current_page: 1
-      },
-      category_name: '',
-      category_id: ''
+      }
     };
   },
   watch: {
@@ -1880,6 +1861,17 @@ __webpack_require__.r(__webpack_exports__);
     this.getData();
   },
   methods: {
+    newModal: function newModal() {
+      this.editMode = false;
+      this.form.reset();
+      $('#addNew').modal('show');
+    },
+    editModal: function editModal(category) {
+      this.editMode = true;
+      this.form.reset();
+      $('#addNew').modal('show');
+      this.form.fill(category);
+    },
     getData: function getData() {
       var temp = this;
       axios.get('/api/categories?page=' + this.pagination.current_page).then(function (response) {
@@ -1901,14 +1893,14 @@ __webpack_require__.r(__webpack_exports__);
     },
     addNewCategory: function addNewCategory() {
       var temp = this;
-      axios.post('/api/categories', {
-        category_name: temp.category_name
-      }).then(function (response) {
-        console.log(response.data);
+      temp.$Progress.start();
+      temp.form.post('/api/categories').then(function (response) {
+        $('#addNew').modal('hide');
         temp.getData();
-        toastr.success('Saved Supplier Successfully'), temp.category_name = '';
+        toastr.success('Saved category Successfully'), temp.$Progress.finish();
       })["catch"](function (error) {
-        toastr.error('Saved Category Failed');
+        toastr.error('Saved category Failed');
+        temp.$Progress.fail();
       });
     },
     deleteCategory: function deleteCategory(id) {
@@ -1936,26 +1928,25 @@ __webpack_require__.r(__webpack_exports__);
         if (result.value) {
           var temp = _this;
           axios["delete"]('/api/categories/' + id).then(function (response) {
-            toastr.success('Deleted Category Successfully');
+            toastr.success('Deleted category Successfully');
             temp.getData();
           })["catch"](function (error) {
-            toastr.error('Delete Category Failed');
+            toastr.error('Delete category Failed');
           });
         }
       });
     },
-    editCategory: function editCategory(category) {
-      this.category_id = category.id, this.category_name = category.category_name;
-    },
     updateCategory: function updateCategory(id) {
+      this.$Progress.start();
       var temp = this;
-      axios.put('/api/categories/' + id, {
-        category_name: temp.category_name
-      }).then(function (response) {
-        toastr.success('Updated Category Successfully');
+      $('#addNew').modal('hide');
+      this.form.put('/api/categories/' + this.form.id).then(function (response) {
+        toastr.success('Updated category Successfully');
         temp.getData();
+        temp.$Progress.finish();
       })["catch"](function (error) {
-        toastr.error('Updated Category Failed');
+        toastr.error('Updated category Failed');
+        temp.$Progress.fail();
       });
     }
   }
@@ -2489,6 +2480,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 
 
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]);
@@ -2811,6 +2807,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({});
 
 /***/ }),
@@ -2956,42 +2955,21 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  // el: '#warehouse_app',
   data: function data() {
     return {
+      editMode: false,
+      form: new Form({
+        id: '',
+        warehouse_name: '',
+        warehouse_id: ''
+      }),
       query: "",
       queryFiled: "warehouse_name",
       warehouses: {},
       pagination: {
         current_page: 1
-      },
-      warehouse_name: '',
-      warehouse_id: ''
+      }
     };
   },
   watch: {
@@ -3007,13 +2985,20 @@ __webpack_require__.r(__webpack_exports__);
     this.getData();
   },
   methods: {
+    newModal: function newModal() {
+      this.editMode = false;
+      this.form.reset();
+      $('#addNew').modal('show');
+    },
+    editModal: function editModal(warehouse) {
+      this.editMode = true;
+      this.form.reset();
+      $('#addNew').modal('show');
+      this.form.fill(warehouse);
+    },
     getData: function getData() {
       var temp = this;
       axios.get('/api/warehouses?page=' + this.pagination.current_page).then(function (response) {
-        toastr.options = {
-          "positionClass": "toast-bottom-center"
-        };
-        toastr.success('Data Loaded Successfully');
         temp.warehouses = response.data.data;
         temp.pagination = response.data.meta;
       })["catch"](function (error) {
@@ -3027,25 +3012,19 @@ __webpack_require__.r(__webpack_exports__);
         temp.pagination = response.data.meta;
       })["catch"](function (e) {
         console.log(e);
-        toastr.options = {
-          "positionClass": "toast-bottom-center"
-        };
         toastr.error('Something is wrong Search Data');
       });
     },
     addNewWarehouse: function addNewWarehouse() {
       var temp = this;
-      axios.post('/api/warehouses', {
-        warehouse_name: temp.warehouse_name
-      }).then(function (response) {
-        console.log(response.data);
+      temp.$Progress.start();
+      temp.form.post('/api/warehouses').then(function (response) {
+        $('#addNew').modal('hide');
         temp.getData();
-        toastr.options = {
-          "positionClass": "toast-bottom-center"
-        };
-        toastr.success('Saved warehouse Successfully'), temp.warehouse_name = '';
+        toastr.success('Saved warehouse Successfully'), temp.$Progress.finish();
       })["catch"](function (error) {
         toastr.error('Saved warehouse Failed');
+        temp.$Progress.fail();
       });
     },
     deleteWarehouse: function deleteWarehouse(id) {
@@ -3059,7 +3038,6 @@ __webpack_require__.r(__webpack_exports__);
         buttonsStyling: false
       });
       swalWithBootstrapButtons.fire({
-        // title: '',
         text: "Are you sure Delete ?",
         icon: 'question',
         position: 'top-end',
@@ -3073,38 +3051,25 @@ __webpack_require__.r(__webpack_exports__);
         if (result.value) {
           var temp = _this;
           axios["delete"]('/api/warehouses/' + id).then(function (response) {
-            toastr.options = {
-              "positionClass": "toast-bottom-center"
-            };
             toastr.success('Deleted warehouse Successfully');
             temp.getData();
           })["catch"](function (error) {
-            toastr.options = {
-              "positionClass": "toast-bottom-center"
-            };
             toastr.error('Delete warehouse Failed');
           });
         }
       });
     },
-    editWarehouse: function editWarehouse(warehouse) {
-      this.warehouse_id = warehouse.id, this.warehouse_name = warehouse.warehouse_name;
-    },
     updateWarehouse: function updateWarehouse(id) {
+      this.$Progress.start();
       var temp = this;
-      axios.put('/api/warehouses/' + id, {
-        warehouse_name: temp.warehouse_name
-      }).then(function (response) {
-        toastr.options = {
-          "positionClass": "toast-bottom-center"
-        };
+      $('#addNew').modal('hide');
+      this.form.put('/api/warehouses/' + this.form.id).then(function (response) {
         toastr.success('Updated warehouse Successfully');
         temp.getData();
+        temp.$Progress.finish();
       })["catch"](function (error) {
-        toastr.options = {
-          "positionClass": "toast-bottom-center"
-        };
         toastr.error('Updated warehouse Failed');
+        temp.$Progress.fail();
       });
     }
   }
@@ -39442,284 +39407,207 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "container" }, [
-    _c("section", { staticClass: "content mt-2" }, [
+    _c("section", { staticClass: "content mt-2 mb-0" }, [
       _c("div", { staticClass: "row" }, [
         _c("div", { staticClass: "col-12" }, [
           _c(
             "div",
             {
-              staticClass: "card",
-              staticStyle: {
-                "background-color": "#f4f6f9",
-                "box-shadow": "0 0 0 rgba(0,0,0,0), 0 0 0 rgba(0,0,0,0)"
-              }
+              staticClass: "card mt-2 rounded-0",
+              staticStyle: { "margin-bottom": "5px !important" }
             },
             [
-              _c(
-                "div",
-                { staticClass: "card-body pt-2 pr-1 pl-1 pb-0" },
-                [
-                  _c(
-                    "div",
-                    {
-                      staticClass: "row",
-                      staticStyle: {
-                        margin: "0px 0px",
-                        padding: "7px 0px",
-                        "background-color": "#fff",
-                        border: "1px solid #c2ccd6",
-                        "border-bottom": "0"
-                      }
-                    },
-                    [
-                      _vm._m(0),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "col-md-6" }, [
-                        _c("div", { staticClass: "form-inline ml-3 mr-2" }, [
+              _c("div", { staticClass: "card-header pb-0" }, [
+                _c("div", { staticClass: "row" }, [
+                  _vm._m(0),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-md-6" }, [
+                    _c("div", { staticClass: "form-inline ml-3 mr-2" }, [
+                      _c(
+                        "div",
+                        { staticClass: "input-group input-group-sm w-100" },
+                        [
                           _c(
-                            "div",
-                            { staticClass: "input-group input-group-sm w-100" },
+                            "select",
+                            {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.queryFiled,
+                                  expression: "queryFiled"
+                                }
+                              ],
+                              staticClass: "form-control w-25",
+                              attrs: { id: "fileds" },
+                              on: {
+                                change: function($event) {
+                                  var $$selectedVal = Array.prototype.filter
+                                    .call($event.target.options, function(o) {
+                                      return o.selected
+                                    })
+                                    .map(function(o) {
+                                      var val =
+                                        "_value" in o ? o._value : o.value
+                                      return val
+                                    })
+                                  _vm.queryFiled = $event.target.multiple
+                                    ? $$selectedVal
+                                    : $$selectedVal[0]
+                                }
+                              }
+                            },
                             [
                               _c(
-                                "select",
-                                {
-                                  directives: [
-                                    {
-                                      name: "model",
-                                      rawName: "v-model",
-                                      value: _vm.queryFiled,
-                                      expression: "queryFiled"
-                                    }
-                                  ],
-                                  staticClass: "form-control w-25",
-                                  attrs: { id: "fileds" },
-                                  on: {
-                                    change: function($event) {
-                                      var $$selectedVal = Array.prototype.filter
-                                        .call($event.target.options, function(
-                                          o
-                                        ) {
-                                          return o.selected
-                                        })
-                                        .map(function(o) {
-                                          var val =
-                                            "_value" in o ? o._value : o.value
-                                          return val
-                                        })
-                                      _vm.queryFiled = $event.target.multiple
-                                        ? $$selectedVal
-                                        : $$selectedVal[0]
-                                    }
-                                  }
-                                },
-                                [
-                                  _c(
-                                    "option",
-                                    { attrs: { value: "category_name" } },
-                                    [_vm._v("Category Name")]
-                                  )
-                                ]
-                              ),
-                              _vm._v(" "),
-                              _c("input", {
-                                directives: [
-                                  {
-                                    name: "model",
-                                    rawName: "v-model",
-                                    value: _vm.query,
-                                    expression: "query"
-                                  }
-                                ],
-                                staticClass: "form-control w-50",
-                                attrs: {
-                                  type: "search",
-                                  placeholder: "Search",
-                                  "aria-label": "Search"
-                                },
-                                domProps: { value: _vm.query },
-                                on: {
-                                  input: function($event) {
-                                    if ($event.target.composing) {
-                                      return
-                                    }
-                                    _vm.query = $event.target.value
-                                  }
-                                }
-                              }),
-                              _vm._v(" "),
-                              _vm._m(1)
+                                "option",
+                                { attrs: { value: "category_name" } },
+                                [_vm._v("Category Name")]
+                              )
                             ]
-                          )
-                        ])
-                      ]),
-                      _vm._v(" "),
-                      _vm._m(2)
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "table",
-                    {
-                      staticClass:
-                        "table table-bordered table-striped table-sm",
-                      attrs: { id: "example1-" }
-                    },
-                    [
-                      _vm._m(3),
-                      _vm._v(" "),
-                      _vm.categories.length > 0
-                        ? _c(
-                            "tbody",
-                            _vm._l(_vm.categories, function(category, index) {
-                              return _c("tr", [
-                                _c("td", [_vm._v(_vm._s(index + 1))]),
-                                _vm._v(" "),
-                                _c("td", { staticClass: "text-center" }, [
-                                  _vm._v(_vm._s(category.category_name))
-                                ]),
-                                _vm._v(" "),
-                                _c("td", { staticClass: "text-center" }, [
-                                  _vm._m(4, true),
-                                  _vm._v(" "),
-                                  _c(
-                                    "a",
-                                    {
-                                      staticClass:
-                                        "btn btn-xs btn-success mr-1",
-                                      attrs: {
-                                        "data-toggle": "modal",
-                                        "data-target": "#editModal"
-                                      },
-                                      on: {
-                                        click: function($event) {
-                                          $event.preventDefault()
-                                          return _vm.editCategory(category)
-                                        }
-                                      }
-                                    },
-                                    [_c("i", { staticClass: "fa fa-edit" })]
-                                  ),
-                                  _vm._v(" "),
-                                  _c(
-                                    "button",
-                                    {
-                                      staticClass: "btn btn-xs btn-danger",
-                                      on: {
-                                        click: function($event) {
-                                          $event.preventDefault()
-                                          return _vm.deleteCategory(category.id)
-                                        }
-                                      }
-                                    },
-                                    [_c("i", { staticClass: "fa fa-trash" })]
-                                  )
-                                ])
-                              ])
-                            }),
-                            0
-                          )
-                        : _c("tbody", [_vm._m(5)])
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _vm.pagination.last_page > 1
-                    ? _c("pagination", {
-                        attrs: { pagination: _vm.pagination, offset: 5 },
-                        on: {
-                          paginate: function($event) {
-                            _vm.query === "" ? _vm.getData() : _vm.searchData()
-                          }
-                        }
-                      })
-                    : _vm._e()
-                ],
-                1
-              )
-            ]
-          )
-        ])
-      ])
-    ]),
-    _vm._v(" "),
-    _c("div", { staticClass: "modal fade", attrs: { id: "addModal" } }, [
-      _c("div", { staticClass: "modal-dialog modal-md" }, [
-        _c("div", { staticClass: "modal-content" }, [
-          _c(
-            "form",
-            {
-              staticClass: "form-horizontal",
-              attrs: { id: "form_id", onsubmit: "return validatorFormSubmit()" }
-            },
-            [
-              _vm._m(6),
-              _vm._v(" "),
-              _c("div", { staticClass: "modal-body pb-0 pt-0" }, [
-                _c("div", { staticClass: "card-body" }, [
-                  _c("div", { staticClass: "form-group" }, [
-                    _vm._m(7),
-                    _vm._v(" "),
-                    _c("div", {}, [
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.category_name,
-                            expression: "category_name"
-                          }
-                        ],
-                        staticClass: "form-control",
-                        attrs: {
-                          type: "text",
-                          id: "category_name",
-                          name: "category_name",
-                          placeholder: "Category Name"
-                        },
-                        domProps: { value: _vm.category_name },
-                        on: {
-                          input: function($event) {
-                            if ($event.target.composing) {
-                              return
+                          ),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.query,
+                                expression: "query"
+                              }
+                            ],
+                            staticClass: "form-control w-50",
+                            attrs: {
+                              type: "search",
+                              placeholder: "Search",
+                              "aria-label": "Search"
+                            },
+                            domProps: { value: _vm.query },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.query = $event.target.value
+                              }
                             }
-                            _vm.category_name = $event.target.value
-                          }
-                        }
-                      })
+                          }),
+                          _vm._v(" "),
+                          _vm._m(1)
+                        ]
+                      )
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-md-3" }, [
+                    _c("div", { staticClass: "d-inline-flex float-right" }, [
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-outline-primary btn-sm",
+                          on: { click: _vm.newModal }
+                        },
+                        [
+                          _c("i", { staticClass: "fas fa-user-plus fa-fw" }),
+                          _vm._v(" Add New category\n                  ")
+                        ]
+                      )
                     ])
                   ])
                 ])
               ]),
               _vm._v(" "),
-              _c("div", { staticClass: "modal-footer" }, [
+              _c("div", { staticClass: "card-body p-2" }, [
                 _c(
-                  "button",
+                  "table",
                   {
-                    staticClass: "btn btn-default btn-sm",
-                    attrs: { type: "button", "data-dismiss": "modal" }
+                    staticClass: "table table-bordered table-striped table-sm",
+                    attrs: { id: "example1-" }
                   },
                   [
-                    _vm._v(
-                      "\n                            Cancel\n                        "
-                    )
+                    _vm._m(2),
+                    _vm._v(" "),
+                    _vm.categories.length > 0
+                      ? _c(
+                          "tbody",
+                          _vm._l(_vm.categories, function(category, index) {
+                            return _c("tr", [
+                              _c("td", { staticClass: "text-center" }, [
+                                _vm._v(_vm._s(index + 1))
+                              ]),
+                              _vm._v(" "),
+                              _c("td", [
+                                _vm._v(_vm._s(category.category_name))
+                              ]),
+                              _vm._v(" "),
+                              _c("td", { staticClass: "text-center" }, [
+                                _vm._v(_vm._s(category.status))
+                              ]),
+                              _vm._v(" "),
+                              _c("td", { staticClass: "text-center" }, [
+                                _vm._v(
+                                  _vm._s(_vm._f("myDate")(category.create_at))
+                                )
+                              ]),
+                              _vm._v(" "),
+                              _c("td", { staticClass: "text-center" }, [
+                                _vm._m(3, true),
+                                _vm._v(" "),
+                                _c(
+                                  "a",
+                                  {
+                                    staticClass: "btn btn-xs btn-success mr-1",
+                                    on: {
+                                      click: function($event) {
+                                        $event.preventDefault()
+                                        return _vm.editModal(category)
+                                      }
+                                    }
+                                  },
+                                  [_c("i", { staticClass: "fa fa-edit" })]
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "button",
+                                  {
+                                    staticClass: "btn btn-xs btn-danger",
+                                    on: {
+                                      click: function($event) {
+                                        $event.preventDefault()
+                                        return _vm.deleteCategory(category.id)
+                                      }
+                                    }
+                                  },
+                                  [_c("i", { staticClass: "fa fa-trash" })]
+                                )
+                              ])
+                            ])
+                          }),
+                          0
+                        )
+                      : _c("tbody", [_vm._m(4)])
                   ]
-                ),
-                _vm._v(" "),
+                )
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "card-footer pb-0 pt-0" }, [
                 _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-primary btn-sm",
-                    attrs: { type: "submit", "data-dismiss": "modal" },
-                    on: {
-                      click: function($event) {
-                        $event.preventDefault()
-                        return _vm.addNewCategory()
-                      }
-                    }
-                  },
+                  "div",
+                  { staticClass: "float-right" },
                   [
-                    _c("i", { staticClass: "fa fa-plus" }),
-                    _vm._v(" ADD\n                        ")
-                  ]
+                    _vm.pagination.last_page > 1
+                      ? _c("pagination-component", {
+                          attrs: { pagination: _vm.pagination, offset: 5 },
+                          on: {
+                            paginate: function($event) {
+                              _vm.query === ""
+                                ? _vm.getData()
+                                : _vm.searchData()
+                            }
+                          }
+                        })
+                      : _vm._e()
+                  ],
+                  1
                 )
               ])
             ]
@@ -39728,113 +39616,181 @@ var render = function() {
       ])
     ]),
     _vm._v(" "),
-    _c("div", { staticClass: "modal fade", attrs: { id: "editModal" } }, [
-      _c("div", { staticClass: "modal-dialog modal-md" }, [
-        _c("div", { staticClass: "modal-content" }, [
-          _c(
-            "form",
-            {
-              staticClass: "form-horizontal",
-              attrs: { onsubmit: "return validatorFormEdit()" }
-            },
-            [
-              _vm._m(8),
-              _vm._v(" "),
-              _c("div", { staticClass: "modal-body pb-0 pt-0" }, [
-                _c("div", { staticClass: "card-body" }, [
-                  _c("div", { staticClass: "form-group" }, [
-                    _vm._m(9),
-                    _vm._v(" "),
-                    _c("div", {}, [
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.category_name,
-                            expression: "category_name"
-                          }
-                        ],
-                        staticClass: "form-control",
-                        attrs: {
-                          type: "text",
-                          id: "category_name",
-                          name: "category_name",
-                          placeholder: "Category Name"
-                        },
-                        domProps: { value: _vm.category_name },
-                        on: {
-                          input: function($event) {
-                            if ($event.target.composing) {
-                              return
-                            }
-                            _vm.category_name = $event.target.value
-                          }
-                        }
-                      })
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c("input", {
+    _c(
+      "div",
+      {
+        staticClass: "modal fade",
+        attrs: {
+          id: "addNew",
+          tabindex: "-1",
+          role: "dialog",
+          "aria-labelledby": "addNewLabel",
+          "aria-hidden": "true"
+        }
+      },
+      [
+        _c(
+          "div",
+          {
+            staticClass: "modal-dialog  _modal-dialog-centered modal-md",
+            attrs: { role: "document" }
+          },
+          [
+            _c("div", { staticClass: "modal-content" }, [
+              _c("div", { staticClass: "modal-header" }, [
+                _c(
+                  "h5",
+                  {
                     directives: [
                       {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.category_id,
-                        expression: "category_id"
+                        name: "show",
+                        rawName: "v-show",
+                        value: !_vm.editMode,
+                        expression: "!editMode"
                       }
                     ],
-                    attrs: { type: "hidden" },
-                    domProps: { value: _vm.category_id },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.category_id = $event.target.value
-                      }
-                    }
-                  })
-                ])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "modal-footer" }, [
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-default btn-sm",
-                    attrs: { type: "button", "data-dismiss": "modal" }
+                    staticClass: "modal-title",
+                    attrs: { id: "addNewLabel" }
                   },
-                  [
-                    _vm._v(
-                      "\n                            Cancel\n                        "
-                    )
-                  ]
+                  [_vm._v("Add New category")]
                 ),
                 _vm._v(" "),
                 _c(
-                  "button",
+                  "h5",
                   {
-                    staticClass: "btn btn-primary btn-sm",
-                    attrs: { type: "submit", "data-dismiss": "modal" },
-                    on: {
-                      click: function($event) {
-                        $event.preventDefault()
-                        return _vm.updateCategory(_vm.category_id)
+                    directives: [
+                      {
+                        name: "show",
+                        rawName: "v-show",
+                        value: _vm.editMode,
+                        expression: "editMode"
                       }
-                    }
+                    ],
+                    staticClass: "modal-title",
+                    attrs: { id: "addNewLabel" }
                   },
-                  [
-                    _c("i", { staticClass: "fa fa-sync" }),
-                    _vm._v(" Update\n                        ")
-                  ]
-                )
-              ])
-            ]
-          )
-        ])
-      ])
-    ])
+                  [_vm._v("Update category")]
+                ),
+                _vm._v(" "),
+                _vm._m(5)
+              ]),
+              _vm._v(" "),
+              _c(
+                "form",
+                {
+                  on: {
+                    submit: function($event) {
+                      $event.preventDefault()
+                      _vm.editMode ? _vm.updateCategory() : _vm.addNewCategory()
+                    }
+                  }
+                },
+                [
+                  _c("div", { staticClass: "modal-body" }, [
+                    _c(
+                      "div",
+                      { staticClass: "form-group" },
+                      [
+                        _vm._m(6),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.form.category_name,
+                              expression: "form.category_name"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          class: {
+                            "is-invalid": _vm.form.errors.has("category_name")
+                          },
+                          attrs: {
+                            type: "text",
+                            name: "category_name",
+                            placeholder: "Category Name"
+                          },
+                          domProps: { value: _vm.form.category_name },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.form,
+                                "category_name",
+                                $event.target.value
+                              )
+                            }
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c("has-error", {
+                          attrs: { form: _vm.form, field: "category_name" }
+                        })
+                      ],
+                      1
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "modal-footer" }, [
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-danger btn-sm",
+                        attrs: { type: "button", "data-dismiss": "modal" }
+                      },
+                      [_vm._v("Close")]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        directives: [
+                          {
+                            name: "show",
+                            rawName: "v-show",
+                            value: !_vm.editMode,
+                            expression: "!editMode"
+                          }
+                        ],
+                        staticClass: "btn btn-primary btn-sm",
+                        attrs: { type: "submit" }
+                      },
+                      [
+                        _c("i", { staticClass: "fa fa-plus" }),
+                        _vm._v(" Create\n            ")
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        directives: [
+                          {
+                            name: "show",
+                            rawName: "v-show",
+                            value: _vm.editMode,
+                            expression: "editMode"
+                          }
+                        ],
+                        staticClass: "btn btn-primary btn-sm",
+                        attrs: { type: "submit" }
+                      },
+                      [
+                        _c("i", { staticClass: "fa fa-sync" }),
+                        _vm._v(" Update\n            ")
+                      ]
+                    )
+                  ])
+                ]
+              )
+            ])
+          ]
+        )
+      ]
+    )
   ])
 }
 var staticRenderFns = [
@@ -39865,35 +39821,15 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-md-3" }, [
-      _c("div", { staticClass: "d-inline-flex float-right" }, [
-        _c(
-          "a",
-          {
-            staticClass: "btn btn-sm btn-primary float-right",
-            attrs: {
-              href: "",
-              "data-toggle": "modal",
-              "data-target": "#addModal"
-            }
-          },
-          [
-            _c("i", { staticClass: "fa fa-plus" }),
-            _vm._v(" Add Supplier\n                                   ")
-          ]
-        )
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
     return _c("thead", [
       _c("tr", [
-        _c("th", {}, [_vm._v("No")]),
+        _c("th", { staticClass: "text-center" }, [_vm._v("No")]),
         _vm._v(" "),
-        _c("th", { staticClass: "text-center" }, [_vm._v("Category name")]),
+        _c("th", { staticClass: "text-center" }, [_vm._v("Category Name")]),
+        _vm._v(" "),
+        _c("th", { staticClass: "text-center" }, [_vm._v("Status")]),
+        _vm._v(" "),
+        _c("th", { staticClass: "text-center" }, [_vm._v("Date")]),
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [_vm._v("Action")])
       ])
@@ -39929,50 +39865,24 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "modal-header" }, [
-      _c("h4", { staticClass: "modal-title" }, [_vm._v("Add New Category")]),
-      _vm._v(" "),
-      _c(
-        "button",
-        {
-          staticClass: "close",
-          attrs: { type: "button", "data-dismiss": "modal" }
-        },
-        [_vm._v("×")]
-      )
-    ])
+    return _c(
+      "button",
+      {
+        staticClass: "close",
+        attrs: {
+          type: "button",
+          "data-dismiss": "modal",
+          "aria-label": "Close"
+        }
+      },
+      [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+    )
   },
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("label", { staticClass: "form-label" }, [
-      _vm._v("Category Name "),
-      _c("span", { staticClass: "text-red" }, [_vm._v("*")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "modal-header" }, [
-      _c("h4", { staticClass: "modal-title" }, [_vm._v("Edit Category")]),
-      _vm._v(" "),
-      _c(
-        "button",
-        {
-          staticClass: "close",
-          attrs: { type: "button", "data-dismiss": "modal" }
-        },
-        [_vm._v("×")]
-      )
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("label", { staticClass: "form-label" }, [
+    return _c("label", [
       _vm._v("Category Name "),
       _c("span", { staticClass: "text-red" }, [_vm._v("*")])
     ])
@@ -40144,227 +40054,243 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "container" }, [
-    _c("section", { staticClass: "content mt-2" }, [
+    _c("section", { staticClass: "content mt-2 mb-0" }, [
       _c("div", { staticClass: "row" }, [
         _c("div", { staticClass: "col-12" }, [
-          _c("div", { staticClass: "card mt-2 rounded-0" }, [
-            _c("div", { staticClass: "card-header" }, [
-              _c("div", { staticClass: "row" }, [
-                _vm._m(0),
-                _vm._v(" "),
-                _c("div", { staticClass: "col-md-6" }, [
-                  _c("div", { staticClass: "form-inline ml-3 mr-2" }, [
-                    _c(
-                      "div",
-                      { staticClass: "input-group input-group-sm w-100" },
-                      [
-                        _c(
-                          "select",
-                          {
+          _c(
+            "div",
+            {
+              staticClass: "card mt-2 rounded-0",
+              staticStyle: { "margin-bottom": "5px !important" }
+            },
+            [
+              _c("div", { staticClass: "card-header pb-0" }, [
+                _c("div", { staticClass: "row" }, [
+                  _vm._m(0),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-md-6" }, [
+                    _c("div", { staticClass: "form-inline ml-3 mr-2" }, [
+                      _c(
+                        "div",
+                        { staticClass: "input-group input-group-sm w-100" },
+                        [
+                          _c(
+                            "select",
+                            {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.queryFiled,
+                                  expression: "queryFiled"
+                                }
+                              ],
+                              staticClass: "form-control w-25",
+                              attrs: { id: "fileds" },
+                              on: {
+                                change: function($event) {
+                                  var $$selectedVal = Array.prototype.filter
+                                    .call($event.target.options, function(o) {
+                                      return o.selected
+                                    })
+                                    .map(function(o) {
+                                      var val =
+                                        "_value" in o ? o._value : o.value
+                                      return val
+                                    })
+                                  _vm.queryFiled = $event.target.multiple
+                                    ? $$selectedVal
+                                    : $$selectedVal[0]
+                                }
+                              }
+                            },
+                            [
+                              _c(
+                                "option",
+                                { attrs: { value: "supplier_name" } },
+                                [_vm._v("Supplier Name")]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "option",
+                                { attrs: { value: "supplier_contact_name" } },
+                                [_vm._v("Contact Name")]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "option",
+                                { attrs: { value: "supplier_email" } },
+                                [_vm._v("Email")]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "option",
+                                { attrs: { value: "supplier_phone" } },
+                                [_vm._v("Phone")]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "option",
+                                { attrs: { value: "supplier_address" } },
+                                [_vm._v("Address")]
+                              )
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c("input", {
                             directives: [
                               {
                                 name: "model",
                                 rawName: "v-model",
-                                value: _vm.queryFiled,
-                                expression: "queryFiled"
+                                value: _vm.query,
+                                expression: "query"
                               }
                             ],
-                            staticClass: "form-control w-25",
-                            attrs: { id: "fileds" },
+                            staticClass: "form-control w-50",
+                            attrs: {
+                              type: "search",
+                              placeholder: "Search",
+                              "aria-label": "Search"
+                            },
+                            domProps: { value: _vm.query },
                             on: {
-                              change: function($event) {
-                                var $$selectedVal = Array.prototype.filter
-                                  .call($event.target.options, function(o) {
-                                    return o.selected
-                                  })
-                                  .map(function(o) {
-                                    var val = "_value" in o ? o._value : o.value
-                                    return val
-                                  })
-                                _vm.queryFiled = $event.target.multiple
-                                  ? $$selectedVal
-                                  : $$selectedVal[0]
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.query = $event.target.value
                               }
                             }
-                          },
-                          [
-                            _c(
-                              "option",
-                              { attrs: { value: "supplier_name" } },
-                              [_vm._v("Supplier Name")]
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "option",
-                              { attrs: { value: "supplier_contact_name" } },
-                              [_vm._v("Contact Name")]
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "option",
-                              { attrs: { value: "supplier_email" } },
-                              [_vm._v("Email")]
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "option",
-                              { attrs: { value: "supplier_phone" } },
-                              [_vm._v("Phone")]
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "option",
-                              { attrs: { value: "supplier_address" } },
-                              [_vm._v("Address")]
-                            )
-                          ]
-                        ),
-                        _vm._v(" "),
-                        _c("input", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.query,
-                              expression: "query"
-                            }
-                          ],
-                          staticClass: "form-control w-50",
-                          attrs: {
-                            type: "search",
-                            placeholder: "Search",
-                            "aria-label": "Search"
-                          },
-                          domProps: { value: _vm.query },
-                          on: {
-                            input: function($event) {
-                              if ($event.target.composing) {
-                                return
-                              }
-                              _vm.query = $event.target.value
-                            }
-                          }
-                        }),
-                        _vm._v(" "),
-                        _vm._m(1)
-                      ]
-                    )
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "col-md-3" }, [
-                  _c("div", { staticClass: "d-inline-flex float-right" }, [
-                    _c(
-                      "button",
-                      {
-                        staticClass: "btn btn-outline-primary btn-sm",
-                        on: { click: _vm.newModal }
-                      },
-                      [
-                        _c("i", { staticClass: "fas fa-user-plus fa-fw" }),
-                        _vm._v(
-                          " Add New Supplier\n                                    "
-                        )
-                      ]
-                    )
+                          }),
+                          _vm._v(" "),
+                          _vm._m(1)
+                        ]
+                      )
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-md-3" }, [
+                    _c("div", { staticClass: "d-inline-flex float-right" }, [
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-outline-primary btn-sm",
+                          on: { click: _vm.newModal }
+                        },
+                        [
+                          _c("i", { staticClass: "fas fa-user-plus fa-fw" }),
+                          _vm._v(" Add New Supplier\n                  ")
+                        ]
+                      )
+                    ])
                   ])
                 ])
-              ])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "card-body p-2" }, [
-              _c(
-                "table",
-                {
-                  staticClass: "table table-bordered table-striped table-sm",
-                  attrs: { id: "example1-" }
-                },
-                [
-                  _vm._m(2),
-                  _vm._v(" "),
-                  _vm.suppliers
-                    ? _c(
-                        "tbody",
-                        _vm._l(_vm.suppliers, function(supplier, index) {
-                          return _c("tr", [
-                            _c("td", [_vm._v(_vm._s(index + 1))]),
-                            _vm._v(" "),
-                            _c("td", [_vm._v(_vm._s(supplier.supplier_name))]),
-                            _vm._v(" "),
-                            _c("td", [
-                              _vm._v(_vm._s(supplier.supplier_contact_name))
-                            ]),
-                            _vm._v(" "),
-                            _c("td", [_vm._v(_vm._s(supplier.supplier_email))]),
-                            _vm._v(" "),
-                            _c("td", [_vm._v(_vm._s(supplier.supplier_phone))]),
-                            _vm._v(" "),
-                            _c("td", { staticClass: "text-center" }, [
-                              _vm._v(
-                                _vm._s(_vm._f("myDate")(supplier.create_at))
-                              )
-                            ]),
-                            _vm._v(" "),
-                            _c("td", { staticClass: "text-center" }, [
-                              _vm._m(3, true),
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "card-body p-2" }, [
+                _c(
+                  "table",
+                  {
+                    staticClass: "table table-bordered table-striped table-sm",
+                    attrs: { id: "example1-" }
+                  },
+                  [
+                    _vm._m(2),
+                    _vm._v(" "),
+                    _vm.suppliers.length > 0
+                      ? _c(
+                          "tbody",
+                          _vm._l(_vm.suppliers, function(supplier, index) {
+                            return _c("tr", [
+                              _c("td", { staticClass: "text-center" }, [
+                                _vm._v(_vm._s(index + 1))
+                              ]),
                               _vm._v(" "),
-                              _c(
-                                "a",
-                                {
-                                  staticClass: "btn btn-xs btn-success mr-1",
-                                  on: {
-                                    click: function($event) {
-                                      $event.preventDefault()
-                                      return _vm.editModal(supplier)
-                                    }
-                                  }
-                                },
-                                [_c("i", { staticClass: "fa fa-edit" })]
-                              ),
+                              _c("td", [
+                                _vm._v(_vm._s(supplier.supplier_name))
+                              ]),
                               _vm._v(" "),
-                              _c(
-                                "button",
-                                {
-                                  staticClass: "btn btn-xs btn-danger",
-                                  on: {
-                                    click: function($event) {
-                                      $event.preventDefault()
-                                      return _vm.deleteSupplier(supplier.id)
+                              _c("td", { staticClass: "text-center" }, [
+                                _vm._v(_vm._s(supplier.supplier_contact_name))
+                              ]),
+                              _vm._v(" "),
+                              _c("td", { staticClass: "text-center" }, [
+                                _vm._v(_vm._s(supplier.supplier_email))
+                              ]),
+                              _vm._v(" "),
+                              _c("td", { staticClass: "text-center" }, [
+                                _vm._v(_vm._s(supplier.supplier_phone))
+                              ]),
+                              _vm._v(" "),
+                              _c("td", { staticClass: "text-center" }, [
+                                _vm._v(
+                                  _vm._s(_vm._f("myDate")(supplier.create_at))
+                                )
+                              ]),
+                              _vm._v(" "),
+                              _c("td", { staticClass: "text-center" }, [
+                                _vm._m(3, true),
+                                _vm._v(" "),
+                                _c(
+                                  "a",
+                                  {
+                                    staticClass: "btn btn-xs btn-success mr-1",
+                                    on: {
+                                      click: function($event) {
+                                        $event.preventDefault()
+                                        return _vm.editModal(supplier)
+                                      }
                                     }
-                                  }
-                                },
-                                [_c("i", { staticClass: "fa fa-trash" })]
-                              )
+                                  },
+                                  [_c("i", { staticClass: "fa fa-edit" })]
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "button",
+                                  {
+                                    staticClass: "btn btn-xs btn-danger",
+                                    on: {
+                                      click: function($event) {
+                                        $event.preventDefault()
+                                        return _vm.deleteSupplier(supplier.id)
+                                      }
+                                    }
+                                  },
+                                  [_c("i", { staticClass: "fa fa-trash" })]
+                                )
+                              ])
                             ])
-                          ])
-                        }),
-                        0
-                      )
-                    : _c("tbody", [_vm._m(4)])
-                ]
-              )
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "card-footer pb-0" }, [
-              _c(
-                "div",
-                { staticClass: "float-right" },
-                [
-                  _vm.pagination.last_page > 1
-                    ? _c("pagination-component", {
-                        attrs: { pagination: _vm.pagination, offset: 5 },
-                        on: {
-                          paginate: function($event) {
-                            _vm.query === "" ? _vm.getData() : _vm.searchData()
+                          }),
+                          0
+                        )
+                      : _c("tbody", [_vm._m(4)])
+                  ]
+                )
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "card-footer pb-0 pt-0" }, [
+                _c(
+                  "div",
+                  { staticClass: "float-right" },
+                  [
+                    _vm.pagination.last_page > 1
+                      ? _c("pagination-component", {
+                          attrs: { pagination: _vm.pagination, offset: 5 },
+                          on: {
+                            paginate: function($event) {
+                              _vm.query === ""
+                                ? _vm.getData()
+                                : _vm.searchData()
+                            }
                           }
-                        }
-                      })
-                    : _vm._e()
-                ],
-                1
-              )
-            ])
-          ])
+                        })
+                      : _vm._e()
+                  ],
+                  1
+                )
+              ])
+            ]
+          )
         ])
       ])
     ]),
@@ -40668,7 +40594,7 @@ var render = function() {
                       },
                       [
                         _c("i", { staticClass: "fa fa-plus" }),
-                        _vm._v(" Create\n                    ")
+                        _vm._v(" Create\n            ")
                       ]
                     ),
                     _vm._v(" "),
@@ -40688,7 +40614,7 @@ var render = function() {
                       },
                       [
                         _c("i", { staticClass: "fa fa-sync" }),
-                        _vm._v(" Update\n                    ")
+                        _vm._v(" Update\n            ")
                       ]
                     )
                   ])
@@ -40731,7 +40657,7 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("thead", [
       _c("tr", [
-        _c("th", { staticClass: "text-center" }, [_vm._v("S.N")]),
+        _c("th", { staticClass: "text-center" }, [_vm._v("No")]),
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [_vm._v("Name")]),
         _vm._v(" "),
@@ -40828,263 +40754,246 @@ var render = function() {
           _c(
             "div",
             {
-              staticClass: "card",
-              staticStyle: {
-                "background-color": "#f4f6f9",
-                "box-shadow": "0 0 0 rgba(0,0,0,0), 0 0 0 rgba(0,0,0,0)"
-              }
+              staticClass: "card mt-2 rounded-0",
+              staticStyle: { "margin-bottom": "5px !important" }
             },
             [
-              _c(
-                "div",
-                { staticClass: "card-body pt-2 pr-1 pl-1 pb-0" },
-                [
-                  _c(
-                    "div",
-                    {
-                      staticClass: "row",
-                      staticStyle: {
-                        margin: "0px 0px",
-                        padding: "7px 0px",
-                        "background-color": "#fff",
-                        border: "1px solid #c2ccd6",
-                        "border-bottom": "0"
-                      }
-                    },
-                    [
-                      _vm._m(0),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "col-md-6" }, [
-                        _c("div", { staticClass: "form-inline ml-3 mr-2" }, [
+              _c("div", { staticClass: "card-header pb-0" }, [
+                _c("div", { staticClass: "row" }, [
+                  _vm._m(0),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-md-6" }, [
+                    _c("div", { staticClass: "form-inline ml-3 mr-2" }, [
+                      _c(
+                        "div",
+                        { staticClass: "input-group input-group-sm w-100" },
+                        [
                           _c(
-                            "div",
-                            { staticClass: "input-group input-group-sm w-100" },
+                            "select",
+                            {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.queryFiled,
+                                  expression: "queryFiled"
+                                }
+                              ],
+                              staticClass: "form-control w-25",
+                              attrs: { id: "fileds" },
+                              on: {
+                                change: function($event) {
+                                  var $$selectedVal = Array.prototype.filter
+                                    .call($event.target.options, function(o) {
+                                      return o.selected
+                                    })
+                                    .map(function(o) {
+                                      var val =
+                                        "_value" in o ? o._value : o.value
+                                      return val
+                                    })
+                                  _vm.queryFiled = $event.target.multiple
+                                    ? $$selectedVal
+                                    : $$selectedVal[0]
+                                }
+                              }
+                            },
                             [
                               _c(
-                                "select",
-                                {
-                                  directives: [
-                                    {
-                                      name: "model",
-                                      rawName: "v-model",
-                                      value: _vm.queryFiled,
-                                      expression: "queryFiled"
-                                    }
-                                  ],
-                                  staticClass: "form-control w-25",
-                                  attrs: { id: "fileds" },
-                                  on: {
-                                    change: function($event) {
-                                      var $$selectedVal = Array.prototype.filter
-                                        .call($event.target.options, function(
-                                          o
-                                        ) {
-                                          return o.selected
-                                        })
-                                        .map(function(o) {
-                                          var val =
-                                            "_value" in o ? o._value : o.value
-                                          return val
-                                        })
-                                      _vm.queryFiled = $event.target.multiple
-                                        ? $$selectedVal
-                                        : $$selectedVal[0]
-                                    }
-                                  }
-                                },
-                                [
-                                  _c(
-                                    "option",
-                                    { attrs: { value: "supplier_name" } },
-                                    [_vm._v("Supplier Name")]
-                                  ),
-                                  _vm._v(" "),
-                                  _c(
-                                    "option",
-                                    {
-                                      attrs: { value: "supplier_contact_name" }
-                                    },
-                                    [_vm._v("Contact Name")]
-                                  ),
-                                  _vm._v(" "),
-                                  _c(
-                                    "option",
-                                    { attrs: { value: "supplier_email" } },
-                                    [_vm._v("Email")]
-                                  ),
-                                  _vm._v(" "),
-                                  _c(
-                                    "option",
-                                    { attrs: { value: "supplier_phone" } },
-                                    [_vm._v("Phone")]
-                                  ),
-                                  _vm._v(" "),
-                                  _c(
-                                    "option",
-                                    { attrs: { value: "supplier_address" } },
-                                    [_vm._v("Address")]
-                                  )
-                                ]
+                                "option",
+                                { attrs: { value: "supplier_name" } },
+                                [_vm._v("Supplier Name")]
                               ),
                               _vm._v(" "),
-                              _c("input", {
-                                directives: [
-                                  {
-                                    name: "model",
-                                    rawName: "v-model",
-                                    value: _vm.query,
-                                    expression: "query"
-                                  }
-                                ],
-                                staticClass: "form-control w-50",
-                                attrs: {
-                                  type: "search",
-                                  placeholder: "Search",
-                                  "aria-label": "Search"
-                                },
-                                domProps: { value: _vm.query },
-                                on: {
-                                  input: function($event) {
-                                    if ($event.target.composing) {
-                                      return
-                                    }
-                                    _vm.query = $event.target.value
-                                  }
-                                }
-                              }),
+                              _c(
+                                "option",
+                                { attrs: { value: "supplier_contact_name" } },
+                                [_vm._v("Contact Name")]
+                              ),
                               _vm._v(" "),
-                              _vm._m(1)
+                              _c(
+                                "option",
+                                { attrs: { value: "supplier_email" } },
+                                [_vm._v("Email")]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "option",
+                                { attrs: { value: "supplier_phone" } },
+                                [_vm._v("Phone")]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "option",
+                                { attrs: { value: "supplier_address" } },
+                                [_vm._v("Address")]
+                              )
                             ]
-                          )
-                        ])
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "col-md-3" }, [
-                        _c(
-                          "div",
-                          { staticClass: "d-inline-flex float-right" },
-                          [
-                            _c(
-                              "router-link",
+                          ),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
                               {
-                                staticClass:
-                                  "btn btn-sm btn-primary float-right",
-                                attrs: { to: "/supplier-invoice-create" }
-                              },
-                              [
-                                _c("i", { staticClass: "fa fa-plus" }),
-                                _vm._v(
-                                  " Supplier Invoice\n                                   "
-                                )
-                              ]
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.query,
+                                expression: "query"
+                              }
+                            ],
+                            staticClass: "form-control w-50",
+                            attrs: {
+                              type: "search",
+                              placeholder: "Search",
+                              "aria-label": "Search"
+                            },
+                            domProps: { value: _vm.query },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.query = $event.target.value
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _vm._m(1)
+                        ]
+                      )
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-md-3" }, [
+                    _c(
+                      "div",
+                      { staticClass: "d-inline-flex float-right" },
+                      [
+                        _c(
+                          "router-link",
+                          {
+                            staticClass: "btn btn-sm btn-primary float-right",
+                            attrs: { to: "/supplier-invoice-create" }
+                          },
+                          [
+                            _c("i", { staticClass: "fa fa-plus" }),
+                            _vm._v(
+                              " Supplier Invoice\n                            "
                             )
-                          ],
-                          1
+                          ]
                         )
-                      ])
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "table",
-                    {
-                      staticClass:
-                        "table table-bordered table-striped table-sm",
-                      attrs: { id: "example1-" }
-                    },
-                    [
-                      _vm._m(2),
-                      _vm._v(" "),
-                      _vm.supplierInvoices.length > 0
-                        ? _c(
-                            "tbody",
-                            _vm._l(_vm.supplierInvoices, function(
-                              supplierInvoice,
-                              index
-                            ) {
-                              return _c("tr", [
-                                _c("td", [_vm._v(_vm._s(index + 1))]),
+                      ],
+                      1
+                    )
+                  ])
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "card-body p-2" }, [
+                _c(
+                  "table",
+                  {
+                    staticClass: "table table-bordered table-striped table-sm",
+                    attrs: { id: "example1-" }
+                  },
+                  [
+                    _vm._m(2),
+                    _vm._v(" "),
+                    _vm.supplierInvoices.length > 0
+                      ? _c(
+                          "tbody",
+                          _vm._l(_vm.supplierInvoices, function(
+                            supplierInvoice,
+                            index
+                          ) {
+                            return _c("tr", [
+                              _c("td", [_vm._v(_vm._s(index + 1))]),
+                              _vm._v(" "),
+                              _c("td", [
+                                _vm._v(_vm._s(supplierInvoice.supplier_id))
+                              ]),
+                              _vm._v(" "),
+                              _c("td", [
+                                _vm._v(_vm._s(supplierInvoice.warehouse_id))
+                              ]),
+                              _vm._v(" "),
+                              _c("td", [_vm._v(_vm._s(supplierInvoice.image))]),
+                              _vm._v(" "),
+                              _c("td", [
+                                _vm._v(_vm._s(supplierInvoice.paid_amount))
+                              ]),
+                              _vm._v(" "),
+                              _c("td", [
+                                _vm._v(_vm._s(supplierInvoice.due_amount))
+                              ]),
+                              _vm._v(" "),
+                              _c("td", [
+                                _vm._v(_vm._s(supplierInvoice.status))
+                              ]),
+                              _vm._v(" "),
+                              _c("td", { staticClass: "text-center" }, [
+                                _vm._m(3, true),
                                 _vm._v(" "),
-                                _c("td", [
-                                  _vm._v(_vm._s(supplierInvoice.supplier_id))
-                                ]),
-                                _vm._v(" "),
-                                _c("td", [
-                                  _vm._v(_vm._s(supplierInvoice.warehouse_id))
-                                ]),
-                                _vm._v(" "),
-                                _c("td", [
-                                  _vm._v(_vm._s(supplierInvoice.image))
-                                ]),
-                                _vm._v(" "),
-                                _c("td", [
-                                  _vm._v(_vm._s(supplierInvoice.paid_amount))
-                                ]),
-                                _vm._v(" "),
-                                _c("td", [
-                                  _vm._v(_vm._s(supplierInvoice.due_amount))
-                                ]),
-                                _vm._v(" "),
-                                _c("td", [
-                                  _vm._v(_vm._s(supplierInvoice.status))
-                                ]),
-                                _vm._v(" "),
-                                _c("td", { staticClass: "text-center" }, [
-                                  _vm._m(3, true),
-                                  _vm._v(" "),
-                                  _c(
-                                    "a",
-                                    {
-                                      staticClass:
-                                        "btn btn-xs btn-success mr-1",
-                                      on: {
-                                        click: function($event) {
-                                          return _vm.editSupplier(
-                                            supplierInvoice.id
-                                          )
-                                        }
+                                _c(
+                                  "a",
+                                  {
+                                    staticClass: "btn btn-xs btn-success mr-1",
+                                    on: {
+                                      click: function($event) {
+                                        return _vm.editSupplier(
+                                          supplierInvoice.id
+                                        )
                                       }
-                                    },
-                                    [_c("i", { staticClass: "fa fa-edit" })]
-                                  ),
-                                  _vm._v(" "),
-                                  _c(
-                                    "button",
-                                    {
-                                      staticClass: "btn btn-xs btn-danger",
-                                      on: {
-                                        click: function($event) {
-                                          $event.preventDefault()
-                                          return _vm.deleteSupplier(
-                                            supplierInvoice.id
-                                          )
-                                        }
+                                    }
+                                  },
+                                  [_c("i", { staticClass: "fa fa-edit" })]
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "button",
+                                  {
+                                    staticClass: "btn btn-xs btn-danger",
+                                    on: {
+                                      click: function($event) {
+                                        $event.preventDefault()
+                                        return _vm.deleteSupplier(
+                                          supplierInvoice.id
+                                        )
                                       }
-                                    },
-                                    [_c("i", { staticClass: "fa fa-trash" })]
-                                  )
-                                ])
+                                    }
+                                  },
+                                  [_c("i", { staticClass: "fa fa-trash" })]
+                                )
                               ])
-                            }),
-                            0
-                          )
-                        : _c("tbody", [_vm._m(4)])
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _vm.pagination.last_page > 1
-                    ? _c("pagination", {
-                        attrs: { pagination: _vm.pagination, offset: 5 },
-                        on: {
-                          paginate: function($event) {
-                            _vm.query === "" ? _vm.getData() : _vm.searchData()
+                            ])
+                          }),
+                          0
+                        )
+                      : _c("tbody", [_vm._m(4)])
+                  ]
+                )
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "card-footer pb-0 pt-0" }, [
+                _c(
+                  "div",
+                  { staticClass: "float-right" },
+                  [
+                    _vm.pagination.last_page > 1
+                      ? _c("pagination-component", {
+                          attrs: { pagination: _vm.pagination, offset: 5 },
+                          on: {
+                            paginate: function($event) {
+                              _vm.query === ""
+                                ? _vm.getData()
+                                : _vm.searchData()
+                            }
                           }
-                        }
-                      })
-                    : _vm._e()
-                ],
-                1
-              )
+                        })
+                      : _vm._e()
+                  ],
+                  1
+                )
+              ])
             ]
           )
         ])
@@ -41100,7 +41009,7 @@ var staticRenderFns = [
     return _c("div", { staticClass: "col-md-3 float-left" }, [
       _c("p", [
         _c("a", { attrs: { href: "/" } }, [_vm._v("Home")]),
-        _vm._v(" / Supplier Invoice")
+        _vm._v(" / SupplierInvoice")
       ])
     ])
   },
@@ -41189,32 +41098,53 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "container" }, [
-    _c("section", { staticClass: "content" }, [
-      _c("div", { staticClass: "container-fluid" }, [
-        _c("div", { staticClass: "row pt-2 pb-2" }, [
-          _vm._m(0),
-          _vm._v(" "),
+    _c("section", { staticClass: "content mt-2" }, [
+      _c("div", { staticClass: "row" }, [
+        _c("div", { staticClass: "col-12" }, [
           _c(
             "div",
-            { staticClass: "col-md-6" },
+            {
+              staticClass: "card mt-2 rounded-0",
+              staticStyle: { "margin-bottom": "5px !important" }
+            },
             [
-              _c(
-                "router-link",
-                {
-                  staticClass: "btn btn-sm btn-primary float-right",
-                  attrs: { to: "/supplier-invoice" }
-                },
-                [
-                  _c("i", { staticClass: "nav-icon far fa-file-alt" }),
-                  _vm._v(" Supplier Invoice\n                    ")
-                ]
-              )
-            ],
-            1
+              _c("div", { staticClass: "card-header pb-0" }, [
+                _c("div", { staticClass: "row" }, [
+                  _vm._m(0),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-md-6" }),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-md-3" }, [
+                    _c(
+                      "div",
+                      { staticClass: "d-inline-flex float-right" },
+                      [
+                        _c(
+                          "router-link",
+                          {
+                            staticClass: "btn btn-sm btn-primary float-right",
+                            attrs: { to: "/supplier-invoice" }
+                          },
+                          [
+                            _c("i", {
+                              staticClass: "nav-icon far fa-file-alt"
+                            }),
+                            _vm._v(
+                              " Supplier Invoice\n                                "
+                            )
+                          ]
+                        )
+                      ],
+                      1
+                    )
+                  ])
+                ])
+              ]),
+              _vm._v(" "),
+              _vm._m(1)
+            ]
           )
-        ]),
-        _vm._v(" "),
-        _vm._m(1)
+        ])
       ])
     ])
   ])
@@ -41224,10 +41154,10 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-md-6 float-left" }, [
-      _c("span", [
+    return _c("div", { staticClass: "col-md-3 float-left" }, [
+      _c("p", [
         _c("a", { attrs: { href: "/" } }, [_vm._v("Home")]),
-        _vm._v(" / SupplierInvoice")
+        _vm._v(" / Add New SupplierInvoice")
       ])
     ])
   },
@@ -41235,485 +41165,457 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "col-md-12" }, [
+    return _c(
+      "div",
+      {
+        staticClass: "card-body",
+        staticStyle: { "background-color": "#f6f6f7" }
+      },
+      [
         _c(
-          "div",
+          "form",
           {
-            staticClass: "card",
-            staticStyle: {
-              "background-color": "#fff",
-              "box-shadow": "0 0 0 rgba(0,0,0,0), 0 0 0 rgba(0,0,0,0)"
+            staticClass: "form-vertical",
+            attrs: {
+              action: "/admin/supplier_invoice_store",
+              enctype: "multipart/form-data",
+              method: "post",
+              "accept-charset": "utf-8"
             }
           },
           [
-            _c("div", { staticClass: "card-body" }, [
+            _c("div", { staticClass: "panel-body" }, [
+              _c("div", { staticClass: "row" }, [
+                _c("div", { staticClass: "col-md-7" }, [
+                  _c("div", { staticClass: "form-group row" }, [
+                    _c(
+                      "label",
+                      { staticClass: "col-sm-3 form-control-label" },
+                      [
+                        _vm._v("Select Supplier "),
+                        _c("i", { staticClass: "text-danger" }, [_vm._v("*")])
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-sm-8" }, [
+                      _c(
+                        "select",
+                        {
+                          staticClass: "form-control-sm w-100 w-100",
+                          attrs: {
+                            id: "supplier_id",
+                            name: "supplier_id",
+                            "data-plugin": "select2",
+                            required: ""
+                          }
+                        },
+                        [
+                          _c("option", { attrs: { value: "70" } }, [
+                            _vm._v("UQWELI Packaging")
+                          ]),
+                          _vm._v(" "),
+                          _c("option", { attrs: { value: "54" } }, [
+                            _vm._v("UNILEVER")
+                          ]),
+                          _vm._v(" "),
+                          _c("option", { attrs: { value: "56" } }, [
+                            _vm._v("test suppliers")
+                          ]),
+                          _vm._v(" "),
+                          _c("option", { attrs: { value: "61" } }, [
+                            _vm._v("NIKE")
+                          ])
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c("input", {
+                        attrs: {
+                          id: "auth_id",
+                          type: "hidden",
+                          name: "auth_id",
+                          value: "1"
+                        }
+                      })
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-group row" }, [
+                    _c(
+                      "label",
+                      {
+                        staticClass: "col-sm-3 form-control-label",
+                        attrs: { for: "warehouse_id" }
+                      },
+                      [_vm._v("Warehouse ")]
+                    ),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-sm-8" }, [
+                      _c(
+                        "select",
+                        {
+                          staticClass: "form-control-sm w-100 w-100",
+                          attrs: {
+                            id: "warehouse_id",
+                            name: "warehouse_id",
+                            "data-plugin": "select2"
+                          }
+                        },
+                        [
+                          _c("option", { attrs: { value: "" } }, [
+                            _vm._v("Select Warehouse")
+                          ]),
+                          _vm._v(" "),
+                          _c("option", { attrs: { value: "139" } }, [
+                            _vm._v("saltlake")
+                          ]),
+                          _vm._v(" "),
+                          _c("option", { attrs: { value: "138" } }, [
+                            _vm._v("SaltLake")
+                          ]),
+                          _vm._v(" "),
+                          _c("option", { attrs: { value: "137" } }, [
+                            _vm._v("Ovo je novo skladiste")
+                          ]),
+                          _vm._v(" "),
+                          _c("option", { attrs: { value: "134" } }, [
+                            _vm._v("ssdsd")
+                          ]),
+                          _vm._v(" "),
+                          _c("option", { attrs: { value: "135" } }, [
+                            _vm._v("zxcv")
+                          ])
+                        ]
+                      )
+                    ])
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-md-5" }, [
+                  _c("div", { staticClass: "form-group row mb-1" }, [
+                    _c(
+                      "label",
+                      {
+                        staticClass: "col-sm-2 col-form-label",
+                        attrs: { for: "inputPassword" }
+                      },
+                      [_vm._v("Date")]
+                    ),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-sm-10" }, [
+                      _c("input", {
+                        staticClass: "form-control-sm w-100 w-100",
+                        attrs: { type: "time" }
+                      })
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-group row" }, [
+                    _c(
+                      "label",
+                      {
+                        staticClass: "col-sm-2 col-form-label",
+                        attrs: { for: "inputPassword" }
+                      },
+                      [_vm._v("Image")]
+                    ),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-sm-10" }, [
+                      _c("input", {
+                        staticClass: "form-control-sm w-100 w-100",
+                        attrs: { type: "file" }
+                      })
+                    ])
+                  ])
+                ])
+              ]),
+              _vm._v(" "),
               _c(
-                "form",
+                "div",
                 {
-                  staticClass: "form-vertical",
-                  attrs: {
-                    action: "/admin/supplier_invoice_store",
-                    enctype: "multipart/form-data",
-                    method: "post",
-                    "accept-charset": "utf-8"
-                  }
+                  staticClass: "table-responsive",
+                  staticStyle: { "margin-top": "10px" }
                 },
                 [
-                  _c("div", { staticClass: "panel-body" }, [
-                    _c("div", { staticClass: "row" }, [
-                      _c("div", { staticClass: "col-md-7" }, [
-                        _c("div", { staticClass: "form-group row" }, [
-                          _c(
-                            "label",
-                            { staticClass: "col-sm-3 form-control-label" },
-                            [
-                              _vm._v("Select Supplier "),
-                              _c("i", { staticClass: "text-danger" }, [
-                                _vm._v("*")
-                              ])
-                            ]
-                          ),
+                  _c(
+                    "table",
+                    {
+                      staticClass: "table table-bordered table-sm table-hover",
+                      attrs: { id: "normalinvoice" }
+                    },
+                    [
+                      _c("thead", [
+                        _c("tr", [
+                          _c("th", { staticClass: "text-center" }, [
+                            _vm._v("Item Information "),
+                            _c("i", { staticClass: "text-danger" }, [
+                              _vm._v("*")
+                            ])
+                          ]),
                           _vm._v(" "),
-                          _c("div", { staticClass: "col-sm-8" }, [
-                            _c(
-                              "select",
-                              {
-                                staticClass: "form-control-sm w-100 w-100",
-                                attrs: {
-                                  id: "supplier_id",
-                                  name: "supplier_id",
-                                  "data-plugin": "select2",
-                                  required: ""
-                                }
-                              },
-                              [
-                                _c("option", { attrs: { value: "70" } }, [
-                                  _vm._v("UQWELI Packaging")
-                                ]),
-                                _vm._v(" "),
-                                _c("option", { attrs: { value: "54" } }, [
-                                  _vm._v("UNILEVER")
-                                ]),
-                                _vm._v(" "),
-                                _c("option", { attrs: { value: "56" } }, [
-                                  _vm._v("test suppliers")
-                                ]),
-                                _vm._v(" "),
-                                _c("option", { attrs: { value: "61" } }, [
-                                  _vm._v("NIKE")
-                                ])
-                              ]
-                            ),
-                            _vm._v(" "),
+                          _c("th", { staticClass: "text-center" }, [
+                            _vm._v("Quantity "),
+                            _c("i", { staticClass: "text-danger" }, [
+                              _vm._v("*")
+                            ])
+                          ]),
+                          _vm._v(" "),
+                          _c("th", { staticClass: "text-center" }, [
+                            _vm._v("Rate "),
+                            _c("i", { staticClass: "text-danger" }, [
+                              _vm._v("*")
+                            ])
+                          ]),
+                          _vm._v(" "),
+                          _c("th", { staticClass: "text-center" }, [
+                            _vm._v("Total")
+                          ]),
+                          _vm._v(" "),
+                          _c("th", { staticClass: "text-center" }, [
+                            _vm._v("Action")
+                          ])
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c("tbody", { attrs: { id: "add_row_to_invoice" } }, [
+                        _c("tr", [
+                          _c("td", { staticStyle: { width: "320px" } }, [
                             _c("input", {
+                              staticClass:
+                                "form-control-sm w-100 productSelection",
                               attrs: {
-                                id: "auth_id",
-                                type: "hidden",
-                                name: "auth_id",
-                                value: "1"
+                                name: "product_name[]",
+                                placeholder: "Item Name",
+                                required: "",
+                                id: "product_name",
+                                autocomplete: "off",
+                                tabindex: "1",
+                                type: "text"
                               }
                             })
-                          ])
-                        ]),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "form-group row" }, [
-                          _c(
-                            "label",
-                            {
-                              staticClass: "col-sm-3 form-control-label",
-                              attrs: { for: "warehouse_id" }
-                            },
-                            [_vm._v("Warehouse ")]
-                          ),
+                          ]),
                           _vm._v(" "),
-                          _c("div", { staticClass: "col-sm-8" }, [
+                          _c("td", { staticStyle: { width: "320px" } }, [
+                            _c("input", {
+                              staticClass: "total_qty_1 form-control-sm w-100",
+                              attrs: {
+                                name: "product_quantity[]",
+                                autocomplete: "off",
+                                id: "total_qty_1",
+                                onkeyup: "quantity_calculate(1);",
+                                required: "",
+                                onchange: "quantity_calculate(1);",
+                                placeholder: "0",
+                                tabindex: "2",
+                                type: "text"
+                              }
+                            })
+                          ]),
+                          _vm._v(" "),
+                          _c("td", [
+                            _c("input", {
+                              staticClass:
+                                "item_price_1 price_item form-control-sm w-100",
+                              attrs: {
+                                name: "product_rate[]",
+                                autocomplete: "off",
+                                value: "",
+                                id: "item_price_1",
+                                placeholder: "0.00",
+                                tabindex: "3",
+                                onkeyup: "quantity_calculate(1);",
+                                required: "",
+                                onchange: "quantity_calculate(1);",
+                                type: "text"
+                              }
+                            })
+                          ]),
+                          _vm._v(" "),
+                          _c("td", [
+                            _c("input", {
+                              staticClass: "total_price form-control-sm w-100",
+                              attrs: {
+                                name: "total_price[]",
+                                id: "total_price_1",
+                                placeholder: "0.00",
+                                value: "",
+                                tabindex: "-1",
+                                readonly: "",
+                                type: "text"
+                              }
+                            })
+                          ]),
+                          _vm._v(" "),
+                          _c("td", [
                             _c(
-                              "select",
+                              "button",
                               {
-                                staticClass: "form-control-sm w-100 w-100",
+                                staticClass: "btn btn-danger btn-sm",
+                                staticStyle: { "text-align": "right" },
                                 attrs: {
-                                  id: "warehouse_id",
-                                  name: "warehouse_id",
-                                  "data-plugin": "select2"
+                                  type: "button",
+                                  onclick: "deleteRow(this)",
+                                  value: "Delete",
+                                  tabindex: "4"
                                 }
                               },
-                              [
-                                _c("option", { attrs: { value: "" } }, [
-                                  _vm._v("Select Warehouse")
-                                ]),
-                                _vm._v(" "),
-                                _c("option", { attrs: { value: "139" } }, [
-                                  _vm._v("saltlake")
-                                ]),
-                                _vm._v(" "),
-                                _c("option", { attrs: { value: "138" } }, [
-                                  _vm._v("SaltLake")
-                                ]),
-                                _vm._v(" "),
-                                _c("option", { attrs: { value: "137" } }, [
-                                  _vm._v("Ovo je novo skladiste")
-                                ]),
-                                _vm._v(" "),
-                                _c("option", { attrs: { value: "134" } }, [
-                                  _vm._v("ssdsd")
-                                ]),
-                                _vm._v(" "),
-                                _c("option", { attrs: { value: "135" } }, [
-                                  _vm._v("zxcv")
-                                ])
-                              ]
+                              [_vm._v("Delete")]
                             )
                           ])
                         ])
                       ]),
                       _vm._v(" "),
-                      _c("div", { staticClass: "col-md-5" }, [
-                        _c("div", { staticClass: "form-group row mb-1" }, [
+                      _c("tfoot", [
+                        _c("tr", [
                           _c(
-                            "label",
+                            "td",
                             {
-                              staticClass: "col-sm-2 col-form-label",
-                              attrs: { for: "inputPassword" }
+                              staticStyle: { "text-align": "right" },
+                              attrs: { colspan: "3" }
                             },
-                            [_vm._v("Date")]
+                            [_c("b", [_vm._v("Grand Total:")])]
                           ),
                           _vm._v(" "),
-                          _c("div", { staticClass: "col-sm-10" }, [
+                          _c("td", { staticClass: "text-right" }, [
                             _c("input", {
-                              staticClass: "form-control-sm w-100 w-100",
-                              attrs: { type: "time" }
+                              staticClass: "form-control-sm w-100",
+                              attrs: {
+                                id: "grandTotal",
+                                name: "grand_total_price",
+                                value: "0.00",
+                                tabindex: "-1",
+                                readonly: "",
+                                type: "text"
+                              }
+                            })
+                          ]),
+                          _vm._v(" "),
+                          _c("td", { attrs: { align: "center" } }, [
+                            _c("input", {
+                              staticClass: "btn btn-info btn-sm",
+                              attrs: {
+                                id: "add-invoice-item",
+                                name: "add-invoice-item",
+                                onclick: "add_row('add_row_to_invoice');",
+                                value: "Add New Item",
+                                tabindex: "5",
+                                type: "button"
+                              }
                             })
                           ])
                         ]),
                         _vm._v(" "),
-                        _c("div", { staticClass: "form-group row" }, [
+                        _c("tr", [
                           _c(
-                            "label",
-                            {
-                              staticClass: "col-sm-2 col-form-label",
-                              attrs: { for: "inputPassword" }
-                            },
-                            [_vm._v("Image")]
+                            "td",
+                            { attrs: { align: "center", colspan: "2" } },
+                            [
+                              _c("div", { staticClass: "form-group" }, [
+                                _c(
+                                  "div",
+                                  {
+                                    staticClass:
+                                      "custom-control custom-checkbox"
+                                  },
+                                  [
+                                    _c("input", {
+                                      staticClass: "custom-control-input",
+                                      attrs: {
+                                        type: "checkbox",
+                                        id: "full_paid_tab",
+                                        value: "100"
+                                      }
+                                    }),
+                                    _vm._v(" "),
+                                    _c(
+                                      "label",
+                                      {
+                                        staticClass: "custom-control-label",
+                                        attrs: { for: "full_paid_tab" }
+                                      },
+                                      [_vm._v("Custom Checkbox")]
+                                    )
+                                  ]
+                                )
+                              ])
+                            ]
                           ),
                           _vm._v(" "),
-                          _c("div", { staticClass: "col-sm-10" }, [
+                          _c(
+                            "td",
+                            {
+                              staticStyle: { "text-align": "right" },
+                              attrs: { colspan: "1" }
+                            },
+                            [_c("b", [_vm._v("Paid Amount:")])]
+                          ),
+                          _vm._v(" "),
+                          _c("td", { staticClass: "text-right" }, [
                             _c("input", {
-                              staticClass: "form-control-sm w-100 w-100",
-                              attrs: { type: "file" }
+                              staticClass: "form-control-sm w-100",
+                              attrs: {
+                                id: "paidAmount",
+                                autocomplete: "off",
+                                name: "paid_amount",
+                                onkeyup: "invoice_paidamount();",
+                                value: "",
+                                placeholder: "0.00",
+                                tabindex: "6",
+                                type: "text"
+                              }
+                            })
+                          ])
+                        ]),
+                        _vm._v(" "),
+                        _c("tr", [
+                          _c(
+                            "td",
+                            { attrs: { align: "center", colspan: "2" } },
+                            [
+                              _c("input", {
+                                staticClass: "btn btn-sm btn-success w-50",
+                                attrs: {
+                                  id: "add-invoice",
+                                  name: "add-invoice",
+                                  value: "Submit",
+                                  tabindex: "8",
+                                  type: "submit"
+                                }
+                              })
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "td",
+                            {
+                              staticStyle: { "text-align": "right" },
+                              attrs: { colspan: "1" }
+                            },
+                            [_c("b", [_vm._v("Due:")])]
+                          ),
+                          _vm._v(" "),
+                          _c("td", { staticClass: "text-right" }, [
+                            _c("input", {
+                              staticClass: "form-control-sm w-100",
+                              attrs: {
+                                id: "dueAmmount",
+                                name: "due_amount",
+                                value: "0.00",
+                                readonly: "",
+                                type: "text"
+                              }
                             })
                           ])
                         ])
                       ])
-                    ]),
-                    _vm._v(" "),
-                    _c(
-                      "div",
-                      {
-                        staticClass: "table-responsive",
-                        staticStyle: { "margin-top": "10px" }
-                      },
-                      [
-                        _c(
-                          "table",
-                          {
-                            staticClass:
-                              "table table-bordered table-sm table-hover",
-                            attrs: { id: "normalinvoice" }
-                          },
-                          [
-                            _c("thead", [
-                              _c("tr", [
-                                _c("th", { staticClass: "text-center" }, [
-                                  _vm._v("Item Information "),
-                                  _c("i", { staticClass: "text-danger" }, [
-                                    _vm._v("*")
-                                  ])
-                                ]),
-                                _vm._v(" "),
-                                _c("th", { staticClass: "text-center" }, [
-                                  _vm._v("Quantity "),
-                                  _c("i", { staticClass: "text-danger" }, [
-                                    _vm._v("*")
-                                  ])
-                                ]),
-                                _vm._v(" "),
-                                _c("th", { staticClass: "text-center" }, [
-                                  _vm._v("Rate "),
-                                  _c("i", { staticClass: "text-danger" }, [
-                                    _vm._v("*")
-                                  ])
-                                ]),
-                                _vm._v(" "),
-                                _c("th", { staticClass: "text-center" }, [
-                                  _vm._v("Total")
-                                ]),
-                                _vm._v(" "),
-                                _c("th", { staticClass: "text-center" }, [
-                                  _vm._v("Action")
-                                ])
-                              ])
-                            ]),
-                            _vm._v(" "),
-                            _c(
-                              "tbody",
-                              { attrs: { id: "add_row_to_invoice" } },
-                              [
-                                _c("tr", [
-                                  _c(
-                                    "td",
-                                    { staticStyle: { width: "320px" } },
-                                    [
-                                      _c("input", {
-                                        staticClass:
-                                          "form-control-sm w-100 productSelection",
-                                        attrs: {
-                                          name: "product_name[]",
-                                          placeholder: "Item Name",
-                                          required: "",
-                                          id: "product_name",
-                                          autocomplete: "off",
-                                          tabindex: "1",
-                                          type: "text"
-                                        }
-                                      })
-                                    ]
-                                  ),
-                                  _vm._v(" "),
-                                  _c(
-                                    "td",
-                                    { staticStyle: { width: "320px" } },
-                                    [
-                                      _c("input", {
-                                        staticClass:
-                                          "total_qty_1 form-control-sm w-100",
-                                        attrs: {
-                                          name: "product_quantity[]",
-                                          autocomplete: "off",
-                                          id: "total_qty_1",
-                                          onkeyup: "quantity_calculate(1);",
-                                          required: "",
-                                          onchange: "quantity_calculate(1);",
-                                          placeholder: "0",
-                                          tabindex: "2",
-                                          type: "text"
-                                        }
-                                      })
-                                    ]
-                                  ),
-                                  _vm._v(" "),
-                                  _c("td", [
-                                    _c("input", {
-                                      staticClass:
-                                        "item_price_1 price_item form-control-sm w-100",
-                                      attrs: {
-                                        name: "product_rate[]",
-                                        autocomplete: "off",
-                                        value: "",
-                                        id: "item_price_1",
-                                        placeholder: "0.00",
-                                        tabindex: "3",
-                                        onkeyup: "quantity_calculate(1);",
-                                        required: "",
-                                        onchange: "quantity_calculate(1);",
-                                        type: "text"
-                                      }
-                                    })
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("td", [
-                                    _c("input", {
-                                      staticClass:
-                                        "total_price form-control-sm w-100",
-                                      attrs: {
-                                        name: "total_price[]",
-                                        id: "total_price_1",
-                                        placeholder: "0.00",
-                                        value: "",
-                                        tabindex: "-1",
-                                        readonly: "",
-                                        type: "text"
-                                      }
-                                    })
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("td", [
-                                    _c(
-                                      "button",
-                                      {
-                                        staticClass: "btn btn-danger btn-sm",
-                                        staticStyle: { "text-align": "right" },
-                                        attrs: {
-                                          type: "button",
-                                          onclick: "deleteRow(this)",
-                                          value: "Delete",
-                                          tabindex: "4"
-                                        }
-                                      },
-                                      [_vm._v("Delete")]
-                                    )
-                                  ])
-                                ])
-                              ]
-                            ),
-                            _vm._v(" "),
-                            _c("tfoot", [
-                              _c("tr", [
-                                _c(
-                                  "td",
-                                  {
-                                    staticStyle: { "text-align": "right" },
-                                    attrs: { colspan: "3" }
-                                  },
-                                  [_c("b", [_vm._v("Grand Total:")])]
-                                ),
-                                _vm._v(" "),
-                                _c("td", { staticClass: "text-right" }, [
-                                  _c("input", {
-                                    staticClass: "form-control-sm w-100",
-                                    attrs: {
-                                      id: "grandTotal",
-                                      name: "grand_total_price",
-                                      value: "0.00",
-                                      tabindex: "-1",
-                                      readonly: "",
-                                      type: "text"
-                                    }
-                                  })
-                                ]),
-                                _vm._v(" "),
-                                _c("td", { attrs: { align: "center" } }, [
-                                  _c("input", {
-                                    staticClass: "btn btn-info btn-sm",
-                                    attrs: {
-                                      id: "add-invoice-item",
-                                      name: "add-invoice-item",
-                                      onclick: "add_row('add_row_to_invoice');",
-                                      value: "Add New Item",
-                                      tabindex: "5",
-                                      type: "button"
-                                    }
-                                  })
-                                ])
-                              ]),
-                              _vm._v(" "),
-                              _c("tr", [
-                                _c(
-                                  "td",
-                                  { attrs: { align: "center", colspan: "2" } },
-                                  [
-                                    _c("div", { staticClass: "form-group" }, [
-                                      _c(
-                                        "div",
-                                        {
-                                          staticClass:
-                                            "custom-control custom-checkbox"
-                                        },
-                                        [
-                                          _c("input", {
-                                            staticClass: "custom-control-input",
-                                            attrs: {
-                                              type: "checkbox",
-                                              id: "full_paid_tab",
-                                              value: "100"
-                                            }
-                                          }),
-                                          _vm._v(" "),
-                                          _c(
-                                            "label",
-                                            {
-                                              staticClass:
-                                                "custom-control-label",
-                                              attrs: { for: "full_paid_tab" }
-                                            },
-                                            [_vm._v("Custom Checkbox")]
-                                          )
-                                        ]
-                                      )
-                                    ])
-                                  ]
-                                ),
-                                _vm._v(" "),
-                                _c(
-                                  "td",
-                                  {
-                                    staticStyle: { "text-align": "right" },
-                                    attrs: { colspan: "1" }
-                                  },
-                                  [_c("b", [_vm._v("Paid Amount:")])]
-                                ),
-                                _vm._v(" "),
-                                _c("td", { staticClass: "text-right" }, [
-                                  _c("input", {
-                                    staticClass: "form-control-sm w-100",
-                                    attrs: {
-                                      id: "paidAmount",
-                                      autocomplete: "off",
-                                      name: "paid_amount",
-                                      onkeyup: "invoice_paidamount();",
-                                      value: "",
-                                      placeholder: "0.00",
-                                      tabindex: "6",
-                                      type: "text"
-                                    }
-                                  })
-                                ])
-                              ]),
-                              _vm._v(" "),
-                              _c("tr", [
-                                _c(
-                                  "td",
-                                  { attrs: { align: "center", colspan: "2" } },
-                                  [
-                                    _c("input", {
-                                      staticClass:
-                                        "btn btn-sm btn-success w-50",
-                                      attrs: {
-                                        id: "add-invoice",
-                                        name: "add-invoice",
-                                        value: "Submit",
-                                        tabindex: "8",
-                                        type: "submit"
-                                      }
-                                    })
-                                  ]
-                                ),
-                                _vm._v(" "),
-                                _c(
-                                  "td",
-                                  {
-                                    staticStyle: { "text-align": "right" },
-                                    attrs: { colspan: "1" }
-                                  },
-                                  [_c("b", [_vm._v("Due:")])]
-                                ),
-                                _vm._v(" "),
-                                _c("td", { staticClass: "text-right" }, [
-                                  _c("input", {
-                                    staticClass: "form-control-sm w-100",
-                                    attrs: {
-                                      id: "dueAmmount",
-                                      name: "due_amount",
-                                      value: "0.00",
-                                      readonly: "",
-                                      type: "text"
-                                    }
-                                  })
-                                ])
-                              ])
-                            ])
-                          ]
-                        )
-                      ]
-                    )
-                  ])
+                    ]
+                  )
                 ]
               )
             ])
           ]
         )
-      ])
-    ])
+      ]
+    )
   }
 ]
 render._withStripped = true
@@ -41738,286 +41640,207 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "container" }, [
-    _c("section", { staticClass: "content mt-2" }, [
+    _c("section", { staticClass: "content mt-2 mb-0" }, [
       _c("div", { staticClass: "row" }, [
         _c("div", { staticClass: "col-12" }, [
           _c(
             "div",
             {
-              staticClass: "card",
-              staticStyle: {
-                "background-color": "#f4f6f9",
-                "box-shadow": "0 0 0 rgba(0,0,0,0), 0 0 0 rgba(0,0,0,0)"
-              }
+              staticClass: "card mt-2 rounded-0",
+              staticStyle: { "margin-bottom": "5px !important" }
             },
             [
-              _c(
-                "div",
-                { staticClass: "card-body pt-2 pr-1 pl-1 pb-0" },
-                [
-                  _c(
-                    "div",
-                    {
-                      staticClass: "row",
-                      staticStyle: {
-                        margin: "0px 0px",
-                        padding: "7px 0px",
-                        "background-color": "#fff",
-                        border: "1px solid #c2ccd6",
-                        "border-bottom": "0"
-                      }
-                    },
-                    [
-                      _vm._m(0),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "col-md-6" }, [
-                        _c("div", { staticClass: "form-inline ml-3 mr-2" }, [
+              _c("div", { staticClass: "card-header pb-0" }, [
+                _c("div", { staticClass: "row" }, [
+                  _vm._m(0),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-md-6" }, [
+                    _c("div", { staticClass: "form-inline ml-3 mr-2" }, [
+                      _c(
+                        "div",
+                        { staticClass: "input-group input-group-sm w-100" },
+                        [
                           _c(
-                            "div",
-                            { staticClass: "input-group input-group-sm w-100" },
+                            "select",
+                            {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.queryFiled,
+                                  expression: "queryFiled"
+                                }
+                              ],
+                              staticClass: "form-control w-25",
+                              attrs: { id: "fileds" },
+                              on: {
+                                change: function($event) {
+                                  var $$selectedVal = Array.prototype.filter
+                                    .call($event.target.options, function(o) {
+                                      return o.selected
+                                    })
+                                    .map(function(o) {
+                                      var val =
+                                        "_value" in o ? o._value : o.value
+                                      return val
+                                    })
+                                  _vm.queryFiled = $event.target.multiple
+                                    ? $$selectedVal
+                                    : $$selectedVal[0]
+                                }
+                              }
+                            },
                             [
                               _c(
-                                "select",
-                                {
-                                  directives: [
-                                    {
-                                      name: "model",
-                                      rawName: "v-model",
-                                      value: _vm.queryFiled,
-                                      expression: "queryFiled"
-                                    }
-                                  ],
-                                  staticClass: "form-control w-25",
-                                  attrs: { id: "fileds" },
-                                  on: {
-                                    change: function($event) {
-                                      var $$selectedVal = Array.prototype.filter
-                                        .call($event.target.options, function(
-                                          o
-                                        ) {
-                                          return o.selected
-                                        })
-                                        .map(function(o) {
-                                          var val =
-                                            "_value" in o ? o._value : o.value
-                                          return val
-                                        })
-                                      _vm.queryFiled = $event.target.multiple
-                                        ? $$selectedVal
-                                        : $$selectedVal[0]
-                                    }
-                                  }
-                                },
-                                [
-                                  _c(
-                                    "option",
-                                    { attrs: { value: "warehouse_name" } },
-                                    [_vm._v("Warehouse Name")]
-                                  )
-                                ]
-                              ),
-                              _vm._v(" "),
-                              _c("input", {
-                                directives: [
-                                  {
-                                    name: "model",
-                                    rawName: "v-model",
-                                    value: _vm.query,
-                                    expression: "query"
-                                  }
-                                ],
-                                staticClass: "form-control w-50",
-                                attrs: {
-                                  type: "search",
-                                  placeholder: "Search",
-                                  "aria-label": "Search"
-                                },
-                                domProps: { value: _vm.query },
-                                on: {
-                                  input: function($event) {
-                                    if ($event.target.composing) {
-                                      return
-                                    }
-                                    _vm.query = $event.target.value
-                                  }
-                                }
-                              }),
-                              _vm._v(" "),
-                              _vm._m(1)
+                                "option",
+                                { attrs: { value: "warehouse_name" } },
+                                [_vm._v("warehouse Name")]
+                              )
                             ]
-                          )
-                        ])
-                      ]),
-                      _vm._v(" "),
-                      _vm._m(2)
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "table",
-                    {
-                      staticClass:
-                        "table table-bordered table-striped table-sm",
-                      attrs: { id: "example1-" }
-                    },
-                    [
-                      _vm._m(3),
-                      _vm._v(" "),
-                      _vm.warehouses.length > 0
-                        ? _c(
-                            "tbody",
-                            _vm._l(_vm.warehouses, function(warehouse, index) {
-                              return _c("tr", [
-                                _c("td", [_vm._v(_vm._s(index + 1))]),
-                                _vm._v(" "),
-                                _c("td", { staticClass: "text-center" }, [
-                                  _vm._v(_vm._s(warehouse.warehouse_name))
-                                ]),
-                                _vm._v(" "),
-                                _c("td", { staticClass: "text-center" }, [
-                                  _vm._m(4, true),
-                                  _vm._v(" "),
-                                  _c(
-                                    "a",
-                                    {
-                                      staticClass:
-                                        "btn btn-xs btn-success mr-1",
-                                      attrs: {
-                                        "data-toggle": "modal",
-                                        "data-target": "#editModal"
-                                      },
-                                      on: {
-                                        click: function($event) {
-                                          $event.preventDefault()
-                                          return _vm.editWarehouse(warehouse)
-                                        }
-                                      }
-                                    },
-                                    [_c("i", { staticClass: "fa fa-edit" })]
-                                  ),
-                                  _vm._v(" "),
-                                  _c(
-                                    "button",
-                                    {
-                                      staticClass: "btn btn-xs btn-danger",
-                                      on: {
-                                        click: function($event) {
-                                          $event.preventDefault()
-                                          return _vm.deleteWarehouse(
-                                            warehouse.id
-                                          )
-                                        }
-                                      }
-                                    },
-                                    [_c("i", { staticClass: "fa fa-trash" })]
-                                  )
-                                ])
-                              ])
-                            }),
-                            0
-                          )
-                        : _c("tbody", [_vm._m(5)])
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _vm.pagination.last_page > 1
-                    ? _c("pagination", {
-                        attrs: { pagination: _vm.pagination, offset: 5 },
-                        on: {
-                          paginate: function($event) {
-                            _vm.query === "" ? _vm.getData() : _vm.searchData()
-                          }
-                        }
-                      })
-                    : _vm._e()
-                ],
-                1
-              )
-            ]
-          )
-        ])
-      ])
-    ]),
-    _vm._v(" "),
-    _c("div", { staticClass: "modal fade", attrs: { id: "addModal" } }, [
-      _c("div", { staticClass: "modal-dialog modal-md" }, [
-        _c("div", { staticClass: "modal-content" }, [
-          _c(
-            "form",
-            {
-              staticClass: "form-horizontal",
-              attrs: { id: "form_id", onsubmit: "return validatorFormSubmit()" }
-            },
-            [
-              _vm._m(6),
-              _vm._v(" "),
-              _c("div", { staticClass: "modal-body pb-0 pt-0" }, [
-                _c("div", { staticClass: "card-body" }, [
-                  _c("div", { staticClass: "form-group" }, [
-                    _vm._m(7),
-                    _vm._v(" "),
-                    _c("div", {}, [
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.warehouse_name,
-                            expression: "warehouse_name"
-                          }
-                        ],
-                        staticClass: "form-control",
-                        attrs: {
-                          type: "text",
-                          id: "warehouse_name",
-                          name: "warehouse_name",
-                          placeholder: "warehouse Name"
-                        },
-                        domProps: { value: _vm.warehouse_name },
-                        on: {
-                          input: function($event) {
-                            if ($event.target.composing) {
-                              return
+                          ),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.query,
+                                expression: "query"
+                              }
+                            ],
+                            staticClass: "form-control w-50",
+                            attrs: {
+                              type: "search",
+                              placeholder: "Search",
+                              "aria-label": "Search"
+                            },
+                            domProps: { value: _vm.query },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.query = $event.target.value
+                              }
                             }
-                            _vm.warehouse_name = $event.target.value
-                          }
-                        }
-                      })
+                          }),
+                          _vm._v(" "),
+                          _vm._m(1)
+                        ]
+                      )
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-md-3" }, [
+                    _c("div", { staticClass: "d-inline-flex float-right" }, [
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-outline-primary btn-sm",
+                          on: { click: _vm.newModal }
+                        },
+                        [
+                          _c("i", { staticClass: "fas fa-user-plus fa-fw" }),
+                          _vm._v(" Add New warehouse\n                  ")
+                        ]
+                      )
                     ])
                   ])
                 ])
               ]),
               _vm._v(" "),
-              _c("div", { staticClass: "modal-footer" }, [
+              _c("div", { staticClass: "card-body p-2" }, [
                 _c(
-                  "button",
+                  "table",
                   {
-                    staticClass: "btn btn-default btn-sm",
-                    attrs: { type: "button", "data-dismiss": "modal" }
+                    staticClass: "table table-bordered table-striped table-sm",
+                    attrs: { id: "example1-" }
                   },
                   [
-                    _vm._v(
-                      "\n                            Cancel\n                        "
-                    )
+                    _vm._m(2),
+                    _vm._v(" "),
+                    _vm.warehouses.length > 0
+                      ? _c(
+                          "tbody",
+                          _vm._l(_vm.warehouses, function(warehouse, index) {
+                            return _c("tr", [
+                              _c("td", { staticClass: "text-center" }, [
+                                _vm._v(_vm._s(index + 1))
+                              ]),
+                              _vm._v(" "),
+                              _c("td", [
+                                _vm._v(_vm._s(warehouse.warehouse_name))
+                              ]),
+                              _vm._v(" "),
+                              _c("td", { staticClass: "text-center" }, [
+                                _vm._v(_vm._s(warehouse.status))
+                              ]),
+                              _vm._v(" "),
+                              _c("td", { staticClass: "text-center" }, [
+                                _vm._v(
+                                  _vm._s(_vm._f("myDate")(warehouse.create_at))
+                                )
+                              ]),
+                              _vm._v(" "),
+                              _c("td", { staticClass: "text-center" }, [
+                                _vm._m(3, true),
+                                _vm._v(" "),
+                                _c(
+                                  "a",
+                                  {
+                                    staticClass: "btn btn-xs btn-success mr-1",
+                                    on: {
+                                      click: function($event) {
+                                        $event.preventDefault()
+                                        return _vm.editModal(warehouse)
+                                      }
+                                    }
+                                  },
+                                  [_c("i", { staticClass: "fa fa-edit" })]
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "button",
+                                  {
+                                    staticClass: "btn btn-xs btn-danger",
+                                    on: {
+                                      click: function($event) {
+                                        $event.preventDefault()
+                                        return _vm.deleteWarehouse(warehouse.id)
+                                      }
+                                    }
+                                  },
+                                  [_c("i", { staticClass: "fa fa-trash" })]
+                                )
+                              ])
+                            ])
+                          }),
+                          0
+                        )
+                      : _c("tbody", [_vm._m(4)])
                   ]
-                ),
-                _vm._v(" "),
+                )
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "card-footer pb-0 pt-0" }, [
                 _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-primary btn-sm",
-                    attrs: { type: "submit", "data-dismiss": "modal" },
-                    on: {
-                      click: function($event) {
-                        $event.preventDefault()
-                        return _vm.addNewWarehouse()
-                      }
-                    }
-                  },
+                  "div",
+                  { staticClass: "float-right" },
                   [
-                    _c("i", { staticClass: "fa fa-plus" }),
-                    _vm._v(" ADD\n                        ")
-                  ]
+                    _vm.pagination.last_page > 1
+                      ? _c("pagination-component", {
+                          attrs: { pagination: _vm.pagination, offset: 5 },
+                          on: {
+                            paginate: function($event) {
+                              _vm.query === ""
+                                ? _vm.getData()
+                                : _vm.searchData()
+                            }
+                          }
+                        })
+                      : _vm._e()
+                  ],
+                  1
                 )
               ])
             ]
@@ -42026,113 +41849,183 @@ var render = function() {
       ])
     ]),
     _vm._v(" "),
-    _c("div", { staticClass: "modal fade", attrs: { id: "editModal" } }, [
-      _c("div", { staticClass: "modal-dialog modal-md" }, [
-        _c("div", { staticClass: "modal-content" }, [
-          _c(
-            "form",
-            {
-              staticClass: "form-horizontal",
-              attrs: { onsubmit: "return validatorFormEdit()" }
-            },
-            [
-              _vm._m(8),
-              _vm._v(" "),
-              _c("div", { staticClass: "modal-body pb-0 pt-0" }, [
-                _c("div", { staticClass: "card-body" }, [
-                  _c("div", { staticClass: "form-group" }, [
-                    _vm._m(9),
-                    _vm._v(" "),
-                    _c("div", {}, [
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.warehouse_name,
-                            expression: "warehouse_name"
-                          }
-                        ],
-                        staticClass: "form-control",
-                        attrs: {
-                          type: "text",
-                          id: "warehouse_name",
-                          name: "warehouse_name",
-                          placeholder: "warehouse Name"
-                        },
-                        domProps: { value: _vm.warehouse_name },
-                        on: {
-                          input: function($event) {
-                            if ($event.target.composing) {
-                              return
-                            }
-                            _vm.warehouse_name = $event.target.value
-                          }
-                        }
-                      })
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c("input", {
+    _c(
+      "div",
+      {
+        staticClass: "modal fade",
+        attrs: {
+          id: "addNew",
+          tabindex: "-1",
+          role: "dialog",
+          "aria-labelledby": "addNewLabel",
+          "aria-hidden": "true"
+        }
+      },
+      [
+        _c(
+          "div",
+          {
+            staticClass: "modal-dialog  _modal-dialog-centered modal-md",
+            attrs: { role: "document" }
+          },
+          [
+            _c("div", { staticClass: "modal-content" }, [
+              _c("div", { staticClass: "modal-header" }, [
+                _c(
+                  "h5",
+                  {
                     directives: [
                       {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.warehouse_id,
-                        expression: "warehouse_id"
+                        name: "show",
+                        rawName: "v-show",
+                        value: !_vm.editMode,
+                        expression: "!editMode"
                       }
                     ],
-                    attrs: { type: "hidden" },
-                    domProps: { value: _vm.warehouse_id },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.warehouse_id = $event.target.value
-                      }
-                    }
-                  })
-                ])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "modal-footer" }, [
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-default btn-sm",
-                    attrs: { type: "button", "data-dismiss": "modal" }
+                    staticClass: "modal-title",
+                    attrs: { id: "addNewLabel" }
                   },
-                  [
-                    _vm._v(
-                      "\n                            Cancel\n                        "
-                    )
-                  ]
+                  [_vm._v("Add New warehouse")]
                 ),
                 _vm._v(" "),
                 _c(
-                  "button",
+                  "h5",
                   {
-                    staticClass: "btn btn-primary btn-sm",
-                    attrs: { type: "submit", "data-dismiss": "modal" },
-                    on: {
-                      click: function($event) {
-                        $event.preventDefault()
-                        return _vm.updateWarehouse(_vm.warehouse_id)
+                    directives: [
+                      {
+                        name: "show",
+                        rawName: "v-show",
+                        value: _vm.editMode,
+                        expression: "editMode"
                       }
-                    }
+                    ],
+                    staticClass: "modal-title",
+                    attrs: { id: "addNewLabel" }
                   },
-                  [
-                    _c("i", { staticClass: "fa fa-sync" }),
-                    _vm._v(" Update\n                        ")
-                  ]
-                )
-              ])
-            ]
-          )
-        ])
-      ])
-    ])
+                  [_vm._v("Update warehouse")]
+                ),
+                _vm._v(" "),
+                _vm._m(5)
+              ]),
+              _vm._v(" "),
+              _c(
+                "form",
+                {
+                  on: {
+                    submit: function($event) {
+                      $event.preventDefault()
+                      _vm.editMode
+                        ? _vm.updateWarehouse()
+                        : _vm.addNewWarehouse()
+                    }
+                  }
+                },
+                [
+                  _c("div", { staticClass: "modal-body" }, [
+                    _c(
+                      "div",
+                      { staticClass: "form-group" },
+                      [
+                        _vm._m(6),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.form.warehouse_name,
+                              expression: "form.warehouse_name"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          class: {
+                            "is-invalid": _vm.form.errors.has("warehouse_name")
+                          },
+                          attrs: {
+                            type: "text",
+                            name: "warehouse_name",
+                            placeholder: "Warehouse Name"
+                          },
+                          domProps: { value: _vm.form.warehouse_name },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.form,
+                                "warehouse_name",
+                                $event.target.value
+                              )
+                            }
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c("has-error", {
+                          attrs: { form: _vm.form, field: "warehouse_name" }
+                        })
+                      ],
+                      1
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "modal-footer" }, [
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-danger btn-sm",
+                        attrs: { type: "button", "data-dismiss": "modal" }
+                      },
+                      [_vm._v("Close")]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        directives: [
+                          {
+                            name: "show",
+                            rawName: "v-show",
+                            value: !_vm.editMode,
+                            expression: "!editMode"
+                          }
+                        ],
+                        staticClass: "btn btn-primary btn-sm",
+                        attrs: { type: "submit" }
+                      },
+                      [
+                        _c("i", { staticClass: "fa fa-plus" }),
+                        _vm._v(" Create\n            ")
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        directives: [
+                          {
+                            name: "show",
+                            rawName: "v-show",
+                            value: _vm.editMode,
+                            expression: "editMode"
+                          }
+                        ],
+                        staticClass: "btn btn-primary btn-sm",
+                        attrs: { type: "submit" }
+                      },
+                      [
+                        _c("i", { staticClass: "fa fa-sync" }),
+                        _vm._v(" Update\n            ")
+                      ]
+                    )
+                  ])
+                ]
+              )
+            ])
+          ]
+        )
+      ]
+    )
   ])
 }
 var staticRenderFns = [
@@ -42143,7 +42036,7 @@ var staticRenderFns = [
     return _c("div", { staticClass: "col-md-3 float-left" }, [
       _c("p", [
         _c("a", { attrs: { href: "/" } }, [_vm._v("Home")]),
-        _vm._v(" / Warehouse")
+        _vm._v(" / warehouse")
       ])
     ])
   },
@@ -42163,35 +42056,15 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-md-3" }, [
-      _c("div", { staticClass: "d-inline-flex float-right" }, [
-        _c(
-          "a",
-          {
-            staticClass: "btn btn-sm btn-primary float-right",
-            attrs: {
-              href: "",
-              "data-toggle": "modal",
-              "data-target": "#addModal"
-            }
-          },
-          [
-            _c("i", { staticClass: "fa fa-plus" }),
-            _vm._v(" Add warehouse\n                                   ")
-          ]
-        )
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
     return _c("thead", [
       _c("tr", [
-        _c("th", {}, [_vm._v("No")]),
+        _c("th", { staticClass: "text-center" }, [_vm._v("No")]),
         _vm._v(" "),
-        _c("th", { staticClass: "text-center" }, [_vm._v("warehouse name")]),
+        _c("th", { staticClass: "text-center" }, [_vm._v("warehouse Name")]),
+        _vm._v(" "),
+        _c("th", { staticClass: "text-center" }, [_vm._v("Status")]),
+        _vm._v(" "),
+        _c("th", { staticClass: "text-center" }, [_vm._v("Date")]),
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [_vm._v("Action")])
       ])
@@ -42227,51 +42100,25 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "modal-header" }, [
-      _c("h4", { staticClass: "modal-title" }, [_vm._v("Add New warehouse")]),
-      _vm._v(" "),
-      _c(
-        "button",
-        {
-          staticClass: "close",
-          attrs: { type: "button", "data-dismiss": "modal" }
-        },
-        [_vm._v("×")]
-      )
-    ])
+    return _c(
+      "button",
+      {
+        staticClass: "close",
+        attrs: {
+          type: "button",
+          "data-dismiss": "modal",
+          "aria-label": "Close"
+        }
+      },
+      [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+    )
   },
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("label", { staticClass: "form-label" }, [
+    return _c("label", [
       _vm._v("Warehouse Name "),
-      _c("span", { staticClass: "text-red" }, [_vm._v("*")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "modal-header" }, [
-      _c("h4", { staticClass: "modal-title" }, [_vm._v("Edit warehouse")]),
-      _vm._v(" "),
-      _c(
-        "button",
-        {
-          staticClass: "close",
-          attrs: { type: "button", "data-dismiss": "modal" }
-        },
-        [_vm._v("×")]
-      )
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("label", { staticClass: "form-label" }, [
-      _vm._v("warehouse Name "),
       _c("span", { staticClass: "text-red" }, [_vm._v("*")])
     ])
   }
@@ -42299,11 +42146,11 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "nav",
-    { staticClass: "mt-3 float-right", attrs: { "aria-label": "..." } },
+    { staticClass: "float-right", attrs: { "aria-label": "..." } },
     [
       _c(
         "ul",
-        { staticClass: "pagination justify-content-center" },
+        { staticClass: "pagination justify-content-center pt-2 mb-2" },
         [
           _c(
             "li",
@@ -58128,8 +57975,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /home/mnbtech/Projects/EasyInventory/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /home/mnbtech/Projects/EasyInventory/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! E:\xampp\htdocs\EasyInventory\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! E:\xampp\htdocs\EasyInventory\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

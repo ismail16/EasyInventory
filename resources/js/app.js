@@ -49,5 +49,5 @@ Vue.component('pagination-component', require('./components/partials/PaginationC
 
 const app= new Vue({
     el: '#app',
-    router
+    router,
 });

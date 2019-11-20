@@ -1,6 +1,6 @@
 <template>
-    <nav aria-label="..." class="mt-3 float-right">
-        <ul class="pagination justify-content-center">
+    <nav aria-label="..." class="float-right">
+        <ul class="pagination justify-content-center pt-2 mb-2">
             <li class="page-item" :class="{ disabled: pagination.current_page <= 1 }">
                 <a class="page-link" @click.prevent="changePage(1)"  >First page</a>
             </li>
