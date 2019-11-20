@@ -50,8 +50,8 @@
                                     <th class="text-center">Action</th>
                                 </tr>
                                 </thead>
-                                <tbody v-if="suppliers.data">
-                                    <tr v-for="(supplier, index) in suppliers.data">
+                                <tbody v-if="suppliers">
+                                    <tr v-for="(supplier, index) in suppliers">
                                         <td>{{ index+1 }}</td>
                                         <td>{{ supplier.supplier_name }}</td>
                                         <td>{{ supplier.supplier_contact_name }}</td>
@@ -83,16 +83,15 @@
                                     </tr>
                                 </tbody>
                             </table>
-
-<!--                            <pagination v-if="pagination.last_page > 1"-->
-<!--                                :pagination="pagination"-->
-<!--                                :offset="5"-->
-<!--                                @paginate="query === '' ? getData() : searchData()"-->
-<!--                            ></pagination>-->
                         </div>
                         <div class="card-footer pb-0">
                             <div class="float-right">
-                                <pagination :data="suppliers" @pagination-change-page="getResults"></pagination>
+                                <pagination-component v-if="pagination.last_page > 1"
+                                    :pagination="pagination"
+                                    :offset="5"
+                                    @paginate="query === '' ? getData() : searchData()"
+                                    >
+                                </pagination-component>
                             </div>
                         </div>
                     </div>
@@ -185,7 +184,9 @@
                 queryFiled: "supplier_name",
                 suppliers:{},
 
-                paginat: 1,
+                pagination:{
+                    current_page: 1,
+                },
             }
         },
 
@@ -197,6 +198,10 @@
                     this.searchData();
                 }
             }
+        },
+
+        mounted(){
+            this.getData();
         },
 
         methods:{
@@ -214,33 +219,26 @@
                 this.form.fill(supplier);
             },
 
-            getResults(page = 1) {
-                axios.get('/api/suppliers?page=' + page)
-                    .then(response => {
-                        this.suppliers = response.data;
-                    });
-            },
-
             getData(){
                 var temp = this;
-                axios.get('/api/suppliers')
+                axios.get('/api/suppliers?page='+this.pagination.current_page)
                   .then((response) => {
-                    temp.suppliers = response.data;
+                    temp.suppliers = response.data.data;
+                    temp.pagination = response.data.meta;
                   })
                   .catch(function (error) {
-
+                        toastr.error('Something is wrong Data Loaded')
                   });
             },
 
             searchData() {
                 var temp = this;
                 axios.get("/api/search/suppliers/" + temp.queryFiled + "/" + temp.query + "?page=" +
-                    temp.paginat
+                    temp.pagination.current_page
                     )
                     .then(response => {
-                        console.log(response.data)
-                        temp.suppliers = response.data;
-                        temp.paginat = response.data.last_page;
+                        temp.suppliers = response.data.data;
+                        temp.pagination = response.data.meta;
                     })
                     .catch(e => {
                         console.log(e);
@@ -250,12 +248,10 @@
 
             addNewSupplier(){
                 var temp = this
-                this.$Progress.start()
-                $('#addNew').modal('hide')
-
-                this.form.post('/api/suppliers')
+                temp.$Progress.start()
+                temp.form.post('/api/suppliers')
                 .then(function (response) {
-                    console.log(response.data)
+                    $('#addNew').modal('hide')
                     temp.getData();
                     toastr.success('Saved Supplier Successfully'),
                     temp.$Progress.finish()
@@ -316,11 +312,5 @@
                 });
             },
         },
-
-        mounted(){
-            this.getData();
-        },
-
-        
     }
 </script>

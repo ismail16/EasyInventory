@@ -6,7 +6,7 @@
             </li>
             <li class="page-item" :class="{ disabled: pagination.current_page <= 1 }">
                 <a class="page-link" @click.prevent="changePage(pagination.current_page - 1)">
-                    <i class=""><</i>
+                    <i class="fas fa-chevron-left"></i>
                 </a>
             </li>
 
@@ -18,7 +18,7 @@
 
             <li class="page-item" :class="{ disabled: pagination.current_page >= pagination.last_page }">
                 <a class="page-link" @click.prevent="changePage(pagination.current_page + 1)">
-                    <i class=""> > </i>
+                    <i class="fas fa-chevron-right"></i>
                 </a>
             </li>
             <li class="page-item" :class="{ disabled: pagination.current_page >= pagination.last_page }">

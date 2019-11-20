@@ -21,8 +21,6 @@ Vue.use(VueProgressBar, {
     height: '2px'
 })
 
-Vue.component('pagination', require('laravel-vue-pagination'));
-
 // Vue Form
 import { Form, HasError, AlertError } from 'vform'
 window.Form = Form;
@@ -46,7 +44,7 @@ const router = new VueRouter({
 });
 
 // Vue.component('example-component', require('./components/ExampleComponent.vue').default);
-// Vue.component('pagination', require('./components/partials/PaginationComponent.vue').default);
+Vue.component('pagination-component', require('./components/partials/PaginationComponent.vue').default);
 
 
 const app= new Vue({
