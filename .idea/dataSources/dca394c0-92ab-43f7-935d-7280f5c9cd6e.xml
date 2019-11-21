@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dataSource name="easyinventory_db@localhost">
-  <database-model serializer="dbm" dbms="MARIADB" family-id="MARIADB" format-version="4.15">
+  <database-model serializer="dbm" dbms="MARIADB" family-id="MARIADB" format-version="4.16">
     <root id="1">
       <ServerVersion>10.1.37</ServerVersion>
       <DefaultEngine>InnoDB</DefaultEngine>
@@ -11,7 +11,6 @@
     </schema>
     <schema id="3" parent="1" name="easyinventory_db">
       <Current>1</Current>
-      <Visible>1</Visible>
       <Collation>latin1_swedish_ci</Collation>
     </schema>
     <schema id="4" parent="1" name="giantbdc_db">

@@ -13,7 +13,7 @@
                               <div class="form-inline ml-3 mr-2">
                                 <div class="input-group input-group-sm w-100">
                                     <select v-model="queryFiled" class="form-control w-25" id="fileds">
-                                        <option value="supplier_name">Supplier Name</option>
+                                        <option value="supplier_id">Supplier Name</option>
                                         <option value="supplier_contact_name">Contact Name</option>
                                         <option value="supplier_email">Email</option>
                                         <option value="supplier_phone">Phone</option>
@@ -105,49 +105,47 @@
 </template>
 
 <script>
-    import Vue from 'vue'
-    import VueRouter from 'vue-router'
-
-    Vue.use(VueRouter)
-
-    const Home  = {
-        template: '<div>Home</div>'
-    }
-
-    const router = new VueRouter({
-        routes: [
-            { path: '/llll', component: Home }
-            // { path: '/login', component: Login },
-            // { path: '/about', component: About }
-        ]
-    })
-
-    // new Vue({
-    //     rout: router
-    // }).$mount('#app')
-
     export default {
-
-
-
-        // el: '#supplier_app',
-        data() {
-            return{
-                router,
+         data() {
+            return {
                 query: "",
-                queryFiled: "supplier_name",
+                queryFiled: "supplier_id",
                 supplierInvoices:{},
 
                 pagination:{
                     current_page: 1,
                 },
 
-                supplier_name : '',
-                supplier_contact_name : '',
-                supplier_email : '',
-                supplier_phone : '',
-                supplier_address : '',
                 supplier_id : '',
+
+                form: new Form({
+                  id : '',
+                  product_name : '',
+                  product_quantity : '',
+                  product_rate : '',
+                  total_price : '',
+                  supplier_id : '',
+                  warehouse_id : '',
+                  datepicker_invoice_exp : '',
+                  image : '',
+                }),
+               new_row: '<tr>' + 
+                    '<td style="width: 320px">'+
+                        '<input v-model="product_name[]" class="form-control-sm w-100 productSelection" placeholder="Item Name" required="" id="product_name" autocomplete="off" tabindex="1" type="text">'+
+                    '</td>'+
+                    '<td style="width: 320px">'+
+                        '<input v-model="product_quantity[]" autocomplete="off" class="total_qty_1 form-control-sm w-100" id="total_qty_1" onkeyup="quantity_calculate(1);" required="" onchange="quantity_calculate(1);" placeholder="0" tabindex="2" type="text">'+
+                    '</td>'+
+                    '<td>'+
+                        '<input v-model="product_rate[]" autocomplete="off" value="" id="item_price_1" placeholder="0.00" class="item_price_1 price_item form-control-sm w-100" tabindex="3" onkeyup="quantity_calculate(1);" required="" onchange="quantity_calculate(1);" type="text">'+
+                    '</td>'+
+                    '<td>'+
+                        '<input v-model="total_price[]" class="total_price form-control-sm w-100" id="total_price_1" placeholder="0.00" value="" tabindex="-1" readonly="" type="text">'+
+                    '</td>'+
+                    '<td>'+
+                        '<button style="text-align: right;" class="btn btn-danger btn-sm" type="button" @click="deleteRow" value="Delete" tabindex="4">Delete</button>'+
+                    '</td>'+
+                    '</tr>' 
             }
         },
 
@@ -166,12 +164,8 @@
         },
 
         methods:{
-            reload: function(){
-              this.isRouterAlive = false
-              setTimeout(()=>{
-                 this.isRouterAlive = true
-              },0)
-            },
+
+
             getData(){
                 var temp = this;
                 axios.get('/api/supllier-invoice?page='+this.pagination.current_page)
@@ -187,7 +181,7 @@
 
             searchData() {
                 var temp = this;
-                axios.get("/api/search/suppliers/" + temp.queryFiled + "/" + temp.query + "?page=" +
+                axios.get("/api/search/supllier-invoice/" + temp.queryFiled + "/" + temp.query + "?page=" +
                     temp.pagination.current_page
                     )
                     .then(response => {
