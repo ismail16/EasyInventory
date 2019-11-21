@@ -29,11 +29,8 @@
                                     <div class="form-group row">
                                         <label class="col-sm-3 form-control-label">Select Supplier <i class="text-danger">*</i></label>
                                         <div class="col-sm-8">
-                                            <select id="supplier_id" v-model="form.supplier_id" name="supplier_id" class="form-control-sm w-100 w-100" data-plugin="select2" required="">
-                                                <option value="70">UQWELI Packaging</option>
-                                                <option value="54">UNILEVER</option>
-                                                <option value="56">test suppliers</option>
-                                                <option value="61">NIKE</option>
+                                            <select id="supplier_id" v-model="form.supplier_id" name="supplier_id" class="form-control-sm w-100 w-100">
+                                                 <option v-for="supplier in suppliers" value="supplier.id">{{ supplier.supplier_name }}</option>
                                             </select>
                                             <input id="auth_id" type="hidden" name="auth_id" value="1">
                                         </div>
@@ -43,12 +40,7 @@
                                         <label for="warehouse_id" class="col-sm-3 form-control-label">Warehouse </label>
                                         <div class="col-sm-8">
                                             <select id="warehouse_id" v-model="form.warehouse_id" name="warehouse_id" class="form-control-sm w-100 w-100" data-plugin="select2">
-                                                <option value="">Select Warehouse</option>
-                                                <option value="139">saltlake</option>
-                                                <option value="138">SaltLake</option>
-                                                <option value="137">Ovo je novo skladiste</option>
-                                                <option value="134">ssdsd</option>
-                                                <option value="135">zxcv</option>
+                                                <option v-for="warehouse in warehouses" value="warehouse.id">{{ warehouse.warehouse_name }}</option>
                                             </select>
                                         </div>
                                     </div>
@@ -58,7 +50,10 @@
                                     <div class="form-group row mb-1">
                                         <label for="inputPassword" class="col-sm-2 col-form-label">Date</label>
                                         <div class="col-sm-10">
-                                            <input type="text" v-model="form.datepicker_invoice_exp" name="date" class="form-control-sm w-100 w-100">
+                                            <!-- <input type="text" id="datetimepicker" v-model="form.invoice_date" name="date" class="form-control-sm w-100 w-100" autocomplete="off"> -->
+
+                                            <input v-model="form.invoice_date" id="datetimepicker" type="text" class="form-control" :class="{ 'is-invalid': form.errors.has('invoice_date') }">
+                                            <has-error :form="form" field="invoice_date"></has-error>
                                         </div>
                                     </div>
                                     <div class="form-group row">
@@ -85,23 +80,36 @@
 
                                         <tr v-for="(product, index) in form.products">
                                             <td style="width: 320px">
-                                                <input v-model="product.product_name" name="product_name[]" class="form-control-sm w-100 productSelection" placeholder="Item Name" required="" id="product_name" autocomplete="off" tabindex="1" type="text">
+                                                <!-- <input v-model="product.product_name" name="product_name[]" class="form-control-sm w-100 productSelection" placeholder="Item Name" id="product_name" autocomplete="off" tabindex="1" type="text"> -->
+
+                                                <input v-model="product.product_name" placeholder="Item Name" type="text" class="form-control" :class="{ 'is-invalid': form.errors.has('product_name') }" autocomplete="off">
+                                                <has-error :form="form" field="product_name"></has-error>
+
                                             </td>
                                             <td style="width: 320px">
-                                                <input v-model="product.product_quantity" name="product_quantity[]" autocomplete="off" class="total_qty_1 form-control-sm w-100" id="total_qty_1"  value="2222" tabindex="2" type="text">
+                                                <!-- <input v-model="product.product_quantity"  autocomplete="off" class="total_qty_1 form-control-sm w-100" id="total_qty_1"  value="2222" tabindex="2" type="text"> -->
+
+                                                <input v-model="product.product_quantity" placeholder="Product Quantity" type="text" class="form-control" :class="{ 'is-invalid': form.errors.has('product_quantity') }" autocomplete="off">
+
                                             </td>
                                             <td>
-                                                <input v-model="product.product_rate" name="product_rate[]" autocomplete="off" value="11111" id="item_price_1" placeholder="0.00" class="item_price_1 price_item form-control-sm w-100" tabindex="3" type="text">
+                                                <!-- <input v-model="product.product_price" name="product_price[]" autocomplete="off" value="11111" id="item_price_1" placeholder="0.00" class="item_price_1 price_item form-control-sm w-100" tabindex="3" type="text"> -->
+
+                                                <input v-model="product.product_price" placeholder="Product Price" type="text" class="form-control" :class="{ 'is-invalid': form.errors.has('product_price') }" autocomplete="off">
+
                                             </td>
 
                                             <td>
-                                                <input v-model="product.total_price" class="total_price form-control-sm w-100" name="total_price[]" id="total_price_1" placeholder="0.00" value="" tabindex="-1" type="text">
+                                                <!-- <input v-model="product.sub_total_price" class="sub_total_price form-control-sm w-100" name="sub_total_price[]" id="total_price_1" placeholder="0.00" value="" tabindex="-1" type="text"> -->
+
+                                                <input v-model="product.sub_total_price" type="text" class="form-control" :class="{ 'is-invalid': form.errors.has('sub_total_price') }" autocomplete="off">
+
+
+
                                             </td>
 
                                             <td class="text-center">
                                                 <span @click="deleteRow(index)" class="btn btn-danger btn-sm">&times;</span>
-
-                                                <!-- <button style="text-align: right;" class="btn btn-danger btn-sm" type="button" value="Delete"  tabindex="4">Delete</button> -->
                                             </td>
                                         </tr>
                                     </tbody>
@@ -163,14 +171,22 @@ export default {
         return {
             form: new Form({
               id : '',
-              products:[{product_name : '',product_quantity : 1,product_rate : 0,total_price : '' }],
+              products:[{product_name : '',product_quantity : 1,product_price : 0,sub_total_price : '' }],
 
               supplier_id : '',
               warehouse_id : '',
-              datepicker_invoice_exp : '',
+              invoice_date : '',
               image : '',
             }), 
+
+            suppliers:{},
+            warehouses:{}
         }
+    },
+
+    mounted(){
+        this.getSuppliers();
+        this.getWarehouses();
     },
 
     methods:{
@@ -193,12 +209,34 @@ export default {
 
 
         add_new_row_to_invoice: function(){
-            this.form.products.push({product_name : '',product_quantity : 1,product_rate : 0,total_price : '' })
+            this.form.products.push({product_name : '',product_quantity : 1,product_price : 0,sub_total_price : '' })
         },
 
         deleteRow: function(index){
             this.form.products.splice(index, 1)
-        }
+        },
+
+        getSuppliers(){
+            var temp = this;
+            axios.get('/api/suppliers')
+            .then((response) => {
+              temp.suppliers = response.data.data;
+            })
+            .catch(function (error) {
+              toastr.error('Something is wrong Data Loaded')
+            });
+        },
+
+        getWarehouses(){
+          var temp = this;
+          axios.get('/api/warehouses')
+          .then((response) => {
+            temp.warehouses = response.data.data;
+          })
+          .catch(function (error) {
+            toastr.error('Something is wrong Data Loaded')
+          });
+        },
     }
 }
 </script>

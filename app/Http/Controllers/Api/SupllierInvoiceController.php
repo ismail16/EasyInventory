@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\SupplierInvoice;
+use App\Models\SupplierInvoiceProduct;
 use App\Http\Resources\DefaultCollection;
 use App\Http\Resources\DefaultResource;
 
@@ -23,27 +24,44 @@ class SupllierInvoiceController extends Controller
     public function store(Request $request)
     {
 
-        return $request;
 
-        // $request->validate([
-        //     'supplier_id' => 'required'
-        // ]);
+        $request->validate([
+            'supplier_id' => 'required',
+            'warehouse_id' => 'required',
+            'invoice_date' => 'required',
+            'grand_total_price' => 'required'
+        ]);
 
         $supplier_invoice = new SupplierInvoice;
+        $supplier_invoice->invoice_no = 1111;
         $supplier_invoice->supplier_id = $request->supplier_id;
         $supplier_invoice->warehouse_id = $request->warehouse_id;
-        $supplier_invoice->datepicker_invoice_exp = $request->datepicker_invoice_exp;
-        // $supplier_invoice->image = $request->image;
-        $supplier_invoice->product_name = $request->product_name;
-        $supplier_invoice->product_quantity = $request->product_quantity;
-        $supplier_invoice->product_rate = $request->product_rate;
-        $supplier_invoice->total_price = $request->total_price;
+        $supplier_invoice->invoice_date = $request->invoice_date;
+        $supplier_invoice->image = $request->image;
         $supplier_invoice->grand_total_price = $request->grand_total_price;
         $supplier_invoice->paid_amount = $request->paid_amount;
         $supplier_invoice->due_amount = $request->due_amount;
+        $supplier_invoice->discount = $request->discount;
         $supplier_invoice->status = 1;
         $supplier_invoice->save();
-        return $supplier_invoice;
+
+
+
+        $products = $request->products;
+        for ($i=0; $i < count($products); $i++) { 
+            $supplierInvoiceProduct = new SupplierInvoiceProduct;
+            $supplierInvoiceProduct->supplier_invoice_id = $supplier_invoice->id;
+            $supplierInvoiceProduct->product_name = $products[$i]['product_name'];
+            $supplierInvoiceProduct->product_quantity = $products[$i]['product_quantity'];
+            $supplierInvoiceProduct->product_price = $products[$i]['product_price'];
+            $supplierInvoiceProduct->sub_total_price = $products[$i]['sub_total_price'];
+            $supplierInvoiceProduct->status = 1;
+            $supplierInvoiceProduct->save();
+        }
+
+        // return $supplierInvoiceProduct;
+
+        return array('supplier_invoice' => $supplier_invoice, 'supplierInvoiceProduct' => $supplierInvoiceProduct);
 
 
     }
