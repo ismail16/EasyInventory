@@ -2789,6 +2789,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   // https://www.youtube.com/watch?v=h6sTdAX6yTs
   // https://github.com/codekerala/laravel-vuejs-invoice/blob/master/resources/views/invoices/form.blade.php
@@ -2799,15 +2807,21 @@ __webpack_require__.r(__webpack_exports__);
         products: [{
           product_name: '',
           product_quantity: 1,
-          product_rate: 0,
-          total_price: ''
+          product_price: 0,
+          sub_total_price: ''
         }],
         supplier_id: '',
         warehouse_id: '',
-        datepicker_invoice_exp: '',
+        invoice_date: '',
         image: ''
-      })
+      }),
+      suppliers: {},
+      warehouses: {}
     };
+  },
+  mounted: function mounted() {
+    this.getSuppliers();
+    this.getWarehouses();
   },
   methods: {
     addNewSupplierInvoice: function addNewSupplierInvoice() {
@@ -2825,12 +2839,28 @@ __webpack_require__.r(__webpack_exports__);
       this.form.products.push({
         product_name: '',
         product_quantity: 1,
-        product_rate: 0,
-        total_price: ''
+        product_price: 0,
+        sub_total_price: ''
       });
     },
     deleteRow: function deleteRow(index) {
       this.form.products.splice(index, 1);
+    },
+    getSuppliers: function getSuppliers() {
+      var temp = this;
+      axios.get('/api/suppliers').then(function (response) {
+        temp.suppliers = response.data.data;
+      })["catch"](function (error) {
+        toastr.error('Something is wrong Data Loaded');
+      });
+    },
+    getWarehouses: function getWarehouses() {
+      var temp = this;
+      axios.get('/api/warehouses').then(function (response) {
+        temp.warehouses = response.data.data;
+      })["catch"](function (error) {
+        toastr.error('Something is wrong Data Loaded');
+      });
     }
   }
 });
@@ -41203,9 +41233,7 @@ var render = function() {
                                     staticClass: "form-control-sm w-100 w-100",
                                     attrs: {
                                       id: "supplier_id",
-                                      name: "supplier_id",
-                                      "data-plugin": "select2",
-                                      required: ""
+                                      name: "supplier_id"
                                     },
                                     on: {
                                       change: function($event) {
@@ -41230,23 +41258,14 @@ var render = function() {
                                       }
                                     }
                                   },
-                                  [
-                                    _c("option", { attrs: { value: "70" } }, [
-                                      _vm._v("UQWELI Packaging")
-                                    ]),
-                                    _vm._v(" "),
-                                    _c("option", { attrs: { value: "54" } }, [
-                                      _vm._v("UNILEVER")
-                                    ]),
-                                    _vm._v(" "),
-                                    _c("option", { attrs: { value: "56" } }, [
-                                      _vm._v("test suppliers")
-                                    ]),
-                                    _vm._v(" "),
-                                    _c("option", { attrs: { value: "61" } }, [
-                                      _vm._v("NIKE")
-                                    ])
-                                  ]
+                                  _vm._l(_vm.suppliers, function(supplier) {
+                                    return _c(
+                                      "option",
+                                      { attrs: { value: "supplier.id" } },
+                                      [_vm._v(_vm._s(supplier.supplier_name))]
+                                    )
+                                  }),
+                                  0
                                 ),
                                 _vm._v(" "),
                                 _c("input", {
@@ -41311,31 +41330,14 @@ var render = function() {
                                       }
                                     }
                                   },
-                                  [
-                                    _c("option", { attrs: { value: "" } }, [
-                                      _vm._v("Select Warehouse")
-                                    ]),
-                                    _vm._v(" "),
-                                    _c("option", { attrs: { value: "139" } }, [
-                                      _vm._v("saltlake")
-                                    ]),
-                                    _vm._v(" "),
-                                    _c("option", { attrs: { value: "138" } }, [
-                                      _vm._v("SaltLake")
-                                    ]),
-                                    _vm._v(" "),
-                                    _c("option", { attrs: { value: "137" } }, [
-                                      _vm._v("Ovo je novo skladiste")
-                                    ]),
-                                    _vm._v(" "),
-                                    _c("option", { attrs: { value: "134" } }, [
-                                      _vm._v("ssdsd")
-                                    ]),
-                                    _vm._v(" "),
-                                    _c("option", { attrs: { value: "135" } }, [
-                                      _vm._v("zxcv")
-                                    ])
-                                  ]
+                                  _vm._l(_vm.warehouses, function(warehouse) {
+                                    return _c(
+                                      "option",
+                                      { attrs: { value: "warehouse.id" } },
+                                      [_vm._v(_vm._s(warehouse.warehouse_name))]
+                                    )
+                                  }),
+                                  0
                                 )
                               ])
                             ])
@@ -41352,35 +41354,53 @@ var render = function() {
                                 [_vm._v("Date")]
                               ),
                               _vm._v(" "),
-                              _c("div", { staticClass: "col-sm-10" }, [
-                                _c("input", {
-                                  directives: [
-                                    {
-                                      name: "model",
-                                      rawName: "v-model",
-                                      value: _vm.form.datepicker_invoice_exp,
-                                      expression: "form.datepicker_invoice_exp"
-                                    }
-                                  ],
-                                  staticClass: "form-control-sm w-100 w-100",
-                                  attrs: { type: "text", name: "date" },
-                                  domProps: {
-                                    value: _vm.form.datepicker_invoice_exp
-                                  },
-                                  on: {
-                                    input: function($event) {
-                                      if ($event.target.composing) {
-                                        return
+                              _c(
+                                "div",
+                                { staticClass: "col-sm-10" },
+                                [
+                                  _c("input", {
+                                    directives: [
+                                      {
+                                        name: "model",
+                                        rawName: "v-model",
+                                        value: _vm.form.invoice_date,
+                                        expression: "form.invoice_date"
                                       }
-                                      _vm.$set(
-                                        _vm.form,
-                                        "datepicker_invoice_exp",
-                                        $event.target.value
+                                    ],
+                                    staticClass: "form-control",
+                                    class: {
+                                      "is-invalid": _vm.form.errors.has(
+                                        "invoice_date"
                                       )
+                                    },
+                                    attrs: {
+                                      id: "datetimepicker",
+                                      type: "text"
+                                    },
+                                    domProps: { value: _vm.form.invoice_date },
+                                    on: {
+                                      input: function($event) {
+                                        if ($event.target.composing) {
+                                          return
+                                        }
+                                        _vm.$set(
+                                          _vm.form,
+                                          "invoice_date",
+                                          $event.target.value
+                                        )
+                                      }
                                     }
-                                  }
-                                })
-                              ])
+                                  }),
+                                  _vm._v(" "),
+                                  _c("has-error", {
+                                    attrs: {
+                                      form: _vm.form,
+                                      field: "invoice_date"
+                                    }
+                                  })
+                                ],
+                                1
+                              )
                             ]),
                             _vm._v(" "),
                             _vm._m(2)
@@ -41426,16 +41446,16 @@ var render = function() {
                                                   "product.product_name"
                                               }
                                             ],
-                                            staticClass:
-                                              "form-control-sm w-100 productSelection",
+                                            staticClass: "form-control",
+                                            class: {
+                                              "is-invalid": _vm.form.errors.has(
+                                                "product_name"
+                                              )
+                                            },
                                             attrs: {
-                                              name: "product_name[]",
                                               placeholder: "Item Name",
-                                              required: "",
-                                              id: "product_name",
-                                              autocomplete: "off",
-                                              tabindex: "1",
-                                              type: "text"
+                                              type: "text",
+                                              autocomplete: "off"
                                             },
                                             domProps: {
                                               value: product.product_name
@@ -41452,8 +41472,16 @@ var render = function() {
                                                 )
                                               }
                                             }
+                                          }),
+                                          _vm._v(" "),
+                                          _c("has-error", {
+                                            attrs: {
+                                              form: _vm.form,
+                                              field: "product_name"
+                                            }
                                           })
-                                        ]
+                                        ],
+                                        1
                                       ),
                                       _vm._v(" "),
                                       _c(
@@ -41470,15 +41498,16 @@ var render = function() {
                                                   "product.product_quantity"
                                               }
                                             ],
-                                            staticClass:
-                                              "total_qty_1 form-control-sm w-100",
+                                            staticClass: "form-control",
+                                            class: {
+                                              "is-invalid": _vm.form.errors.has(
+                                                "product_quantity"
+                                              )
+                                            },
                                             attrs: {
-                                              name: "product_quantity[]",
-                                              autocomplete: "off",
-                                              id: "total_qty_1",
-                                              value: "2222",
-                                              tabindex: "2",
-                                              type: "text"
+                                              placeholder: "Product Quantity",
+                                              type: "text",
+                                              autocomplete: "off"
                                             },
                                             domProps: {
                                               value: product.product_quantity
@@ -41505,23 +41534,24 @@ var render = function() {
                                             {
                                               name: "model",
                                               rawName: "v-model",
-                                              value: product.product_rate,
-                                              expression: "product.product_rate"
+                                              value: product.product_price,
+                                              expression:
+                                                "product.product_price"
                                             }
                                           ],
-                                          staticClass:
-                                            "item_price_1 price_item form-control-sm w-100",
+                                          staticClass: "form-control",
+                                          class: {
+                                            "is-invalid": _vm.form.errors.has(
+                                              "product_price"
+                                            )
+                                          },
                                           attrs: {
-                                            name: "product_rate[]",
-                                            autocomplete: "off",
-                                            value: "11111",
-                                            id: "item_price_1",
-                                            placeholder: "0.00",
-                                            tabindex: "3",
-                                            type: "text"
+                                            placeholder: "Product Price",
+                                            type: "text",
+                                            autocomplete: "off"
                                           },
                                           domProps: {
-                                            value: product.product_rate
+                                            value: product.product_price
                                           },
                                           on: {
                                             input: function($event) {
@@ -41530,7 +41560,7 @@ var render = function() {
                                               }
                                               _vm.$set(
                                                 product,
-                                                "product_rate",
+                                                "product_price",
                                                 $event.target.value
                                               )
                                             }
@@ -41544,22 +41574,23 @@ var render = function() {
                                             {
                                               name: "model",
                                               rawName: "v-model",
-                                              value: product.total_price,
-                                              expression: "product.total_price"
+                                              value: product.sub_total_price,
+                                              expression:
+                                                "product.sub_total_price"
                                             }
                                           ],
-                                          staticClass:
-                                            "total_price form-control-sm w-100",
+                                          staticClass: "form-control",
+                                          class: {
+                                            "is-invalid": _vm.form.errors.has(
+                                              "sub_total_price"
+                                            )
+                                          },
                                           attrs: {
-                                            name: "total_price[]",
-                                            id: "total_price_1",
-                                            placeholder: "0.00",
-                                            value: "",
-                                            tabindex: "-1",
-                                            type: "text"
+                                            type: "text",
+                                            autocomplete: "off"
                                           },
                                           domProps: {
-                                            value: product.total_price
+                                            value: product.sub_total_price
                                           },
                                           on: {
                                             input: function($event) {
@@ -41568,7 +41599,7 @@ var render = function() {
                                               }
                                               _vm.$set(
                                                 product,
-                                                "total_price",
+                                                "sub_total_price",
                                                 $event.target.value
                                               )
                                             }
