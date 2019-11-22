@@ -2,86 +2,112 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Supplier;
+use App\Models\SupplierInvoice;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class PagesController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
+    public function __construct(){
+        $this->middleware('auth');
+
+    }
+
     public function index()
     {
 
-        return view('admin.layouts.master');
+        return view('admin.layouts.dashboard');
         
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function dassss()
     {
-        //
+
+        return view('admin.layouts.dashboard');
+        
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function supplier()
     {
-        //
+        return view('admin.supplier.index');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
+    public function category()
     {
-        //
+        return view('admin.category.index');
+    } 
+
+    public function warehouse()
+    {
+        return view('admin.warehouse.index');
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
+    public function supplier_invoice()
     {
-        //
+        return view('admin.supplier_invoice.index');
+    }
+    public function supplier_invoice_create()
+    {
+        return view('admin.supplier_invoice.create');
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
+    public function supplier_invoice_store(Request $request)
     {
-        //
+
+        $supplierInvoice = new SupplierInvoice;
+
+        $supplierInvoice->supplier_id = $request->supplier_id;
+        $supplierInvoice->warehouse_id = $request->warehouse_id;
+        $supplierInvoice->datepicker_invoice_exp = $request->datepicker_invoice_exp;
+
+
+        $image = $request->file('image');
+        if ($image){
+            $imagename = $request->supplier_id.'-'.uniqid().'.'.$image->getClientOriginalExtension();
+            if (!file_exists('images/supplier_invoice/')){
+                mkdir('images/supplier_invoice/', 0777, true);
+            }
+            $image->move('images/supplier_invoice/', $imagename);
+        }else{
+            $imagename = 'default.jpg';
+        }
+
+        $supplierInvoice->image = $imagename;
+
+        $product_name_json = json_encode($request->product_name);
+        $supplierInvoice->product_name = $product_name_json;
+
+        $product_quantity_json = json_encode($request->product_quantity);
+        $supplierInvoice->product_quantity = $product_quantity_json;
+
+        $product_rate_json = json_encode($request->product_rate);
+        $supplierInvoice->product_rate = $product_rate_json;
+
+        $total_price_json = json_encode($request->total_price);
+        $supplierInvoice->total_price = $total_price_json;
+
+
+        $supplierInvoice->grand_total_price = $request->grand_total_price;
+        $supplierInvoice->paid_amount = $request->paid_amount;
+        $supplierInvoice->due_amount = $request->due_amount;
+        $supplierInvoice->status = 1;
+
+//       return $supplierInvoice;
+
+
+        $supplierInvoice->save();
+        return back();
+
+
+//        return view('admin.supplier_invoice.create');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
+    public function supplier_invoice_edit()
     {
-        //
+        return view('admin.supplier_invoice.edit');
     }
+
+
 }

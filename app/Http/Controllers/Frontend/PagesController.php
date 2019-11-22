@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Frontend;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Supplier;
 
 class PagesController extends Controller
 {
@@ -11,6 +12,12 @@ class PagesController extends Controller
     public function index()
     {
         return view('auth.login');
+    }
+
+    public function getSuppliers()
+    {
+        $suppliers = Supplier::orderBy('id','desc')->get();
+        return $suppliers;
     }
 
     public function create()

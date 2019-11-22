@@ -5,14 +5,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>AdminLTE 3 | Log in</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="{{ asset('backend/plugins/fontawesome-free/css/all.min.css')}}">
-    <link rel="stylesheet" href="{{ asset('backend/code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css')}}">
-    <link rel="stylesheet" href="{{ asset('backend/plugins/icheck-bootstrap/icheck-bootstrap.min.css')}}">
-    <link rel="stylesheet" href="{{ asset('backend/dist/css/adminlte.min.css')}}">
+    {{-- <link rel="stylesheet" href="{{ asset('backend_assets')}}"> --}}
+    {{-- <link rel="stylesheet" href="{{ asset('backend_assets/code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css')}}"> --}}
+    {{-- <link rel="stylesheet" href="{{ asset('backend_assets/plugins/icheck-bootstrap/icheck-bootstrap.min.css')}}"> --}}
+    <link rel="stylesheet" href="{{ asset('backend_assets/dist/css/adminlte.min.css')}}">
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 </head>
 <body class="hold-transition login-page">
-    <div class="login-box">
+    <div class="login-box" id="app">
         <div class="login-logo">
             <a href="#"><b>Admin</b>LTE</a>
         </div>
@@ -69,7 +69,9 @@
         </div>
     </div>
 
-    <script src="{{ asset('backend/plugins/jquery/jquery.min.js')}}"></script>
-    <script src="{{ asset('backend/plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+    
+
+    <script src="{{ asset('backend_assets/plugins/jquery/jquery.min.js')}}"></script>
+    {{-- <script src="{{ asset('backend_assets')}}"></script> --}}
 </body>
 </html>

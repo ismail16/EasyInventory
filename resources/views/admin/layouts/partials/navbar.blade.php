@@ -114,8 +114,7 @@
         </li>
         <li class="nav-item dropdown">
             <a href="#" class="_dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
-                <img src="https://www.searchpng.com/wp-content/uploads/2019/02/Deafult-Profile-Pitcher.png" class="user-image" alt="User Image" width="30" style="margin: 5px 20px 0px 10px;">
-{{--                <span class="hidden-xs">Alexander Pierce</span>--}}
+                <img src="https://www.searchpng.com/wp-content/uploads/2019/02/Deafult-Profile-Pitcher.png" class="user-image" alt="User Image" width="30" style="margin: 5px 10px 0px 10px;">
             </a>
             <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
                 <span class="dropdown-item dropdown-header">
@@ -141,12 +140,25 @@
                 </div>
             </div>
         </li>
-
-{{--        <li class="nav-item">--}}
-{{--            <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#">--}}
-{{--                <i class="fas fa-th-large"></i>--}}
-{{--            </a>--}}
-{{--        </li>--}}
+        <li class="nav-item dropdown">
+            <a class="nav-link text-red font-weight-bold" data-toggle="dropdown" href="#">
+                LN<i class="fas fa-angle-down"></i>
+            </a>
+            <div class="dropdown-menu dropdown-menu-right p-0">
+                <a href="#" class="dropdown-item active">
+                    <i class="flag-icon flag-icon-us mr-2"></i> English
+                </a>
+                <a href="#" class="dropdown-item">
+                    <i class="flag-icon flag-icon-de mr-2"></i> German
+                </a>
+                <a href="#" class="dropdown-item">
+                    <i class="flag-icon flag-icon-fr mr-2"></i> French
+                </a>
+                <a href="#" class="dropdown-item">
+                    <i class="flag-icon flag-icon-es mr-2"></i> Spanish
+                </a>
+            </div>
+        </li>
 
     </ul>
 </nav>
