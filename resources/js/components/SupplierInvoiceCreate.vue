@@ -1,5 +1,6 @@
 <template>
     <div class="container">
+        <!-- hukTnOztP5tzBwH5jwVKqztE7OR6heUccNGizTPXp9QFTphl4pr4atir501a -->
         <section class="content mt-2">
             <div class="row">
                 <div class="col-12">
@@ -59,10 +60,10 @@
                                         <label for="inputPassword" class="col-sm-2 col-form-label">Image</label>
                                         <div class="col-sm-10">
 
-                                             <input type="file" accept="image/*" @change="onChange" />
-  <div id="preview">
-    <img v-if="item.imageUrl" :src="item.imageUrl" />
-  </div>
+                                             <input type="file"  @change="uploadImage" />
+                                              <!-- <div id="preview">
+                                                <img v-if="item.imageUrl" :src="item.imageUrl" />
+                                              </div> -->
 
                                              <!-- <input type="file" accept="image/jpeg" @change="uploadImage"> -->
                                         </div>
@@ -188,12 +189,6 @@ export default {
               image : '',
             }), 
 
-            item:{
-              //...
-              image : null,
-              imageUrl: null
-            },
-
             suppliers:{},
             warehouses:{}
         }
@@ -220,6 +215,9 @@ export default {
             temp.form.post('/api/supllier-invoice')
             .then(function (response) {
 
+                const fd = new FormData();
+                fd.append('image', this.from.image, this.from.image.name)
+
                 console.log(response)
               toastr.success('Saved Supplier Invoice Successfully'),
               temp.$Progress.finish()
@@ -230,10 +228,47 @@ export default {
             });
         },
 
-        onChange(e) {
-          const file = e.target.files[0]
-          this.image = file
-          this.item.imageUrl = URL.createObjectURL(file)
+        uploadImage(e) {
+
+
+            // let file = e.target.files[0];
+            // let reader = new FileReader();
+            // let limit = 1024 * 1024 * 2;
+            // if(file['size'] > limit){
+            //     swal({
+            //         type: 'error',
+            //         title: 'Oops...',
+            //         text: 'You are uploading a large file',
+            //     })
+            //     return false;
+            // }
+            // reader.onloadend = (file) => {
+            //     this.form.photo = reader.result;
+            // }
+            // reader.readAsDataURL(file);
+
+          let file = e.target.files[0];
+          let reader = new FileReader();
+
+           let limit = 1024 * 1024 * 2;
+            if(file['size'] > limit){
+                swal({
+                    type: 'error',
+                    title: 'Oops...',
+                    text: 'You are uploading a large file',
+                })
+                return false;
+            }
+
+          reader.onloadend = (file) => {
+
+            this.form.image = reader.result
+            console.log(reader.result)
+          }
+          reader.readAsDataURL(file);
+
+          // console.log(e.target.files[0])
+          // this.form.image = e.target.files[0]
         },
 
         someHandler: function(me){

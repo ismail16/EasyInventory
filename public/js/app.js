@@ -2826,11 +2826,6 @@ __webpack_require__.r(__webpack_exports__);
         invoice_date: new Date().toLocaleString('en-GB'),
         image: ''
       }),
-      item: {
-        //...
-        image: null,
-        imageUrl: null
-      },
       suppliers: {},
       warehouses: {}
     };
@@ -2851,6 +2846,8 @@ __webpack_require__.r(__webpack_exports__);
       var temp = this;
       temp.$Progress.start();
       temp.form.post('/api/supllier-invoice').then(function (response) {
+        var fd = new FormData();
+        fd.append('image', this.from.image, this.from.image.name);
         console.log(response);
         toastr.success('Saved Supplier Invoice Successfully'), temp.$Progress.finish();
       })["catch"](function (error) {
@@ -2858,10 +2855,19 @@ __webpack_require__.r(__webpack_exports__);
         temp.$Progress.fail();
       });
     },
-    onChange: function onChange(e) {
+    uploadImage: function uploadImage(e) {
+      var _this = this;
+
       var file = e.target.files[0];
-      this.image = file;
-      this.item.imageUrl = URL.createObjectURL(file);
+      var reader = new FileReader();
+
+      reader.onloadend = function (file) {
+        _this.form.image = reader.result;
+        console.log(reader.result);
+      };
+
+      reader.readAsDataURL(file); // console.log(e.target.files[0])
+      // this.form.image = e.target.files[0]
     },
     someHandler: function someHandler(me) {
       console.log(me); // this.form.invoice_date = ''
@@ -44609,17 +44615,9 @@ var render = function() {
                               _vm._v(" "),
                               _c("div", { staticClass: "col-sm-10" }, [
                                 _c("input", {
-                                  attrs: { type: "file", accept: "image/*" },
-                                  on: { change: _vm.onChange }
-                                }),
-                                _vm._v(" "),
-                                _c("div", { attrs: { id: "preview" } }, [
-                                  _vm.item.imageUrl
-                                    ? _c("img", {
-                                        attrs: { src: _vm.item.imageUrl }
-                                      })
-                                    : _vm._e()
-                                ])
+                                  attrs: { type: "file" },
+                                  on: { change: _vm.uploadImage }
+                                })
                               ])
                             ])
                           ])
@@ -61566,8 +61564,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! E:\xampp\htdocs\EasyInventory\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! E:\xampp\htdocs\EasyInventory\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /home/mnbtech/Projects/EasyInventory/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /home/mnbtech/Projects/EasyInventory/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
