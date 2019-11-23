@@ -37,12 +37,24 @@ class SupllierInvoiceController extends Controller
         $supplier_invoice->supplier_id = $request->supplier_id;
         $supplier_invoice->warehouse_id = $request->warehouse_id;
         $supplier_invoice->invoice_date = $request->invoice_date;
-        $supplier_invoice->image = $request->image;
         $supplier_invoice->grand_total_price = $request->grand_total_price;
         $supplier_invoice->paid_amount = $request->paid_amount;
         $supplier_invoice->due_amount = $request->due_amount;
         $supplier_invoice->discount = $request->discount;
         $supplier_invoice->status = 1;
+
+        if($request->image){
+            $name = time().'.' . explode('/', explode(':', substr($request->image, 0, strpos($request->image, ';')))[1])[1];
+            \Image::make($request->image)->save(public_path('images/supplier_invoice/').$name);
+            $request->merge(['image' => $name]);
+            // $userPhoto = public_path('img/profile/').$currentPhoto;
+            // if(file_exists($userPhoto)){
+            //     @unlink($userPhoto);
+            // }
+        }
+        $supplier_invoice->image = $name ;
+
+
         $supplier_invoice->save();
 
 

@@ -2482,6 +2482,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2502,8 +2504,7 @@ __webpack_require__.r(__webpack_exports__);
         warehouse_id: '',
         datepicker_invoice_exp: '',
         image: ''
-      }),
-      new_row: '<tr>' + '<td style="width: 320px">' + '<input v-model="product_name[]" class="form-control-sm w-100 productSelection" placeholder="Item Name" required="" id="product_name" autocomplete="off" tabindex="1" type="text">' + '</td>' + '<td style="width: 320px">' + '<input v-model="product_quantity[]" autocomplete="off" class="total_qty_1 form-control-sm w-100" id="total_qty_1" onkeyup="quantity_calculate(1);" required="" onchange="quantity_calculate(1);" placeholder="0" tabindex="2" type="text">' + '</td>' + '<td>' + '<input v-model="product_rate[]" autocomplete="off" value="" id="item_price_1" placeholder="0.00" class="item_price_1 price_item form-control-sm w-100" tabindex="3" onkeyup="quantity_calculate(1);" required="" onchange="quantity_calculate(1);" type="text">' + '</td>' + '<td>' + '<input v-model="total_price[]" class="total_price form-control-sm w-100" id="total_price_1" placeholder="0.00" value="" tabindex="-1" readonly="" type="text">' + '</td>' + '<td>' + '<button style="text-align: right;" class="btn btn-danger btn-sm" type="button" @click="deleteRow" value="Delete" tabindex="4">Delete</button>' + '</td>' + '</tr>'
+      })
     };
   },
   watch: {
@@ -2519,6 +2520,11 @@ __webpack_require__.r(__webpack_exports__);
     this.getData();
   },
   methods: {
+    getImgUrl: function getImgUrl(image) {
+      var photo = "images/supplier_invoice/" + image;
+      return photo;
+      console.log(photo);
+    },
     getData: function getData() {
       var temp = this;
       axios.get('/api/supllier-invoice?page=' + this.pagination.current_page).then(function (response) {
@@ -2788,21 +2794,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -2826,6 +2817,7 @@ __webpack_require__.r(__webpack_exports__);
         invoice_date: new Date().toLocaleString('en-GB'),
         image: ''
       }),
+      img_url: '',
       suppliers: {},
       warehouses: {}
     };
@@ -2834,43 +2826,48 @@ __webpack_require__.r(__webpack_exports__);
     this.getSuppliers();
     this.getWarehouses();
   },
-  // computed: {
-  // // a computed getter
-  //     reversedMessage: function () {
-  //       // `this` points to the vm instance
-  //       return this.form.sub_total_price = this.form.product_quantity+3
-  //     }
-  // }
   methods: {
     addNewSupplierInvoice: function addNewSupplierInvoice() {
       var temp = this;
       temp.$Progress.start();
       temp.form.post('/api/supllier-invoice').then(function (response) {
-        var fd = new FormData();
-        fd.append('image', this.from.image, this.from.image.name);
         console.log(response);
-        toastr.success('Saved Supplier Invoice Successfully'), temp.$Progress.finish();
+        toastr.success('Saved Supplier Invoice Successfully');
+        temp.$Progress.finish();
       })["catch"](function (error) {
         toastr.error('Saved Supplier Invoice Failed');
         temp.$Progress.fail();
       });
     },
+    // getProfilePhoto(){
+    //     let image = (this.form.image.length > 200) ? this.form.photo : "images/supplier_invoice/"+ this.form.image ;
+    //     return image;
+    // },
     uploadImage: function uploadImage(e) {
       var _this = this;
 
       var file = e.target.files[0];
       var reader = new FileReader();
+      var limit = 1024 * 1024 * 2;
+
+      if (file['size'] > limit) {
+        swal({
+          type: 'error',
+          title: 'Oops...',
+          text: 'You are uploading a large file'
+        });
+        return false;
+      } else {
+        file = e.target.files[0];
+        this.img_url = URL.createObjectURL(file);
+      }
 
       reader.onloadend = function (file) {
         _this.form.image = reader.result;
         console.log(reader.result);
       };
 
-      reader.readAsDataURL(file); // console.log(e.target.files[0])
-      // this.form.image = e.target.files[0]
-    },
-    someHandler: function someHandler(me) {
-      console.log(me); // this.form.invoice_date = ''
+      reader.readAsDataURL(file);
     },
     add_new_row_to_invoice: function add_new_row_to_invoice() {
       this.form.products.push({
@@ -44182,7 +44179,27 @@ var render = function() {
                                 _vm._v(_vm._s(supplierInvoice.warehouse_id))
                               ]),
                               _vm._v(" "),
-                              _c("td", [_vm._v(_vm._s(supplierInvoice.image))]),
+                              _c("td", [
+                                _c("img", {
+                                  directives: [
+                                    {
+                                      name: "show",
+                                      rawName: "v-show",
+                                      value: supplierInvoice.image,
+                                      expression: "supplierInvoice.image"
+                                    }
+                                  ],
+                                  staticClass: "img-fluid",
+                                  staticStyle: {
+                                    "max-height": "50px",
+                                    "max-width": "50px"
+                                  },
+                                  attrs: {
+                                    src: _vm.getImgUrl(supplierInvoice.image),
+                                    alt: "User Avatar"
+                                  }
+                                })
+                              ]),
                               _vm._v(" "),
                               _c("td", [
                                 _vm._v(_vm._s(supplierInvoice.paid_amount))
@@ -44446,7 +44463,8 @@ var render = function() {
                                     staticClass: "form-control-sm w-100 w-100",
                                     attrs: {
                                       id: "supplier_id",
-                                      name: "supplier_id"
+                                      name: "supplier_id",
+                                      required: ""
                                     },
                                     on: {
                                       change: function($event) {
@@ -44518,7 +44536,8 @@ var render = function() {
                                     attrs: {
                                       id: "warehouse_id",
                                       name: "warehouse_id",
-                                      "data-plugin": "select2"
+                                      "data-plugin": "select2",
+                                      required: ""
                                     },
                                     on: {
                                       change: function($event) {
@@ -44613,11 +44632,24 @@ var render = function() {
                                 [_vm._v("Image")]
                               ),
                               _vm._v(" "),
-                              _c("div", { staticClass: "col-sm-10" }, [
+                              _c("div", { staticClass: "col-sm-8" }, [
                                 _c("input", {
-                                  attrs: { type: "file" },
+                                  attrs: { type: "file", src: _vm.form.image },
                                   on: { change: _vm.uploadImage }
                                 })
+                              ]),
+                              _vm._v(" "),
+                              _c("div", { attrs: { id: "preview col-sm-2" } }, [
+                                _vm.img_url
+                                  ? _c("img", {
+                                      staticClass: "img-fluid",
+                                      staticStyle: {
+                                        "max-height": "50px",
+                                        "max-width": "50px"
+                                      },
+                                      attrs: { src: _vm.img_url }
+                                    })
+                                  : _vm._e()
                               ])
                             ])
                           ])
@@ -44671,6 +44703,7 @@ var render = function() {
                                             },
                                             attrs: {
                                               placeholder: "Item Name",
+                                              required: "",
                                               type: "text",
                                               autocomplete: "off"
                                             },
@@ -44725,7 +44758,8 @@ var render = function() {
                                             attrs: {
                                               placeholder: "Product Quantity",
                                               type: "text",
-                                              autocomplete: "off"
+                                              autocomplete: "off",
+                                              required: ""
                                             },
                                             domProps: {
                                               value: product.product_quantity
@@ -44766,7 +44800,8 @@ var render = function() {
                                           attrs: {
                                             placeholder: "Product Price",
                                             type: "text",
-                                            autocomplete: "off"
+                                            autocomplete: "off",
+                                            required: ""
                                           },
                                           domProps: {
                                             value: product.product_price
@@ -44805,7 +44840,8 @@ var render = function() {
                                           },
                                           attrs: {
                                             type: "text",
-                                            autocomplete: "off"
+                                            autocomplete: "off",
+                                            required: ""
                                           },
                                           domProps: {
                                             value: product.sub_total_price
@@ -44864,7 +44900,8 @@ var render = function() {
                                           id: "grandTotal",
                                           name: "grand_total_price",
                                           tabindex: "-1",
-                                          type: "text"
+                                          type: "text",
+                                          required: ""
                                         },
                                         domProps: {
                                           value: _vm.form.grand_total_price
@@ -44922,7 +44959,8 @@ var render = function() {
                                           value: "5455",
                                           name: "paid_amount",
                                           tabindex: "6",
-                                          type: "text"
+                                          type: "number",
+                                          required: ""
                                         },
                                         domProps: {
                                           value: _vm.form.paid_amount
@@ -44963,7 +45001,8 @@ var render = function() {
                                           id: "dueAmmount",
                                           name: "due_amount",
                                           value: "3333",
-                                          type: "text"
+                                          type: "number",
+                                          required: ""
                                         },
                                         domProps: {
                                           value: _vm.form.due_amount
@@ -61564,8 +61603,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /home/mnbtech/Projects/EasyInventory/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /home/mnbtech/Projects/EasyInventory/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! E:\xampp\htdocs\EasyInventory\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! E:\xampp\htdocs\EasyInventory\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

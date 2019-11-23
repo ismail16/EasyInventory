@@ -57,7 +57,9 @@
                                         <td>{{ index+1 }}</td>
                                         <td>{{ supplierInvoice.supplier_id }}</td>
                                         <td>{{ supplierInvoice.warehouse_id }}</td>
-                                        <td>{{ supplierInvoice.image }}</td>
+                                        <td>
+                                            <img v-show="supplierInvoice.image" :src="getImgUrl(supplierInvoice.image)"  class="img-fluid" style="max-height: 50px; max-width: 50px;" alt="User Avatar">
+                                        </td>
                                         <td>{{ supplierInvoice.paid_amount }}</td>
                                         <td>{{ supplierInvoice.due_amount }}</td>
                                         <td>{{ supplierInvoice.status }}</td>
@@ -129,23 +131,7 @@
                   datepicker_invoice_exp : '',
                   image : '',
                 }),
-               new_row: '<tr>' + 
-                    '<td style="width: 320px">'+
-                        '<input v-model="product_name[]" class="form-control-sm w-100 productSelection" placeholder="Item Name" required="" id="product_name" autocomplete="off" tabindex="1" type="text">'+
-                    '</td>'+
-                    '<td style="width: 320px">'+
-                        '<input v-model="product_quantity[]" autocomplete="off" class="total_qty_1 form-control-sm w-100" id="total_qty_1" onkeyup="quantity_calculate(1);" required="" onchange="quantity_calculate(1);" placeholder="0" tabindex="2" type="text">'+
-                    '</td>'+
-                    '<td>'+
-                        '<input v-model="product_rate[]" autocomplete="off" value="" id="item_price_1" placeholder="0.00" class="item_price_1 price_item form-control-sm w-100" tabindex="3" onkeyup="quantity_calculate(1);" required="" onchange="quantity_calculate(1);" type="text">'+
-                    '</td>'+
-                    '<td>'+
-                        '<input v-model="total_price[]" class="total_price form-control-sm w-100" id="total_price_1" placeholder="0.00" value="" tabindex="-1" readonly="" type="text">'+
-                    '</td>'+
-                    '<td>'+
-                        '<button style="text-align: right;" class="btn btn-danger btn-sm" type="button" @click="deleteRow" value="Delete" tabindex="4">Delete</button>'+
-                    '</td>'+
-                    '</tr>' 
+
             }
         },
 
@@ -164,6 +150,12 @@
         },
 
         methods:{
+
+            getImgUrl: function(image){
+                var photo = "images/supplier_invoice/"+ image
+                return photo
+                console.log(photo)
+            },
 
 
             getData(){

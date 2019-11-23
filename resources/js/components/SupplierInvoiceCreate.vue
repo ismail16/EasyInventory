@@ -30,7 +30,7 @@
                                     <div class="form-group row">
                                         <label class="col-sm-3 form-control-label">Select Supplier <i class="text-danger">*</i></label>
                                         <div class="col-sm-8">
-                                            <select id="supplier_id" v-model="form.supplier_id" name="supplier_id" class="form-control-sm w-100 w-100">
+                                            <select id="supplier_id" v-model="form.supplier_id" name="supplier_id" class="form-control-sm w-100 w-100" required>
                                                  <option v-for="supplier in suppliers" :value="supplier.id">{{ supplier.supplier_name }}</option>
                                             </select>
                                             <input id="auth_id" type="hidden" name="auth_id" value="1">
@@ -40,7 +40,7 @@
                                     <div class="form-group row">
                                         <label for="warehouse_id" class="col-sm-3 form-control-label">Warehouse </label>
                                         <div class="col-sm-8">
-                                            <select id="warehouse_id" v-model="form.warehouse_id" name="warehouse_id" class="form-control-sm w-100 w-100" data-plugin="select2">
+                                            <select id="warehouse_id" v-model="form.warehouse_id" name="warehouse_id" class="form-control-sm w-100 w-100" data-plugin="select2" required>
                                                 <option v-for="warehouse in warehouses" :value="warehouse.id">{{ warehouse.warehouse_name }}</option>
                                             </select>
                                         </div>
@@ -50,22 +50,19 @@
                                 <div class="col-md-5">
                                     <div class="form-group row mb-1">
                                         <label for="inputPassword" class="col-sm-2 col-form-label">Date</label>
-                                        <div class="col-sm-10">                                           
+                                        <div class="col-sm-10">                                      
                                             <datetime format="DD/MM/YYYY h:i:s" width="300px" v-model="form.invoice_date" class="form-control-sm w-100" :class="{ 'is-invalid': form.errors.has('invoice_date') }" autocomplete="off"></datetime>
-                                            <!-- <input v-model="form.invoice_date" @change="someHandler(this)" id="datetimepicker" type="text" value="" class="form-control" :class="{ 'is-invalid': form.errors.has('invoice_date') }" autocomplete="off"> -->
                                             <has-error :form="form" field="invoice_date"></has-error>
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label for="inputPassword" class="col-sm-2 col-form-label">Image</label>
-                                        <div class="col-sm-10">
+                                        <div class="col-sm-8">
+                                            <input type="file" :src="form.image" @change="uploadImage" />
+                                        </div>
 
-                                             <input type="file"  @change="uploadImage" />
-                                              <!-- <div id="preview">
-                                                <img v-if="item.imageUrl" :src="item.imageUrl" />
-                                              </div> -->
-
-                                             <!-- <input type="file" accept="image/jpeg" @change="uploadImage"> -->
+                                        <div id="preview col-sm-2">
+                                            <img v-if="img_url" :src="img_url" class="img-fluid" style="max-height: 50px; max-width: 50px;"/>
                                         </div>
                                     </div>
                                 </div>
@@ -86,32 +83,19 @@
 
                                         <tr v-for="(product, index) in form.products">
                                             <td style="width: 320px">
-                                                <!-- <input v-model="product.product_name" name="product_name[]" class="form-control-sm w-100 productSelection" placeholder="Item Name" id="product_name" autocomplete="off" tabindex="1" type="text"> -->
-
-                                                <input v-model="product.product_name" placeholder="Item Name" type="text" class="form-control-sm w-100" :class="{ 'is-invalid': form.errors.has('product_name') }" autocomplete="off">
+                                                <input v-model="product.product_name" placeholder="Item Name" required type="text" class="form-control-sm w-100" :class="{ 'is-invalid': form.errors.has('product_name') }" autocomplete="off">
                                                 <has-error :form="form" field="product_name"></has-error>
 
                                             </td>
                                             <td style="width: 320px">
-                                                <!-- <input v-model="product.product_quantity"  autocomplete="off" class="total_qty_1 form-control-sm w-100" id="total_qty_1"  value="2222" tabindex="2" type="text"> -->
-
-                                                <input v-model="product.product_quantity" placeholder="Product Quantity" type="text" class="form-control-sm w-100" :class="{ 'is-invalid': form.errors.has('product_quantity') }" autocomplete="off">
+                                                <input v-model="product.product_quantity" placeholder="Product Quantity" type="text" class="form-control-sm w-100" :class="{ 'is-invalid': form.errors.has('product_quantity') }" autocomplete="off" required>
 
                                             </td>
                                             <td>
-                                                <!-- <input v-model="product.product_price" name="product_price[]" autocomplete="off" value="11111" id="item_price_1" placeholder="0.00" class="item_price_1 price_item form-control-sm w-100" tabindex="3" type="text"> -->
-
-                                                <input v-model="product.product_price" placeholder="Product Price" type="text" class="form-control-sm w-100" :class="{ 'is-invalid': form.errors.has('product_price') }" autocomplete="off">
-
+                                                <input v-model="product.product_price" placeholder="Product Price" type="text" class="form-control-sm w-100" :class="{ 'is-invalid': form.errors.has('product_price') }" autocomplete="off" required>
                                             </td>
-
                                             <td>
-                                                <!-- <input v-model="product.sub_total_price" class="sub_total_price form-control-sm w-100" name="sub_total_price[]" id="total_price_1" placeholder="0.00" value="" tabindex="-1" type="text"> -->
-
-                                                <input v-model="product.sub_total_price" type="text" class="form-control-sm w-100" :class="{ 'is-invalid': form.errors.has('sub_total_price') }" autocomplete="off">
-
-
-
+                                                <input v-model="product.sub_total_price" type="text" class="form-control-sm w-100" :class="{ 'is-invalid': form.errors.has('sub_total_price') }" autocomplete="off" required>
                                             </td>
 
                                             <td class="text-center">
@@ -124,7 +108,7 @@
                                         <tr id="appssss">
                                             <td colspan="3" style="text-align:right;"><b>Grand Total:</b></td>
                                             <td class="text-right">
-                                                <input id="grandTotal" v-model="form.grand_total_price" class="form-control-sm w-100" name="grand_total_price" tabindex="-1" type="text">
+                                                <input id="grandTotal" v-model="form.grand_total_price" class="form-control-sm w-100" name="grand_total_price" tabindex="-1" type="text" required>
                                             </td>
                                             <td align="center">
                                                 <input id="add-invoice-item" class="btn btn-info btn-sm" name="add-invoice-item" @click="add_new_row_to_invoice" value="Add New Item" tabindex="5" type="button">
@@ -142,7 +126,7 @@
                                             </td>
                                             <td style="text-align:right;" colspan="1"><b>Paid Amount:</b></td>
                                             <td class="text-right">
-                                                <input id="paidAmount" class="form-control-sm w-100" v-model="form.paid_amount" value="5455" name="paid_amount" tabindex="6" type="text">
+                                                <input id="paidAmount" class="form-control-sm w-100" v-model="form.paid_amount" value="5455" name="paid_amount" tabindex="6" type="number" required>
                                             </td>
                                         </tr>
                                         <tr>
@@ -151,7 +135,7 @@
                                             </td>
                                             <td style="text-align:right;" colspan="1"><b>Due:</b></td>
                                             <td class="text-right">
-                                                <input id="dueAmmount" v-model="form.due_amount" class="form-control-sm w-100" name="due_amount" value="3333"  type="text">
+                                                <input id="dueAmmount" v-model="form.due_amount" class="form-control-sm w-100" name="due_amount" value="3333"  type="number" required>
                                             </td>
                                         </tr>
                                     </tfoot>
@@ -189,6 +173,8 @@ export default {
               image : '',
             }), 
 
+            img_url: '',
+
             suppliers:{},
             warehouses:{}
         }
@@ -199,14 +185,6 @@ export default {
         this.getWarehouses();
     },
 
-    // computed: {
-    // // a computed getter
-    //     reversedMessage: function () {
-    //       // `this` points to the vm instance
-    //       return this.form.sub_total_price = this.form.product_quantity+3
-    //     }
-    // }
-
     methods:{
 
         addNewSupplierInvoice(){
@@ -214,12 +192,8 @@ export default {
             temp.$Progress.start()
             temp.form.post('/api/supllier-invoice')
             .then(function (response) {
-
-                const fd = new FormData();
-                fd.append('image', this.from.image, this.from.image.name)
-
                 console.log(response)
-              toastr.success('Saved Supplier Invoice Successfully'),
+              toastr.success('Saved Supplier Invoice Successfully')
               temp.$Progress.finish()
             })
             .catch(function (error) {
@@ -228,36 +202,27 @@ export default {
             });
         },
 
+        // getProfilePhoto(){
+        //     let image = (this.form.image.length > 200) ? this.form.photo : "images/supplier_invoice/"+ this.form.image ;
+        //     return image;
+        // },
+
         uploadImage(e) {
-
-
-            // let file = e.target.files[0];
-            // let reader = new FileReader();
-            // let limit = 1024 * 1024 * 2;
-            // if(file['size'] > limit){
-            //     swal({
-            //         type: 'error',
-            //         title: 'Oops...',
-            //         text: 'You are uploading a large file',
-            //     })
-            //     return false;
-            // }
-            // reader.onloadend = (file) => {
-            //     this.form.photo = reader.result;
-            // }
-            // reader.readAsDataURL(file);
 
           let file = e.target.files[0];
           let reader = new FileReader();
 
            let limit = 1024 * 1024 * 2;
-            if(file['size'] > limit){
+           if(file['size'] > limit){
                 swal({
                     type: 'error',
                     title: 'Oops...',
                     text: 'You are uploading a large file',
                 })
                 return false;
+            }else{
+                file = e.target.files[0]
+                this.img_url = URL.createObjectURL(file);
             }
 
           reader.onloadend = (file) => {
@@ -266,16 +231,7 @@ export default {
             console.log(reader.result)
           }
           reader.readAsDataURL(file);
-
-          // console.log(e.target.files[0])
-          // this.form.image = e.target.files[0]
         },
-
-        someHandler: function(me){
-            console.log(me);
-            // this.form.invoice_date = ''
-        },
-
 
         add_new_row_to_invoice: function(){
             this.form.products.push({product_name : '',product_quantity : 1,product_price : 0,sub_total_price : '' })
