@@ -2803,6 +2803,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -2858,8 +2859,33 @@ __webpack_require__.r(__webpack_exports__);
     uploadImage: function uploadImage(e) {
       var _this = this;
 
+      // let file = e.target.files[0];
+      // let reader = new FileReader();
+      // let limit = 1024 * 1024 * 2;
+      // if(file['size'] > limit){
+      //     swal({
+      //         type: 'error',
+      //         title: 'Oops...',
+      //         text: 'You are uploading a large file',
+      //     })
+      //     return false;
+      // }
+      // reader.onloadend = (file) => {
+      //     this.form.photo = reader.result;
+      // }
+      // reader.readAsDataURL(file);
       var file = e.target.files[0];
       var reader = new FileReader();
+      var limit = 1024 * 1024 * 2;
+
+      if (file['size'] > limit) {
+        swal({
+          type: 'error',
+          title: 'Oops...',
+          text: 'You are uploading a large file'
+        });
+        return false;
+      }
 
       reader.onloadend = function (file) {
         _this.form.image = reader.result;
@@ -61564,8 +61590,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /home/mnbtech/Projects/EasyInventory/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /home/mnbtech/Projects/EasyInventory/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! E:\xampp\htdocs\EasyInventory\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! E:\xampp\htdocs\EasyInventory\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
