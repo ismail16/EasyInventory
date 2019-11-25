@@ -168,7 +168,7 @@
         methods:{
 
             getImgUrl: function(image){
-                var photo = "images/supplier_invoice/"+ image
+                var photo = "/images/supplier_invoice/"+ image
                 return photo
                 console.log(photo)
             },

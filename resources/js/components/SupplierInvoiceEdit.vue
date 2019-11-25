@@ -60,6 +60,10 @@
                                             <input type="file" :src="form.image" @change="uploadImage" />
                                         </div>
 
+                                        <div v-if="!img_url" id="preview col-sm-2">
+                                            <img v-show="this.form.image" :src="getImgUrl(this.form.image)"  class="img-fluid" style="max-height: 50px; max-width: 50px;" alt="User Avatar">
+                                        </div>
+
                                         <div id="preview col-sm-2">
                                             <img v-if="img_url" :src="img_url" class="img-fluid" style="max-height: 50px; max-width: 50px;"/>
                                         </div>
@@ -152,7 +156,7 @@ import datetime from 'vuejs-datetimepicker'
 export default {
 
     components: { datetime },
-    name: 'imageUpload',
+    // name: 'imageUpload',
 
     // https://www.youtube.com/watch?v=h6sTdAX6yTs
     // https://github.com/codekerala/laravel-vuejs-invoice/blob/master/resources/views/invoices/form.blade.php
@@ -161,18 +165,18 @@ export default {
         return {
             form: new Form({
               id : '',
-              products:[{product_name : '',product_quantity : 1,product_price : 0,sub_total_price : '' }],
+              products:[],
 
               supplier_id : '',
               warehouse_id : '',
-              invoice_date :new Date().toLocaleString('en-GB'),
+              invoice_date :'',
               image : '',
               grand_total_price : '',
               paid_amount : '',
               discount : '',
               due_amount : ''
             }), 
-            form_data:{},
+            // form_data:{},
             img_url: '',
 
             suppliers:{},
@@ -187,23 +191,29 @@ export default {
     },
 
     computed: {
-      //   grand_total_price: function() {
-      //      var temp = this
-      //     return temp.form.products.reduce(function(carry, product) {
-      //       let total = carry + (parseFloat(product.product_quantity) * parseFloat(product.product_price));
-      //       temp.form.grand_total_price = total
-      //       return total
-      //   }, 0);
-      // },
-      // due_amount: function() {
-      //   var temp = this
-      //   let due_ammount = temp.grand_total_price - parseFloat(temp.form.paid_amount);
-      //   temp.form.due_amount = due_ammount
-      //   return due_ammount
-      // }
+        grand_total_price: function() {
+           var temp = this
+          return temp.form.products.reduce(function(carry, product) {
+            let total = carry + (parseFloat(product.product_quantity) * parseFloat(product.product_price));
+            temp.form.grand_total_price = total
+            return total
+        }, 0);
+      },
+      due_amount: function() {
+        var temp = this
+        let due_ammount = temp.grand_total_price - parseFloat(temp.form.paid_amount);
+        temp.form.due_amount = due_ammount
+        return due_ammount
+      }
   },
 
   methods:{
+
+    getImgUrl: function(image){
+        var photo = "/images/supplier_invoice/"+ image
+        return photo
+    },
+
 
     addNewSupplierInvoice(){
         var temp = this
@@ -242,7 +252,10 @@ export default {
     },
 
     add_new_row_to_invoice: function(){
-        this.form.products.push({product_name : '',product_quantity : 1,product_price : 0,sub_total_price : '' })
+        var temp = this;
+        console.log('lllll')
+        // this.getSupplierInvoice();
+        this.form.products.push({product_name : '', product_quantity : 1, product_price : 0 })
     },
 
     deleteRow: function(index){
@@ -253,9 +266,9 @@ export default {
         var temp = this;
         axios.get('/api/supllier-invoice/'+this.$route.params.id)
         .then((response) => {
-            // console.log(response.data.data)
-          temp.form = response.data.data;
-          temp.form.products = response.data.data;
+            console.log(response)
+          temp.form = response.data.supplierInvoice;
+          temp.form.products = response.data.supplierInvoiceProduct;
       })
         .catch(function (error) {
           toastr.error('Something is wrong Data Loaded')

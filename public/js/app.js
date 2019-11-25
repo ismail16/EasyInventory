@@ -2537,7 +2537,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     getImgUrl: function getImgUrl(image) {
-      var photo = "images/supplier_invoice/" + image;
+      var photo = "/images/supplier_invoice/" + image;
       return photo;
       console.log(photo);
     },
@@ -3089,34 +3089,33 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
     datetime: vuejs_datetimepicker__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
-  name: 'imageUpload',
+  // name: 'imageUpload',
   // https://www.youtube.com/watch?v=h6sTdAX6yTs
   // https://github.com/codekerala/laravel-vuejs-invoice/blob/master/resources/views/invoices/form.blade.php
   data: function data() {
     return {
       form: new Form({
         id: '',
-        products: [{
-          product_name: '',
-          product_quantity: 1,
-          product_price: 0,
-          sub_total_price: ''
-        }],
+        products: [],
         supplier_id: '',
         warehouse_id: '',
-        invoice_date: new Date().toLocaleString('en-GB'),
+        invoice_date: '',
         image: '',
         grand_total_price: '',
         paid_amount: '',
         discount: '',
         due_amount: ''
       }),
-      form_data: {},
+      // form_data:{},
       img_url: '',
       suppliers: {},
       warehouses: {}
@@ -3127,22 +3126,27 @@ __webpack_require__.r(__webpack_exports__);
     this.getWarehouses();
     this.getSupplierInvoice();
   },
-  computed: {//   grand_total_price: function() {
-    //      var temp = this
-    //     return temp.form.products.reduce(function(carry, product) {
-    //       let total = carry + (parseFloat(product.product_quantity) * parseFloat(product.product_price));
-    //       temp.form.grand_total_price = total
-    //       return total
-    //   }, 0);
-    // },
-    // due_amount: function() {
-    //   var temp = this
-    //   let due_ammount = temp.grand_total_price - parseFloat(temp.form.paid_amount);
-    //   temp.form.due_amount = due_ammount
-    //   return due_ammount
-    // }
+  computed: {
+    grand_total_price: function grand_total_price() {
+      var temp = this;
+      return temp.form.products.reduce(function (carry, product) {
+        var total = carry + parseFloat(product.product_quantity) * parseFloat(product.product_price);
+        temp.form.grand_total_price = total;
+        return total;
+      }, 0);
+    },
+    due_amount: function due_amount() {
+      var temp = this;
+      var due_ammount = temp.grand_total_price - parseFloat(temp.form.paid_amount);
+      temp.form.due_amount = due_ammount;
+      return due_ammount;
+    }
   },
   methods: {
+    getImgUrl: function getImgUrl(image) {
+      var photo = "/images/supplier_invoice/" + image;
+      return photo;
+    },
     addNewSupplierInvoice: function addNewSupplierInvoice() {
       var temp = this;
       temp.$Progress.start();
@@ -3181,11 +3185,13 @@ __webpack_require__.r(__webpack_exports__);
       reader.readAsDataURL(file);
     },
     add_new_row_to_invoice: function add_new_row_to_invoice() {
+      var temp = this;
+      console.log('lllll'); // this.getSupplierInvoice();
+
       this.form.products.push({
         product_name: '',
         product_quantity: 1,
-        product_price: 0,
-        sub_total_price: ''
+        product_price: 0
       });
     },
     deleteRow: function deleteRow(index) {
@@ -3194,9 +3200,9 @@ __webpack_require__.r(__webpack_exports__);
     getSupplierInvoice: function getSupplierInvoice() {
       var temp = this;
       axios.get('/api/supllier-invoice/' + this.$route.params.id).then(function (response) {
-        // console.log(response.data.data)
-        temp.form = response.data.data;
-        temp.form.products = response.data.data;
+        console.log(response);
+        temp.form = response.data.supplierInvoice;
+        temp.form.products = response.data.supplierInvoiceProduct;
       })["catch"](function (error) {
         toastr.error('Something is wrong Data Loaded');
       });
@@ -45706,6 +45712,34 @@ var render = function() {
                                   on: { change: _vm.uploadImage }
                                 })
                               ]),
+                              _vm._v(" "),
+                              !_vm.img_url
+                                ? _c(
+                                    "div",
+                                    { attrs: { id: "preview col-sm-2" } },
+                                    [
+                                      _c("img", {
+                                        directives: [
+                                          {
+                                            name: "show",
+                                            rawName: "v-show",
+                                            value: this.form.image,
+                                            expression: "this.form.image"
+                                          }
+                                        ],
+                                        staticClass: "img-fluid",
+                                        staticStyle: {
+                                          "max-height": "50px",
+                                          "max-width": "50px"
+                                        },
+                                        attrs: {
+                                          src: _vm.getImgUrl(this.form.image),
+                                          alt: "User Avatar"
+                                        }
+                                      })
+                                    ]
+                                  )
+                                : _vm._e(),
                               _vm._v(" "),
                               _c("div", { attrs: { id: "preview col-sm-2" } }, [
                                 _vm.img_url
