@@ -75,7 +75,7 @@
                                             <a href="" class="btn btn-xs btn-success">
                                                 <i class="fa fa-eye"></i>
                                             </a>
-                                            <router-link :to="{ path: '/supplier-invoice-edit/'+ supplierInvoice.id }" class="btn btn-xs btn-success mr-1 ml-1">
+                                            <router-link :to="'/supplier-invoice/'+ supplierInvoice.id +'/edit'" class="btn btn-xs btn-success mr-1 ml-1">
                                                 <i class="fa fa-edit"></i>
                                             </router-link>
 

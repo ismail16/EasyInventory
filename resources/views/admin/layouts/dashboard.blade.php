@@ -2,7 +2,7 @@
 
 @section('content')
   <div class="content-wrapper">
-      <router-view></router-view>
+      <router-view :key="$route.path"></router-view>
       <vue-progress-bar></vue-progress-bar>
   </div>
 

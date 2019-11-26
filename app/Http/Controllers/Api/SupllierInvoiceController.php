@@ -77,6 +77,19 @@ class SupllierInvoiceController extends Controller
 
     }
 
+    // public function edit($id)
+    // {
+    //     // $form = Invoice::with(['customer', 'items.product'])
+    //     //     ->findOrFail($id);
+    //     // return response()
+    //     //     ->json(['form' => $form]);
+
+    //     $supplier_invoice = SupplierInvoice::find($id);
+    //     $supplierInvoiceProduct = SupplierInvoiceProduct::where('supplier_invoice_id',$id)->get();
+
+    //     return array('supplierInvoice' => $supplier_invoice, 'supplierInvoiceProduct' => $supplierInvoiceProduct);
+    // }
+
     public function show($id)
     {
 
@@ -89,6 +102,8 @@ class SupllierInvoiceController extends Controller
 
     public function update(Request $request, $id)
     {
+        return $request;
+
         $request->validate([
             'supplier_name' => 'required'
         ]);
