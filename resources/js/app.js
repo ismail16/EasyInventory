@@ -35,6 +35,7 @@ const routes = [
     { path: '/supplier-invoice', component: require('./components/SupplierInvoice.vue').default },
     { path: '/supplier-invoice-create', component: require('./components/SupplierInvoiceCreate.vue').default },
     { path: '/supplier-invoice-create', component: require('./components/SupplierInvoiceCreate.vue').default },
+    { path: '/supplier-invoice-edit/:id', component: require('./components/SupplierInvoiceEdit.vue').default },
     { path: '*', component: require('./components/Dashboard.vue').default }
 ]
 
