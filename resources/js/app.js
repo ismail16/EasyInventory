@@ -27,6 +27,8 @@ window.Form = Form;
 Vue.component(HasError.name, HasError)
 Vue.component(AlertError.name, AlertError)
 
+
+
 const routes = [
     { path: '/dashboard', component: require('./components/Dashboard.vue').default },
     { path: '/supplier', component: require('./components/Supplier.vue').default },

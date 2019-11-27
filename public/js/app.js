@@ -3119,7 +3119,7 @@ __webpack_require__.r(__webpack_exports__);
       img_url: '',
       suppliers: {},
       warehouses: {},
-      products: []
+      products: {}
     };
   },
   mounted: function mounted() {
@@ -3145,18 +3145,17 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     updateSupplierInvoice: function updateSupplierInvoice() {
-      var temp = this; // this.form.products = this.products;
-      // console.log( this.form)
+      // this.$Progress.start()
+      var temp = this;
+      temp.form.products = temp.products; // temp.$http.post('/api/supllier-invoice/'+this.form.id)
 
-      temp.$Progress.start();
-      this.form.put('/api/supllier-invoice/9').then(function (response) {
+      axios.put('/api/supllier-invoice/' + this.form.id, {
+        SupplierInvoice: temp.form
+      }).then(function (response) {
         console.log(response);
-        toastr.success('Saved Supplier Invoice Successfully');
-        temp.$Progress.finish();
+        toastr.success('Updated Supplier Successfully');
       })["catch"](function (error) {
-        toastr.error('Saved Supplier Invoice Failed');
-        temp.$Progress.fail();
-        console.log(error);
+        toastr.error('Updated Supplier Failed');
       });
     },
     getImgUrl: function getImgUrl(image) {
@@ -46081,7 +46080,7 @@ var render = function() {
                                   },
                                   [
                                     _vm._v(
-                                      "\n                                        Create Supplier Invoice\n                                    "
+                                      "\n                                        Update Supplier Invoice\n                                    "
                                     )
                                   ]
                                 )

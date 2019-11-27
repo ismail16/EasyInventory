@@ -137,7 +137,7 @@
                                     </router-link>
 
                                     <button class="btn btn-sm btn-success float-right" >
-                                        Create Supplier Invoice
+                                        Update Supplier Invoice
                                     </button>
                                 </div>
                             </div>
@@ -181,7 +181,7 @@ export default {
 
             suppliers:{},
             warehouses:{},
-            products:[]
+            products:{}
         }
 
 
@@ -212,24 +212,23 @@ export default {
 
     methods:{
 
-        updateSupplierInvoice(){
+        updateSupplierInvoice: function(){
+            // this.$Progress.start()
             var temp = this
-            // this.form.products = this.products;
-
-            // console.log( this.form)
-            temp.$Progress.start()
-            this.form.put('/api/supllier-invoice/9')
+            temp.form.products = temp.products;
+            // temp.$http.post('/api/supllier-invoice/'+this.form.id)
+            axios.put('/api/supllier-invoice/'+this.form.id,
+              {
+                SupplierInvoice:temp.form
+              })
             .then(function (response) {
                 console.log(response)
-                toastr.success('Saved Supplier Invoice Successfully')
-                temp.$Progress.finish()
+              toastr.success('Updated Supplier Successfully');
             })
             .catch(function (error) {
-              toastr.error('Saved Supplier Invoice Failed')
-              temp.$Progress.fail()
-              console.log(error)
+              toastr.error('Updated Supplier Failed')
             });
-        },
+          },
 
         getImgUrl: function(image){
             var photo = "/images/supplier_invoice/"+ image
