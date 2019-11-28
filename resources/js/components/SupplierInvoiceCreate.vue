@@ -95,7 +95,7 @@
                                                 <input v-model="product.product_price" placeholder="Product Price" type="text" class="form-control-sm w-100" :class="{ 'is-invalid': form.errors.has('product_price') }" autocomplete="off" required>
                                             </td>
                                             <td class="text-center">
-                                                <input class="form-control-sm w-100" :value="product.product_quantity * product.product_price" tabindex="-1" type="text" style="text-align: center;" disabled>
+                                                <input class="form-control-sm w-100" :value="product.product_quantity * product.product_price" type="text" style="text-align: center;" disabled>
                                             </td>
 
                                             <td class="text-center">
@@ -107,18 +107,17 @@
                                         <tr id="appssss">
                                             <td colspan="3" style="text-align:right;"><b>Grand Total:</b></td>
                                             <td class="text-center">
-                                                <input class="form-control-sm w-100" :value="grand_total_price" tabindex="-1" type="text" style="text-align: center;" disabled>
+                                                <input class="form-control-sm w-100" :value="grand_total_price" type="text" style="text-align: center;" disabled>
                                             </td>
                                             <td align="center">
-                                                <input id="add-invoice-item" class="btn btn-info btn-sm" name="add-invoice-item" @click="add_new_row_to_invoice" value="Add New Item" tabindex="5" type="button">
+                                                <input id="add-invoice-item" class="btn btn-info btn-sm" name="add-invoice-item" @click="add_new_row_to_invoice" value="Add New Item" type="button">
                                             </td>
 
                                         </tr>
                                         <tr>
-                                        
                                             <td style="text-align:right;" colspan="3"><b>Paid Amount:</b></td>
                                             <td class="text-right">
-                                                <input id="paidAmount" class="form-control-sm w-100" v-model="form.paid_amount" value="5455" name="paid_amount" tabindex="6" type="number" required style="text-align: center;">
+                                                <input id="paidAmount" class="form-control-sm w-100" v-model="form.paid_amount" value="5455" name="paid_amount" type="number" required style="text-align: center;">
                                             </td>
                                         </tr>
                                         <tr v-show="due_amount">
@@ -189,88 +188,88 @@ export default {
 
     computed: {
         grand_total_price: function() {
-           var temp = this
-          return temp.form.products.reduce(function(carry, product) {
-            let total = carry + (parseFloat(product.product_quantity) * parseFloat(product.product_price));
-            temp.form.grand_total_price = total
-            return total
-        }, 0);
-      },
-      due_amount: function() {
-        var temp = this
-        let due_ammount = temp.grand_total_price - parseFloat(temp.form.paid_amount);
-        temp.form.due_amount = due_ammount
-        return due_ammount
-      }
-  },
-
-  methods:{
-
-    addNewSupplierInvoice(){
-        var temp = this
-        temp.$Progress.start()
-        temp.form.post('/api/supllier-invoice')
-        .then(function (response) {
-            console.log(response)
-            toastr.success('Saved Supplier Invoice Successfully')
-            temp.$Progress.finish()
-        })
-        .catch(function (error) {
-          toastr.error('Saved Supplier Invoice Failed')
-          temp.$Progress.fail()
-      });
+            var temp = this
+            return temp.form.products.reduce(function(carry, product) {
+                let total = carry + (parseFloat(product.product_quantity) * parseFloat(product.product_price));
+                temp.form.grand_total_price = total
+                return total
+            }, 0);
+        },
+        due_amount: function() {
+            var temp = this
+            let due_ammount = temp.grand_total_price - parseFloat(temp.form.paid_amount);
+            temp.form.due_amount = due_ammount
+            return due_ammount
+        }
     },
 
-    uploadImage(e) {
-        let file = e.target.files[0];
-        let reader = new FileReader();
-        let limit = 1024 * 1024 * 2;
-        if(file['size'] > limit){
-            swal({
-                type: 'error',
-                title: 'Oops...',
-                text: 'You are uploading a large file',
+    methods:{
+
+        addNewSupplierInvoice(){
+            var temp = this
+            temp.$Progress.start()
+            temp.form.post('/api/supllier-invoice')
+            .then(function (response) {
+                console.log(response)
+                toastr.success('Saved Supplier Invoice Successfully')
+                temp.$Progress.finish()
             })
-            return false;
-        }else{
-            file = e.target.files[0]
-            this.img_url = URL.createObjectURL(file);
-        }
-        reader.onloadend = (file) => {
-            this.form.image = reader.result
-        }
-        reader.readAsDataURL(file);
-    },
+            .catch(function (error) {
+              toastr.error('Saved Supplier Invoice Failed')
+              temp.$Progress.fail()
+          });
+        },
 
-    add_new_row_to_invoice: function(){
-        this.form.products.push({product_name : '',product_quantity : 1,product_price : 0,sub_total_price : '' })
-    },
+        uploadImage(e) {
+            let file = e.target.files[0];
+            let reader = new FileReader();
+            let limit = 1024 * 1024 * 2;
+            if(file['size'] > limit){
+                swal({
+                    type: 'error',
+                    title: 'Oops...',
+                    text: 'You are uploading a large file',
+                })
+                return false;
+            }else{
+                file = e.target.files[0]
+                this.img_url = URL.createObjectURL(file);
+            }
+            reader.onloadend = (file) => {
+                this.form.image = reader.result
+            }
+            reader.readAsDataURL(file);
+        },
 
-    deleteRow: function(index){
-        this.form.products.splice(index, 1)
-    },
+        add_new_row_to_invoice: function(){
+            this.form.products.push({product_name : '',product_quantity : 1,product_price : 0,sub_total_price : '' })
+        },
 
-    getSuppliers(){
-        var temp = this;
-        axios.get('/api/suppliers')
-        .then((response) => {
-          temp.suppliers = response.data.data;
-      })
-        .catch(function (error) {
-          toastr.error('Something is wrong Data Loaded')
-      });
-    },
+        deleteRow: function(index){
+            this.form.products.splice(index, 1)
+        },
 
-    getWarehouses(){
-      var temp = this;
-      axios.get('/api/warehouses')
-      .then((response) => {
-        temp.warehouses = response.data.data;
-    })
-      .catch(function (error) {
-        toastr.error('Something is wrong Data Loaded')
-    });
-  },
-}
+        getSuppliers(){
+            var temp = this;
+            axios.get('/api/suppliers')
+            .then((response) => {
+              temp.suppliers = response.data.data;
+          })
+            .catch(function (error) {
+              toastr.error('Something is wrong Data Loaded')
+          });
+        },
+
+        getWarehouses(){
+            var temp = this;
+            axios.get('/api/warehouses')
+            .then((response) => {
+                temp.warehouses = response.data.data;
+            })
+            .catch(function (error) {
+                toastr.error('Something is wrong Data Loaded')
+            });
+        },
+    }
 }
 </script>

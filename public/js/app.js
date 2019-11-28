@@ -2807,7 +2807,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -3092,7 +3091,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -3115,7 +3113,6 @@ __webpack_require__.r(__webpack_exports__);
         discount: '',
         due_amount: ''
       }),
-      // form_data:{},
       img_url: '',
       suppliers: {},
       warehouses: {},
@@ -3145,17 +3142,17 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     updateSupplierInvoice: function updateSupplierInvoice() {
-      // this.$Progress.start()
+      this.$Progress.start();
       var temp = this;
-      temp.form.products = temp.products; // temp.$http.post('/api/supllier-invoice/'+this.form.id)
-
+      temp.form.products = temp.products;
       axios.put('/api/supllier-invoice/' + this.form.id, {
         SupplierInvoice: temp.form
       }).then(function (response) {
-        console.log(response);
         toastr.success('Updated Supplier Successfully');
+        temp.$Progress.finish();
       })["catch"](function (error) {
         toastr.error('Updated Supplier Failed');
+        temp.$Progress.fail();
       });
     },
     getImgUrl: function getImgUrl(image) {
@@ -3189,8 +3186,6 @@ __webpack_require__.r(__webpack_exports__);
     },
     add_new_row_to_invoice: function add_new_row_to_invoice() {
       var temp = this;
-      console.log('lllll'); // this.getSupplierInvoice();
-
       this.products.push({
         product_name: '',
         product_quantity: 1,
@@ -3198,8 +3193,7 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     deleteRow: function deleteRow(index) {
-      // console.log()
-      this.products.splice(index, 1); // this.form.items.splice(index, 1)
+      this.products.splice(index, 1);
     },
     getSupplierInvoice: function getSupplierInvoice() {
       var temp = this;
@@ -45177,11 +45171,7 @@ var render = function() {
                                           staticStyle: {
                                             "text-align": "center"
                                           },
-                                          attrs: {
-                                            tabindex: "-1",
-                                            type: "text",
-                                            disabled: ""
-                                          },
+                                          attrs: { type: "text", disabled: "" },
                                           domProps: {
                                             value:
                                               product.product_quantity *
@@ -45218,11 +45208,7 @@ var render = function() {
                                       _c("input", {
                                         staticClass: "form-control-sm w-100",
                                         staticStyle: { "text-align": "center" },
-                                        attrs: {
-                                          tabindex: "-1",
-                                          type: "text",
-                                          disabled: ""
-                                        },
+                                        attrs: { type: "text", disabled: "" },
                                         domProps: {
                                           value: _vm.grand_total_price
                                         }
@@ -45236,7 +45222,6 @@ var render = function() {
                                           id: "add-invoice-item",
                                           name: "add-invoice-item",
                                           value: "Add New Item",
-                                          tabindex: "5",
                                           type: "button"
                                         },
                                         on: {
@@ -45265,7 +45250,6 @@ var render = function() {
                                           id: "paidAmount",
                                           value: "5455",
                                           name: "paid_amount",
-                                          tabindex: "6",
                                           type: "number",
                                           required: ""
                                         },
@@ -62696,8 +62680,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! E:\xampp\htdocs\EasyInventory\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! E:\xampp\htdocs\EasyInventory\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /home/mnbtech/Projects/EasyInventory/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /home/mnbtech/Projects/EasyInventory/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

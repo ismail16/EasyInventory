@@ -19,7 +19,6 @@ class CreateSupplierInvoiceProductsTable extends Migration
             $table->string('product_name');
             $table->integer('product_quantity');
             $table->decimal('product_price');
-            $table->decimal('sub_total_price');
             $table->tinyInteger('status')->default(0);
             $table->timestamps();
         });

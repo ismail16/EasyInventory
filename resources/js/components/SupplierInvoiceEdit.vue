@@ -50,7 +50,7 @@
                                 <div class="col-md-5">
                                     <div class="form-group row mb-1">
                                         <label for="inputPassword" class="col-sm-2 col-form-label">Date</label>
-                                        <div class="col-sm-10">                                      
+                                        <div class="col-sm-10">
                                             <datetime format="DD/MM/YYYY h:i:s" width="300px" v-model="form.invoice_date" class="form-control-sm w-100" autocomplete="off"></datetime>
                                         </div>
                                     </div>
@@ -117,7 +117,6 @@
 
                                         </tr>
                                         <tr>
-                                        
                                             <td style="text-align:right;" colspan="3"><b>Paid Amount:</b></td>
                                             <td class="text-right">
                                                 <input id="paidAmount" class="form-control-sm w-100" v-model="form.paid_amount" value="5455" name="paid_amount" tabindex="6" type="number" required style="text-align: center;">
@@ -175,10 +174,9 @@ export default {
               paid_amount : '',
               discount : '',
               due_amount : ''
-            }), 
-            // form_data:{},
-            img_url: '',
+            }),
 
+            img_url: '',
             suppliers:{},
             warehouses:{},
             products:{}
@@ -194,6 +192,7 @@ export default {
     },
 
     computed: {
+
         grand_total_price: function() {
             var temp = this
             return temp.products.reduce(function(carry, product) {
@@ -202,33 +201,33 @@ export default {
                 return total
             }, 0);
         },
+
         due_amount: function() {
-            var temp = this
-            let due_ammount = temp.grand_total_price - parseFloat(temp.form.paid_amount);
-            temp.form.due_amount = due_ammount
-            return due_ammount
+           var temp = this
+           let due_ammount = temp.grand_total_price - parseFloat(temp.form.paid_amount);
+           temp.form.due_amount = due_ammount
+           return due_ammount
         }
     },
 
     methods:{
 
         updateSupplierInvoice: function(){
-            // this.$Progress.start()
+            this.$Progress.start()
             var temp = this
             temp.form.products = temp.products;
-            // temp.$http.post('/api/supllier-invoice/'+this.form.id)
-            axios.put('/api/supllier-invoice/'+this.form.id,
-              {
+            axios.put('/api/supllier-invoice/'+this.form.id,{
                 SupplierInvoice:temp.form
-              })
+            })
             .then(function (response) {
-                console.log(response)
               toastr.success('Updated Supplier Successfully');
+              temp.$Progress.finish()
             })
             .catch(function (error) {
               toastr.error('Updated Supplier Failed')
+              temp.$Progress.fail()
             });
-          },
+        },
 
         getImgUrl: function(image){
             var photo = "/images/supplier_invoice/"+ image
@@ -258,18 +257,11 @@ export default {
 
         add_new_row_to_invoice: function(){
             var temp = this;
-            console.log('lllll')
-            // this.getSupplierInvoice();
             this.products.push({product_name : '', product_quantity : 1, product_price : 0 })
         },
 
         deleteRow: function(index){
-
-            // console.log()
-
            this.products.splice(index, 1)
-
-           // this.form.items.splice(index, 1)
         },
 
         getSupplierInvoice(){
@@ -279,10 +271,10 @@ export default {
                 console.log(response)
               temp.form = response.data.supplierInvoice;
               temp.products = response.data.supplierInvoiceProduct;
-          })
+            })
             .catch(function (error) {
               toastr.error('Something is wrong Data Loaded')
-          });
+            });
         },
 
         getSuppliers(){
@@ -290,10 +282,10 @@ export default {
             axios.get('/api/suppliers')
             .then((response) => {
               temp.suppliers = response.data.data;
-          })
+            })
             .catch(function (error) {
               toastr.error('Something is wrong Data Loaded')
-          });
+            });
         },
 
         getWarehouses(){
