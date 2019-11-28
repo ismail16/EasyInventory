@@ -23,7 +23,7 @@
                     </div>
                 </div>
                 <div class="card-body" style="background-color: #f6f6f7;">
-                    <form @submit.prevent="addNewSupplierInvoice">
+                    <form @submit.prevent="updateSupplierInvoice">
                         <div class="panel-body">
                             <div class="row">
                                 <div class="col-md-7">
@@ -84,7 +84,7 @@
                                     </thead>
                                     <tbody id="add_row_to_invoice">
 
-                                        <tr v-for="(product, index) in form.products">
+                                        <tr v-for="(product, index) in products">
                                             <td style="width: 320px">
                                                 <input v-model="product.product_name" placeholder="Item Name" required type="text" class="form-control-sm w-100" autocomplete="off">
 
@@ -137,7 +137,7 @@
                                     </router-link>
 
                                     <button class="btn btn-sm btn-success float-right" >
-                                        Create Supplier Invoice
+                                        Update Supplier Invoice
                                     </button>
                                 </div>
                             </div>
@@ -180,8 +180,11 @@ export default {
             img_url: '',
 
             suppliers:{},
-            warehouses:{}
+            warehouses:{},
+            products:{}
         }
+
+
     },
 
     mounted(){
@@ -192,110 +195,117 @@ export default {
 
     computed: {
         grand_total_price: function() {
-           var temp = this
-          return temp.form.products.reduce(function(carry, product) {
-            let total = carry + (parseFloat(product.product_quantity) * parseFloat(product.product_price));
-            temp.form.grand_total_price = total
-            return total
-        }, 0);
-      },
-      due_amount: function() {
-        var temp = this
-        let due_ammount = temp.grand_total_price - parseFloat(temp.form.paid_amount);
-        temp.form.due_amount = due_ammount
-        return due_ammount
-      }
-  },
-
-  methods:{
-
-    getImgUrl: function(image){
-        var photo = "/images/supplier_invoice/"+ image
-        return photo
+            var temp = this
+            return temp.products.reduce(function(carry, product) {
+                let total = carry + (parseFloat(product.product_quantity) * parseFloat(product.product_price));
+                temp.form.grand_total_price = total
+                return total
+            }, 0);
+        },
+        due_amount: function() {
+            var temp = this
+            let due_ammount = temp.grand_total_price - parseFloat(temp.form.paid_amount);
+            temp.form.due_amount = due_ammount
+            return due_ammount
+        }
     },
 
+    methods:{
 
-    addNewSupplierInvoice(){
-        var temp = this
-        temp.$Progress.start()
-        temp.form.post('/api/supllier-invoice')
-        .then(function (response) {
-            console.log(response)
-            toastr.success('Saved Supplier Invoice Successfully')
-            temp.$Progress.finish()
-        })
-        .catch(function (error) {
-          toastr.error('Saved Supplier Invoice Failed')
-          temp.$Progress.fail()
-      });
-    },
-
-    uploadImage(e) {
-        let file = e.target.files[0];
-        let reader = new FileReader();
-        let limit = 1024 * 1024 * 2;
-        if(file['size'] > limit){
-            swal({
-                type: 'error',
-                title: 'Oops...',
-                text: 'You are uploading a large file',
+        updateSupplierInvoice: function(){
+            // this.$Progress.start()
+            var temp = this
+            temp.form.products = temp.products;
+            // temp.$http.post('/api/supllier-invoice/'+this.form.id)
+            axios.put('/api/supllier-invoice/'+this.form.id,
+              {
+                SupplierInvoice:temp.form
+              })
+            .then(function (response) {
+                console.log(response)
+              toastr.success('Updated Supplier Successfully');
             })
-            return false;
-        }else{
-            file = e.target.files[0]
-            this.img_url = URL.createObjectURL(file);
-        }
-        reader.onloadend = (file) => {
-            this.form.image = reader.result
-        }
-        reader.readAsDataURL(file);
-    },
+            .catch(function (error) {
+              toastr.error('Updated Supplier Failed')
+            });
+          },
 
-    add_new_row_to_invoice: function(){
-        var temp = this;
-        console.log('lllll')
-        // this.getSupplierInvoice();
-        this.form.products.push({product_name : '', product_quantity : 1, product_price : 0 })
-    },
+        getImgUrl: function(image){
+            var photo = "/images/supplier_invoice/"+ image
+            return photo
+        },
 
-    deleteRow: function(index){
-        this.form.products.splice(index, 1)
-    },
+        uploadImage(e) {
+            let file = e.target.files[0];
+            let reader = new FileReader();
+            let limit = 1024 * 1024 * 2;
+            if(file['size'] > limit){
+                swal({
+                    type: 'error',
+                    title: 'Oops...',
+                    text: 'You are uploading a large file',
+                })
+                return false;
+            }else{
+                file = e.target.files[0]
+                this.img_url = URL.createObjectURL(file);
+            }
+            reader.onloadend = (file) => {
+                this.form.image = reader.result
+            }
+            reader.readAsDataURL(file);
+        },
 
-    getSupplierInvoice(){
-        var temp = this;
-        axios.get('/api/supllier-invoice/'+this.$route.params.id)
-        .then((response) => {
-            console.log(response)
-          temp.form = response.data.supplierInvoice;
-          temp.form.products = response.data.supplierInvoiceProduct;
-      })
-        .catch(function (error) {
-          toastr.error('Something is wrong Data Loaded')
-      });
-    },
+        add_new_row_to_invoice: function(){
+            var temp = this;
+            console.log('lllll')
+            // this.getSupplierInvoice();
+            this.products.push({product_name : '', product_quantity : 1, product_price : 0 })
+        },
 
-    getSuppliers(){
-        var temp = this;
-        axios.get('/api/suppliers')
-        .then((response) => {
-          temp.suppliers = response.data.data;
-      })
-        .catch(function (error) {
-          toastr.error('Something is wrong Data Loaded')
-      });
-    },
+        deleteRow: function(index){
 
-    getWarehouses(){
-      var temp = this;
-      axios.get('/api/warehouses')
-      .then((response) => {
-        temp.warehouses = response.data.data;
-    })
-      .catch(function (error) {
-        toastr.error('Something is wrong Data Loaded')
-    });
-  },
-}
+            // console.log()
+
+           this.products.splice(index, 1)
+
+           // this.form.items.splice(index, 1)
+        },
+
+        getSupplierInvoice(){
+            var temp = this;
+            axios.get('/api/supllier-invoice/'+this.$route.params.id)
+            .then((response) => {
+                console.log(response)
+              temp.form = response.data.supplierInvoice;
+              temp.products = response.data.supplierInvoiceProduct;
+          })
+            .catch(function (error) {
+              toastr.error('Something is wrong Data Loaded')
+          });
+        },
+
+        getSuppliers(){
+            var temp = this;
+            axios.get('/api/suppliers')
+            .then((response) => {
+              temp.suppliers = response.data.data;
+          })
+            .catch(function (error) {
+              toastr.error('Something is wrong Data Loaded')
+          });
+        },
+
+        getWarehouses(){
+            var temp = this;
+            axios.get('/api/warehouses')
+            .then((response) => {
+                temp.warehouses = response.data.data;
+            })
+            .catch(function (error) {
+                toastr.error('Something is wrong Data Loaded')
+            });
+        },
+    }
 }
 </script>

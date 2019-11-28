@@ -3118,7 +3118,8 @@ __webpack_require__.r(__webpack_exports__);
       // form_data:{},
       img_url: '',
       suppliers: {},
-      warehouses: {}
+      warehouses: {},
+      products: {}
     };
   },
   mounted: function mounted() {
@@ -3129,7 +3130,7 @@ __webpack_require__.r(__webpack_exports__);
   computed: {
     grand_total_price: function grand_total_price() {
       var temp = this;
-      return temp.form.products.reduce(function (carry, product) {
+      return temp.products.reduce(function (carry, product) {
         var total = carry + parseFloat(product.product_quantity) * parseFloat(product.product_price);
         temp.form.grand_total_price = total;
         return total;
@@ -3143,21 +3144,23 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   methods: {
+    updateSupplierInvoice: function updateSupplierInvoice() {
+      // this.$Progress.start()
+      var temp = this;
+      temp.form.products = temp.products; // temp.$http.post('/api/supllier-invoice/'+this.form.id)
+
+      axios.put('/api/supllier-invoice/' + this.form.id, {
+        SupplierInvoice: temp.form
+      }).then(function (response) {
+        console.log(response);
+        toastr.success('Updated Supplier Successfully');
+      })["catch"](function (error) {
+        toastr.error('Updated Supplier Failed');
+      });
+    },
     getImgUrl: function getImgUrl(image) {
       var photo = "/images/supplier_invoice/" + image;
       return photo;
-    },
-    addNewSupplierInvoice: function addNewSupplierInvoice() {
-      var temp = this;
-      temp.$Progress.start();
-      temp.form.post('/api/supllier-invoice').then(function (response) {
-        console.log(response);
-        toastr.success('Saved Supplier Invoice Successfully');
-        temp.$Progress.finish();
-      })["catch"](function (error) {
-        toastr.error('Saved Supplier Invoice Failed');
-        temp.$Progress.fail();
-      });
     },
     uploadImage: function uploadImage(e) {
       var _this = this;
@@ -3188,21 +3191,22 @@ __webpack_require__.r(__webpack_exports__);
       var temp = this;
       console.log('lllll'); // this.getSupplierInvoice();
 
-      this.form.products.push({
+      this.products.push({
         product_name: '',
         product_quantity: 1,
         product_price: 0
       });
     },
     deleteRow: function deleteRow(index) {
-      this.form.products.splice(index, 1);
+      // console.log()
+      this.products.splice(index, 1); // this.form.items.splice(index, 1)
     },
     getSupplierInvoice: function getSupplierInvoice() {
       var temp = this;
       axios.get('/api/supllier-invoice/' + this.$route.params.id).then(function (response) {
         console.log(response);
         temp.form = response.data.supplierInvoice;
-        temp.form.products = response.data.supplierInvoiceProduct;
+        temp.products = response.data.supplierInvoiceProduct;
       })["catch"](function (error) {
         toastr.error('Something is wrong Data Loaded');
       });
@@ -44566,11 +44570,10 @@ var render = function() {
                                       staticClass:
                                         "btn btn-xs btn-success mr-1 ml-1",
                                       attrs: {
-                                        to: {
-                                          path:
-                                            "/supplier-invoice-edit/" +
-                                            supplierInvoice.id
-                                        }
+                                        to:
+                                          "/supplier-invoice/" +
+                                          supplierInvoice.id +
+                                          "/edit"
                                       }
                                     },
                                     [_c("i", { staticClass: "fa fa-edit" })]
@@ -45523,7 +45526,7 @@ var render = function() {
                       on: {
                         submit: function($event) {
                           $event.preventDefault()
-                          return _vm.addNewSupplierInvoice($event)
+                          return _vm.updateSupplierInvoice($event)
                         }
                       }
                     },
@@ -45777,7 +45780,7 @@ var render = function() {
                                 _c(
                                   "tbody",
                                   { attrs: { id: "add_row_to_invoice" } },
-                                  _vm._l(_vm.form.products, function(
+                                  _vm._l(_vm.products, function(
                                     product,
                                     index
                                   ) {
@@ -46077,7 +46080,7 @@ var render = function() {
                                   },
                                   [
                                     _vm._v(
-                                      "\n                                        Create Supplier Invoice\n                                    "
+                                      "\n                                        Update Supplier Invoice\n                                    "
                                     )
                                   ]
                                 )
@@ -62044,11 +62047,11 @@ var routes = [{
   path: '/supplier-invoice-create',
   component: __webpack_require__(/*! ./components/SupplierInvoiceCreate.vue */ "./resources/js/components/SupplierInvoiceCreate.vue")["default"]
 }, {
-  path: '/supplier-invoice-create',
-  component: __webpack_require__(/*! ./components/SupplierInvoiceCreate.vue */ "./resources/js/components/SupplierInvoiceCreate.vue")["default"]
-}, {
-  path: '/supplier-invoice-edit/:id',
-  component: __webpack_require__(/*! ./components/SupplierInvoiceEdit.vue */ "./resources/js/components/SupplierInvoiceEdit.vue")["default"]
+  path: '/supplier-invoice/:id/edit',
+  component: __webpack_require__(/*! ./components/SupplierInvoiceEdit.vue */ "./resources/js/components/SupplierInvoiceEdit.vue")["default"],
+  meta: {
+    mode: 'edit'
+  }
 }, {
   path: '*',
   component: __webpack_require__(/*! ./components/Dashboard.vue */ "./resources/js/components/Dashboard.vue")["default"]
