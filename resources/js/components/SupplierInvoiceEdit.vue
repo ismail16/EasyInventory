@@ -156,7 +156,6 @@ export default {
 
     components: { datetime },
     // name: 'imageUpload',
-
     // https://www.youtube.com/watch?v=h6sTdAX6yTs
     // https://github.com/codekerala/laravel-vuejs-invoice/blob/master/resources/views/invoices/form.blade.php
 
@@ -175,14 +174,11 @@ export default {
               discount : '',
               due_amount : ''
             }),
-
             img_url: '',
             suppliers:{},
             warehouses:{},
-            products:{}
+            products:[]
         }
-
-
     },
 
     mounted(){
@@ -268,7 +264,6 @@ export default {
             var temp = this;
             axios.get('/api/supllier-invoice/'+this.$route.params.id)
             .then((response) => {
-                console.log(response)
               temp.form = response.data.supplierInvoice;
               temp.products = response.data.supplierInvoiceProduct;
             })

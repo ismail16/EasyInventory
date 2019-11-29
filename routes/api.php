@@ -21,3 +21,6 @@ Route::get('search/warehouses/{field}/{query}','Api\WarehouseController@search')
 
 Route::apiResource('supllier-invoice','Api\SupllierInvoiceController');
 Route::get('search/supllier-invoice/{field}/{query}','Api\SupllierInvoiceController@search');
+
+Route::apiResource('products','Api\ProductController');
+Route::get('search/products/{field}/{query}','Api\ProductController@search');

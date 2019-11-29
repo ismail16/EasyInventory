@@ -44,36 +44,12 @@
                     </router-link>
                 </li> 
 
-         {{--        <li class="nav-item">
-                    <a href="{{ route('admin.supplier_invoice') }}" class="nav-link">
-                        <i class="nav-icon far fa-file-alt"></i>
-                        <p>Suppliers Invoice</p>
-                    </a>
-                </li> --}}
-
-                <li class="nav-item has-treeview">
-                    <a href="#" class="nav-link">
+                <li class="nav-item">
+                    <router-link to="/product" class="nav-link">
                         <i class="nav-icon fab fa-product-hunt"></i>
-                        <p>
-                            Products
-                            <i class="fas fa-angle-left right"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="pages/mailbox/mailbox.html" class="nav-link ml-2">
-                                <i class="fas fa-plus-circle"></i>
-                                <p> Add Category</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="pages/mailbox/mailbox.html" class="nav-link ml-2">
-                                <i class="fas fa-tools"></i>
-                                <p> Manage Category</p>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
+                        <p>Products</p>
+                    </router-link>
+                </li> 
 
                 <li class="nav-item has-treeview">
                     <a href="#" class="nav-link">

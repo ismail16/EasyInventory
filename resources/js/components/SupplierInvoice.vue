@@ -78,14 +78,7 @@
                                             <router-link :to="'/supplier-invoice/'+ supplierInvoice.id +'/edit'" class="btn btn-xs btn-success mr-1 ml-1">
                                                 <i class="fa fa-edit"></i>
                                             </router-link>
-
-                                            <!-- <router-link to="/supplier-invoice-create" class="btn btn-sm btn-primary float-right"> -->
-                                    <!-- <i class="fa fa-plus"></i> Supplier Invoice -->
-                                <!-- </router-link> -->
-
-                                            <!-- <a class="btn btn-xs btn-success mr-1" @click="editSupplier(supplierInvoice.id)"> -->
-                                                <!-- <i class="fa fa-edit"></i> -->
-                                            <!-- </a> -->
+                                            
                                             <button class="btn btn-xs btn-danger" @click.prevent="deleteSupplier(supplierInvoice.id)">
                                                 <i class="fa fa-trash"></i>
                                             </button>
