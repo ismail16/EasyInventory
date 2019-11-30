@@ -3590,6 +3590,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -3605,12 +3612,12 @@ __webpack_require__.r(__webpack_exports__);
         products: [{
           product_name: '',
           product_quantity: 1,
-          product_price: 0,
+          sell_price: 0,
           sub_total_price: ''
         }],
         supplier_id: '',
         warehouse_id: '',
-        invoice_date: new Date().toLocaleString('en-GB'),
+        invoice_date: new Date().toLocaleString(),
         image: '',
         grand_total_price: '',
         paid_amount: '',
@@ -3619,30 +3626,57 @@ __webpack_require__.r(__webpack_exports__);
       }),
       img_url: '',
       suppliers: {},
-      warehouses: {}
+      warehouses: {},
+      currentFocus: '',
+      autocomplete: '',
+      onBlur: true,
+      onFocus: false,
+      product_arr: []
     };
   },
   mounted: function mounted() {
     this.getSuppliers();
     this.getWarehouses();
+    this.getProducts();
+    var vm = this;
+    document.addEventListener("click", function (e) {
+      vm.onBlur ? vm.onFocus = false : false;
+    });
   },
   computed: {
     grand_total_price: function grand_total_price() {
       var temp = this;
       return temp.form.products.reduce(function (carry, product) {
-        var total = carry + parseFloat(product.product_quantity) * parseFloat(product.product_price);
+        var total = carry + parseFloat(product.product_quantity) * parseFloat(product.sell_price);
         temp.form.grand_total_price = total;
         return total;
       }, 0);
     },
     due_amount: function due_amount() {
       var temp = this;
-      var due_ammount = temp.grand_total_price - parseFloat(temp.form.paid_amount);
+      var due_ammount = temp.form.grand_total_price - parseFloat(temp.form.paid_amount);
       temp.form.due_amount = due_ammount;
       return due_ammount;
     }
   },
   methods: {
+    addActive: function addActive() {
+      var vm = this;
+      if (!vm.array) return false;
+      if (vm.currentFocus >= vm.array.length) vm.currentFocus = 0;
+      if (vm.currentFocus < 0) vm.currentFocus = vm.array.length - 1;
+    },
+    keyDown: function keyDown(e) {
+      var vm = this;
+
+      if (e.keyCode == 40) {
+        vm.currentFocus++;
+        vm.addActive();
+      } else if (e.keyCode == 38) {
+        vm.currentFocus;
+        vm.addActive();
+      }
+    },
     addNewSupplierInvoice: function addNewSupplierInvoice() {
       var temp = this;
       temp.$Progress.start();
@@ -3695,6 +3729,14 @@ __webpack_require__.r(__webpack_exports__);
       var temp = this;
       axios.get('/api/suppliers').then(function (response) {
         temp.suppliers = response.data.data;
+      })["catch"](function (error) {
+        toastr.error('Something is wrong Data Loaded');
+      });
+    },
+    getProducts: function getProducts() {
+      var temp = this;
+      axios.get('/api/products').then(function (response) {
+        temp.product_arr = response.data.data;
       })["catch"](function (error) {
         toastr.error('Something is wrong Data Loaded');
       });
@@ -47665,21 +47707,23 @@ var render = function() {
                                             ],
                                             staticClass:
                                               "form-control-sm w-100",
-                                            class: {
-                                              "is-invalid": _vm.form.errors.has(
-                                                "product_name"
-                                              )
-                                            },
                                             attrs: {
-                                              placeholder: "Item Name",
-                                              required: "",
                                               type: "text",
-                                              autocomplete: "off"
+                                              placeholder: "Product Name",
+                                              required: ""
                                             },
                                             domProps: {
                                               value: product.product_name
                                             },
                                             on: {
+                                              blur: function($event) {
+                                                _vm.onBlur = true
+                                              },
+                                              focus: function($event) {
+                                                _vm.onFocus = true
+                                                _vm.onBlur = false
+                                              },
+                                              keyDown: _vm.keyDown,
                                               input: function($event) {
                                                 if ($event.target.composing) {
                                                   return
@@ -47693,14 +47737,81 @@ var render = function() {
                                             }
                                           }),
                                           _vm._v(" "),
-                                          _c("has-error", {
-                                            attrs: {
-                                              form: _vm.form,
-                                              field: "product_name"
-                                            }
-                                          })
-                                        ],
-                                        1
+                                          _c(
+                                            "div",
+                                            {
+                                              staticClass:
+                                                "product.product_name-items",
+                                              staticStyle: {
+                                                "z-index": "999",
+                                                position: "absolute",
+                                                width: "29%",
+                                                "background-color": "white",
+                                                padding: "0px 10px",
+                                                "max-height": "150px",
+                                                overflow: "auto"
+                                              }
+                                            },
+                                            _vm._l(_vm.product_arr, function(
+                                              i,
+                                              index
+                                            ) {
+                                              return _vm.onFocus &&
+                                                i.product_name
+                                                  .substr(
+                                                    0,
+                                                    product.product_name.length
+                                                  )
+                                                  .toUpperCase() ==
+                                                  product.product_name.toUpperCase()
+                                                ? _c(
+                                                    "div",
+                                                    {
+                                                      class:
+                                                        _vm.currentFocus ==
+                                                        index
+                                                          ? "product.product_name-active"
+                                                          : "",
+                                                      on: {
+                                                        click: function(
+                                                          $event
+                                                        ) {
+                                                          product.product_name =
+                                                            i.product_name
+                                                          product.sell_price =
+                                                            i.sell_price
+                                                          _vm.onFocus = false
+                                                        }
+                                                      }
+                                                    },
+                                                    [
+                                                      _c("strong", [
+                                                        _vm._v(
+                                                          _vm._s(
+                                                            i.product_name.substr(
+                                                              0,
+                                                              product
+                                                                .product_name
+                                                                .length
+                                                            )
+                                                          )
+                                                        )
+                                                      ]),
+                                                      _vm._v(
+                                                        _vm._s(
+                                                          i.product_name.substr(
+                                                            product.product_name
+                                                              .length
+                                                          )
+                                                        ) + "\n      "
+                                                      )
+                                                    ]
+                                                  )
+                                                : _vm._e()
+                                            }),
+                                            0
+                                          )
+                                        ]
                                       ),
                                       _vm._v(" "),
                                       _c(
@@ -47755,9 +47866,8 @@ var render = function() {
                                             {
                                               name: "model",
                                               rawName: "v-model",
-                                              value: product.product_price,
-                                              expression:
-                                                "product.product_price"
+                                              value: product.sell_price,
+                                              expression: "product.sell_price"
                                             }
                                           ],
                                           staticClass: "form-control-sm w-100",
@@ -47773,7 +47883,7 @@ var render = function() {
                                             required: ""
                                           },
                                           domProps: {
-                                            value: product.product_price
+                                            value: product.sell_price
                                           },
                                           on: {
                                             input: function($event) {
@@ -47782,7 +47892,7 @@ var render = function() {
                                               }
                                               _vm.$set(
                                                 product,
-                                                "product_price",
+                                                "sell_price",
                                                 $event.target.value
                                               )
                                             }
@@ -47800,7 +47910,7 @@ var render = function() {
                                           domProps: {
                                             value:
                                               product.product_quantity *
-                                              product.product_price
+                                              product.sell_price
                                           }
                                         })
                                       ]),
@@ -47831,11 +47941,28 @@ var render = function() {
                                     _vm._v(" "),
                                     _c("td", { staticClass: "text-center" }, [
                                       _c("input", {
+                                        directives: [
+                                          {
+                                            name: "model",
+                                            rawName: "v-model",
+                                            value: _vm.grand_total_price,
+                                            expression: "grand_total_price"
+                                          }
+                                        ],
                                         staticClass: "form-control-sm w-100",
                                         staticStyle: { "text-align": "center" },
                                         attrs: { type: "text", disabled: "" },
                                         domProps: {
                                           value: _vm.grand_total_price
+                                        },
+                                        on: {
+                                          input: function($event) {
+                                            if ($event.target.composing) {
+                                              return
+                                            }
+                                            _vm.grand_total_price =
+                                              $event.target.value
+                                          }
                                         }
                                       })
                                     ]),

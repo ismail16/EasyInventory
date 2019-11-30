@@ -83,19 +83,26 @@
 
                                         <tr v-for="(product, index) in form.products">
                                             <td style="width: 320px">
-                                                <input v-model="product.product_name" placeholder="Item Name" required type="text" class="form-control-sm w-100" :class="{ 'is-invalid': form.errors.has('product_name') }" autocomplete="off">
-                                                <has-error :form="form" field="product_name"></has-error>
 
+    <input @blur="onBlur=true" @focus="onFocus = true;onBlur = false;" v-model="product.product_name" @keyDown="keyDown"  type="text" placeholder="Product Name" class="form-control-sm w-100" required>
+    <div class="product.product_name-items" style="z-index: 999; position: absolute; width: 29%; background-color: white; padding: 0px 10px; max-height: 150px; overflow: auto;">
+      
+      <div :class="currentFocus == index ? 'product.product_name-active' : ''" v-for="(i, index) in product_arr" v-if= "onFocus && i.product_name.substr(0, product.product_name.length).toUpperCase() == product.product_name.toUpperCase()" @click="product.product_name = i.product_name; product.sell_price = i.sell_price; onFocus = false;">
+        <strong>{{i.product_name.substr(0, product.product_name.length)}}</strong>{{i.product_name.substr(product.product_name.length)}}
+      </div>
+    </div>
+                                                <!-- <input v-model="product.product_name" placeholder="Item Name" required type="text" class="form-control-sm w-100" :class="{ 'is-invalid': form.errors.has('product_name') }" autocomplete="off"> -->
+                                                <!-- <has-error :form="form" field="product_name"></has-error> -->
                                             </td>
                                             <td style="width: 320px">
                                                 <input v-model="product.product_quantity" placeholder="Product Quantity" type="text" class="form-control-sm w-100" :class="{ 'is-invalid': form.errors.has('product_quantity') }" autocomplete="off" required>
 
                                             </td>
                                             <td>
-                                                <input v-model="product.product_price" placeholder="Product Price" type="text" class="form-control-sm w-100" :class="{ 'is-invalid': form.errors.has('product_price') }" autocomplete="off" required>
+                                                <input v-model="product.sell_price" placeholder="Product Price" type="text" class="form-control-sm w-100" :class="{ 'is-invalid': form.errors.has('product_price') }" autocomplete="off" required>
                                             </td>
                                             <td class="text-center">
-                                                <input class="form-control-sm w-100" :value="product.product_quantity * product.product_price" type="text" style="text-align: center;" disabled>
+                                                <input class="form-control-sm w-100" :value="product.product_quantity * product.sell_price" type="text" style="text-align: center;" disabled>
                                             </td>
 
                                             <td class="text-center">
@@ -107,7 +114,7 @@
                                         <tr id="appssss">
                                             <td colspan="3" style="text-align:right;"><b>Grand Total:</b></td>
                                             <td class="text-center">
-                                                <input class="form-control-sm w-100" :value="grand_total_price" type="text" style="text-align: center;" disabled>
+                                                <input class="form-control-sm w-100" v-model="grand_total_price" type="text" style="text-align: center;" disabled>
                                             </td>
                                             <td align="center">
                                                 <input id="add-invoice-item" class="btn btn-info btn-sm" name="add-invoice-item" @click="add_new_row_to_invoice" value="Add New Item" type="button">
@@ -162,11 +169,11 @@ export default {
         return {
             form: new Form({
               id : '',
-              products:[{product_name : '',product_quantity : 1,product_price : 0,sub_total_price : '' }],
+              products:[{product_name : '',product_quantity : 1,sell_price : 0,sub_total_price : '' }],
 
               supplier_id : '',
               warehouse_id : '',
-              invoice_date :new Date().toLocaleString('en-GB'),
+              invoice_date :new Date().toLocaleString(),
               image : '',
               grand_total_price : '',
               paid_amount : '',
@@ -177,33 +184,65 @@ export default {
             img_url: '',
 
             suppliers:{},
-            warehouses:{}
+            warehouses:{},
+
+
+            currentFocus: '',
+            autocomplete: '',
+            onBlur: true,
+            onFocus: false,
+            product_arr: []
         }
     },
 
     mounted(){
         this.getSuppliers();
         this.getWarehouses();
-    },
+        this.getProducts();
+
+
+        var vm = this;
+        document.addEventListener("click", function(e){
+          vm.onBlur ?vm.onFocus = false: false});
+        },
 
     computed: {
         grand_total_price: function() {
             var temp = this
             return temp.form.products.reduce(function(carry, product) {
-                let total = carry + (parseFloat(product.product_quantity) * parseFloat(product.product_price));
+                let total = carry + (parseFloat(product.product_quantity) * parseFloat(product.sell_price));
                 temp.form.grand_total_price = total
                 return total
             }, 0);
         },
         due_amount: function() {
             var temp = this
-            let due_ammount = temp.grand_total_price - parseFloat(temp.form.paid_amount);
+            let due_ammount = temp.form.grand_total_price - parseFloat(temp.form.paid_amount);
             temp.form.due_amount = due_ammount
             return due_ammount
         }
     },
 
     methods:{
+
+
+        addActive(){
+          var vm = this;
+          if (!vm.array) return false;
+          if (vm.currentFocus >= vm.array.length) vm.currentFocus = 0;
+          if (vm.currentFocus < 0) vm.currentFocus = (vm.array.length - 1);
+        },
+
+        keyDown(e){ 
+            var vm = this;
+              if (e.keyCode == 40) {
+              vm.currentFocus++;
+              vm.addActive()
+            } else if (e.keyCode == 38) {
+              vm.currentFocus;
+              vm.addActive()
+            }
+        },
 
         addNewSupplierInvoice(){
             var temp = this
@@ -254,6 +293,17 @@ export default {
             axios.get('/api/suppliers')
             .then((response) => {
               temp.suppliers = response.data.data;
+          })
+            .catch(function (error) {
+              toastr.error('Something is wrong Data Loaded')
+          });
+        },
+
+        getProducts(){
+            var temp = this;
+            axios.get('/api/products')
+            .then((response) => {
+              temp.product_arr = response.data.data;
           })
             .catch(function (error) {
               toastr.error('Something is wrong Data Loaded')
