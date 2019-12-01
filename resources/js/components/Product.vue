@@ -40,6 +40,7 @@
                     <th class="text-center">No</th>
                     <th class="text-center">Title(Name)</th>
                     <th class="text-center">Image</th>
+                    <th class="text-center">Supplier</th>
                     <th class="text-center">Supplier Price</th>
                     <th class="text-center">Sell Price</th>
                     <th class="text-center">Make Date</th>
@@ -54,6 +55,7 @@
                     <td class="text-center">
                         <img v-show="product.image" :src="getImgUrl(product.image)"  class="img-fluid" style="max-height: 50px; max-width: 50px;" alt="User Avatar">
                     </td>
+                    <td class="text-center">{{ product.supplier_id }}</td>
                     <td class="text-center">{{ product.supplier_price }}</td>
                     <td class="text-center">{{ product.sell_price }}</td>
                     <td class="text-center">{{ product.mfg_date }}</td>

@@ -2178,6 +2178,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   // el: '#product_app',
   data: function data() {
@@ -3321,6 +3323,13 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     getImgUrl: function getImgUrl(image) {
       var photo = "/images/supplier_invoice/" + image;
+
+      if (image != 'default.png') {
+        return photo;
+      } else {
+        return "/images/supplier_invoice/" + 'default.png';
+      }
+
       return photo;
       console.log(photo);
     },
@@ -3645,6 +3654,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   computed: {
     grand_total_price: function grand_total_price() {
+      console.log('llll');
       var temp = this;
       return temp.form.products.reduce(function (carry, product) {
         var total = carry + parseFloat(product.product_quantity) * parseFloat(product.sell_price);
@@ -3718,7 +3728,7 @@ __webpack_require__.r(__webpack_exports__);
       this.form.products.push({
         product_name: '',
         product_quantity: 1,
-        product_price: 0,
+        sell_price: 0,
         sub_total_price: ''
       });
     },
@@ -44626,6 +44636,10 @@ var render = function() {
                               ]),
                               _vm._v(" "),
                               _c("td", { staticClass: "text-center" }, [
+                                _vm._v(_vm._s(product.supplier_id))
+                              ]),
+                              _vm._v(" "),
+                              _c("td", { staticClass: "text-center" }, [
                                 _vm._v(_vm._s(product.supplier_price))
                               ]),
                               _vm._v(" "),
@@ -44747,6 +44761,8 @@ var staticRenderFns = [
         _c("th", { staticClass: "text-center" }, [_vm._v("Title(Name)")]),
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [_vm._v("Image")]),
+        _vm._v(" "),
+        _c("th", { staticClass: "text-center" }, [_vm._v("Supplier")]),
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [_vm._v("Supplier Price")]),
         _vm._v(" "),
@@ -47873,7 +47889,7 @@ var render = function() {
                                           staticClass: "form-control-sm w-100",
                                           class: {
                                             "is-invalid": _vm.form.errors.has(
-                                              "product_price"
+                                              "product.sell_price"
                                             )
                                           },
                                           attrs: {
@@ -65645,8 +65661,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /home/mnbtech/Projects/EasyInventory/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /home/mnbtech/Projects/EasyInventory/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! E:\xampp\htdocs\EasyInventory\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! E:\xampp\htdocs\EasyInventory\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

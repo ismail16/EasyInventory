@@ -52,7 +52,7 @@ class SupllierInvoiceController extends Controller
             //     @unlink($userPhoto);
             // }
         }else{
-            $name = 'defoult.png';
+            $name = 'default.png';
         }
         $supplier_invoice->image = $name ;
 

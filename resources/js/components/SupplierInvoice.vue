@@ -162,6 +162,11 @@
 
             getImgUrl: function(image){
                 var photo = "/images/supplier_invoice/"+ image
+                if (image != 'default.png') {
+                    return photo
+                }else{
+                    return "/images/supplier_invoice/"+ 'default.png'
+                }
                 return photo
                 console.log(photo)
             },
