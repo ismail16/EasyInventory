@@ -67,7 +67,7 @@ class SupllierInvoiceController extends Controller
             $supplierInvoiceProduct->supplier_invoice_id = $supplier_invoice->id;
             $supplierInvoiceProduct->product_name = $products[$i]['product_name'];
             $supplierInvoiceProduct->product_quantity = $products[$i]['product_quantity'];
-            $supplierInvoiceProduct->product_price = $products[$i]['product_price'];
+            $supplierInvoiceProduct->sell_price = $products[$i]['sell_price'];
             $supplierInvoiceProduct->status = 1;
             $supplierInvoiceProduct->save();
         }
@@ -79,18 +79,6 @@ class SupllierInvoiceController extends Controller
 
     }
 
-    // public function edit($id)
-    // {
-    //     // $form = Invoice::with(['customer', 'items.product'])
-    //     //     ->findOrFail($id);
-    //     // return response()
-    //     //     ->json(['form' => $form]);
-
-    //     $supplier_invoice = SupplierInvoice::find($id);
-    //     $supplierInvoiceProduct = SupplierInvoiceProduct::where('supplier_invoice_id',$id)->get();
-
-    //     return array('supplierInvoice' => $supplier_invoice, 'supplierInvoiceProduct' => $supplierInvoiceProduct);
-    // }
 
     public function show($id)
     {
@@ -136,7 +124,7 @@ class SupllierInvoiceController extends Controller
                 $supplierInvoiceProduct->supplier_invoice_id = $supplier_invoice->id;
                 $supplierInvoiceProduct->product_name = $products[$i]['product_name'];
                 $supplierInvoiceProduct->product_quantity = $products[$i]['product_quantity'];
-                $supplierInvoiceProduct->product_price = $products[$i]['product_price'];
+                $supplierInvoiceProduct->sell_price = $products[$i]['sell_price'];
                 $supplierInvoiceProduct->status = 1;
                 $supplierInvoiceProduct->save();
             }

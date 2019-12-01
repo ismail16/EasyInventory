@@ -99,7 +99,7 @@
 
                                             </td>
                                             <td>
-                                                <input v-model="product.sell_price" placeholder="Product Price" type="text" class="form-control-sm w-100" :class="{ 'is-invalid': form.errors.has('product_price') }" autocomplete="off" required>
+                                                <input v-model="product.sell_price" placeholder="Product Price" type="text" class="form-control-sm w-100" :class="{ 'is-invalid': form.errors.has('product.sell_price') }" autocomplete="off" required>
                                             </td>
                                             <td class="text-center">
                                                 <input class="form-control-sm w-100" :value="product.product_quantity * product.sell_price" type="text" style="text-align: center;" disabled>
@@ -208,6 +208,8 @@ export default {
 
     computed: {
         grand_total_price: function() {
+
+            console.log('llll');
             var temp = this
             return temp.form.products.reduce(function(carry, product) {
                 let total = carry + (parseFloat(product.product_quantity) * parseFloat(product.sell_price));
@@ -281,7 +283,7 @@ export default {
         },
 
         add_new_row_to_invoice: function(){
-            this.form.products.push({product_name : '',product_quantity : 1,product_price : 0,sub_total_price : '' })
+            this.form.products.push({product_name : '',product_quantity : 1,sell_price : 0,sub_total_price : '' })
         },
 
         deleteRow: function(index){
