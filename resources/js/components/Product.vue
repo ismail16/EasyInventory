@@ -55,7 +55,7 @@
                     <td class="text-center">
                         <img v-show="product.image" :src="getImgUrl(product.image)"  class="img-fluid" style="max-height: 50px; max-width: 50px;" alt="User Avatar">
                     </td>
-                    <td class="text-center">{{ product.supplier_id }}</td>
+                    <td class="text-center" >{{ product.supplier }}</td>
                     <td class="text-center">{{ product.supplier_price }}</td>
                     <td class="text-center">{{ product.sell_price }}</td>
                     <td class="text-center">{{ product.mfg_date }}</td>
