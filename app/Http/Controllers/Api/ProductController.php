@@ -13,7 +13,9 @@ class ProductController extends Controller
 
    public function index()
     {
-        return  DefaultResource::collection(Product::orderBy('id','desc')->paginate(10));
+        $products = DefaultResource::collection(Product::orderBy('id','desc')->paginate(10));
+        
+       return $products;
     }
 
     public function search($field,$query)
