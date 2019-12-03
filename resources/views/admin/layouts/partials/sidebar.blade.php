@@ -135,14 +135,14 @@
                 </li> 
 
                 <li class="nav-item">
-                    <router-link to="/supplier-invoice" class="nav-link">
+                    <router-link to="/dashboard" class="nav-link">
                         <i class="nav-icon far fa-file-alt"></i>
                         <p>Reports</p>
                     </router-link>
                 </li>
 
                 <li class="nav-item">
-                    <router-link to="/supplier-invoice" class="nav-link">
+                    <router-link to="/dashboard" class="nav-link">
                         <i class="nav-icon fas fa-cogs"></i>
                         <p>Setting</p>
                     </router-link>

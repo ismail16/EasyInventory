@@ -29,14 +29,20 @@
                                     <div class="form-group row">
                                         <label class="col-sm-3 form-control-label">Loaner Name <i class="text-danger">*</i></label>
                                         <div class="col-sm-9">
-                                            <input type="text" v-model="form.loaner_name" placeholder="Loaner Name" class="form-control-sm w-100" required>
+                                            <input v-model="form.loaner_name" type="text" name="loaner_name"
+                                            placeholder="Loaner name"
+                                            class="form-control form-control-sm w-100" :class="{ 'is-invalid': form.errors.has('loaner_name') }">
+                                            <has-error :form="form" field="loaner_name"></has-error>
                                         </div>
                                     </div>
 
                                     <div class="form-group row">
                                        <label class="col-sm-3 form-control-label">Loaner Mobile <i class="text-danger">*</i></label>
                                         <div class="col-sm-9">
-                                            <input type="number" v-model="form.loaner_mobile" placeholder="Loaner Mobile" class="form-control-sm w-100" required>
+                                            <input v-model="form.loaner_mobile" type="number" name="loaner_mobile"
+                                            placeholder="Loaner Mobile"
+                                            class="form-control form-control-sm w-100" :class="{ 'is-invalid': form.errors.has('loaner_mobile') }">
+                                            <has-error :form="form" field="loaner_mobile"></has-error>
                                         </div>
                                     </div>
 
@@ -60,7 +66,10 @@
                                     <div class="form-group row">
                                        <label class="col-sm-3 form-control-label">Loan Amount <i class="text-danger">*</i></label>
                                         <div class="col-sm-9">
-                                            <input type="number" v-model="form.loan_amount" placeholder="Loan Amount" class="form-control-sm w-100" required>
+                                            <input v-model="form.loan_amount" type="number" name="loan_amount"
+                                            placeholder="Loan Amount"
+                                            class="form-control form-control-sm w-100" :class="{ 'is-invalid': form.errors.has('loan_amount') }">
+                                            <has-error :form="form" field="loan_amount"></has-error>
                                         </div>
                                     </div>
 

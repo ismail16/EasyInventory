@@ -116,7 +116,7 @@
                             <div class="col-sm-9">
                                 <input v-model="form.staff_name" type="text" name="staff_name"
                                     placeholder="staff name"
-                                    class="form-control-sm w-100" :class="{ 'is-invalid': form.errors.has('staff_name') }">
+                                    class="form-control form-control-sm w-100" :class="{ 'is-invalid': form.errors.has('staff_name') }">
                                 <has-error :form="form" field="staff_name"></has-error>
                             </div>
                         </div>
@@ -124,7 +124,10 @@
                         <div class="form-group mb-0 row">
                             <label class="col-sm-3 col-form-label">User Name</label>
                             <div class="col-sm-9">
-                                <input type="text" v-model="form.staff_user_name" id="staff_user_name" name="staff_user_name" class="form-control-sm w-100" placeholder="staff Contact Name">
+                                <input v-model="form.staff_user_name" type="text" name="staff_user_name"
+                                    placeholder="staff name"
+                                    class="form-control form-control-sm w-100" :class="{ 'is-invalid': form.errors.has('staff_user_name') }">
+                                <has-error :form="form" field="staff_user_name"></has-error>
                             </div>
                         </div>
                         <div class="form-group mb-0 row">
@@ -143,16 +146,20 @@
                         <div class="form-group mb-0 row">
                             <label class="col-sm-3 col-form-label">User Type</label>
                             <div class="col-sm-9">
-                                <select v-model="form.user_type" class="form-control-sm w-100" id="fileds">
+                                <select v-model="form.user_type" class="form-control form-control-sm w-100" :class="{ 'is-invalid': form.errors.has('user_type') }" name="user_type" id="fileds">
                                     <option value="1">Admin</option>
                                     <option value="2">Sales man</option>
                                 </select>
+                                <has-error :form="form" field="user_type"></has-error>
                             </div>
                         </div>
                         <div class="form-group mb-0 row">
                             <label class="col-sm-3 col-form-label">Password</label>
                             <div class="col-sm-9">
-                                <input type="text" v-model="form.staff_password" id="staff_password" name="staff_password" class="form-control-sm w-100" placeholder="staff password">
+                                <input v-model="form.staff_password" type="text" name="staff_password"
+                                    placeholder="staff name"
+                                    class="form-control form-control-sm w-100" :class="{ 'is-invalid': form.errors.has('staff_password') }">
+                                <has-error :form="form" field="staff_password"></has-error>
                             </div>
                         </div>
                     </div>
@@ -249,9 +256,9 @@
             addNewstaff(){
                 var temp = this
                 this.$Progress.start() 
-                $('#addNew').modal('hide')
                 this.form.post('/api/staffs')
                 .then(function (response) {
+                    $('#addNew').modal('hide')
                     console.log(response.data)
                     temp.getData();
                     toastr.success('Saved staff Successfully'),

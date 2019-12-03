@@ -190,6 +190,7 @@
                 if (newQ === "") {
                     this.getData();
                 } else {
+                    
                     this.searchData();
                 }
             }
@@ -235,9 +236,9 @@
             addNewSupplier(){
                 var temp = this
                 this.$Progress.start() 
-                $('#addNew').modal('hide')
                 this.form.post('/api/suppliers')
                 .then(function (response) {
+                    $('#addNew').modal('hide')
                     console.log(response.data)
                     temp.getData();
                     toastr.success('Saved Supplier Successfully'),

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateStaffTable extends Migration
+class CreateInvoiceProductsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,12 @@ class CreateStaffTable extends Migration
      */
     public function up()
     {
-
-        Schema::create('staff', function (Blueprint $table) {
+        Schema::create('invoice_products', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('staff_name');
-            $table->string('staff_user_name');
-            $table->string('staff_phone')->nullable();
-            $table->string('staff_address')->nullable();
-            $table->string('user_type');
-            $table->string('staff_password');
+            $table->integer('invoice_id')->unsigned();
+            $table->string('product_name');
+            $table->integer('product_quantity');
+            $table->decimal('sell_price');
             $table->tinyInteger('status')->default(0);
             $table->timestamps();
         });
@@ -34,6 +31,6 @@ class CreateStaffTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('staff');
+        Schema::dropIfExists('invoice_products');
     }
 }
