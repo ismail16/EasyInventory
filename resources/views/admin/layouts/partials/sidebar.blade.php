@@ -107,7 +107,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <router-link to="/supplier-invoice" class="nav-link">
+                    <router-link to="/invoice" class="nav-link">
                         <i class="nav-icon far fa-file-alt"></i>
                         <p>Invoice</p>
                     </router-link>
@@ -121,7 +121,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <router-link to="/supplier-invoice" class="nav-link">
+                    <router-link to="/loan" class="nav-link">
                         <i class="nav-icon far fa-money-bill-alt"></i>
                         <p>Loan</p>
                     </router-link>

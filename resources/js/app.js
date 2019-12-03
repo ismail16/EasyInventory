@@ -35,12 +35,18 @@ const routes = [
     { path: '/customer', component: require('./components/Customer.vue').default },
     { path: '/category', component: require('./components/Category.vue').default },
     { path: '/warehouse', component: require('./components/Warehouse.vue').default },
+    { path: '/invoice', component: require('./components/Invoice.vue').default },
+    { path: '/invoice-create', component: require('./components/InvoiceCreate.vue').default },
+    { path: '/invoice/:id/edit', component: require('./components/InvoiceEdit.vue').default },
     { path: '/supplier-invoice', component: require('./components/SupplierInvoice.vue').default },
     { path: '/supplier-invoice-create', component: require('./components/SupplierInvoiceCreate.vue').default },
     { path: '/supplier-invoice/:id/edit', component: require('./components/SupplierInvoiceEdit.vue').default },
     { path: '/product', component: require('./components/Product.vue').default },
     { path: '/product-create', component: require('./components/ProductCreate.vue').default },
     { path: '/product/:id/edit', component: require('./components/ProductEdit.vue').default },
+    { path: '/loan', component: require('./components/Loans.vue').default },
+    { path: '/loan-create', component: require('./components/LoansCreate.vue').default },
+    { path: '/loan/:id/edit', component: require('./components/LoansEdit.vue').default },
     { path: '*', component: require('./components/Dashboard.vue').default }
 ]
 
