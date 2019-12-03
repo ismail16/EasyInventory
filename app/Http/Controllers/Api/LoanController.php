@@ -25,7 +25,9 @@ class LoanController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'loaner_name' => 'required'
+            'loaner_name' => 'required',
+            'loaner_mobile' => 'required',
+            'loan_amount' => 'required'
         ]);
 
         $Loan = new Loan;
@@ -49,12 +51,22 @@ class LoanController extends Controller
 
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'Loan_name' => 'required'
-        ]);
-
+        $req = $request->loan;
+        // $req->validate([
+        //     'loaner_name' => 'required',
+        //     'loaner_mobile' => 'required',
+        //     'loan_amount' => 'required'
+        // ]);
         $Loan = Loan::find($id);
-        $Loan->Loan_name = $request->Loan_name;
+        $Loan->loaner_name = $req['loaner_name'];
+        $Loan->loaner_mobile = $req['loaner_mobile'];
+        $Loan->loaner_email = $req['loaner_email'];
+        $Loan->loaner_address = $req['loaner_address'];
+        $Loan->loan_amount = $req['loan_amount'];
+        $Loan->loan_taken_date = $req['loan_taken_date'];
+        $Loan->loan_end_date = $req['loan_end_date'];
+        $Loan->loan_detail = $req['loan_detail'];
+        $Loan->status = 1;
         $Loan->save();
         return $Loan;
     }

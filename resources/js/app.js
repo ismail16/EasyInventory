@@ -35,6 +35,7 @@ const routes = [
     { path: '/customer', component: require('./components/Customer.vue').default },
     { path: '/category', component: require('./components/Category.vue').default },
     { path: '/warehouse', component: require('./components/Warehouse.vue').default },
+    { path: '/staff', component: require('./components/Staff.vue').default },
     { path: '/invoice', component: require('./components/Invoice.vue').default },
     { path: '/invoice-create', component: require('./components/InvoiceCreate.vue').default },
     { path: '/invoice/:id/edit', component: require('./components/InvoiceEdit.vue').default },

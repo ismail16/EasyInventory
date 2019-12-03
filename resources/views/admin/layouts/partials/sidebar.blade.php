@@ -128,7 +128,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <router-link to="/supplier-invoice" class="nav-link">
+                    <router-link to="/staff" class="nav-link">
                         <i class="nav-icon fas fa-users-cog"></i>
                         <p>Staff</p>
                     </router-link>

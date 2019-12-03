@@ -14,8 +14,8 @@
                           </div>
                           <div class="col-md-3">
                               <div class="d-inline-flex float-right">
-                                <router-link to="/supplier-invoice" class="btn btn-sm btn-primary float-right">
-                                    <i class="nav-icon far fa-file-alt"></i> Loans
+                                <router-link to="/loan" class="btn btn-sm btn-primary float-right">
+                                    <i class="nav-icon far fa-file-alt"></i> Loan List
                                 </router-link>
                             </div>
                         </div>
@@ -26,31 +26,29 @@
                         <div class="panel-body">
                             <div class="row">
                                 <div class="col-md-6">
-                                    <!-- loaner_name : '',loaner_mobile : '',loaner_address : '',loan_amount : '',loan_taken_date : '',loan_end_date : '',loan_detail : '', -->
-
                                     <div class="form-group row">
                                         <label class="col-sm-3 form-control-label">Loaner Name <i class="text-danger">*</i></label>
                                         <div class="col-sm-9">
-                                            <input type="text" v-model="form.loaner_name" placeholder="Loaner Name" class="form-control-sm w-100">
+                                            <input type="text" v-model="form.loaner_name" placeholder="Loaner Name" class="form-control-sm w-100" required>
                                         </div>
                                     </div>
 
                                     <div class="form-group row">
                                        <label class="col-sm-3 form-control-label">Loaner Mobile <i class="text-danger">*</i></label>
                                         <div class="col-sm-9">
-                                            <input type="number" v-model="form.loaner_mobile" placeholder="Loaner Mobile" class="form-control-sm w-100">
+                                            <input type="number" v-model="form.loaner_mobile" placeholder="Loaner Mobile" class="form-control-sm w-100" required>
                                         </div>
                                     </div>
 
                                     <div class="form-group row">
-                                       <label class="col-sm-3 form-control-label">Loaner Email <i class="text-danger">*</i></label>
+                                       <label class="col-sm-3 form-control-label">Loaner Email</label>
                                         <div class="col-sm-9">
                                             <input type="email" v-model="form.loaner_email" placeholder="Loaner Email" class="form-control-sm w-100">
                                         </div>
                                     </div>
 
                                     <div class="form-group row">
-                                       <label class="col-sm-3 form-control-label">Loaner Address <i class="text-danger">*</i></label>
+                                       <label class="col-sm-3 form-control-label">Loaner Address</label>
                                         <div class="col-sm-9">
                                             <textarea v-model="form.loaner_address" id="loaner_address" name="loaner_address" class="form-control" rows="2" placeholder="Loaner Address"></textarea>
                                         </div>
@@ -62,7 +60,7 @@
                                     <div class="form-group row">
                                        <label class="col-sm-3 form-control-label">Loan Amount <i class="text-danger">*</i></label>
                                         <div class="col-sm-9">
-                                            <input type="number" v-model="form.loan_amount" placeholder="Loan Amount" class="form-control-sm w-100">
+                                            <input type="number" v-model="form.loan_amount" placeholder="Loan Amount" class="form-control-sm w-100" required>
                                         </div>
                                     </div>
 
@@ -81,7 +79,7 @@
                                     </div>
 
                                     <div class="form-group row">
-                                       <label class="col-sm-3 form-control-label">Loan Detail <i class="text-danger">*</i></label>
+                                       <label class="col-sm-3 form-control-label">Loan Detail</label>
                                         <div class="col-sm-9">
                                             <textarea v-model="form.loan_detail" id="loan_detail" name="loan_detail" class="form-control" rows="3" placeholder="Loan Detail"></textarea>
                                         </div>
@@ -156,6 +154,9 @@ export default {
               temp.$Progress.fail()
           });
         },
+
+
+        
 
     }
 }

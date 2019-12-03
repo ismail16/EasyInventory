@@ -22,6 +22,9 @@ Route::get('search/warehouses/{field}/{query}','Api\WarehouseController@search')
 Route::apiResource('loans','Api\LoanController');
 Route::get('search/loans/{field}/{query}','Api\LoanController@search');
 
+Route::apiResource('staffs','Api\StaffController');
+Route::get('search/staffs/{field}/{query}','Api\StaffController@search');
+
 Route::apiResource('supllier-invoice','Api\SupllierInvoiceController');
 Route::get('search/supllier-invoice/{field}/{query}','Api\SupllierInvoiceController@search');
 
