@@ -119,14 +119,22 @@
                                                 <input id="add-invoice-item" class="btn btn-info btn-sm" name="add-invoice-item" @click="add_new_row_to_invoice" value="Add New Item" type="button">
                                             </td>
                                         </tr>
+
                                         <tr id="appssss">
                                             <td colspan="3" style="text-align:right;"><b>Grand Total:</b></td>
                                             <td class="text-center">
                                                 <input class="form-control-sm w-100" v-model="grand_total_price" type="text" style="text-align: center;" disabled>
                                             </td>
-                                            
+                                        </tr> 
 
+                                        <tr v-show="total">
+                                            <td colspan="3" style="text-align:right;"><b>Final Total:</b></td>
+                                            <td class="text-center">
+                                                <input class="form-control-sm w-100" v-model="total" type="text" style="text-align: center;" disabled>
+                                            </td>
                                         </tr>
+
+
                                         <tr>
                                             <td style="text-align:right;" colspan="3"><b>Paid Amount:</b></td>
                                             <td class="text-right">
@@ -217,36 +225,30 @@ export default {
             var temp = this
             return temp.form.products.reduce(function(carry, product) {
                 let total = carry + (parseFloat(product.product_quantity) * parseFloat(product.sell_price));
-                let discount = temp.form.discount;
-                if (discount) {
-                    let gtotal = total - discount;
-                    temp.form.grand_total_price = gtotal;
-                    return gtotal
-                }else{
                     temp.form.grand_total_price = total;
                     return total
-                }
-
-
             }, 0);
+        },
+
+        total: function() {
+            var temp = this
+            let discount = temp.form.grand_total_price - parseFloat(temp.form.discount);
+                return discount      
         },
 
         due_amount: function() {
             var temp = this
-            let due_ammount = temp.form.grand_total_price - parseFloat(temp.form.paid_amount);
-            let discount = temp.form.discount;
-            if (discount) {
-                let fdiscount = due_ammount - discount;
-                temp.form.due_amount = fdiscount
+            let total = temp.total;
+            if (total) {
+                let fdiscount = total - parseFloat(temp.form.paid_amount);
                 return fdiscount
             }else{
-                // let due_ammount = temp.form.grand_total_price - parseFloat(temp.form.paid_amount);
-                temp.form.due_amount = due_ammount
+                let due_ammount = temp.form.grand_total_price - parseFloat(temp.form.paid_amount);
                 return due_ammount
-            }
-
-           
+            }           
         }
+
+
     },
 
     methods:{

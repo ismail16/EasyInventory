@@ -2812,6 +2812,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -2863,30 +2871,24 @@ __webpack_require__.r(__webpack_exports__);
       var temp = this;
       return temp.form.products.reduce(function (carry, product) {
         var total = carry + parseFloat(product.product_quantity) * parseFloat(product.sell_price);
-        var discount = temp.form.discount;
-
-        if (discount) {
-          var gtotal = total - discount;
-          temp.form.grand_total_price = gtotal;
-          return gtotal;
-        } else {
-          temp.form.grand_total_price = total;
-          return total;
-        }
+        temp.form.grand_total_price = total;
+        return total;
       }, 0);
+    },
+    total: function total() {
+      var temp = this;
+      var discount = temp.form.grand_total_price - parseFloat(temp.form.discount);
+      return discount;
     },
     due_amount: function due_amount() {
       var temp = this;
-      var due_ammount = temp.form.grand_total_price - parseFloat(temp.form.paid_amount);
-      var discount = temp.form.discount;
+      var total = temp.total;
 
-      if (discount) {
-        var fdiscount = due_ammount - discount;
-        temp.form.due_amount = fdiscount;
+      if (total) {
+        var fdiscount = total - parseFloat(temp.form.paid_amount);
         return fdiscount;
       } else {
-        // let due_ammount = temp.form.grand_total_price - parseFloat(temp.form.paid_amount);
-        temp.form.due_amount = due_ammount;
+        var due_ammount = temp.form.grand_total_price - parseFloat(temp.form.paid_amount);
         return due_ammount;
       }
     }
@@ -48242,8 +48244,52 @@ var render = function() {
                                     ])
                                   ]),
                                   _vm._v(" "),
+                                  _c(
+                                    "tr",
+                                    {
+                                      directives: [
+                                        {
+                                          name: "show",
+                                          rawName: "v-show",
+                                          value: _vm.total,
+                                          expression: "total"
+                                        }
+                                      ]
+                                    },
+                                    [
+                                      _vm._m(5),
+                                      _vm._v(" "),
+                                      _c("td", { staticClass: "text-center" }, [
+                                        _c("input", {
+                                          directives: [
+                                            {
+                                              name: "model",
+                                              rawName: "v-model",
+                                              value: _vm.total,
+                                              expression: "total"
+                                            }
+                                          ],
+                                          staticClass: "form-control-sm w-100",
+                                          staticStyle: {
+                                            "text-align": "center"
+                                          },
+                                          attrs: { type: "text", disabled: "" },
+                                          domProps: { value: _vm.total },
+                                          on: {
+                                            input: function($event) {
+                                              if ($event.target.composing) {
+                                                return
+                                              }
+                                              _vm.total = $event.target.value
+                                            }
+                                          }
+                                        })
+                                      ])
+                                    ]
+                                  ),
+                                  _vm._v(" "),
                                   _c("tr", [
-                                    _vm._m(5),
+                                    _vm._m(6),
                                     _vm._v(" "),
                                     _c("td", { staticClass: "text-right" }, [
                                       _c("input", {
@@ -48296,7 +48342,7 @@ var render = function() {
                                       ]
                                     },
                                     [
-                                      _vm._m(6),
+                                      _vm._m(7),
                                       _vm._v(" "),
                                       _c("td", { staticClass: "text-center" }, [
                                         _c("input", {
@@ -48430,6 +48476,16 @@ var staticRenderFns = [
       "td",
       { staticStyle: { "text-align": "right" }, attrs: { colspan: "3" } },
       [_c("b", [_vm._v("Grand Total:")])]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "td",
+      { staticStyle: { "text-align": "right" }, attrs: { colspan: "3" } },
+      [_c("b", [_vm._v("Final Total:")])]
     )
   },
   function() {
@@ -73130,8 +73186,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /home/mnbtech/Projects/EasyInventory/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /home/mnbtech/Projects/EasyInventory/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! E:\xampp\htdocs\EasyInventory\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! E:\xampp\htdocs\EasyInventory\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
