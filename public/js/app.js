@@ -52752,9 +52752,7 @@ var render = function() {
                     ]),
                     _vm._v(" "),
                     _c("div", { staticClass: "form-group mb-0 row" }, [
-                      _c("label", { staticClass: "col-sm-3 col-form-label" }, [
-                        _vm._v("User Name")
-                      ]),
+                      _vm._m(7),
                       _vm._v(" "),
                       _c(
                         "div",
@@ -52778,7 +52776,7 @@ var render = function() {
                             attrs: {
                               type: "text",
                               name: "staff_user_name",
-                              placeholder: "staff name"
+                              placeholder: "User Name"
                             },
                             domProps: { value: _vm.form.staff_user_name },
                             on: {
@@ -52882,9 +52880,7 @@ var render = function() {
                     ]),
                     _vm._v(" "),
                     _c("div", { staticClass: "form-group mb-0 row" }, [
-                      _c("label", { staticClass: "col-sm-3 col-form-label" }, [
-                        _vm._v("User Type")
-                      ]),
+                      _vm._m(8),
                       _vm._v(" "),
                       _c(
                         "div",
@@ -52947,9 +52943,7 @@ var render = function() {
                     ]),
                     _vm._v(" "),
                     _c("div", { staticClass: "form-group mb-0 row" }, [
-                      _c("label", { staticClass: "col-sm-3 col-form-label" }, [
-                        _vm._v("Password")
-                      ]),
+                      _vm._m(9),
                       _vm._v(" "),
                       _c(
                         "div",
@@ -52973,7 +52967,7 @@ var render = function() {
                             attrs: {
                               type: "text",
                               name: "staff_password",
-                              placeholder: "staff name"
+                              placeholder: "staff password"
                             },
                             domProps: { value: _vm.form.staff_password },
                             on: {
@@ -53153,6 +53147,33 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("label", { staticClass: "col-sm-3 col-form-label" }, [
       _vm._v("Name "),
+      _c("span", { staticClass: "text-red" }, [_vm._v("*")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", { staticClass: "col-sm-3 col-form-label" }, [
+      _vm._v("User Name "),
+      _c("span", { staticClass: "text-red" }, [_vm._v("*")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", { staticClass: "col-sm-3 col-form-label" }, [
+      _vm._v("User Type "),
+      _c("span", { staticClass: "text-red" }, [_vm._v("*")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", { staticClass: "col-sm-3 col-form-label" }, [
+      _vm._v("Password "),
       _c("span", { staticClass: "text-red" }, [_vm._v("*")])
     ])
   }
@@ -73109,8 +73130,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! E:\xampp\htdocs\EasyInventory\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! E:\xampp\htdocs\EasyInventory\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /home/mnbtech/Projects/EasyInventory/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /home/mnbtech/Projects/EasyInventory/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

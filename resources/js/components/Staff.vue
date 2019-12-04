@@ -122,10 +122,10 @@
                         </div>
 
                         <div class="form-group mb-0 row">
-                            <label class="col-sm-3 col-form-label">User Name</label>
+                            <label class="col-sm-3 col-form-label">User Name <span class="text-red">*</span></label>
                             <div class="col-sm-9">
                                 <input v-model="form.staff_user_name" type="text" name="staff_user_name"
-                                    placeholder="staff name"
+                                    placeholder="User Name"
                                     class="form-control form-control-sm w-100" :class="{ 'is-invalid': form.errors.has('staff_user_name') }">
                                 <has-error :form="form" field="staff_user_name"></has-error>
                             </div>
@@ -144,7 +144,7 @@
                         </div>
 
                         <div class="form-group mb-0 row">
-                            <label class="col-sm-3 col-form-label">User Type</label>
+                            <label class="col-sm-3 col-form-label">User Type <span class="text-red">*</span></label>
                             <div class="col-sm-9">
                                 <select v-model="form.user_type" class="form-control form-control-sm w-100" :class="{ 'is-invalid': form.errors.has('user_type') }" name="user_type" id="fileds">
                                     <option value="1">Admin</option>
@@ -154,10 +154,10 @@
                             </div>
                         </div>
                         <div class="form-group mb-0 row">
-                            <label class="col-sm-3 col-form-label">Password</label>
+                            <label class="col-sm-3 col-form-label">Password <span class="text-red">*</span></label>
                             <div class="col-sm-9">
                                 <input v-model="form.staff_password" type="text" name="staff_password"
-                                    placeholder="staff name"
+                                    placeholder="staff password"
                                     class="form-control form-control-sm w-100" :class="{ 'is-invalid': form.errors.has('staff_password') }">
                                 <has-error :form="form" field="staff_password"></has-error>
                             </div>
