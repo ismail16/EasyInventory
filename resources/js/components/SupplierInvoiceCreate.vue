@@ -87,7 +87,7 @@
     <input @blur="onBlur=true" @focus="onFocus = true;onBlur = false;" v-model="product.product_name" @keyDown="keyDown"  type="text" placeholder="Product Name" class="form-control-sm w-100" required>
     <div class="product.product_name-items" style="z-index: 999; position: absolute; width: 29%; background-color: white; padding: 0px 10px; max-height: 150px; overflow: auto;">
       
-      <div :class="currentFocus == index ? 'product.product_name-active' : ''" v-for="(i, index) in product_arr" v-if= "onFocus && i.product_name.substr(0, product.product_name.length).toUpperCase() == product.product_name.toUpperCase()" @click="product.product_name = i.product_name; product.sell_price = i.sell_price; onFocus = false;">
+      <div :class="currentFocus == index ? 'product.product_name-active' : ''" v-for="(i, index) in product_arr" v-if= "onFocus && i.product_name.substr(0, product.product_name.length).toUpperCase() == product.product_name.toUpperCase()" @click="product.product_name = i.product_name; product.supplier_price = i.supplier_price; onFocus = false;">
         <strong>{{i.product_name.substr(0, product.product_name.length)}}</strong>{{i.product_name.substr(product.product_name.length)}}
       </div>
     </div>
@@ -99,10 +99,10 @@
 
                                             </td>
                                             <td>
-                                                <input v-model="product.sell_price" placeholder="Product Price" type="text" class="form-control-sm w-100" :class="{ 'is-invalid': form.errors.has('product.sell_price') }" autocomplete="off" required>
+                                                <input v-model="product.supplier_price" placeholder="Product Price" type="text" class="form-control-sm w-100" :class="{ 'is-invalid': form.errors.has('product.supplier_price') }" autocomplete="off" required>
                                             </td>
                                             <td class="text-center">
-                                                <input class="form-control-sm w-100" :value="product.product_quantity * product.sell_price" type="text" style="text-align: center;" disabled>
+                                                <input class="form-control-sm w-100" :value="product.product_quantity * product.supplier_price" type="text" style="text-align: center;" disabled>
                                             </td>
 
                                             <td class="text-center">
@@ -169,7 +169,7 @@ export default {
         return {
             form: new Form({
               id : '',
-              products:[{product_name : '',product_quantity : 1,sell_price : 0,sub_total_price : '' }],
+              products:[{product_name : '',product_quantity : 1,supplier_price : 0,sub_total_price : '' }],
 
               supplier_id : '',
               warehouse_id : '',
@@ -212,7 +212,7 @@ export default {
             console.log('llll');
             var temp = this
             return temp.form.products.reduce(function(carry, product) {
-                let total = carry + (parseFloat(product.product_quantity) * parseFloat(product.sell_price));
+                let total = carry + (parseFloat(product.product_quantity) * parseFloat(product.supplier_price));
                 temp.form.grand_total_price = total
                 return total
             }, 0);
@@ -283,7 +283,7 @@ export default {
         },
 
         add_new_row_to_invoice: function(){
-            this.form.products.push({product_name : '',product_quantity : 1,sell_price : 0,sub_total_price : '' })
+            this.form.products.push({product_name : '',product_quantity : 1,supplier_price : 0,sub_total_price : '' })
         },
 
         deleteRow: function(index){

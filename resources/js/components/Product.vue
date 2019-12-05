@@ -76,7 +76,7 @@
 
                 <tbody v-else>
                   <tr>
-                    <td colspan="8">
+                    <td colspan="9">
                       <div class="p-3 mb-2">
                         <h3 class="text-center text-danger">Opps!!</h3>
                         <p class="text-center">Data not found</p>

@@ -1,5 +1,6 @@
 <template>
     <div class="container">
+        <!-- hukTnOztP5tzBwH5jwVKqztE7OR6heUccNGizTPXp9QFTphl4pr4atir501a -->
         <section class="content mt-2">
             <div class="row">
                 <div class="col-12">
@@ -7,7 +8,7 @@
                         <div class="card-header pb-0">
                           <div class="row">
                             <div class="col-md-3 float-left">
-                                <p><a href="/">Home</a> / Add New Invoice</p>
+                                <p><a href="/">Home</a> / Add New SupplierInvoice</p>
                           </div>
                           <div class="col-md-6">
 
@@ -15,14 +16,14 @@
                           <div class="col-md-3">
                               <div class="d-inline-flex float-right">
                                 <router-link to="/supplier-invoice" class="btn btn-sm btn-primary float-right">
-                                    <i class="nav-icon far fa-file-alt"></i>Invoice
+                                    <i class="nav-icon far fa-file-alt"></i> Supplier Invoice
                                 </router-link>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="card-body" style="background-color: #f6f6f7;">
-                    <form @submit.prevent="addNewInvoice">
+                    <form @submit.prevent="updateSupplierInvoice">
                         <div class="panel-body">
                             <div class="row">
                                 <div class="col-md-7">
@@ -49,15 +50,18 @@
                                 <div class="col-md-5">
                                     <div class="form-group row mb-1">
                                         <label for="inputPassword" class="col-sm-2 col-form-label">Date</label>
-                                        <div class="col-sm-10">                                      
-                                            <datetime format="DD/MM/YYYY h:i:s" width="300px" v-model="form.invoice_date" class="form-control-sm w-100" :class="{ 'is-invalid': form.errors.has('invoice_date') }" autocomplete="off"></datetime>
-                                            <has-error :form="form" field="invoice_date"></has-error>
+                                        <div class="col-sm-10">
+                                            <datetime format="DD/MM/YYYY h:i:s" width="300px" v-model="form.invoice_date" class="form-control-sm w-100" autocomplete="off"></datetime>
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label for="inputPassword" class="col-sm-2 col-form-label">Image</label>
                                         <div class="col-sm-7 ml-2">
                                             <input type="file" :src="form.image" @change="uploadImage" />
+                                        </div>
+
+                                        <div v-if="!img_url" id="preview col-sm-2">
+                                            <img v-show="this.form.image" :src="getImgUrl(this.form.image)"  class="img-fluid" style="max-height: 50px; max-width: 50px;" alt="User Avatar">
                                         </div>
 
                                         <div id="preview col-sm-2">
@@ -80,32 +84,20 @@
                                     </thead>
                                     <tbody id="add_row_to_invoice">
 
-                                        <tr v-for="(product, index) in form.products">
+                                        <tr v-for="(product, index) in products">
                                             <td style="width: 320px">
+                                                <input v-model="product.product_name" placeholder="Item Name" required type="text" class="form-control-sm w-100" autocomplete="off">
 
-    <input @blur="onBlur=true" @focus="onFocus = true;onBlur = false;" v-model="product.product_name" @keyDown="keyDown"  type="text" placeholder="Product Name" class="form-control-sm w-100" required>
-
-    <div class="product.product_name-items" style="z-index: 999; position: absolute; width: 29%; background-color: white; padding: 0px 10px; max-height: 150px; overflow: auto;">
-      
-      <div :class="currentFocus == index ? 'product.product_name-active' : ''" v-for="(i, index) in product_arr" v-if= "onFocus && i.product_name.substr(0, product.product_name.length).toUpperCase() == product.product_name.toUpperCase()" @click="product.product_name = i.product_name; product.sell_price = i.sell_price; onFocus = false;">
-
-        <strong>{{i.product_name.substr(0, product.product_name.length)}}</strong>{{i.product_name.substr(product.product_name.length)}}
-        
-      </div>
-
-    </div>
-                                                <!-- <input v-model="product.product_name" placeholder="Item Name" required type="text" class="form-control-sm w-100" :class="{ 'is-invalid': form.errors.has('product_name') }" autocomplete="off"> -->
-                                                <!-- <has-error :form="form" field="product_name"></has-error> -->
                                             </td>
                                             <td style="width: 320px">
-                                                <input v-model="product.product_quantity" placeholder="Product Quantity" type="text" class="form-control-sm w-100" :class="{ 'is-invalid': form.errors.has('product_quantity') }" autocomplete="off" required>
+                                                <input v-model="product.product_quantity" placeholder="Product Quantity" type="text" class="form-control-sm w-100" autocomplete="off" required>
 
                                             </td>
                                             <td>
-                                                <input v-model="product.sell_price" placeholder="Product Price" type="text" class="form-control-sm w-100" :class="{ 'is-invalid': form.errors.has('product.sell_price') }" autocomplete="off" required>
+                                                <input v-model="product.product_price" placeholder="Product Price" type="text" class="form-control-sm w-100" autocomplete="off" required>
                                             </td>
                                             <td class="text-center">
-                                                <input class="form-control-sm w-100" :value="product.product_quantity * product.sell_price" type="text" style="text-align: center;" disabled>
+                                                <input class="form-control-sm w-100" :value="product.product_quantity * product.product_price" tabindex="-1" type="text" style="text-align: center;" disabled>
                                             </td>
 
                                             <td class="text-center">
@@ -114,35 +106,20 @@
                                         </tr>
                                     </tbody>
                                     <tfoot>
-                                        <tr>
-                                            <td style="text-align:right;" colspan="3"><b>Discount:</b></td>
-                                            <td class="text-right">
-                                                <input id="paidAmount" class="form-control-sm w-100" v-model="form.discount" value="" name="discount" type="number" required style="text-align: center;">
-                                            </td>
-                                            <td align="center">
-                                                <input id="add-invoice-item" class="btn btn-info btn-sm" name="add-invoice-item" @click="add_new_row_to_invoice" value="Add New Item" type="button">
-                                            </td>
-                                        </tr>
-
                                         <tr id="appssss">
                                             <td colspan="3" style="text-align:right;"><b>Grand Total:</b></td>
                                             <td class="text-center">
-                                                <input class="form-control-sm w-100" v-model="grand_total_price" type="text" style="text-align: center;" disabled>
+                                                <input class="form-control-sm w-100" :value="grand_total_price" tabindex="-1" type="text" style="text-align: center;" disabled>
                                             </td>
-                                        </tr> 
+                                            <td align="center">
+                                                <input id="add-invoice-item" class="btn btn-info btn-sm" name="add-invoice-item" @click="add_new_row_to_invoice" value="Add New Item" tabindex="5" type="button">
+                                            </td>
 
-                                        <tr v-show="total">
-                                            <td colspan="3" style="text-align:right;"><b>Final Total:</b></td>
-                                            <td class="text-center">
-                                                <input class="form-control-sm w-100" v-model="total" type="text" style="text-align: center;" disabled>
-                                            </td>
                                         </tr>
-
-
                                         <tr>
                                             <td style="text-align:right;" colspan="3"><b>Paid Amount:</b></td>
                                             <td class="text-right">
-                                                <input id="paidAmount" class="form-control-sm w-100" v-model="form.paid_amount" value="5455" name="paid_amount" type="number" required style="text-align: center;">
+                                                <input id="paidAmount" class="form-control-sm w-100" v-model="form.paid_amount" value="5455" name="paid_amount" tabindex="6" type="number" required style="text-align: center;">
                                             </td>
                                         </tr>
                                         <tr v-show="due_amount">
@@ -159,7 +136,7 @@
                                     </router-link>
 
                                     <button class="btn btn-sm btn-success float-right" >
-                                        Create Invoice
+                                        Update Supplier Invoice
                                     </button>
                                 </div>
                             </div>
@@ -178,8 +155,7 @@ import datetime from 'vuejs-datetimepicker'
 export default {
 
     components: { datetime },
-    name: 'imageUpload',
-
+    // name: 'imageUpload',
     // https://www.youtube.com/watch?v=h6sTdAX6yTs
     // https://github.com/codekerala/laravel-vuejs-invoice/blob/master/resources/views/invoices/form.blade.php
 
@@ -187,108 +163,71 @@ export default {
         return {
             form: new Form({
               id : '',
-              products:[{product_name : '',product_quantity : 1,sell_price : 0,sub_total_price : '' }],
+              products:[],
 
               supplier_id : '',
               warehouse_id : '',
-              invoice_date :new Date().toLocaleString(),
+              invoice_date :'',
               image : '',
               grand_total_price : '',
               paid_amount : '',
               discount : '',
               due_amount : ''
-          }), 
-
+            }),
             img_url: '',
-
             suppliers:{},
             warehouses:{},
-
-
-            currentFocus: '',
-            autocomplete: '',
-            onBlur: true,
-            onFocus: false,
-            product_arr: []
+            products:[]
         }
     },
 
     mounted(){
         this.getSuppliers();
         this.getWarehouses();
-        this.getProducts();
-
-
-        var vm = this;
-        document.addEventListener("click", function(e){
-          vm.onBlur ?vm.onFocus = false: false});
-        },
+        this.getSupplierInvoice();
+    },
 
     computed: {
+
         grand_total_price: function() {
             var temp = this
-            return temp.form.products.reduce(function(carry, product) {
-                let total = carry + (parseFloat(product.product_quantity) * parseFloat(product.sell_price));
-                    temp.form.grand_total_price = total;
-                    return total
+            return temp.products.reduce(function(carry, product) {
+                let total = carry + (parseFloat(product.product_quantity) * parseFloat(product.product_price));
+                temp.form.grand_total_price = total
+                return total
             }, 0);
         },
 
-        total: function() {
-            var temp = this
-            let discount = temp.form.grand_total_price - parseFloat(temp.form.discount);
-                return discount      
-        },
-
         due_amount: function() {
-            var temp = this
-            let total = temp.total;
-            if (total) {
-                let fdiscount = total - parseFloat(temp.form.paid_amount);
-                return fdiscount
-            }else{
-                let due_ammount = temp.form.grand_total_price - parseFloat(temp.form.paid_amount);
-                return due_ammount
-            }           
+           var temp = this
+           let due_ammount = temp.grand_total_price - parseFloat(temp.form.paid_amount);
+           temp.form.due_amount = due_ammount
+           return due_ammount
         }
-
-
     },
 
     methods:{
 
-
-        addActive(){
-          var vm = this;
-          if (!vm.array) return false;
-          if (vm.currentFocus >= vm.array.length) vm.currentFocus = 0;
-          if (vm.currentFocus < 0) vm.currentFocus = (vm.array.length - 1);
-        },
-
-        keyDown(e){ 
-            var vm = this;
-              if (e.keyCode == 40) {
-              vm.currentFocus++;
-              vm.addActive()
-            } else if (e.keyCode == 38) {
-              vm.currentFocus;
-              vm.addActive()
-            }
-        },
-
-        addNewInvoice(){
+        updateSupplierInvoice: function(){
+            this.$Progress.start()
             var temp = this
-            temp.$Progress.start()
-            temp.form.post('/api/invoices')
+            temp.form.products = temp.products;
+            axios.put('/api/supllier-invoice/'+this.form.id,{
+                SupplierInvoice:temp.form
+            })
             .then(function (response) {
-                console.log(response)
-                toastr.success('Saved Invoice Successfully')
-                temp.$Progress.finish()
+              toastr.success('Updated Supplier Successfully');
+              temp.$Progress.finish()
             })
             .catch(function (error) {
-              toastr.error('Saved Invoice Failed')
+              toastr.error('Updated Supplier Failed')
               temp.$Progress.fail()
-          });
+            });
+        },
+
+        getImgUrl: function(image){
+            var photo = "/images/supplier_invoice/"+ image
+            return photo
         },
 
         uploadImage(e) {
@@ -313,11 +252,24 @@ export default {
         },
 
         add_new_row_to_invoice: function(){
-            this.form.products.push({product_name : '',product_quantity : 1,sell_price : 0,sub_total_price : '' })
+            var temp = this;
+            this.products.push({product_name : '', product_quantity : 1, product_price : 0 })
         },
 
         deleteRow: function(index){
-            this.form.products.splice(index, 1)
+           this.products.splice(index, 1)
+        },
+
+        getSupplierInvoice(){
+            var temp = this;
+            axios.get('/api/supllier-invoice/'+this.$route.params.id)
+            .then((response) => {
+              temp.form = response.data.supplierInvoice;
+              temp.products = response.data.supplierInvoiceProduct;
+            })
+            .catch(function (error) {
+              toastr.error('Something is wrong Data Loaded')
+            });
         },
 
         getSuppliers(){
@@ -325,21 +277,10 @@ export default {
             axios.get('/api/suppliers')
             .then((response) => {
               temp.suppliers = response.data.data;
-          })
+            })
             .catch(function (error) {
               toastr.error('Something is wrong Data Loaded')
-          });
-        },
-
-        getProducts(){
-            var temp = this;
-            axios.get('/api/products')
-            .then((response) => {
-              temp.product_arr = response.data.data;
-          })
-            .catch(function (error) {
-              toastr.error('Something is wrong Data Loaded')
-          });
+            });
         },
 
         getWarehouses(){

@@ -29,10 +29,7 @@
                                     <div class="form-group row">
                                         <label class="col-sm-3 form-control-label">Select Supplier <i class="text-danger">*</i></label>
                                         <div class="col-sm-8">
-                                            <select id="supplier_id" v-model="form.supplier_id" name="supplier_id" class="form-control-sm w-100 w-100" required>
-                                                 <option v-for="supplier in suppliers" :value="supplier.id">{{ supplier.supplier_name }}</option>
-                                            </select>
-                                            <input id="auth_id" type="hidden" name="auth_id" value="1">
+                                           
                                         </div>
                                     </div>
 

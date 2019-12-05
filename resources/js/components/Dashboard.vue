@@ -1,100 +1,160 @@
 <template>
     <div>
-         <!-- Content Header (Page header) -->
     <div class="content-header">
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
             <h1 class="m-0 text-dark">Admin Dashboard v2</h1>
-          </div><!-- /.col -->
+          </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
               <li class="breadcrumb-item active">Dashboard v2</li>
             </ol>
-          </div><!-- /.col -->
-        </div><!-- /.row -->
-      </div><!-- /.container-fluid -->
+          </div>
+        </div>
+      </div>
     </div>
-    <!-- /.content-header -->
-
-    <!-- Main content -->
     <section class="content">
       <div class="container-fluid">
-        <!-- Info boxes -->
         <div class="row">
+
           <div class="col-12 col-sm-6 col-md-3">
             <div class="info-box">
-              <span class="info-box-icon bg-info elevation-1"><i class="fas fa-cog"></i></span>
-
+              <span class="info-box-icon bg-info elevation-1"><i class="fas fa-th-large"></i></span>
               <div class="info-box-content">
-                <span class="info-box-text">CPU Traffic</span>
+                <span class="info-box-text">Category</span>
                 <span class="info-box-number">
                   10
                   <small>%</small>
                 </span>
               </div>
-              <!-- /.info-box-content -->
             </div>
-            <!-- /.info-box -->
           </div>
-          <!-- /.col -->
+
           <div class="col-12 col-sm-6 col-md-3">
-            <div class="info-box mb-3">
-              <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-thumbs-up"></i></span>
-
+            <div class="info-box">
+              <span class="info-box-icon bg-primary elevation-1"><i class="fab fa-product-hunt"></i></span>
               <div class="info-box-content">
-                <span class="info-box-text">Likes</span>
-                <span class="info-box-number">41,410</span>
+                <span class="info-box-text">Product</span>
+                <span class="info-box-number">
+                  {{ products.length }}
+                </span>
               </div>
-              <!-- /.info-box-content -->
             </div>
-            <!-- /.info-box -->
           </div>
-          <!-- /.col -->
-
-          <!-- fix for small devices only -->
-          <div class="clearfix hidden-md-up"></div>
+          <!-- <div class="clearfix hidden-md-up"></div> -->
 
           <div class="col-12 col-sm-6 col-md-3">
             <div class="info-box mb-3">
               <span class="info-box-icon bg-success elevation-1"><i class="fas fa-shopping-cart"></i></span>
-
               <div class="info-box-content">
                 <span class="info-box-text">Sales</span>
-                <span class="info-box-number">760</span>
+                <span class="info-box-number">{{invoices.length}}</span>
               </div>
-              <!-- /.info-box-content -->
             </div>
-            <!-- /.info-box -->
           </div>
-          <!-- /.col -->
+
           <div class="col-12 col-sm-6 col-md-3">
             <div class="info-box mb-3">
               <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-users"></i></span>
-
               <div class="info-box-content">
-                <span class="info-box-text">New Members</span>
-                <span class="info-box-number">2,000</span>
+                <span class="info-box-text">Supplier</span>
+                <span class="info-box-number">{{ suppliers.length }}</span>
               </div>
-              <!-- /.info-box-content -->
             </div>
-            <!-- /.info-box -->
           </div>
-          <!-- /.col -->
           
         </div>
-        <!-- /.row -->
-      </div><!--/. container-fluid -->
+      </div>
     </section>
-    <!-- /.content -->
     </div>
 </template>
 
 <script>
     export default {
-        mounted() {
-            console.log('Component mounted.')
-        }
+   
+    data() {
+      return {
+            suppliers:'',
+            products:'',
+            products:'',
+            invoices:'',
+          }
+    },
+
+    mounted(){
+        this.getSuppliers();
+        this.getWarehouses();
+        this.getProducts();
+        this.getInvoices();
+    },
+    computed: {
+
+        // grand_total_price: function() {
+
+        //     console.log('llll');
+        //     var temp = this
+        //     return temp.form.products.reduce(function(carry, product) {
+        //         let total = carry + (parseFloat(product.product_quantity) * parseFloat(product.supplier_price));
+        //         temp.form.grand_total_price = total
+        //         return total
+        //     }, 0);
+        // },
+        // due_amount: function() {
+        //     var temp = this
+        //     let due_ammount = temp.form.grand_total_price - parseFloat(temp.form.paid_amount);
+        //     temp.form.due_amount = due_ammount
+        //     return due_ammount
+        // }
+    },
+
+    methods:{
+
+        getSuppliers(){
+            var temp = this;
+            axios.get('/api/suppliers')
+            .then((response) => {
+              temp.suppliers = response.data.data;
+          })
+            .catch(function (error) {
+              toastr.error('Something is wrong Data Loaded')
+          });
+        },
+
+        getProducts(){
+            var temp = this;
+            axios.get('/api/products')
+            .then((response) => {
+              temp.products = response.data.data;
+          })
+            .catch(function (error) {
+              toastr.error('Something is wrong Data Loaded')
+          });
+        },
+
+        getInvoices(){
+            var temp = this;
+            axios.get('/api/invoices')
+              .then((response) => {
+                temp.Invoices = response.data.data;
+              })
+              .catch(function (error) {
+                this.loadin = true;
+                    toastr.error('Something is wrong Data Loaded')
+              });
+        },
+
+        getWarehouses(){
+            var temp = this;
+            axios.get('/api/warehouses')
+            .then((response) => {
+                temp.warehouses = response.data.data;
+            })
+            .catch(function (error) {
+                toastr.error('Something is wrong Data Loaded')
+            });
+        },
+    }
     }
 </script>

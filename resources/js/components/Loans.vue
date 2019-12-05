@@ -13,10 +13,10 @@
                                     <div class="form-inline ml-3 mr-2">
                                         <div class="input-group input-group-sm w-100">
                                             <select v-model="queryFiled" class="form-control w-25" id="fileds">
-                                                <option value="loaner_name">loaner_name</option>
-                                                <option value="loaner_mobile">loaner_mobile</option>
-                                                <option value="loaner_address">loaner_address</option>
-                                                <option value="loan_amount">loan_amount</option>
+                                                <option value="loaner_name">Loaner Name</option>
+                                                <option value="loaner_mobile">Loaner Mobile</option>
+                                                <option value="loaner_address">Loaner Address</option>
+                                                <option value="loan_amount">Loan Amount</option>
                                             </select>
                                             <input class="form-control w-50" v-model="query" type="search" placeholder="Search" aria-label="Search">
                                             <div class="input-group-append">
@@ -40,11 +40,11 @@
                                 <thead>
                                 <tr>
                                     <th class="text-center">S.N</th>
-                                    <th class="text-center">loaner_name</th>
-                                    <th class="text-center">loaner_mobile</th>
-                                    <th class="text-center">loan_amount</th>
-                                    <th class="text-center">loan_taken_date</th>
-                                    <th class="text-center">loan_end_date</th>
+                                    <th class="text-center">Loaner Name</th>
+                                    <th class="text-center">Loaner Mobile</th>
+                                    <th class="text-center">Loan Amount</th>
+                                    <th class="text-center">Loan Taken Date</th>
+                                    <th class="text-center">Loan End Date</th>
                                     <th class="text-center">Action</th>
                                 </tr>
                                 </thead>
