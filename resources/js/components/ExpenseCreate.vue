@@ -22,7 +22,7 @@
                     </div>
                 </div>
                 <div class="card-body" style="background-color: #f6f6f7;">
-                    <form @submit.prevent="addNewInvoice">
+                    <form @submit.prevent="addNewExpense">
                         <div class="panel-body">
                             <div class="row">
 
@@ -96,7 +96,7 @@
                                         <tr id="appssss">
                                             <td colspan="3" style="text-align:right;"><b>Grand Total:</b></td>
                                             <td class="text-center">
-                                                <input class="form-control-sm w-100" v-model="grand_total_price" type="text" style="text-align: center;" disabled>
+                                                <input class="form-control-sm w-100" v-model="expense_total_amount" type="text" style="text-align: center;" disabled>
                                             </td>
                                             <td align="center">
                                                 <input id="add-invoice-item" class="btn btn-info btn-sm" name="add-invoice-item" @click="add_new_row_to_invoice" value="Add New Item" type="button">
@@ -105,13 +105,13 @@
                                         <tr>
                                             <td style="text-align:right;" colspan="3"><b>Paid Amount:</b></td>
                                             <td class="text-right">
-                                                <input id="paidAmount" class="form-control-sm w-100" v-model="form.paid_amount" value="5455" name="paid_amount" type="number" required style="text-align: center;">
+                                                <input id="paidAmount" class="form-control-sm w-100" v-model="form.expense_paid_amount" value="5455" name="expense_paid_amount" type="number" required style="text-align: center;">
                                             </td>
                                         </tr>
-                                        <tr v-show="due_amount">
+                                        <tr v-show="expense_due">
                                             <td style="text-align:right;" colspan="3"><b>Due:</b></td>
                                             <td  class="text-center">
-                                                <input class="form-control-sm w-100" :value="due_amount"  type="number" style="text-align: center;" disabled>
+                                                <input class="form-control-sm w-100" :value="expense_due"  type="number" style="text-align: center;" disabled>
                                             </td>
                                         </tr>
                                     </tfoot>
@@ -146,16 +146,12 @@ export default {
         return {
             form: new Form({
               id : '',
-              expenses:[{expense_name : '', expense_quantity : 1, expense_amount : 0}],
-
-              supplier_id : '',
-              warehouse_id : '',
+              expenses:[{expense_purpose : '', expense_quantity : 1, expense_amount : 0}],
               expense_date :new Date().toLocaleString(),
-              grand_total_price : '',
-              paid_amount : '',
-              due_amount : ''
+              expense_total_amount : '',
+              expense_paid_amount : '',
+              expense_due : ''
           }), 
-            expense_arr: []
         }
     },
 
@@ -164,31 +160,20 @@ export default {
     },
 
     computed: {
-        grand_total_price: function() {
+        expense_total_amount: function() {
             var temp = this
             return temp.form.expenses.reduce(function(carry, expense) {
                 let total = carry + (parseFloat(expense.expense_quantity) * parseFloat(expense.expense_amount));
-                    temp.form.grand_total_price = total;
+                    temp.form.expense_total_amount = total;
                     return total
             }, 0);
         },
 
-        total: function() {
+        expense_due: function() {
             var temp = this
-            let discount = temp.form.grand_total_price - parseFloat(temp.form.discount);
-                return discount      
-        },
-
-        due_amount: function() {
-            var temp = this
-            let total = temp.total;
-            if (total) {
-                let fdiscount = total - parseFloat(temp.form.paid_amount);
-                return fdiscount
-            }else{
-                let due_ammount = temp.form.grand_total_price - parseFloat(temp.form.paid_amount);
-                return due_ammount
-            }           
+            let expense_due = temp.expense_total_amount - parseFloat(temp.form.expense_paid_amount);
+            temp.form.expense_due = expense_due
+            return expense_due          
         }
 
 
@@ -196,10 +181,10 @@ export default {
 
     methods:{
 
-        addNewInvoice(){
+        addNewExpense(){
             var temp = this
             temp.$Progress.start()
-            temp.form.post('/api/invoices')
+            temp.form.post('/api/expenses')
             .then(function (response) {
                 console.log(response)
                 toastr.success('Saved Invoice Successfully')
@@ -212,7 +197,7 @@ export default {
         },
 
         add_new_row_to_invoice: function(){
-            this.form.expenses.push({expense_name : '',expense_quantity : 1,expense_amount : 0,sub_total_price : '' })
+            this.form.expenses.push({ expense_purpose : '', expense_quantity : 1, expense_amount : 0 })
         },
 
         deleteRow: function(index){

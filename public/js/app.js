@@ -2831,53 +2831,39 @@ __webpack_require__.r(__webpack_exports__);
       form: new Form({
         id: '',
         expenses: [{
-          expense_name: '',
+          expense_purpose: '',
           expense_quantity: 1,
           expense_amount: 0
         }],
-        supplier_id: '',
-        warehouse_id: '',
         expense_date: new Date().toLocaleString(),
-        grand_total_price: '',
-        paid_amount: '',
-        due_amount: ''
-      }),
-      expense_arr: []
+        expense_total_amount: '',
+        expense_paid_amount: '',
+        expense_due: ''
+      })
     };
   },
   mounted: function mounted() {},
   computed: {
-    grand_total_price: function grand_total_price() {
+    expense_total_amount: function expense_total_amount() {
       var temp = this;
       return temp.form.expenses.reduce(function (carry, expense) {
         var total = carry + parseFloat(expense.expense_quantity) * parseFloat(expense.expense_amount);
-        temp.form.grand_total_price = total;
+        temp.form.expense_total_amount = total;
         return total;
       }, 0);
     },
-    total: function total() {
+    expense_due: function expense_due() {
       var temp = this;
-      var discount = temp.form.grand_total_price - parseFloat(temp.form.discount);
-      return discount;
-    },
-    due_amount: function due_amount() {
-      var temp = this;
-      var total = temp.total;
-
-      if (total) {
-        var fdiscount = total - parseFloat(temp.form.paid_amount);
-        return fdiscount;
-      } else {
-        var due_ammount = temp.form.grand_total_price - parseFloat(temp.form.paid_amount);
-        return due_ammount;
-      }
+      var expense_due = temp.expense_total_amount - parseFloat(temp.form.expense_paid_amount);
+      temp.form.expense_due = expense_due;
+      return expense_due;
     }
   },
   methods: {
-    addNewInvoice: function addNewInvoice() {
+    addNewExpense: function addNewExpense() {
       var temp = this;
       temp.$Progress.start();
-      temp.form.post('/api/invoices').then(function (response) {
+      temp.form.post('/api/expenses').then(function (response) {
         console.log(response);
         toastr.success('Saved Invoice Successfully');
         temp.$Progress.finish();
@@ -2888,10 +2874,9 @@ __webpack_require__.r(__webpack_exports__);
     },
     add_new_row_to_invoice: function add_new_row_to_invoice() {
       this.form.expenses.push({
-        expense_name: '',
+        expense_purpose: '',
         expense_quantity: 1,
-        expense_amount: 0,
-        sub_total_price: ''
+        expense_amount: 0
       });
     },
     deleteRow: function deleteRow(index) {
@@ -48479,7 +48464,7 @@ var render = function() {
                       on: {
                         submit: function($event) {
                           $event.preventDefault()
-                          return _vm.addNewInvoice($event)
+                          return _vm.addNewExpense($event)
                         }
                       }
                     },
@@ -48823,22 +48808,22 @@ var render = function() {
                                         {
                                           name: "model",
                                           rawName: "v-model",
-                                          value: _vm.grand_total_price,
-                                          expression: "grand_total_price"
+                                          value: _vm.expense_total_amount,
+                                          expression: "expense_total_amount"
                                         }
                                       ],
                                       staticClass: "form-control-sm w-100",
                                       staticStyle: { "text-align": "center" },
                                       attrs: { type: "text", disabled: "" },
                                       domProps: {
-                                        value: _vm.grand_total_price
+                                        value: _vm.expense_total_amount
                                       },
                                       on: {
                                         input: function($event) {
                                           if ($event.target.composing) {
                                             return
                                           }
-                                          _vm.grand_total_price =
+                                          _vm.expense_total_amount =
                                             $event.target.value
                                         }
                                       }
@@ -48868,8 +48853,8 @@ var render = function() {
                                         {
                                           name: "model",
                                           rawName: "v-model",
-                                          value: _vm.form.paid_amount,
-                                          expression: "form.paid_amount"
+                                          value: _vm.form.expense_paid_amount,
+                                          expression: "form.expense_paid_amount"
                                         }
                                       ],
                                       staticClass: "form-control-sm w-100",
@@ -48877,11 +48862,13 @@ var render = function() {
                                       attrs: {
                                         id: "paidAmount",
                                         value: "5455",
-                                        name: "paid_amount",
+                                        name: "expense_paid_amount",
                                         type: "number",
                                         required: ""
                                       },
-                                      domProps: { value: _vm.form.paid_amount },
+                                      domProps: {
+                                        value: _vm.form.expense_paid_amount
+                                      },
                                       on: {
                                         input: function($event) {
                                           if ($event.target.composing) {
@@ -48889,7 +48876,7 @@ var render = function() {
                                           }
                                           _vm.$set(
                                             _vm.form,
-                                            "paid_amount",
+                                            "expense_paid_amount",
                                             $event.target.value
                                           )
                                         }
@@ -48905,8 +48892,8 @@ var render = function() {
                                       {
                                         name: "show",
                                         rawName: "v-show",
-                                        value: _vm.due_amount,
-                                        expression: "due_amount"
+                                        value: _vm.expense_due,
+                                        expression: "expense_due"
                                       }
                                     ]
                                   },
@@ -48918,7 +48905,7 @@ var render = function() {
                                         staticClass: "form-control-sm w-100",
                                         staticStyle: { "text-align": "center" },
                                         attrs: { type: "number", disabled: "" },
-                                        domProps: { value: _vm.due_amount }
+                                        domProps: { value: _vm.expense_due }
                                       })
                                     ])
                                   ]
