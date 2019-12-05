@@ -67,7 +67,7 @@ class SupllierInvoiceController extends Controller
             $supplierInvoiceProduct->supplier_invoice_id = $supplier_invoice->id;
             $supplierInvoiceProduct->product_name = $products[$i]['product_name'];
             $supplierInvoiceProduct->product_quantity = $products[$i]['product_quantity'];
-            $supplierInvoiceProduct->sell_price = $products[$i]['sell_price'];
+            $supplierInvoiceProduct->supplier_price = $products[$i]['supplier_price'];
             $supplierInvoiceProduct->status = 1;
             $supplierInvoiceProduct->save();
         }
@@ -124,7 +124,7 @@ class SupllierInvoiceController extends Controller
                 $supplierInvoiceProduct->supplier_invoice_id = $supplier_invoice->id;
                 $supplierInvoiceProduct->product_name = $products[$i]['product_name'];
                 $supplierInvoiceProduct->product_quantity = $products[$i]['product_quantity'];
-                $supplierInvoiceProduct->sell_price = $products[$i]['sell_price'];
+                $supplierInvoiceProduct->supplier_price = $products[$i]['supplier_price'];
                 $supplierInvoiceProduct->status = 1;
                 $supplierInvoiceProduct->save();
             }

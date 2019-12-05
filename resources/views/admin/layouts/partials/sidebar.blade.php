@@ -113,7 +113,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <router-link to="/supplier-invoice" class="nav-link">
+                    <router-link to="/expense" class="nav-link">
                         <i class="nav-icon fas fa-dollar-sign"></i>
                         <p>Expenses</p>
                     </router-link>

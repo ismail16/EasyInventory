@@ -68,7 +68,7 @@
         opacity: 0.5 !important;
     }
 
-    .nav-link { display: block; padding: 7px 1rem !important; }
+    .nav-link { display: block; padding: 5px 1rem !important; }
 
   </style>
   <script src="https://www.johnhopkinspress.com/datetime_picker/jquery.min.js"></script>
