@@ -2821,91 +2821,36 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
     datetime: vuejs_datetimepicker__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
-  name: 'imageUpload',
-  // https://www.youtube.com/watch?v=h6sTdAX6yTs
-  // https://github.com/codekerala/laravel-vuejs-invoice/blob/master/resources/views/invoices/form.blade.php
   data: function data() {
     return {
       form: new Form({
         id: '',
-        products: [{
-          product_name: '',
-          product_quantity: 1,
-          sell_price: 0,
-          sub_total_price: ''
+        expenses: [{
+          expense_name: '',
+          expense_quantity: 1,
+          expense_amount: 0
         }],
         supplier_id: '',
         warehouse_id: '',
-        invoice_date: new Date().toLocaleString(),
-        image: '',
+        expense_date: new Date().toLocaleString(),
         grand_total_price: '',
         paid_amount: '',
-        discount: '',
         due_amount: ''
       }),
-      img_url: '',
-      suppliers: {},
-      warehouses: {},
-      currentFocus: '',
-      autocomplete: '',
-      onBlur: true,
-      onFocus: false,
-      product_arr: []
+      expense_arr: []
     };
   },
-  mounted: function mounted() {
-    this.getSuppliers();
-    this.getWarehouses();
-    this.getProducts();
-    var vm = this;
-    document.addEventListener("click", function (e) {
-      vm.onBlur ? vm.onFocus = false : false;
-    });
-  },
+  mounted: function mounted() {},
   computed: {
     grand_total_price: function grand_total_price() {
       var temp = this;
-      return temp.form.products.reduce(function (carry, product) {
-        var total = carry + parseFloat(product.product_quantity) * parseFloat(product.sell_price);
+      return temp.form.expenses.reduce(function (carry, expense) {
+        var total = carry + parseFloat(expense.expense_quantity) * parseFloat(expense.expense_amount);
         temp.form.grand_total_price = total;
         return total;
       }, 0);
@@ -2929,23 +2874,6 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   methods: {
-    addActive: function addActive() {
-      var vm = this;
-      if (!vm.array) return false;
-      if (vm.currentFocus >= vm.array.length) vm.currentFocus = 0;
-      if (vm.currentFocus < 0) vm.currentFocus = vm.array.length - 1;
-    },
-    keyDown: function keyDown(e) {
-      var vm = this;
-
-      if (e.keyCode == 40) {
-        vm.currentFocus++;
-        vm.addActive();
-      } else if (e.keyCode == 38) {
-        vm.currentFocus;
-        vm.addActive();
-      }
-    },
     addNewInvoice: function addNewInvoice() {
       var temp = this;
       temp.$Progress.start();
@@ -2958,65 +2886,16 @@ __webpack_require__.r(__webpack_exports__);
         temp.$Progress.fail();
       });
     },
-    uploadImage: function uploadImage(e) {
-      var _this = this;
-
-      var file = e.target.files[0];
-      var reader = new FileReader();
-      var limit = 1024 * 1024 * 2;
-
-      if (file['size'] > limit) {
-        swal({
-          type: 'error',
-          title: 'Oops...',
-          text: 'You are uploading a large file'
-        });
-        return false;
-      } else {
-        file = e.target.files[0];
-        this.img_url = URL.createObjectURL(file);
-      }
-
-      reader.onloadend = function (file) {
-        _this.form.image = reader.result;
-      };
-
-      reader.readAsDataURL(file);
-    },
     add_new_row_to_invoice: function add_new_row_to_invoice() {
-      this.form.products.push({
-        product_name: '',
-        product_quantity: 1,
-        sell_price: 0,
+      this.form.expenses.push({
+        expense_name: '',
+        expense_quantity: 1,
+        expense_amount: 0,
         sub_total_price: ''
       });
     },
     deleteRow: function deleteRow(index) {
-      this.form.products.splice(index, 1);
-    },
-    getSuppliers: function getSuppliers() {
-      var temp = this;
-      axios.get('/api/suppliers').then(function (response) {
-        temp.suppliers = response.data.data;
-      })["catch"](function (error) {
-        toastr.error('Something is wrong Data Loaded');
-      });
-    },
-    getProducts: function getProducts() {
-      var temp = this;
-      axios.get('/api/products').then(function (response) {
-        temp.product_arr = response.data.data;
-      })["catch"](function (error) {
-        toastr.error('Something is wrong Data Loaded');
-      });
-    },
-    getWarehouses: function getWarehouses() {
-      var temp = this;
-      axios.get('/api/warehouses').then(function (response) {
-        temp.warehouses = response.data.data;
-      })["catch"](function (error) {
-        toastr.error('Something is wrong Data Loaded');
-      });
+      this.form.expenses.splice(index, 1);
     }
   }
 });
@@ -48607,76 +48486,64 @@ var render = function() {
                     [
                       _c("div", { staticClass: "panel-body" }, [
                         _c("div", { staticClass: "row" }, [
-                          _c("div", { staticClass: "col-md-7" }, [
-                            _vm._m(1),
-                            _vm._v(" "),
+                          _c("div", { staticClass: "col-md-8" }, [
                             _c("div", { staticClass: "form-group row" }, [
-                              _c(
-                                "label",
-                                {
-                                  staticClass: "col-sm-3 form-control-label",
-                                  attrs: { for: "warehouse_id" }
-                                },
-                                [_vm._v("Warehouse ")]
-                              ),
+                              _vm._m(1),
                               _vm._v(" "),
-                              _c("div", { staticClass: "col-sm-8" }, [
-                                _c(
-                                  "select",
-                                  {
+                              _c(
+                                "div",
+                                { staticClass: "col-sm-9" },
+                                [
+                                  _c("input", {
                                     directives: [
                                       {
                                         name: "model",
                                         rawName: "v-model",
-                                        value: _vm.form.warehouse_id,
-                                        expression: "form.warehouse_id"
+                                        value: _vm.form.expense_title,
+                                        expression: "form.expense_title"
                                       }
                                     ],
-                                    staticClass: "form-control-sm w-100 w-100",
-                                    attrs: {
-                                      id: "warehouse_id",
-                                      name: "warehouse_id",
-                                      "data-plugin": "select2",
-                                      required: ""
+                                    staticClass:
+                                      "form-control form-control-sm w-100 rounded-0",
+                                    class: {
+                                      "is-invalid": _vm.form.errors.has(
+                                        "expense_title"
+                                      )
                                     },
+                                    attrs: {
+                                      type: "text",
+                                      name: "expense_title",
+                                      placeholder: "Expense Title"
+                                    },
+                                    domProps: { value: _vm.form.expense_title },
                                     on: {
-                                      change: function($event) {
-                                        var $$selectedVal = Array.prototype.filter
-                                          .call($event.target.options, function(
-                                            o
-                                          ) {
-                                            return o.selected
-                                          })
-                                          .map(function(o) {
-                                            var val =
-                                              "_value" in o ? o._value : o.value
-                                            return val
-                                          })
+                                      input: function($event) {
+                                        if ($event.target.composing) {
+                                          return
+                                        }
                                         _vm.$set(
                                           _vm.form,
-                                          "warehouse_id",
-                                          $event.target.multiple
-                                            ? $$selectedVal
-                                            : $$selectedVal[0]
+                                          "expense_title",
+                                          $event.target.value
                                         )
                                       }
                                     }
-                                  },
-                                  _vm._l(_vm.warehouses, function(warehouse) {
-                                    return _c(
-                                      "option",
-                                      { domProps: { value: warehouse.id } },
-                                      [_vm._v(_vm._s(warehouse.warehouse_name))]
-                                    )
                                   }),
-                                  0
-                                )
-                              ])
+                                  _vm._v(" "),
+                                  _c("has-error", {
+                                    attrs: {
+                                      form: _vm.form,
+                                      field: "expense_title"
+                                    }
+                                  })
+                                ],
+                                1
+                              )
                             ])
                           ]),
                           _vm._v(" "),
-                          _c("div", { staticClass: "col-md-5" }, [
-                            _c("div", { staticClass: "form-group row mb-1" }, [
+                          _c("div", { staticClass: "col-md-4" }, [
+                            _c("div", { staticClass: "form-group row" }, [
                               _c(
                                 "label",
                                 {
@@ -48694,7 +48561,7 @@ var render = function() {
                                     staticClass: "form-control-sm w-100",
                                     class: {
                                       "is-invalid": _vm.form.errors.has(
-                                        "invoice_date"
+                                        "expense_date"
                                       )
                                     },
                                     attrs: {
@@ -48703,276 +48570,107 @@ var render = function() {
                                       autocomplete: "off"
                                     },
                                     model: {
-                                      value: _vm.form.invoice_date,
+                                      value: _vm.form.expense_date,
                                       callback: function($$v) {
-                                        _vm.$set(_vm.form, "invoice_date", $$v)
+                                        _vm.$set(_vm.form, "expense_date", $$v)
                                       },
-                                      expression: "form.invoice_date"
+                                      expression: "form.expense_date"
                                     }
                                   }),
                                   _vm._v(" "),
                                   _c("has-error", {
                                     attrs: {
                                       form: _vm.form,
-                                      field: "invoice_date"
+                                      field: "expense_date"
                                     }
                                   })
                                 ],
                                 1
                               )
-                            ]),
-                            _vm._v(" "),
+                            ])
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "col-md-6" }, [
                             _c("div", { staticClass: "form-group row" }, [
-                              _c(
-                                "label",
-                                {
-                                  staticClass: "col-sm-2 col-form-label",
-                                  attrs: { for: "inputPassword" }
-                                },
-                                [_vm._v("Image")]
-                              ),
+                              _vm._m(2),
                               _vm._v(" "),
-                              _c("div", { staticClass: "col-sm-7 ml-2" }, [
-                                _c("input", {
-                                  attrs: { type: "file", src: _vm.form.image },
-                                  on: { change: _vm.uploadImage }
+                              _c("div", { staticClass: "col-sm-9" }, [
+                                _c("textarea", {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: _vm.form.expense_detail,
+                                      expression: "form.expense_detail"
+                                    }
+                                  ],
+                                  attrs: { cols: "128", rows: "2" },
+                                  domProps: { value: _vm.form.expense_detail },
+                                  on: {
+                                    input: function($event) {
+                                      if ($event.target.composing) {
+                                        return
+                                      }
+                                      _vm.$set(
+                                        _vm.form,
+                                        "expense_detail",
+                                        $event.target.value
+                                      )
+                                    }
+                                  }
                                 })
-                              ]),
-                              _vm._v(" "),
-                              _c("div", { attrs: { id: "preview col-sm-2" } }, [
-                                _vm.img_url
-                                  ? _c("img", {
-                                      staticClass: "img-fluid",
-                                      staticStyle: {
-                                        "max-height": "50px",
-                                        "max-width": "50px"
-                                      },
-                                      attrs: { src: _vm.img_url }
-                                    })
-                                  : _vm._e()
                               ])
                             ])
                           ])
                         ]),
                         _vm._v(" "),
-                        _c(
-                          "div",
-                          {
-                            staticClass: "table-responsive",
-                            staticStyle: { "margin-top": "10px" }
-                          },
-                          [
-                            _c(
-                              "table",
-                              {
-                                staticClass:
-                                  "table table-bordered table-sm table-hover",
-                                attrs: { id: "normalinvoice" }
-                              },
-                              [
-                                _vm._m(2),
-                                _vm._v(" "),
-                                _c(
-                                  "tbody",
-                                  { attrs: { id: "add_row_to_invoice" } },
-                                  _vm._l(_vm.form.products, function(
-                                    product,
-                                    index
-                                  ) {
-                                    return _c("tr", [
-                                      _c(
-                                        "td",
-                                        { staticStyle: { width: "320px" } },
-                                        [
-                                          _c("input", {
-                                            directives: [
-                                              {
-                                                name: "model",
-                                                rawName: "v-model",
-                                                value: product.product_name,
-                                                expression:
-                                                  "product.product_name"
-                                              }
-                                            ],
-                                            staticClass:
-                                              "form-control-sm w-100",
-                                            attrs: {
-                                              type: "text",
-                                              placeholder: "Product Name",
-                                              required: ""
-                                            },
-                                            domProps: {
-                                              value: product.product_name
-                                            },
-                                            on: {
-                                              blur: function($event) {
-                                                _vm.onBlur = true
-                                              },
-                                              focus: function($event) {
-                                                _vm.onFocus = true
-                                                _vm.onBlur = false
-                                              },
-                                              keyDown: _vm.keyDown,
-                                              input: function($event) {
-                                                if ($event.target.composing) {
-                                                  return
-                                                }
-                                                _vm.$set(
-                                                  product,
-                                                  "product_name",
-                                                  $event.target.value
-                                                )
-                                              }
-                                            }
-                                          }),
-                                          _vm._v(" "),
-                                          _c(
-                                            "div",
-                                            {
-                                              staticClass:
-                                                "product.product_name-items",
-                                              staticStyle: {
-                                                "z-index": "999",
-                                                position: "absolute",
-                                                width: "29%",
-                                                "background-color": "white",
-                                                padding: "0px 10px",
-                                                "max-height": "150px",
-                                                overflow: "auto"
-                                              }
-                                            },
-                                            _vm._l(_vm.product_arr, function(
-                                              i,
-                                              index
-                                            ) {
-                                              return _vm.onFocus &&
-                                                i.product_name
-                                                  .substr(
-                                                    0,
-                                                    product.product_name.length
-                                                  )
-                                                  .toUpperCase() ==
-                                                  product.product_name.toUpperCase()
-                                                ? _c(
-                                                    "div",
-                                                    {
-                                                      class:
-                                                        _vm.currentFocus ==
-                                                        index
-                                                          ? "product.product_name-active"
-                                                          : "",
-                                                      on: {
-                                                        click: function(
-                                                          $event
-                                                        ) {
-                                                          product.product_name =
-                                                            i.product_name
-                                                          product.sell_price =
-                                                            i.sell_price
-                                                          _vm.onFocus = false
-                                                        }
-                                                      }
-                                                    },
-                                                    [
-                                                      _c("strong", [
-                                                        _vm._v(
-                                                          _vm._s(
-                                                            i.product_name.substr(
-                                                              0,
-                                                              product
-                                                                .product_name
-                                                                .length
-                                                            )
-                                                          )
-                                                        )
-                                                      ]),
-                                                      _vm._v(
-                                                        _vm._s(
-                                                          i.product_name.substr(
-                                                            product.product_name
-                                                              .length
-                                                          )
-                                                        ) + "\n        \n      "
-                                                      )
-                                                    ]
-                                                  )
-                                                : _vm._e()
-                                            }),
-                                            0
-                                          )
-                                        ]
-                                      ),
-                                      _vm._v(" "),
-                                      _c(
-                                        "td",
-                                        { staticStyle: { width: "320px" } },
-                                        [
-                                          _c("input", {
-                                            directives: [
-                                              {
-                                                name: "model",
-                                                rawName: "v-model",
-                                                value: product.product_quantity,
-                                                expression:
-                                                  "product.product_quantity"
-                                              }
-                                            ],
-                                            staticClass:
-                                              "form-control-sm w-100",
-                                            class: {
-                                              "is-invalid": _vm.form.errors.has(
-                                                "product_quantity"
-                                              )
-                                            },
-                                            attrs: {
-                                              placeholder: "Product Quantity",
-                                              type: "text",
-                                              autocomplete: "off",
-                                              required: ""
-                                            },
-                                            domProps: {
-                                              value: product.product_quantity
-                                            },
-                                            on: {
-                                              input: function($event) {
-                                                if ($event.target.composing) {
-                                                  return
-                                                }
-                                                _vm.$set(
-                                                  product,
-                                                  "product_quantity",
-                                                  $event.target.value
-                                                )
-                                              }
-                                            }
-                                          })
-                                        ]
-                                      ),
-                                      _vm._v(" "),
-                                      _c("td", [
+                        _c("div", { staticClass: "table-responsive" }, [
+                          _c(
+                            "table",
+                            {
+                              staticClass:
+                                "table table-bordered table-sm table-hover",
+                              attrs: { id: "normalinvoice" }
+                            },
+                            [
+                              _vm._m(3),
+                              _vm._v(" "),
+                              _c(
+                                "tbody",
+                                { attrs: { id: "add_row_to_invoice" } },
+                                _vm._l(_vm.form.expenses, function(
+                                  expense,
+                                  index
+                                ) {
+                                  return _c("tr", [
+                                    _c(
+                                      "td",
+                                      { staticStyle: { width: "320px" } },
+                                      [
                                         _c("input", {
                                           directives: [
                                             {
                                               name: "model",
                                               rawName: "v-model",
-                                              value: product.sell_price,
-                                              expression: "product.sell_price"
+                                              value: expense.expense_purpose,
+                                              expression:
+                                                "expense.expense_purpose"
                                             }
                                           ],
                                           staticClass: "form-control-sm w-100",
                                           class: {
                                             "is-invalid": _vm.form.errors.has(
-                                              "product.sell_price"
+                                              "expense_purpose"
                                             )
                                           },
                                           attrs: {
-                                            placeholder: "Product Price",
+                                            placeholder: "Expense Purpose",
+                                            required: "",
                                             type: "text",
-                                            autocomplete: "off",
-                                            required: ""
+                                            autocomplete: "off"
                                           },
                                           domProps: {
-                                            value: product.sell_price
+                                            value: expense.expense_purpose
                                           },
                                           on: {
                                             input: function($event) {
@@ -48980,82 +48678,102 @@ var render = function() {
                                                 return
                                               }
                                               _vm.$set(
-                                                product,
-                                                "sell_price",
+                                                expense,
+                                                "expense_purpose",
+                                                $event.target.value
+                                              )
+                                            }
+                                          }
+                                        }),
+                                        _vm._v(" "),
+                                        _c("has-error", {
+                                          attrs: {
+                                            form: _vm.form,
+                                            field: "expense_purpose"
+                                          }
+                                        })
+                                      ],
+                                      1
+                                    ),
+                                    _vm._v(" "),
+                                    _c(
+                                      "td",
+                                      { staticStyle: { width: "320px" } },
+                                      [
+                                        _c("input", {
+                                          directives: [
+                                            {
+                                              name: "model",
+                                              rawName: "v-model",
+                                              value: expense.expense_quantity,
+                                              expression:
+                                                "expense.expense_quantity"
+                                            }
+                                          ],
+                                          staticClass: "form-control-sm w-100",
+                                          class: {
+                                            "is-invalid": _vm.form.errors.has(
+                                              "expense_quantity"
+                                            )
+                                          },
+                                          attrs: {
+                                            placeholder: "Expense Quantity",
+                                            type: "text",
+                                            autocomplete: "off",
+                                            required: ""
+                                          },
+                                          domProps: {
+                                            value: expense.expense_quantity
+                                          },
+                                          on: {
+                                            input: function($event) {
+                                              if ($event.target.composing) {
+                                                return
+                                              }
+                                              _vm.$set(
+                                                expense,
+                                                "expense_quantity",
                                                 $event.target.value
                                               )
                                             }
                                           }
                                         })
-                                      ]),
-                                      _vm._v(" "),
-                                      _c("td", { staticClass: "text-center" }, [
-                                        _c("input", {
-                                          staticClass: "form-control-sm w-100",
-                                          staticStyle: {
-                                            "text-align": "center"
-                                          },
-                                          attrs: { type: "text", disabled: "" },
-                                          domProps: {
-                                            value:
-                                              product.product_quantity *
-                                              product.sell_price
-                                          }
-                                        })
-                                      ]),
-                                      _vm._v(" "),
-                                      _c("td", { staticClass: "text-center" }, [
-                                        _c(
-                                          "span",
-                                          {
-                                            staticClass:
-                                              "btn btn-danger btn-sm",
-                                            on: {
-                                              click: function($event) {
-                                                return _vm.deleteRow(index)
-                                              }
-                                            }
-                                          },
-                                          [_vm._v("×")]
-                                        )
-                                      ])
-                                    ])
-                                  }),
-                                  0
-                                ),
-                                _vm._v(" "),
-                                _c("tfoot", [
-                                  _c("tr", [
-                                    _vm._m(3),
+                                      ]
+                                    ),
                                     _vm._v(" "),
-                                    _c("td", { staticClass: "text-right" }, [
+                                    _c("td", [
                                       _c("input", {
                                         directives: [
                                           {
                                             name: "model",
                                             rawName: "v-model",
-                                            value: _vm.form.discount,
-                                            expression: "form.discount"
+                                            value: expense.expense_amount,
+                                            expression: "expense.expense_amount"
                                           }
                                         ],
                                         staticClass: "form-control-sm w-100",
-                                        staticStyle: { "text-align": "center" },
+                                        class: {
+                                          "is-invalid": _vm.form.errors.has(
+                                            "expense.expense_amount"
+                                          )
+                                        },
                                         attrs: {
-                                          id: "paidAmount",
-                                          value: "",
-                                          name: "discount",
-                                          type: "number",
+                                          placeholder: "Expense Amount",
+                                          type: "text",
+                                          autocomplete: "off",
                                           required: ""
                                         },
-                                        domProps: { value: _vm.form.discount },
+                                        domProps: {
+                                          value: expense.expense_amount
+                                        },
                                         on: {
                                           input: function($event) {
                                             if ($event.target.composing) {
                                               return
                                             }
                                             _vm.$set(
-                                              _vm.form,
-                                              "discount",
+                                              expense,
+                                              "expense_amount",
                                               $event.target.value
                                             )
                                           }
@@ -49063,208 +48781,186 @@ var render = function() {
                                       })
                                     ]),
                                     _vm._v(" "),
-                                    _c("td", { attrs: { align: "center" } }, [
-                                      _c("input", {
-                                        staticClass: "btn btn-info btn-sm",
-                                        attrs: {
-                                          id: "add-invoice-item",
-                                          name: "add-invoice-item",
-                                          value: "Add New Item",
-                                          type: "button"
-                                        },
-                                        on: {
-                                          click: _vm.add_new_row_to_invoice
-                                        }
-                                      })
-                                    ])
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("tr", { attrs: { id: "appssss" } }, [
-                                    _vm._m(4),
-                                    _vm._v(" "),
                                     _c("td", { staticClass: "text-center" }, [
                                       _c("input", {
-                                        directives: [
-                                          {
-                                            name: "model",
-                                            rawName: "v-model",
-                                            value: _vm.grand_total_price,
-                                            expression: "grand_total_price"
-                                          }
-                                        ],
                                         staticClass: "form-control-sm w-100",
                                         staticStyle: { "text-align": "center" },
                                         attrs: { type: "text", disabled: "" },
                                         domProps: {
-                                          value: _vm.grand_total_price
-                                        },
-                                        on: {
-                                          input: function($event) {
-                                            if ($event.target.composing) {
-                                              return
-                                            }
-                                            _vm.grand_total_price =
-                                              $event.target.value
-                                          }
+                                          value:
+                                            expense.expense_quantity *
+                                            expense.expense_amount
                                         }
                                       })
-                                    ])
-                                  ]),
-                                  _vm._v(" "),
-                                  _c(
-                                    "tr",
-                                    {
-                                      directives: [
-                                        {
-                                          name: "show",
-                                          rawName: "v-show",
-                                          value: _vm.total,
-                                          expression: "total"
-                                        }
-                                      ]
-                                    },
-                                    [
-                                      _vm._m(5),
-                                      _vm._v(" "),
-                                      _c("td", { staticClass: "text-center" }, [
-                                        _c("input", {
-                                          directives: [
-                                            {
-                                              name: "model",
-                                              rawName: "v-model",
-                                              value: _vm.total,
-                                              expression: "total"
-                                            }
-                                          ],
-                                          staticClass: "form-control-sm w-100",
-                                          staticStyle: {
-                                            "text-align": "center"
-                                          },
-                                          attrs: { type: "text", disabled: "" },
-                                          domProps: { value: _vm.total },
-                                          on: {
-                                            input: function($event) {
-                                              if ($event.target.composing) {
-                                                return
-                                              }
-                                              _vm.total = $event.target.value
-                                            }
-                                          }
-                                        })
-                                      ])
-                                    ]
-                                  ),
-                                  _vm._v(" "),
-                                  _c("tr", [
-                                    _vm._m(6),
+                                    ]),
                                     _vm._v(" "),
-                                    _c("td", { staticClass: "text-right" }, [
-                                      _c("input", {
-                                        directives: [
-                                          {
-                                            name: "model",
-                                            rawName: "v-model",
-                                            value: _vm.form.paid_amount,
-                                            expression: "form.paid_amount"
-                                          }
-                                        ],
-                                        staticClass: "form-control-sm w-100",
-                                        staticStyle: { "text-align": "center" },
-                                        attrs: {
-                                          id: "paidAmount",
-                                          value: "5455",
-                                          name: "paid_amount",
-                                          type: "number",
-                                          required: ""
-                                        },
-                                        domProps: {
-                                          value: _vm.form.paid_amount
-                                        },
-                                        on: {
-                                          input: function($event) {
-                                            if ($event.target.composing) {
-                                              return
+                                    _c("td", { staticClass: "text-center" }, [
+                                      _c(
+                                        "span",
+                                        {
+                                          staticClass: "btn btn-danger btn-sm",
+                                          on: {
+                                            click: function($event) {
+                                              return _vm.deleteRow(index)
                                             }
-                                            _vm.$set(
-                                              _vm.form,
-                                              "paid_amount",
-                                              $event.target.value
-                                            )
                                           }
-                                        }
-                                      })
+                                        },
+                                        [_vm._v("×")]
+                                      )
                                     ])
-                                  ]),
+                                  ])
+                                }),
+                                0
+                              ),
+                              _vm._v(" "),
+                              _c("tfoot", [
+                                _c("tr", { attrs: { id: "appssss" } }, [
+                                  _vm._m(4),
                                   _vm._v(" "),
-                                  _c(
-                                    "tr",
-                                    {
+                                  _c("td", { staticClass: "text-center" }, [
+                                    _c("input", {
                                       directives: [
                                         {
-                                          name: "show",
-                                          rawName: "v-show",
-                                          value: _vm.due_amount,
-                                          expression: "due_amount"
+                                          name: "model",
+                                          rawName: "v-model",
+                                          value: _vm.grand_total_price,
+                                          expression: "grand_total_price"
                                         }
-                                      ]
-                                    },
-                                    [
-                                      _vm._m(7),
-                                      _vm._v(" "),
-                                      _c("td", { staticClass: "text-center" }, [
-                                        _c("input", {
-                                          staticClass: "form-control-sm w-100",
-                                          staticStyle: {
-                                            "text-align": "center"
-                                          },
-                                          attrs: {
-                                            type: "number",
-                                            disabled: ""
-                                          },
-                                          domProps: { value: _vm.due_amount }
-                                        })
-                                      ])
-                                    ]
-                                  )
-                                ])
-                              ]
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "div",
-                              { staticClass: "card-footer" },
-                              [
-                                _c(
-                                  "router-link",
-                                  {
-                                    staticClass:
-                                      "btn btn-sm btn-default float-left",
-                                    attrs: { to: "/supplier-invoice" }
-                                  },
-                                  [
-                                    _vm._v(
-                                      "\n                                        Back to Invoice list\n                                    "
-                                    )
-                                  ]
-                                ),
+                                      ],
+                                      staticClass: "form-control-sm w-100",
+                                      staticStyle: { "text-align": "center" },
+                                      attrs: { type: "text", disabled: "" },
+                                      domProps: {
+                                        value: _vm.grand_total_price
+                                      },
+                                      on: {
+                                        input: function($event) {
+                                          if ($event.target.composing) {
+                                            return
+                                          }
+                                          _vm.grand_total_price =
+                                            $event.target.value
+                                        }
+                                      }
+                                    })
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("td", { attrs: { align: "center" } }, [
+                                    _c("input", {
+                                      staticClass: "btn btn-info btn-sm",
+                                      attrs: {
+                                        id: "add-invoice-item",
+                                        name: "add-invoice-item",
+                                        value: "Add New Item",
+                                        type: "button"
+                                      },
+                                      on: { click: _vm.add_new_row_to_invoice }
+                                    })
+                                  ])
+                                ]),
+                                _vm._v(" "),
+                                _c("tr", [
+                                  _vm._m(5),
+                                  _vm._v(" "),
+                                  _c("td", { staticClass: "text-right" }, [
+                                    _c("input", {
+                                      directives: [
+                                        {
+                                          name: "model",
+                                          rawName: "v-model",
+                                          value: _vm.form.paid_amount,
+                                          expression: "form.paid_amount"
+                                        }
+                                      ],
+                                      staticClass: "form-control-sm w-100",
+                                      staticStyle: { "text-align": "center" },
+                                      attrs: {
+                                        id: "paidAmount",
+                                        value: "5455",
+                                        name: "paid_amount",
+                                        type: "number",
+                                        required: ""
+                                      },
+                                      domProps: { value: _vm.form.paid_amount },
+                                      on: {
+                                        input: function($event) {
+                                          if ($event.target.composing) {
+                                            return
+                                          }
+                                          _vm.$set(
+                                            _vm.form,
+                                            "paid_amount",
+                                            $event.target.value
+                                          )
+                                        }
+                                      }
+                                    })
+                                  ])
+                                ]),
                                 _vm._v(" "),
                                 _c(
-                                  "button",
+                                  "tr",
                                   {
-                                    staticClass:
-                                      "btn btn-sm btn-success float-right"
+                                    directives: [
+                                      {
+                                        name: "show",
+                                        rawName: "v-show",
+                                        value: _vm.due_amount,
+                                        expression: "due_amount"
+                                      }
+                                    ]
                                   },
                                   [
-                                    _vm._v(
-                                      "\n                                        Create Invoice\n                                    "
-                                    )
+                                    _vm._m(6),
+                                    _vm._v(" "),
+                                    _c("td", { staticClass: "text-center" }, [
+                                      _c("input", {
+                                        staticClass: "form-control-sm w-100",
+                                        staticStyle: { "text-align": "center" },
+                                        attrs: { type: "number", disabled: "" },
+                                        domProps: { value: _vm.due_amount }
+                                      })
+                                    ])
                                   ]
                                 )
-                              ],
-                              1
-                            )
-                          ]
-                        )
+                              ])
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "div",
+                            { staticClass: "card-footer" },
+                            [
+                              _c(
+                                "router-link",
+                                {
+                                  staticClass:
+                                    "btn btn-sm btn-default float-left",
+                                  attrs: { to: "/supplier-invoice" }
+                                },
+                                [
+                                  _vm._v(
+                                    "\n                                        Back to Invoice list\n                                    "
+                                  )
+                                ]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "button",
+                                {
+                                  staticClass:
+                                    "btn btn-sm btn-success float-right"
+                                },
+                                [
+                                  _vm._v(
+                                    "\n                                        Create Invoice\n                                    "
+                                  )
+                                ]
+                              )
+                            ],
+                            1
+                          )
+                        ])
                       ])
                     ]
                   )
@@ -49293,13 +48989,25 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "form-group row" }, [
-      _c("label", { staticClass: "col-sm-3 form-control-label" }, [
-        _vm._v("Select Supplier "),
+    return _c(
+      "label",
+      {
+        staticClass: "col-sm-3 form-control-label",
+        staticStyle: { "margin-right": "-44px" }
+      },
+      [
+        _vm._v("Expense Title "),
         _c("i", { staticClass: "text-danger" }, [_vm._v("*")])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "col-sm-8" })
+      ]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", { staticClass: "col-sm-3 form-control-label" }, [
+      _vm._v("Expense Detail "),
+      _c("i", { staticClass: "text-danger" }, [_vm._v("*")])
     ])
   },
   function() {
@@ -49309,17 +49017,17 @@ var staticRenderFns = [
     return _c("thead", [
       _c("tr", [
         _c("th", { staticClass: "text-center" }, [
-          _vm._v("Item Information "),
+          _vm._v("Expense Purpose  "),
           _c("i", { staticClass: "text-danger" }, [_vm._v("*")])
         ]),
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [
-          _vm._v("Quantity "),
+          _vm._v("Expense Quantity "),
           _c("i", { staticClass: "text-danger" }, [_vm._v("*")])
         ]),
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [
-          _vm._v("Rate "),
+          _vm._v("Expense Amount "),
           _c("i", { staticClass: "text-danger" }, [_vm._v("*")])
         ]),
         _vm._v(" "),
@@ -49336,27 +49044,7 @@ var staticRenderFns = [
     return _c(
       "td",
       { staticStyle: { "text-align": "right" }, attrs: { colspan: "3" } },
-      [_c("b", [_vm._v("Discount:")])]
-    )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "td",
-      { staticStyle: { "text-align": "right" }, attrs: { colspan: "3" } },
       [_c("b", [_vm._v("Grand Total:")])]
-    )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "td",
-      { staticStyle: { "text-align": "right" }, attrs: { colspan: "3" } },
-      [_c("b", [_vm._v("Final Total:")])]
     )
   },
   function() {
@@ -76294,8 +75982,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /home/mnbtech/Projects/EasyInventory/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /home/mnbtech/Projects/EasyInventory/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! E:\xampp\htdocs\EasyInventory\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! E:\xampp\htdocs\EasyInventory\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
