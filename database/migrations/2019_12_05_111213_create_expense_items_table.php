@@ -15,7 +15,10 @@ class CreateExpenseItemsTable extends Migration
     {
         Schema::create('expense_items', function (Blueprint $table) {
             $table->increments('id');
+<<<<<<< HEAD
             $table->tinyInteger('expense_id');
+=======
+>>>>>>> de387a977b131a423ebcd20dceee7510d4390888
             $table->string('expense_purpose');
             $table->string('expense_quantity');
             $table->string('expense_amount');

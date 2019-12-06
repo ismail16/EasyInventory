@@ -17,6 +17,7 @@
   <!-- Theme style -->
   <link rel="stylesheet" href="{{ asset('backend_assets/dist/css/adminlte.min.css')}}">
     <!-- Toastr -->
+<<<<<<< HEAD
   <link rel="stylesheet" href="{{ asset('backend_assets/plugins/toastr/toastr.min.css')}}">
   <link rel="stylesheet" href="{{ asset('backend_assets/plugins/sweetalert2/sweetalert2.min.css')}}"> 
 
@@ -24,6 +25,11 @@
 <!--   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9/dist/sweetalert2.min.js"></script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@9/dist/sweetalert2.min.css" id="theme-styles"> -->
+=======
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9/dist/sweetalert2.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@9/dist/sweetalert2.min.css" id="theme-styles">
+>>>>>>> de387a977b131a423ebcd20dceee7510d4390888
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
   <style>
@@ -73,7 +79,10 @@
     }
 
     .nav-link { display: block; padding: 5px 1rem !important; }
+<<<<<<< HEAD
     .sidebar-nav ul li { border-bottom: 1px solid #545d67; }
+=======
+>>>>>>> de387a977b131a423ebcd20dceee7510d4390888
 
   </style>
   <script src="https://www.johnhopkinspress.com/datetime_picker/jquery.min.js"></script>

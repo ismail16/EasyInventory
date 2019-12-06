@@ -6,9 +6,21 @@
         <span class="brand-text font-weight-light">Dashboard</span>
     </a>
     <div class="sidebar"> 
+<<<<<<< HEAD
         <nav class="mt-2 sidebar-nav">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
 
+=======
+        <nav class="mt-2">
+            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+               {{--  <li class="nav-item has-treeview menu-open">
+                    <router-link to="/dashboard" class="nav-link">
+                        <i class="nav-icon fas fa-tachometer-alt"></i>
+                        <p>Dashboard</p>
+                    </router-link>
+                </li>
+ --}}
+>>>>>>> de387a977b131a423ebcd20dceee7510d4390888
                 <li class="nav-item">
                     <router-link to="/supplier" class="nav-link">
                         <i class="nav-icon fas fa-users"></i>
@@ -126,6 +138,35 @@
                         <p>Staff</p>
                     </router-link>
                 </li> 
+<<<<<<< HEAD
+=======
+
+                <li class="nav-item">
+                    <router-link to="/dashboard" class="nav-link">
+                        <i class="nav-icon far fa-file-alt"></i>
+                        <p>Reports</p>
+                    </router-link>
+                </li>
+
+                <li class="nav-item">
+                    <router-link to="/dashboard" class="nav-link">
+                        <i class="nav-icon fas fa-cogs"></i>
+                        <p>Setting</p>
+                    </router-link>
+                </li>   
+
+                <li class="nav-item has-treeview">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon far fa-file-alt"></i>
+                        <p>
+                            Documentation
+                        </p>
+                    </a>
+                </li>
+
+
+
+>>>>>>> de387a977b131a423ebcd20dceee7510d4390888
             </ul>
         </nav>
     </div>

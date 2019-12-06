@@ -2332,24 +2332,54 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+<<<<<<< HEAD
+=======
+//
+>>>>>>> de387a977b131a423ebcd20dceee7510d4390888
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     var _ref;
 
     return _ref = {
       suppliers: '',
+<<<<<<< HEAD
       products: '',
       categories: ''
+=======
+      products: ''
+>>>>>>> de387a977b131a423ebcd20dceee7510d4390888
     }, _defineProperty(_ref, "products", ''), _defineProperty(_ref, "invoices", ''), _ref;
   },
   mounted: function mounted() {
     this.getSuppliers();
     this.getWarehouses();
+<<<<<<< HEAD
     this.getCategory();
     this.getProducts();
     this.getInvoices();
   },
   computed: {},
+=======
+    this.getProducts();
+    this.getInvoices();
+  },
+  computed: {// grand_total_price: function() {
+    //     console.log('llll');
+    //     var temp = this
+    //     return temp.form.products.reduce(function(carry, product) {
+    //         let total = carry + (parseFloat(product.product_quantity) * parseFloat(product.supplier_price));
+    //         temp.form.grand_total_price = total
+    //         return total
+    //     }, 0);
+    // },
+    // due_amount: function() {
+    //     var temp = this
+    //     let due_ammount = temp.form.grand_total_price - parseFloat(temp.form.paid_amount);
+    //     temp.form.due_amount = due_ammount
+    //     return due_ammount
+    // }
+  },
+>>>>>>> de387a977b131a423ebcd20dceee7510d4390888
   methods: {
     getSuppliers: function getSuppliers() {
       var temp = this;
@@ -2359,6 +2389,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         toastr.error('Something is wrong Data Loaded');
       });
     },
+<<<<<<< HEAD
     getCategory: function getCategory() {
       var temp = this;
       axios.get('/api/categories').then(function (response) {
@@ -2367,6 +2398,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         toastr.error('Something is wrong Data Loaded');
       });
     },
+=======
+>>>>>>> de387a977b131a423ebcd20dceee7510d4390888
     getProducts: function getProducts() {
       var temp = this;
       axios.get('/api/products').then(function (response) {
@@ -2825,6 +2858,7 @@ __webpack_require__.r(__webpack_exports__);
       form: new Form({
         id: '',
         expenses: [{
+<<<<<<< HEAD
           expense_purpose: '',
           expense_quantity: 1,
           expense_amount: 0
@@ -2834,10 +2868,25 @@ __webpack_require__.r(__webpack_exports__);
         expense_paid_amount: '',
         expense_due: ''
       })
+=======
+          expense_name: '',
+          expense_quantity: 1,
+          expense_amount: 0
+        }],
+        supplier_id: '',
+        warehouse_id: '',
+        expense_date: new Date().toLocaleString(),
+        grand_total_price: '',
+        paid_amount: '',
+        due_amount: ''
+      }),
+      expense_arr: []
+>>>>>>> de387a977b131a423ebcd20dceee7510d4390888
     };
   },
   mounted: function mounted() {},
   computed: {
+<<<<<<< HEAD
     expense_total_amount: function expense_total_amount() {
       var temp = this;
       return temp.form.expenses.reduce(function (carry, expense) {
@@ -2871,6 +2920,53 @@ __webpack_require__.r(__webpack_exports__);
         expense_purpose: '',
         expense_quantity: 1,
         expense_amount: 0
+=======
+    grand_total_price: function grand_total_price() {
+      var temp = this;
+      return temp.form.expenses.reduce(function (carry, expense) {
+        var total = carry + parseFloat(expense.expense_quantity) * parseFloat(expense.expense_amount);
+        temp.form.grand_total_price = total;
+        return total;
+      }, 0);
+    },
+    total: function total() {
+      var temp = this;
+      var discount = temp.form.grand_total_price - parseFloat(temp.form.discount);
+      return discount;
+    },
+    due_amount: function due_amount() {
+      var temp = this;
+      var total = temp.total;
+
+      if (total) {
+        var fdiscount = total - parseFloat(temp.form.paid_amount);
+        return fdiscount;
+      } else {
+        var due_ammount = temp.form.grand_total_price - parseFloat(temp.form.paid_amount);
+        return due_ammount;
+      }
+    }
+  },
+  methods: {
+    addNewInvoice: function addNewInvoice() {
+      var temp = this;
+      temp.$Progress.start();
+      temp.form.post('/api/invoices').then(function (response) {
+        console.log(response);
+        toastr.success('Saved Invoice Successfully');
+        temp.$Progress.finish();
+      })["catch"](function (error) {
+        toastr.error('Saved Invoice Failed');
+        temp.$Progress.fail();
+      });
+    },
+    add_new_row_to_invoice: function add_new_row_to_invoice() {
+      this.form.expenses.push({
+        expense_name: '',
+        expense_quantity: 1,
+        expense_amount: 0,
+        sub_total_price: ''
+>>>>>>> de387a977b131a423ebcd20dceee7510d4390888
       });
     },
     deleteRow: function deleteRow(index) {
@@ -3026,15 +3122,42 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+<<<<<<< HEAD
+=======
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+>>>>>>> de387a977b131a423ebcd20dceee7510d4390888
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
     datetime: vuejs_datetimepicker__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
+<<<<<<< HEAD
+=======
+  // name: 'imageUpload',
+  // https://www.youtube.com/watch?v=h6sTdAX6yTs
+  // https://github.com/codekerala/laravel-vuejs-invoice/blob/master/resources/views/invoices/form.blade.php
+>>>>>>> de387a977b131a423ebcd20dceee7510d4390888
   data: function data() {
     return {
       form: new Form({
         id: '',
+<<<<<<< HEAD
         expense_items: [],
         // expenses:[{expense_purpose : '', expense_quantity : 1, expense_amount : 0}],
         expense_date: '',
@@ -3073,6 +3196,53 @@ __webpack_require__.r(__webpack_exports__);
         expenses: temp.form
       }).then(function (response) {
         console.log(response);
+=======
+        products: [],
+        supplier_id: '',
+        warehouse_id: '',
+        invoice_date: '',
+        image: '',
+        grand_total_price: '',
+        paid_amount: '',
+        discount: '',
+        due_amount: ''
+      }),
+      img_url: '',
+      suppliers: {},
+      warehouses: {},
+      products: []
+    };
+  },
+  mounted: function mounted() {
+    this.getSuppliers();
+    this.getWarehouses();
+    this.getSupplierInvoice();
+  },
+  computed: {
+    grand_total_price: function grand_total_price() {
+      var temp = this;
+      return temp.products.reduce(function (carry, product) {
+        var total = carry + parseFloat(product.product_quantity) * parseFloat(product.product_price);
+        temp.form.grand_total_price = total;
+        return total;
+      }, 0);
+    },
+    due_amount: function due_amount() {
+      var temp = this;
+      var due_ammount = temp.grand_total_price - parseFloat(temp.form.paid_amount);
+      temp.form.due_amount = due_ammount;
+      return due_ammount;
+    }
+  },
+  methods: {
+    updateSupplierInvoice: function updateSupplierInvoice() {
+      this.$Progress.start();
+      var temp = this;
+      temp.form.products = temp.products;
+      axios.put('/api/supllier-invoice/' + this.form.id, {
+        SupplierInvoice: temp.form
+      }).then(function (response) {
+>>>>>>> de387a977b131a423ebcd20dceee7510d4390888
         toastr.success('Updated Supplier Successfully');
         temp.$Progress.finish();
       })["catch"](function (error) {
@@ -3080,6 +3250,7 @@ __webpack_require__.r(__webpack_exports__);
         temp.$Progress.fail();
       });
     },
+<<<<<<< HEAD
     add_new_row_to_Expense: function add_new_row_to_Expense() {
       var temp = this;
       this.expense_items.push({
@@ -3097,6 +3268,69 @@ __webpack_require__.r(__webpack_exports__);
         console.log(response);
         temp.form = response.data.expense;
         temp.expense_items = response.data.expense_items;
+=======
+    getImgUrl: function getImgUrl(image) {
+      var photo = "/images/supplier_invoice/" + image;
+      return photo;
+    },
+    uploadImage: function uploadImage(e) {
+      var _this = this;
+
+      var file = e.target.files[0];
+      var reader = new FileReader();
+      var limit = 1024 * 1024 * 2;
+
+      if (file['size'] > limit) {
+        swal({
+          type: 'error',
+          title: 'Oops...',
+          text: 'You are uploading a large file'
+        });
+        return false;
+      } else {
+        file = e.target.files[0];
+        this.img_url = URL.createObjectURL(file);
+      }
+
+      reader.onloadend = function (file) {
+        _this.form.image = reader.result;
+      };
+
+      reader.readAsDataURL(file);
+    },
+    add_new_row_to_invoice: function add_new_row_to_invoice() {
+      var temp = this;
+      this.products.push({
+        product_name: '',
+        product_quantity: 1,
+        product_price: 0
+      });
+    },
+    deleteRow: function deleteRow(index) {
+      this.products.splice(index, 1);
+    },
+    getSupplierInvoice: function getSupplierInvoice() {
+      var temp = this;
+      axios.get('/api/supllier-invoice/' + this.$route.params.id).then(function (response) {
+        temp.form = response.data.supplierInvoice;
+        temp.products = response.data.supplierInvoiceProduct;
+      })["catch"](function (error) {
+        toastr.error('Something is wrong Data Loaded');
+      });
+    },
+    getSuppliers: function getSuppliers() {
+      var temp = this;
+      axios.get('/api/suppliers').then(function (response) {
+        temp.suppliers = response.data.data;
+      })["catch"](function (error) {
+        toastr.error('Something is wrong Data Loaded');
+      });
+    },
+    getWarehouses: function getWarehouses() {
+      var temp = this;
+      axios.get('/api/warehouses').then(function (response) {
+        temp.warehouses = response.data.data;
+>>>>>>> de387a977b131a423ebcd20dceee7510d4390888
       })["catch"](function (error) {
         toastr.error('Something is wrong Data Loaded');
       });
@@ -47855,6 +48089,7 @@ var render = function() {
     _c("section", { staticClass: "content" }, [
       _c("div", { staticClass: "container-fluid" }, [
         _c("div", { staticClass: "row" }, [
+<<<<<<< HEAD
           _c("div", { staticClass: "col-12 col-sm-6 col-md-3" }, [
             _c("div", { staticClass: "info-box" }, [
               _vm._m(1),
@@ -47874,6 +48109,9 @@ var render = function() {
               ])
             ])
           ]),
+=======
+          _vm._m(1),
+>>>>>>> de387a977b131a423ebcd20dceee7510d4390888
           _vm._v(" "),
           _c("div", { staticClass: "col-12 col-sm-6 col-md-3" }, [
             _c("div", { staticClass: "info-box" }, [
@@ -47962,8 +48200,26 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
+<<<<<<< HEAD
     return _c("span", { staticClass: "info-box-icon bg-info elevation-1" }, [
       _c("i", { staticClass: "fas fa-th-large" })
+=======
+    return _c("div", { staticClass: "col-12 col-sm-6 col-md-3" }, [
+      _c("div", { staticClass: "info-box" }, [
+        _c("span", { staticClass: "info-box-icon bg-info elevation-1" }, [
+          _c("i", { staticClass: "fas fa-th-large" })
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "info-box-content" }, [
+          _c("span", { staticClass: "info-box-text" }, [_vm._v("Category")]),
+          _vm._v(" "),
+          _c("span", { staticClass: "info-box-number" }, [
+            _vm._v("\n              10\n              "),
+            _c("small", [_vm._v("%")])
+          ])
+        ])
+      ])
+>>>>>>> de387a977b131a423ebcd20dceee7510d4390888
     ])
   },
   function() {
@@ -48064,11 +48320,17 @@ var render = function() {
                               }
                             },
                             [
+<<<<<<< HEAD
                               _c(
                                 "option",
                                 { attrs: { value: "expense_title" } },
                                 [_vm._v("Expense Title")]
                               )
+=======
+                              _c("option", { attrs: { value: "expense_id" } }, [
+                                _vm._v("expense_title")
+                              ])
+>>>>>>> de387a977b131a423ebcd20dceee7510d4390888
                             ]
                           ),
                           _vm._v(" "),
@@ -48118,7 +48380,11 @@ var render = function() {
                           [
                             _c("i", { staticClass: "fa fa-plus" }),
                             _vm._v(
+<<<<<<< HEAD
                               " Expense Create\n                            "
+=======
+                              " expense expense\n                            "
+>>>>>>> de387a977b131a423ebcd20dceee7510d4390888
                             )
                           ]
                         )
@@ -48144,6 +48410,7 @@ var render = function() {
                           "tbody",
                           _vm._l(_vm.expenses, function(expense, index) {
                             return _c("tr", [
+<<<<<<< HEAD
                               _c("td", { staticClass: "text-center" }, [
                                 _vm._v(_vm._s(index + 1))
                               ]),
@@ -48161,6 +48428,19 @@ var render = function() {
                               ]),
                               _vm._v(" "),
                               _c("td", { staticClass: "text-center" }, [
+=======
+                              _c("td", [_vm._v(_vm._s(index + 1))]),
+                              _vm._v(" "),
+                              _c("td", [_vm._v(_vm._s(expense.expense_title))]),
+                              _vm._v(" "),
+                              _c("td", [
+                                _vm._v(_vm._s(expense.expense_total_amount))
+                              ]),
+                              _vm._v(" "),
+                              _c("td", [_vm._v(_vm._s(expense.expense_due))]),
+                              _vm._v(" "),
+                              _c("td", [
+>>>>>>> de387a977b131a423ebcd20dceee7510d4390888
                                 expense.status == 1
                                   ? _c(
                                       "span",
@@ -48281,15 +48561,26 @@ var staticRenderFns = [
       _c("tr", [
         _c("th", { staticClass: "text-center" }, [_vm._v("S.N")]),
         _vm._v(" "),
+<<<<<<< HEAD
         _c("th", { staticClass: "text-center" }, [_vm._v("Expense Title")]),
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [
           _vm._v("Expense Total Amount")
+=======
+        _c("th", { staticClass: "text-center" }, [_vm._v("expense_title")]),
+        _vm._v(" "),
+        _c("th", { staticClass: "text-center" }, [
+          _vm._v("expense_total_amount")
+>>>>>>> de387a977b131a423ebcd20dceee7510d4390888
         ]),
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [_vm._v("Due Amount")]),
         _vm._v(" "),
+<<<<<<< HEAD
         _c("th", { staticClass: "text-center" }, [_vm._v("Status")]),
+=======
+        _c("th", { staticClass: "text-center" }, [_vm._v("status")]),
+>>>>>>> de387a977b131a423ebcd20dceee7510d4390888
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [_vm._v("Action")])
       ])
@@ -48371,15 +48662,23 @@ var render = function() {
                           "router-link",
                           {
                             staticClass: "btn btn-sm btn-primary float-right",
+<<<<<<< HEAD
                             attrs: { to: "/expense" }
+=======
+                            attrs: { to: "/supplier-invoice" }
+>>>>>>> de387a977b131a423ebcd20dceee7510d4390888
                           },
                           [
                             _c("i", {
                               staticClass: "nav-icon far fa-file-alt"
                             }),
+<<<<<<< HEAD
                             _vm._v(
                               " Expense list\n                                "
                             )
+=======
+                            _vm._v("Invoice\n                                ")
+>>>>>>> de387a977b131a423ebcd20dceee7510d4390888
                           ]
                         )
                       ],
@@ -48402,7 +48701,11 @@ var render = function() {
                       on: {
                         submit: function($event) {
                           $event.preventDefault()
+<<<<<<< HEAD
                           return _vm.addNewExpense($event)
+=======
+                          return _vm.addNewInvoice($event)
+>>>>>>> de387a977b131a423ebcd20dceee7510d4390888
                         }
                       }
                     },
@@ -48553,14 +48856,22 @@ var render = function() {
                             {
                               staticClass:
                                 "table table-bordered table-sm table-hover",
+<<<<<<< HEAD
                               attrs: { id: "normalExpense" }
+=======
+                              attrs: { id: "normalinvoice" }
+>>>>>>> de387a977b131a423ebcd20dceee7510d4390888
                             },
                             [
                               _vm._m(3),
                               _vm._v(" "),
                               _c(
                                 "tbody",
+<<<<<<< HEAD
                                 { attrs: { id: "add_row_to_Expense" } },
+=======
+                                { attrs: { id: "add_row_to_invoice" } },
+>>>>>>> de387a977b131a423ebcd20dceee7510d4390888
                                 _vm._l(_vm.form.expenses, function(
                                   expense,
                                   index
@@ -48746,22 +49057,35 @@ var render = function() {
                                         {
                                           name: "model",
                                           rawName: "v-model",
+<<<<<<< HEAD
                                           value: _vm.expense_total_amount,
                                           expression: "expense_total_amount"
+=======
+                                          value: _vm.grand_total_price,
+                                          expression: "grand_total_price"
+>>>>>>> de387a977b131a423ebcd20dceee7510d4390888
                                         }
                                       ],
                                       staticClass: "form-control-sm w-100",
                                       staticStyle: { "text-align": "center" },
                                       attrs: { type: "text", disabled: "" },
                                       domProps: {
+<<<<<<< HEAD
                                         value: _vm.expense_total_amount
+=======
+                                        value: _vm.grand_total_price
+>>>>>>> de387a977b131a423ebcd20dceee7510d4390888
                                       },
                                       on: {
                                         input: function($event) {
                                           if ($event.target.composing) {
                                             return
                                           }
+<<<<<<< HEAD
                                           _vm.expense_total_amount =
+=======
+                                          _vm.grand_total_price =
+>>>>>>> de387a977b131a423ebcd20dceee7510d4390888
                                             $event.target.value
                                         }
                                       }
@@ -48772,12 +49096,21 @@ var render = function() {
                                     _c("input", {
                                       staticClass: "btn btn-info btn-sm",
                                       attrs: {
+<<<<<<< HEAD
                                         id: "add-Expense-item",
                                         name: "add-Expense-item",
                                         value: "Add New Item",
                                         type: "button"
                                       },
                                       on: { click: _vm.add_new_row_to_Expense }
+=======
+                                        id: "add-invoice-item",
+                                        name: "add-invoice-item",
+                                        value: "Add New Item",
+                                        type: "button"
+                                      },
+                                      on: { click: _vm.add_new_row_to_invoice }
+>>>>>>> de387a977b131a423ebcd20dceee7510d4390888
                                     })
                                   ])
                                 ]),
@@ -48791,8 +49124,13 @@ var render = function() {
                                         {
                                           name: "model",
                                           rawName: "v-model",
+<<<<<<< HEAD
                                           value: _vm.form.expense_paid_amount,
                                           expression: "form.expense_paid_amount"
+=======
+                                          value: _vm.form.paid_amount,
+                                          expression: "form.paid_amount"
+>>>>>>> de387a977b131a423ebcd20dceee7510d4390888
                                         }
                                       ],
                                       staticClass: "form-control-sm w-100",
@@ -48800,6 +49138,7 @@ var render = function() {
                                       attrs: {
                                         id: "paidAmount",
                                         value: "5455",
+<<<<<<< HEAD
                                         name: "expense_paid_amount",
                                         type: "number",
                                         required: ""
@@ -48807,6 +49146,13 @@ var render = function() {
                                       domProps: {
                                         value: _vm.form.expense_paid_amount
                                       },
+=======
+                                        name: "paid_amount",
+                                        type: "number",
+                                        required: ""
+                                      },
+                                      domProps: { value: _vm.form.paid_amount },
+>>>>>>> de387a977b131a423ebcd20dceee7510d4390888
                                       on: {
                                         input: function($event) {
                                           if ($event.target.composing) {
@@ -48814,7 +49160,11 @@ var render = function() {
                                           }
                                           _vm.$set(
                                             _vm.form,
+<<<<<<< HEAD
                                             "expense_paid_amount",
+=======
+                                            "paid_amount",
+>>>>>>> de387a977b131a423ebcd20dceee7510d4390888
                                             $event.target.value
                                           )
                                         }
@@ -48830,8 +49180,13 @@ var render = function() {
                                       {
                                         name: "show",
                                         rawName: "v-show",
+<<<<<<< HEAD
                                         value: _vm.expense_due,
                                         expression: "expense_due"
+=======
+                                        value: _vm.due_amount,
+                                        expression: "due_amount"
+>>>>>>> de387a977b131a423ebcd20dceee7510d4390888
                                       }
                                     ]
                                   },
@@ -48843,7 +49198,11 @@ var render = function() {
                                         staticClass: "form-control-sm w-100",
                                         staticStyle: { "text-align": "center" },
                                         attrs: { type: "number", disabled: "" },
+<<<<<<< HEAD
                                         domProps: { value: _vm.expense_due }
+=======
+                                        domProps: { value: _vm.due_amount }
+>>>>>>> de387a977b131a423ebcd20dceee7510d4390888
                                       })
                                     ])
                                   ]
@@ -48861,11 +49220,19 @@ var render = function() {
                                 {
                                   staticClass:
                                     "btn btn-sm btn-default float-left",
+<<<<<<< HEAD
                                   attrs: { to: "/supplier-Expense" }
                                 },
                                 [
                                   _vm._v(
                                     "\n                                        Back to Expense list\n                                    "
+=======
+                                  attrs: { to: "/supplier-invoice" }
+                                },
+                                [
+                                  _vm._v(
+                                    "\n                                        Back to Invoice list\n                                    "
+>>>>>>> de387a977b131a423ebcd20dceee7510d4390888
                                   )
                                 ]
                               ),
@@ -48878,7 +49245,11 @@ var render = function() {
                                 },
                                 [
                                   _vm._v(
+<<<<<<< HEAD
                                     "\n                                        Create Expense\n                                    "
+=======
+                                    "\n                                        Create Invoice\n                                    "
+>>>>>>> de387a977b131a423ebcd20dceee7510d4390888
                                   )
                                 ]
                               )
@@ -48906,7 +49277,11 @@ var staticRenderFns = [
     return _c("div", { staticClass: "col-md-3 float-left" }, [
       _c("p", [
         _c("a", { attrs: { href: "/" } }, [_vm._v("Home")]),
+<<<<<<< HEAD
         _vm._v(" / Add New Expense")
+=======
+        _vm._v(" / Add New Invoice")
+>>>>>>> de387a977b131a423ebcd20dceee7510d4390888
       ])
     ])
   },
@@ -49040,14 +49415,22 @@ var render = function() {
                           "router-link",
                           {
                             staticClass: "btn btn-sm btn-primary float-right",
+<<<<<<< HEAD
                             attrs: { to: "/expense" }
+=======
+                            attrs: { to: "/supplier-invoice" }
+>>>>>>> de387a977b131a423ebcd20dceee7510d4390888
                           },
                           [
                             _c("i", {
                               staticClass: "nav-icon far fa-file-alt"
                             }),
                             _vm._v(
+<<<<<<< HEAD
                               " Expense list\n                                "
+=======
+                              " Supplier Invoice\n                                "
+>>>>>>> de387a977b131a423ebcd20dceee7510d4390888
                             )
                           ]
                         )
@@ -49071,13 +49454,18 @@ var render = function() {
                       on: {
                         submit: function($event) {
                           $event.preventDefault()
+<<<<<<< HEAD
                           return _vm.updateExpense($event)
+=======
+                          return _vm.updateSupplierInvoice($event)
+>>>>>>> de387a977b131a423ebcd20dceee7510d4390888
                         }
                       }
                     },
                     [
                       _c("div", { staticClass: "panel-body" }, [
                         _c("div", { staticClass: "row" }, [
+<<<<<<< HEAD
                           _c("div", { staticClass: "col-md-8" }, [
                             _c("div", { staticClass: "form-group row" }, [
                               _vm._m(1),
@@ -49119,6 +49507,141 @@ var render = function() {
                           _vm._v(" "),
                           _c("div", { staticClass: "col-md-4" }, [
                             _c("div", { staticClass: "form-group row" }, [
+=======
+                          _c("div", { staticClass: "col-md-7" }, [
+                            _c("div", { staticClass: "form-group row" }, [
+                              _vm._m(1),
+                              _vm._v(" "),
+                              _c("div", { staticClass: "col-sm-8" }, [
+                                _c(
+                                  "select",
+                                  {
+                                    directives: [
+                                      {
+                                        name: "model",
+                                        rawName: "v-model",
+                                        value: _vm.form.supplier_id,
+                                        expression: "form.supplier_id"
+                                      }
+                                    ],
+                                    staticClass: "form-control-sm w-100 w-100",
+                                    attrs: {
+                                      id: "supplier_id",
+                                      name: "supplier_id",
+                                      required: ""
+                                    },
+                                    on: {
+                                      change: function($event) {
+                                        var $$selectedVal = Array.prototype.filter
+                                          .call($event.target.options, function(
+                                            o
+                                          ) {
+                                            return o.selected
+                                          })
+                                          .map(function(o) {
+                                            var val =
+                                              "_value" in o ? o._value : o.value
+                                            return val
+                                          })
+                                        _vm.$set(
+                                          _vm.form,
+                                          "supplier_id",
+                                          $event.target.multiple
+                                            ? $$selectedVal
+                                            : $$selectedVal[0]
+                                        )
+                                      }
+                                    }
+                                  },
+                                  _vm._l(_vm.suppliers, function(supplier) {
+                                    return _c(
+                                      "option",
+                                      { domProps: { value: supplier.id } },
+                                      [_vm._v(_vm._s(supplier.supplier_name))]
+                                    )
+                                  }),
+                                  0
+                                ),
+                                _vm._v(" "),
+                                _c("input", {
+                                  attrs: {
+                                    id: "auth_id",
+                                    type: "hidden",
+                                    name: "auth_id",
+                                    value: "1"
+                                  }
+                                })
+                              ])
+                            ]),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "form-group row" }, [
+                              _c(
+                                "label",
+                                {
+                                  staticClass: "col-sm-3 form-control-label",
+                                  attrs: { for: "warehouse_id" }
+                                },
+                                [_vm._v("Warehouse ")]
+                              ),
+                              _vm._v(" "),
+                              _c("div", { staticClass: "col-sm-8" }, [
+                                _c(
+                                  "select",
+                                  {
+                                    directives: [
+                                      {
+                                        name: "model",
+                                        rawName: "v-model",
+                                        value: _vm.form.warehouse_id,
+                                        expression: "form.warehouse_id"
+                                      }
+                                    ],
+                                    staticClass: "form-control-sm w-100 w-100",
+                                    attrs: {
+                                      id: "warehouse_id",
+                                      name: "warehouse_id",
+                                      "data-plugin": "select2",
+                                      required: ""
+                                    },
+                                    on: {
+                                      change: function($event) {
+                                        var $$selectedVal = Array.prototype.filter
+                                          .call($event.target.options, function(
+                                            o
+                                          ) {
+                                            return o.selected
+                                          })
+                                          .map(function(o) {
+                                            var val =
+                                              "_value" in o ? o._value : o.value
+                                            return val
+                                          })
+                                        _vm.$set(
+                                          _vm.form,
+                                          "warehouse_id",
+                                          $event.target.multiple
+                                            ? $$selectedVal
+                                            : $$selectedVal[0]
+                                        )
+                                      }
+                                    }
+                                  },
+                                  _vm._l(_vm.warehouses, function(warehouse) {
+                                    return _c(
+                                      "option",
+                                      { domProps: { value: warehouse.id } },
+                                      [_vm._v(_vm._s(warehouse.warehouse_name))]
+                                    )
+                                  }),
+                                  0
+                                )
+                              ])
+                            ])
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "col-md-5" }, [
+                            _c("div", { staticClass: "form-group row mb-1" }, [
+>>>>>>> de387a977b131a423ebcd20dceee7510d4390888
                               _c(
                                 "label",
                                 {
@@ -49140,16 +49663,25 @@ var render = function() {
                                       autocomplete: "off"
                                     },
                                     model: {
+<<<<<<< HEAD
                                       value: _vm.form.expense_date,
                                       callback: function($$v) {
                                         _vm.$set(_vm.form, "expense_date", $$v)
                                       },
                                       expression: "form.expense_date"
+=======
+                                      value: _vm.form.invoice_date,
+                                      callback: function($$v) {
+                                        _vm.$set(_vm.form, "invoice_date", $$v)
+                                      },
+                                      expression: "form.invoice_date"
+>>>>>>> de387a977b131a423ebcd20dceee7510d4390888
                                     }
                                   })
                                 ],
                                 1
                               )
+<<<<<<< HEAD
                             ])
                           ]),
                           _vm._v(" "),
@@ -49182,11 +49714,72 @@ var render = function() {
                                     }
                                   }
                                 })
+=======
+                            ]),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "form-group row" }, [
+                              _c(
+                                "label",
+                                {
+                                  staticClass: "col-sm-2 col-form-label",
+                                  attrs: { for: "inputPassword" }
+                                },
+                                [_vm._v("Image")]
+                              ),
+                              _vm._v(" "),
+                              _c("div", { staticClass: "col-sm-7 ml-2" }, [
+                                _c("input", {
+                                  attrs: { type: "file", src: _vm.form.image },
+                                  on: { change: _vm.uploadImage }
+                                })
+                              ]),
+                              _vm._v(" "),
+                              !_vm.img_url
+                                ? _c(
+                                    "div",
+                                    { attrs: { id: "preview col-sm-2" } },
+                                    [
+                                      _c("img", {
+                                        directives: [
+                                          {
+                                            name: "show",
+                                            rawName: "v-show",
+                                            value: this.form.image,
+                                            expression: "this.form.image"
+                                          }
+                                        ],
+                                        staticClass: "img-fluid",
+                                        staticStyle: {
+                                          "max-height": "50px",
+                                          "max-width": "50px"
+                                        },
+                                        attrs: {
+                                          src: _vm.getImgUrl(this.form.image),
+                                          alt: "User Avatar"
+                                        }
+                                      })
+                                    ]
+                                  )
+                                : _vm._e(),
+                              _vm._v(" "),
+                              _c("div", { attrs: { id: "preview col-sm-2" } }, [
+                                _vm.img_url
+                                  ? _c("img", {
+                                      staticClass: "img-fluid",
+                                      staticStyle: {
+                                        "max-height": "50px",
+                                        "max-width": "50px"
+                                      },
+                                      attrs: { src: _vm.img_url }
+                                    })
+                                  : _vm._e()
+>>>>>>> de387a977b131a423ebcd20dceee7510d4390888
                               ])
                             ])
                           ])
                         ]),
                         _vm._v(" "),
+<<<<<<< HEAD
                         _c("div", { staticClass: "table-responsive" }, [
                           _c(
                             "table",
@@ -49210,18 +49803,135 @@ var render = function() {
                                       "td",
                                       { staticStyle: { width: "320px" } },
                                       [
+=======
+                        _c(
+                          "div",
+                          {
+                            staticClass: "table-responsive",
+                            staticStyle: { "margin-top": "10px" }
+                          },
+                          [
+                            _c(
+                              "table",
+                              {
+                                staticClass:
+                                  "table table-bordered table-sm table-hover",
+                                attrs: { id: "normalinvoice" }
+                              },
+                              [
+                                _vm._m(2),
+                                _vm._v(" "),
+                                _c(
+                                  "tbody",
+                                  { attrs: { id: "add_row_to_invoice" } },
+                                  _vm._l(_vm.products, function(
+                                    product,
+                                    index
+                                  ) {
+                                    return _c("tr", [
+                                      _c(
+                                        "td",
+                                        { staticStyle: { width: "320px" } },
+                                        [
+                                          _c("input", {
+                                            directives: [
+                                              {
+                                                name: "model",
+                                                rawName: "v-model",
+                                                value: product.product_name,
+                                                expression:
+                                                  "product.product_name"
+                                              }
+                                            ],
+                                            staticClass:
+                                              "form-control-sm w-100",
+                                            attrs: {
+                                              placeholder: "Item Name",
+                                              required: "",
+                                              type: "text",
+                                              autocomplete: "off"
+                                            },
+                                            domProps: {
+                                              value: product.product_name
+                                            },
+                                            on: {
+                                              input: function($event) {
+                                                if ($event.target.composing) {
+                                                  return
+                                                }
+                                                _vm.$set(
+                                                  product,
+                                                  "product_name",
+                                                  $event.target.value
+                                                )
+                                              }
+                                            }
+                                          })
+                                        ]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "td",
+                                        { staticStyle: { width: "320px" } },
+                                        [
+                                          _c("input", {
+                                            directives: [
+                                              {
+                                                name: "model",
+                                                rawName: "v-model",
+                                                value: product.product_quantity,
+                                                expression:
+                                                  "product.product_quantity"
+                                              }
+                                            ],
+                                            staticClass:
+                                              "form-control-sm w-100",
+                                            attrs: {
+                                              placeholder: "Product Quantity",
+                                              type: "text",
+                                              autocomplete: "off",
+                                              required: ""
+                                            },
+                                            domProps: {
+                                              value: product.product_quantity
+                                            },
+                                            on: {
+                                              input: function($event) {
+                                                if ($event.target.composing) {
+                                                  return
+                                                }
+                                                _vm.$set(
+                                                  product,
+                                                  "product_quantity",
+                                                  $event.target.value
+                                                )
+                                              }
+                                            }
+                                          })
+                                        ]
+                                      ),
+                                      _vm._v(" "),
+                                      _c("td", [
+>>>>>>> de387a977b131a423ebcd20dceee7510d4390888
                                         _c("input", {
                                           directives: [
                                             {
                                               name: "model",
                                               rawName: "v-model",
+<<<<<<< HEAD
                                               value: expense.expense_purpose,
                                               expression:
                                                 "expense.expense_purpose"
+=======
+                                              value: product.product_price,
+                                              expression:
+                                                "product.product_price"
+>>>>>>> de387a977b131a423ebcd20dceee7510d4390888
                                             }
                                           ],
                                           staticClass: "form-control-sm w-100",
                                           attrs: {
+<<<<<<< HEAD
                                             placeholder: "Expense Purpose",
                                             required: "",
                                             type: "text",
@@ -49229,6 +49939,15 @@ var render = function() {
                                           },
                                           domProps: {
                                             value: expense.expense_purpose
+=======
+                                            placeholder: "Product Price",
+                                            type: "text",
+                                            autocomplete: "off",
+                                            required: ""
+                                          },
+                                          domProps: {
+                                            value: product.product_price
+>>>>>>> de387a977b131a423ebcd20dceee7510d4390888
                                           },
                                           on: {
                                             input: function($event) {
@@ -49236,13 +49955,19 @@ var render = function() {
                                                 return
                                               }
                                               _vm.$set(
+<<<<<<< HEAD
                                                 expense,
                                                 "expense_purpose",
+=======
+                                                product,
+                                                "product_price",
+>>>>>>> de387a977b131a423ebcd20dceee7510d4390888
                                                 $event.target.value
                                               )
                                             }
                                           }
                                         })
+<<<<<<< HEAD
                                       ]
                                     ),
                                     _vm._v(" "),
@@ -49287,11 +50012,95 @@ var render = function() {
                                     ),
                                     _vm._v(" "),
                                     _c("td", [
+=======
+                                      ]),
+                                      _vm._v(" "),
+                                      _c("td", { staticClass: "text-center" }, [
+                                        _c("input", {
+                                          staticClass: "form-control-sm w-100",
+                                          staticStyle: {
+                                            "text-align": "center"
+                                          },
+                                          attrs: {
+                                            tabindex: "-1",
+                                            type: "text",
+                                            disabled: ""
+                                          },
+                                          domProps: {
+                                            value:
+                                              product.product_quantity *
+                                              product.product_price
+                                          }
+                                        })
+                                      ]),
+                                      _vm._v(" "),
+                                      _c("td", { staticClass: "text-center" }, [
+                                        _c(
+                                          "span",
+                                          {
+                                            staticClass:
+                                              "btn btn-danger btn-sm",
+                                            on: {
+                                              click: function($event) {
+                                                return _vm.deleteRow(index)
+                                              }
+                                            }
+                                          },
+                                          [_vm._v("×")]
+                                        )
+                                      ])
+                                    ])
+                                  }),
+                                  0
+                                ),
+                                _vm._v(" "),
+                                _c("tfoot", [
+                                  _c("tr", { attrs: { id: "appssss" } }, [
+                                    _vm._m(3),
+                                    _vm._v(" "),
+                                    _c("td", { staticClass: "text-center" }, [
+                                      _c("input", {
+                                        staticClass: "form-control-sm w-100",
+                                        staticStyle: { "text-align": "center" },
+                                        attrs: {
+                                          tabindex: "-1",
+                                          type: "text",
+                                          disabled: ""
+                                        },
+                                        domProps: {
+                                          value: _vm.grand_total_price
+                                        }
+                                      })
+                                    ]),
+                                    _vm._v(" "),
+                                    _c("td", { attrs: { align: "center" } }, [
+                                      _c("input", {
+                                        staticClass: "btn btn-info btn-sm",
+                                        attrs: {
+                                          id: "add-invoice-item",
+                                          name: "add-invoice-item",
+                                          value: "Add New Item",
+                                          tabindex: "5",
+                                          type: "button"
+                                        },
+                                        on: {
+                                          click: _vm.add_new_row_to_invoice
+                                        }
+                                      })
+                                    ])
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("tr", [
+                                    _vm._m(4),
+                                    _vm._v(" "),
+                                    _c("td", { staticClass: "text-right" }, [
+>>>>>>> de387a977b131a423ebcd20dceee7510d4390888
                                       _c("input", {
                                         directives: [
                                           {
                                             name: "model",
                                             rawName: "v-model",
+<<<<<<< HEAD
                                             value: expense.expense_amount,
                                             expression: "expense.expense_amount"
                                           }
@@ -49305,6 +50114,24 @@ var render = function() {
                                         },
                                         domProps: {
                                           value: expense.expense_amount
+=======
+                                            value: _vm.form.paid_amount,
+                                            expression: "form.paid_amount"
+                                          }
+                                        ],
+                                        staticClass: "form-control-sm w-100",
+                                        staticStyle: { "text-align": "center" },
+                                        attrs: {
+                                          id: "paidAmount",
+                                          value: "5455",
+                                          name: "paid_amount",
+                                          tabindex: "6",
+                                          type: "number",
+                                          required: ""
+                                        },
+                                        domProps: {
+                                          value: _vm.form.paid_amount
+>>>>>>> de387a977b131a423ebcd20dceee7510d4390888
                                         },
                                         on: {
                                           input: function($event) {
@@ -49312,13 +50139,19 @@ var render = function() {
                                               return
                                             }
                                             _vm.$set(
+<<<<<<< HEAD
                                               expense,
                                               "expense_amount",
+=======
+                                              _vm.form,
+                                              "paid_amount",
+>>>>>>> de387a977b131a423ebcd20dceee7510d4390888
                                               $event.target.value
                                             )
                                           }
                                         }
                                       })
+<<<<<<< HEAD
                                     ]),
                                     _vm._v(" "),
                                     _c("td", { staticClass: "text-center" }, [
@@ -49503,6 +50336,80 @@ var render = function() {
                             1
                           )
                         ])
+=======
+                                    ])
+                                  ]),
+                                  _vm._v(" "),
+                                  _c(
+                                    "tr",
+                                    {
+                                      directives: [
+                                        {
+                                          name: "show",
+                                          rawName: "v-show",
+                                          value: _vm.due_amount,
+                                          expression: "due_amount"
+                                        }
+                                      ]
+                                    },
+                                    [
+                                      _vm._m(5),
+                                      _vm._v(" "),
+                                      _c("td", { staticClass: "text-center" }, [
+                                        _c("input", {
+                                          staticClass: "form-control-sm w-100",
+                                          staticStyle: {
+                                            "text-align": "center"
+                                          },
+                                          attrs: {
+                                            type: "number",
+                                            disabled: ""
+                                          },
+                                          domProps: { value: _vm.due_amount }
+                                        })
+                                      ])
+                                    ]
+                                  )
+                                ])
+                              ]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "div",
+                              { staticClass: "card-footer" },
+                              [
+                                _c(
+                                  "router-link",
+                                  {
+                                    staticClass:
+                                      "btn btn-sm btn-default float-left",
+                                    attrs: { to: "/supplier-invoice" }
+                                  },
+                                  [
+                                    _vm._v(
+                                      "\n                                        Back to Invoice list\n                                    "
+                                    )
+                                  ]
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "button",
+                                  {
+                                    staticClass:
+                                      "btn btn-sm btn-success float-right"
+                                  },
+                                  [
+                                    _vm._v(
+                                      "\n                                        Update Supplier Invoice\n                                    "
+                                    )
+                                  ]
+                                )
+                              ],
+                              1
+                            )
+                          ]
+                        )
+>>>>>>> de387a977b131a423ebcd20dceee7510d4390888
                       ])
                     ]
                   )
@@ -49523,7 +50430,11 @@ var staticRenderFns = [
     return _c("div", { staticClass: "col-md-3 float-left" }, [
       _c("p", [
         _c("a", { attrs: { href: "/" } }, [_vm._v("Home")]),
+<<<<<<< HEAD
         _vm._v(" / Update Expense")
+=======
+        _vm._v(" / Add New SupplierInvoice")
+>>>>>>> de387a977b131a423ebcd20dceee7510d4390888
       ])
     ])
   },
@@ -49531,6 +50442,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
+<<<<<<< HEAD
     return _c(
       "label",
       {
@@ -49549,6 +50461,10 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("label", { staticClass: "col-sm-3 form-control-label" }, [
       _vm._v("Expense Detail "),
+=======
+    return _c("label", { staticClass: "col-sm-3 form-control-label" }, [
+      _vm._v("Select Supplier "),
+>>>>>>> de387a977b131a423ebcd20dceee7510d4390888
       _c("i", { staticClass: "text-danger" }, [_vm._v("*")])
     ])
   },
@@ -49559,17 +50475,29 @@ var staticRenderFns = [
     return _c("thead", [
       _c("tr", [
         _c("th", { staticClass: "text-center" }, [
+<<<<<<< HEAD
           _vm._v("Expense Purpose  "),
+=======
+          _vm._v("Item Information "),
+>>>>>>> de387a977b131a423ebcd20dceee7510d4390888
           _c("i", { staticClass: "text-danger" }, [_vm._v("*")])
         ]),
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [
+<<<<<<< HEAD
           _vm._v("Expense Quantity "),
+=======
+          _vm._v("Quantity "),
+>>>>>>> de387a977b131a423ebcd20dceee7510d4390888
           _c("i", { staticClass: "text-danger" }, [_vm._v("*")])
         ]),
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [
+<<<<<<< HEAD
           _vm._v("Expense Amount "),
+=======
+          _vm._v("Rate "),
+>>>>>>> de387a977b131a423ebcd20dceee7510d4390888
           _c("i", { staticClass: "text-danger" }, [_vm._v("*")])
         ]),
         _vm._v(" "),
@@ -52192,8 +53120,12 @@ var render = function() {
                                       expression: "form.loaner_email"
                                     }
                                   ],
+<<<<<<< HEAD
                                   staticClass:
                                     "form-control form-control-sm w-100",
+=======
+                                  staticClass: "form-control-sm w-100",
+>>>>>>> de387a977b131a423ebcd20dceee7510d4390888
                                   attrs: {
                                     type: "email",
                                     placeholder: "Loaner Email"
@@ -52312,7 +53244,11 @@ var render = function() {
                               )
                             ]),
                             _vm._v(" "),
+<<<<<<< HEAD
                             _c("div", { staticClass: "form-group row mb-2" }, [
+=======
+                            _c("div", { staticClass: "form-group row mb-1" }, [
+>>>>>>> de387a977b131a423ebcd20dceee7510d4390888
                               _c(
                                 "label",
                                 {
@@ -52350,7 +53286,11 @@ var render = function() {
                               )
                             ]),
                             _vm._v(" "),
+<<<<<<< HEAD
                             _c("div", { staticClass: "form-group row mb-2" }, [
+=======
+                            _c("div", { staticClass: "form-group row mb-1" }, [
+>>>>>>> de387a977b131a423ebcd20dceee7510d4390888
                               _c(
                                 "label",
                                 {
@@ -52405,7 +53345,11 @@ var render = function() {
                                   attrs: {
                                     id: "loan_detail",
                                     name: "loan_detail",
+<<<<<<< HEAD
                                     rows: "2",
+=======
+                                    rows: "3",
+>>>>>>> de387a977b131a423ebcd20dceee7510d4390888
                                     placeholder: "Loan Detail"
                                   },
                                   domProps: { value: _vm.form.loan_detail },
@@ -55262,7 +56206,11 @@ var render = function() {
                               expression: "form.staff_phone"
                             }
                           ],
+<<<<<<< HEAD
                           staticClass: "form-control form-control-sm w-100",
+=======
+                          staticClass: "form-control-sm w-100",
+>>>>>>> de387a977b131a423ebcd20dceee7510d4390888
                           attrs: {
                             type: "number",
                             id: "staff_phone",

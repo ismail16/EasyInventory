@@ -25,7 +25,12 @@
               <div class="info-box-content">
                 <span class="info-box-text">Category</span>
                 <span class="info-box-number">
+<<<<<<< HEAD
                   {{ categories.length }}
+=======
+                  10
+                  <small>%</small>
+>>>>>>> de387a977b131a423ebcd20dceee7510d4390888
                 </span>
               </div>
             </div>
@@ -77,7 +82,10 @@
       return {
             suppliers:'',
             products:'',
+<<<<<<< HEAD
             categories:'',
+=======
+>>>>>>> de387a977b131a423ebcd20dceee7510d4390888
             products:'',
             invoices:'',
           }
@@ -86,11 +94,34 @@
     mounted(){
         this.getSuppliers();
         this.getWarehouses();
+<<<<<<< HEAD
         this.getCategory();
+=======
+>>>>>>> de387a977b131a423ebcd20dceee7510d4390888
         this.getProducts();
         this.getInvoices();
     },
     computed: {
+<<<<<<< HEAD
+=======
+
+        // grand_total_price: function() {
+
+        //     console.log('llll');
+        //     var temp = this
+        //     return temp.form.products.reduce(function(carry, product) {
+        //         let total = carry + (parseFloat(product.product_quantity) * parseFloat(product.supplier_price));
+        //         temp.form.grand_total_price = total
+        //         return total
+        //     }, 0);
+        // },
+        // due_amount: function() {
+        //     var temp = this
+        //     let due_ammount = temp.form.grand_total_price - parseFloat(temp.form.paid_amount);
+        //     temp.form.due_amount = due_ammount
+        //     return due_ammount
+        // }
+>>>>>>> de387a977b131a423ebcd20dceee7510d4390888
     },
 
     methods:{
@@ -106,6 +137,7 @@
           });
         },
 
+<<<<<<< HEAD
         getCategory(){
             var temp = this;
             axios.get('/api/categories')
@@ -117,6 +149,8 @@
           });
         },
 
+=======
+>>>>>>> de387a977b131a423ebcd20dceee7510d4390888
         getProducts(){
             var temp = this;
             axios.get('/api/products')
