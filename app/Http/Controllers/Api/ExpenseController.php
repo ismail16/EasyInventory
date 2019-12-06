@@ -58,7 +58,6 @@ class ExpenseController extends Controller
     {
         $expense = Expense::find($id);
         $expense_items = ExpenseItem::where('expense_id',$id)->get();
-
         return array('expense' => $expense, 'expense_items' => $expense_items);
     }
 
@@ -78,7 +77,6 @@ class ExpenseController extends Controller
         $expense->expense_due = $req['expense_due'];
         $expense->status = 1;
         $expense->save();
-
         $expenses = $req['expense_items'];
         if ($expenses) {
             ExpenseItem::where('expense_id', $expense->id)->delete();

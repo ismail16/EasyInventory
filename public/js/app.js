@@ -48839,7 +48839,14 @@ var render = function() {
                                   [
                                     _vm._m(6),
                                     _vm._v(" "),
-                                    _c("td", { staticClass: "text-center" })
+                                    _c("td", { staticClass: "text-center" }, [
+                                      _c("input", {
+                                        staticClass: "form-control-sm w-100",
+                                        staticStyle: { "text-align": "center" },
+                                        attrs: { type: "number", disabled: "" },
+                                        domProps: { value: _vm.expense_due }
+                                      })
+                                    ])
                                   ]
                                 )
                               ])

@@ -111,7 +111,7 @@
                                         <tr v-show="expense_due">
                                             <td style="text-align:right;" colspan="3"><b>Due:</b></td>
                                             <td  class="text-center">
-                                                <input class="form-control-sm w-100" :value="expense_due"  type="number" 
+                                                <input class="form-control-sm w-100" :value="expense_due"  type="number" style="text-align: center;" disabled>
                                             </td>
                                         </tr>
                                     </tfoot>
