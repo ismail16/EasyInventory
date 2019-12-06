@@ -30,7 +30,6 @@ class ExpenseController extends Controller
         //     'grand_total_price' => 'required'
         // ]);
 
-<<<<<<< HEAD
         $expense = new Expense;
         $expense->expense_title = $request->expense_title;
         $expense->expense_date = $request->expense_date;
@@ -52,65 +51,19 @@ class ExpenseController extends Controller
             $expense_items->save();
         }
         return array('expense' => $expense, 'expense_items' => $expense_items);
-=======
-        $supplier_invoice = new Expense;
-        $supplier_invoice->invoice_no = 1111;
-        $supplier_invoice->supplier_id = $request->supplier_id;
-        $supplier_invoice->warehouse_id = $request->warehouse_id;
-        $supplier_invoice->invoice_date = $request->invoice_date;
-        $supplier_invoice->grand_total_price = $request->grand_total_price;
-        $supplier_invoice->paid_amount = $request->paid_amount;
-        $supplier_invoice->due_amount = $request->due_amount;
-        $supplier_invoice->discount = $request->discount;
-        $supplier_invoice->status = 1;
-
-        $supplier_invoice->image = $name ;
-
-
-        $supplier_invoice->save();
-
-
-
-        $products = $request->products;
-        for ($i=0; $i < count($products); $i++) { 
-            $ExpenseProduct = new ExpenseProduct;
-            $ExpenseProduct->supplier_invoice_id = $supplier_invoice->id;
-            $ExpenseProduct->product_name = $products[$i]['product_name'];
-            $ExpenseProduct->product_quantity = $products[$i]['product_quantity'];
-            $ExpenseProduct->supplier_price = $products[$i]['supplier_price'];
-            $ExpenseProduct->status = 1;
-            $ExpenseProduct->save();
-        }
-
-        // return $ExpenseProduct;
-
-        return array('supplier_invoice' => $supplier_invoice, 'ExpenseProduct' => $ExpenseProduct);
-
-
->>>>>>> de387a977b131a423ebcd20dceee7510d4390888
     }
 
 
     public function show($id)
     {
-
-
-<<<<<<< HEAD
         $expense = Expense::find($id);
         $expense_items = ExpenseItem::where('expense_id',$id)->get();
 
         return array('expense' => $expense, 'expense_items' => $expense_items);
-=======
-        $supplier_invoice = Expense::find($id);
-        $ExpenseProduct = ExpenseProduct::where('supplier_invoice_id',$id)->get();
-
-        return array('Expense' => $supplier_invoice, 'ExpenseProduct' => $ExpenseProduct);
->>>>>>> de387a977b131a423ebcd20dceee7510d4390888
     }
 
     public function update(Request $request, $id)
     {
-<<<<<<< HEAD
         $req = $request->expenses;
 
 
@@ -140,48 +93,11 @@ class ExpenseController extends Controller
             }
         }
         return array('expense' => $expense, 'expense_items' => $expense_items);
-=======
-        $req = $request->Expense;
-        $supplier_invoice = Expense::find($id);
-        $supplier_invoice->invoice_no = 1111;
-        $supplier_invoice->supplier_id = $req['supplier_id'];
-        $supplier_invoice->warehouse_id = $req['warehouse_id'];
-        $supplier_invoice->invoice_date = $req['invoice_date'];
-        $supplier_invoice->grand_total_price = $req['grand_total_price'];
-        $supplier_invoice->paid_amount = $req['paid_amount'];
-        $supplier_invoice->due_amount = $req['due_amount'];
-        $supplier_invoice->discount = $req['discount'];
-        $supplier_invoice->status = 1;
-
-        $supplier_invoice->save();
-        
-
-        $products = $req['products'];
-        if ($products) {
-            ExpenseProduct::where('supplier_invoice_id', $supplier_invoice->id)->delete();
-            for ($i=0; $i < count($products); $i++) { 
-                $ExpenseProduct = new ExpenseProduct;
-                $ExpenseProduct->supplier_invoice_id = $supplier_invoice->id;
-                $ExpenseProduct->product_name = $products[$i]['product_name'];
-                $ExpenseProduct->product_quantity = $products[$i]['product_quantity'];
-                $ExpenseProduct->supplier_price = $products[$i]['supplier_price'];
-                $ExpenseProduct->status = 1;
-                $ExpenseProduct->save();
-            }
-        }
-        
-        return array('supplier_invoice' => $supplier_invoice, 'ExpenseProduct' => $ExpenseProduct);
->>>>>>> de387a977b131a423ebcd20dceee7510d4390888
     }
 
     public function destroy($id)
     {
-<<<<<<< HEAD
         Expense::find($id)->delete();
         ExpenseItem::where('expense_id', $id)->delete();
-=======
-        $Expense = Expense::find($id);
-        $Expense->delete();
->>>>>>> de387a977b131a423ebcd20dceee7510d4390888
     }
 }

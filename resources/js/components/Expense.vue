@@ -13,11 +13,7 @@
                               <div class="form-inline ml-3 mr-2">
                                 <div class="input-group input-group-sm w-100">
                                     <select v-model="queryFiled" class="form-control w-25" id="fileds">
-<<<<<<< HEAD
                                         <option value="expense_title">Expense Title</option>
-=======
-                                        <option value="expense_id">expense_title</option>
->>>>>>> de387a977b131a423ebcd20dceee7510d4390888
                                     </select>
                                   <input class="form-control w-50" v-model="query" type="search" placeholder="Search" aria-label="Search">
                                   <div class="input-group-append">
@@ -31,11 +27,7 @@
                             <div class="col-md-3">
                               <div class="d-inline-flex float-right">
                                 <router-link to="/expense-create" class="btn btn-sm btn-primary float-right">
-<<<<<<< HEAD
                                     <i class="fa fa-plus"></i> Expense Create
-=======
-                                    <i class="fa fa-plus"></i> expense expense
->>>>>>> de387a977b131a423ebcd20dceee7510d4390888
                                 </router-link>
                               </div>
                             </div>
@@ -46,36 +38,21 @@
                                 <thead>
                                 <tr>
                                     <th class="text-center">S.N</th>
-<<<<<<< HEAD
                                     <th class="text-center">Expense Title</th>
                                     <th class="text-center">Expense Total Amount</th>
                                     <th class="text-center">Due Amount</th>
                                     <th class="text-center">Status</th>
-=======
-                                    <th class="text-center">expense_title</th>
-                                    <th class="text-center">expense_total_amount</th>
-                                    <th class="text-center">Due Amount</th>
-                                    <th class="text-center">status</th>
->>>>>>> de387a977b131a423ebcd20dceee7510d4390888
                                     <th class="text-center">Action</th>
                                 </tr>
                                 </thead>
                                 <tbody v-if="expenses.length > 0 ">
 
                                     <tr v-for="(expense, index) in expenses">
-<<<<<<< HEAD
                                         <td class="text-center">{{ index+1 }}</td>
                                         <td class="text-center">{{ expense.expense_title }}</td>
                                         <td class="text-center">{{ expense.expense_total_amount }}</td>
                                         <td class="text-center">{{ expense.expense_due }}</td>
                                         <td class="text-center">
-=======
-                                        <td>{{ index+1 }}</td>
-                                        <td>{{ expense.expense_title }}</td>
-                                        <td>{{ expense.expense_total_amount }}</td>
-                                        <td>{{ expense.expense_due }}</td>
-                                        <td>
->>>>>>> de387a977b131a423ebcd20dceee7510d4390888
                                             <span v-if="expense.status == 1" class="text-success">
                                                 Active
                                             </span>

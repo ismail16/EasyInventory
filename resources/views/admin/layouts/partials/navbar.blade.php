@@ -6,7 +6,6 @@
             <a class="nav-link" data-widget="pushmenu" href="#"><i class="fas fa-bars"></i></a>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
-<<<<<<< HEAD
             <router-link to="/dashboard" class="nav-link bg-light mr-2">
                <i class="nav-icon far fa-file-alt text-warning"></i> Documentation
             </router-link>
@@ -21,21 +20,12 @@
             <router-link to="/dashboard" class="nav-link bg-light">
                <i class="fas fa-chart-line text-success"></i> Reports
             </router-link>
-=======
-            <a href="index3.html" class="nav-link">Home</a>
-        </li>
-        <li class="nav-item d-none d-sm-inline-block">
-            <a href="#" class="nav-link">Contact</a>
->>>>>>> de387a977b131a423ebcd20dceee7510d4390888
         </li>
     </ul>
 
     <!-- SEARCH FORM -->
-<<<<<<< HEAD
    <!--  <form class="form-inline ml-3">
-=======
     <form class="form-inline ml-3">
->>>>>>> de387a977b131a423ebcd20dceee7510d4390888
         <div class="input-group input-group-sm">
             <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
             <div class="input-group-append">
@@ -44,102 +34,14 @@
                 </button>
             </div>
         </div>
-<<<<<<< HEAD
     </form> -->
-=======
-    </form>
->>>>>>> de387a977b131a423ebcd20dceee7510d4390888
+
 
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
-        <!-- Messages Dropdown Menu -->
-<<<<<<< HEAD
-       <!--  <li class="nav-item dropdown">
-=======
-        <li class="nav-item dropdown">
->>>>>>> de387a977b131a423ebcd20dceee7510d4390888
-            <a class="nav-link" data-toggle="dropdown" href="#">
-                <i class="far fa-comments"></i>
-                <span class="badge badge-danger navbar-badge">3</span>
-            </a>
-            <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-                <a href="#" class="dropdown-item">
-<<<<<<< HEAD
-=======
-                    <!-- Message Start -->
->>>>>>> de387a977b131a423ebcd20dceee7510d4390888
-                    <div class="media">
-                        <img src="{{asset('backend_assets/dist/img/user1-128x128.jpg')}}" alt="User Avatar" class="img-size-50 mr-3 img-circle">
-                        <div class="media-body">
-                            <h3 class="dropdown-item-title">
-                                Brad Diesel
-                                <span class="float-right text-sm text-danger"><i class="fas fa-star"></i></span>
-                            </h3>
-                            <p class="text-sm">Call me whenever you can...</p>
-                            <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
-                        </div>
-                    </div>
-<<<<<<< HEAD
-                </a>
-                <div class="dropdown-divider"></div>
-                <a href="#" class="dropdown-item">
-=======
-                    <!-- Message End -->
-                </a>
-                <div class="dropdown-divider"></div>
-                <a href="#" class="dropdown-item">
-                    <!-- Message Start -->
->>>>>>> de387a977b131a423ebcd20dceee7510d4390888
-                    <div class="media">
-                        <img src="{{asset('backend_assets/dist/img/user8-128x128.jpg')}}" alt="User Avatar" class="img-size-50 img-circle mr-3">
-                        <div class="media-body">
-                            <h3 class="dropdown-item-title">
-                                John Pierce
-                                <span class="float-right text-sm text-muted"><i class="fas fa-star"></i></span>
-                            </h3>
-                            <p class="text-sm">I got your message bro</p>
-                            <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
-                        </div>
-                    </div>
-<<<<<<< HEAD
-                </a>
-                <div class="dropdown-divider"></div>
-                <a href="#" class="dropdown-item">
-=======
-                    <!-- Message End -->
-                </a>
-                <div class="dropdown-divider"></div>
-                <a href="#" class="dropdown-item">
-                    <!-- Message Start -->
->>>>>>> de387a977b131a423ebcd20dceee7510d4390888
-                    <div class="media">
-                        <img src="{{asset('backend_assets/dist/img/user3-128x128.jpg')}}" alt="User Avatar" class="img-size-50 img-circle mr-3">
-                        <div class="media-body">
-                            <h3 class="dropdown-item-title">
-                                Nora Silvester
-                                <span class="float-right text-sm text-warning"><i class="fas fa-star"></i></span>
-                            </h3>
-                            <p class="text-sm">The subject goes here</p>
-                            <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
-                        </div>
-                    </div>
-<<<<<<< HEAD
-=======
-                    <!-- Message End -->
->>>>>>> de387a977b131a423ebcd20dceee7510d4390888
-                </a>
-                <div class="dropdown-divider"></div>
-                <a href="#" class="dropdown-item dropdown-footer">See All Messages</a>
-            </div>
-<<<<<<< HEAD
-        </li> -->
-        <!-- Notifications Dropdown Menu -->
-        <!-- <li class="nav-item dropdown">
-=======
-        </li>
+   
         <!-- Notifications Dropdown Menu -->
         <li class="nav-item dropdown">
->>>>>>> de387a977b131a423ebcd20dceee7510d4390888
             <a class="nav-link" data-toggle="dropdown" href="#">
                 <i class="far fa-bell"></i>
                 <span class="badge badge-warning navbar-badge">15</span>
@@ -165,10 +67,7 @@
                 <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
             </div>
         </li>
-<<<<<<< HEAD
- -->
-=======
->>>>>>> de387a977b131a423ebcd20dceee7510d4390888
+        
         <li class="nav-item dropdown">
             <a href="#" class="_dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
                 <img src="https://www.searchpng.com/wp-content/uploads/2019/02/Deafult-Profile-Pitcher.png" class="user-image" alt="User Image" width="30" style="margin: 5px 10px 0px 10px;">

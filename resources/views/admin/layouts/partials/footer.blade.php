@@ -33,13 +33,9 @@
 <script src="{{ asset('backend_assets/plugins/chart.js/Chart.min.js') }}"></script>
 
 <!-- Toastr -->
-<<<<<<< HEAD
 <script src="{{ asset('backend_assets/plugins/toastr/toastr.min.js')}}"></script>
 <script src="{{ asset('backend_assets/plugins/sweetalert2/sweetalert2.min.js')}}"></script>
 <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script> -->
-=======
-<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
->>>>>>> de387a977b131a423ebcd20dceee7510d4390888
 
 
 <script src="{{ mix('js/app.js') }}"></script>

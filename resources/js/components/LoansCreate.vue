@@ -49,11 +49,7 @@
                                     <div class="form-group row">
                                        <label class="col-sm-3 form-control-label">Loaner Email</label>
                                         <div class="col-sm-9">
-<<<<<<< HEAD
                                             <input type="email" v-model="form.loaner_email" placeholder="Loaner Email" class="form-control form-control-sm w-100">
-=======
-                                            <input type="email" v-model="form.loaner_email" placeholder="Loaner Email" class="form-control-sm w-100">
->>>>>>> de387a977b131a423ebcd20dceee7510d4390888
                                         </div>
                                     </div>
 
@@ -76,23 +72,13 @@
                                             <has-error :form="form" field="loan_amount"></has-error>
                                         </div>
                                     </div>
-
-<<<<<<< HEAD
                                     <div class="form-group row mb-2">
-=======
-                                    <div class="form-group row mb-1">
->>>>>>> de387a977b131a423ebcd20dceee7510d4390888
                                         <label for="inputPassword" class="col-sm-3 col-form-label">Loan taken date</label>
                                         <div class="col-sm-9">                                      
                                             <datetime format="DD/MM/YYYY h:i:s" width="300px" v-model="form.loan_taken_date" placeholder="Loan taken date" class="w-100"></datetime>
                                         </div>
                                     </div>
-
-<<<<<<< HEAD
                                     <div class="form-group row mb-2">
-=======
-                                    <div class="form-group row mb-1">
->>>>>>> de387a977b131a423ebcd20dceee7510d4390888
                                         <label for="inputPassword" class="col-sm-3 col-form-label">Loan end date</label>
                                         <div class="col-sm-9">                                      
                                             <datetime format="DD/MM/YYYY h:i:s" width="300px" v-model="form.loan_end_date" placeholder="Loan end date" class="w-100"></datetime>
@@ -102,11 +88,7 @@
                                     <div class="form-group row">
                                        <label class="col-sm-3 form-control-label">Loan Detail</label>
                                         <div class="col-sm-9">
-<<<<<<< HEAD
                                             <textarea v-model="form.loan_detail" id="loan_detail" name="loan_detail" class="form-control" rows="2" placeholder="Loan Detail"></textarea>
-=======
-                                            <textarea v-model="form.loan_detail" id="loan_detail" name="loan_detail" class="form-control" rows="3" placeholder="Loan Detail"></textarea>
->>>>>>> de387a977b131a423ebcd20dceee7510d4390888
                                         </div>
                                     </div>
                                    
