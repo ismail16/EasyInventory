@@ -53162,10 +53162,6 @@ var render = function() {
                               ]),
                               _vm._v(" "),
                               _c("td", { staticClass: "text-center" }, [
-                                _vm._v(_vm._s(product.supplier))
-                              ]),
-                              _vm._v(" "),
-                              _c("td", { staticClass: "text-center" }, [
                                 _vm._v(_vm._s(product.supplier_price))
                               ]),
                               _vm._v(" "),
@@ -53287,8 +53283,6 @@ var staticRenderFns = [
         _c("th", { staticClass: "text-center" }, [_vm._v("Title(Name)")]),
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [_vm._v("Image")]),
-        _vm._v(" "),
-        _c("th", { staticClass: "text-center" }, [_vm._v("Supplier")]),
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [_vm._v("Supplier Price")]),
         _vm._v(" "),
@@ -74644,15 +74638,14 @@ __webpack_require__.r(__webpack_exports__);
 /*!*************************************************!*\
   !*** ./resources/js/components/ExpenseEdit.vue ***!
   \*************************************************/
-/*! no static exports found */
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ExpenseEdit_vue_vue_type_template_id_3a25a867___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ExpenseEdit.vue?vue&type=template&id=3a25a867& */ "./resources/js/components/ExpenseEdit.vue?vue&type=template&id=3a25a867&");
 /* harmony import */ var _ExpenseEdit_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ExpenseEdit.vue?vue&type=script&lang=js& */ "./resources/js/components/ExpenseEdit.vue?vue&type=script&lang=js&");
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _ExpenseEdit_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _ExpenseEdit_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[key]; }) }(__WEBPACK_IMPORT_KEY__));
-/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
 
@@ -74682,7 +74675,7 @@ component.options.__file = "resources/js/components/ExpenseEdit.vue"
 /*!**************************************************************************!*\
   !*** ./resources/js/components/ExpenseEdit.vue?vue&type=script&lang=js& ***!
   \**************************************************************************/
-/*! no static exports found */
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -75832,8 +75825,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! E:\xampp\htdocs\EasyInventory\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! E:\xampp\htdocs\EasyInventory\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /home/mnbtech/Projects/EasyInventory/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /home/mnbtech/Projects/EasyInventory/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
