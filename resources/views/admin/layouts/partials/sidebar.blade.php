@@ -30,18 +30,20 @@
                 </li>
 
                 <li class="nav-item">
+                    <router-link to="/product" class="nav-link">
+                        <i class="nav-icon fab fa-product-hunt"></i>
+                        <p>Products</p>
+                    </router-link>
+                </li> 
+
+                <li class="nav-item">
                     <router-link to="/supplier-invoice" class="nav-link">
                         <i class="nav-icon far fa-file-alt"></i>
                         <p>Suppliers Invoice</p>
                     </router-link>
                 </li> 
 
-                <li class="nav-item">
-                    <router-link to="/product" class="nav-link">
-                        <i class="nav-icon fab fa-product-hunt"></i>
-                        <p>Products</p>
-                    </router-link>
-                </li> 
+                
 
                {{--  <li class="nav-item has-treeview">
                     <a href="#" class="nav-link">
