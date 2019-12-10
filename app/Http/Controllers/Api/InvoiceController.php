@@ -4,61 +4,118 @@ namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Invoice;
+use App\Models\InvoiceProduct;
+use App\Http\Resources\DefaultCollection;
+use App\Http\Resources\DefaultResource;
 
 class InvoiceController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
-        //
+        return  DefaultResource::collection(Invoice::orderBy('id','desc')->paginate(10));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+    public function search($field,$query)
+    {
+        return  DefaultResource::collection(Invoice::where($field,'LIKE',"%$query%")->latest()->paginate(10));
+    }
+
     public function store(Request $request)
     {
-        //
+
+        $request->validate([
+            'customer_name' => 'required',
+            'customer_phone' => 'required',
+            'invoice_date' => 'required',
+            'grand_total_price' => 'required'
+        ]);
+
+        $invoice = new Invoice;
+        $invoice->invoice_no = 1111;
+        $invoice->customer_name = $request->customer_name;
+        $invoice->customer_phone = $request->customer_phone;
+        $invoice->customer_email = $request->customer_email;
+        $invoice->customer_address = $request->customer_address;
+        $invoice->invoice_date = $request->invoice_date;
+        $invoice->grand_total_price = $request->grand_total_price;
+        $invoice->discount = $request->discount;
+        $invoice->paid_amount = $request->paid_amount;
+        $invoice->due_amount = $request->due_amount;
+        $invoice->status = 1;
+        $invoice->save();
+
+        $products = $request->products;
+        for ($i=0; $i < count($products); $i++) { 
+            $InvoiceProduct = new InvoiceProduct;
+            $InvoiceProduct->invoice_id = $invoice->id;
+            $InvoiceProduct->product_name = $products[$i]['product_name'];
+            $InvoiceProduct->product_quantity = $products[$i]['product_quantity'];
+            $InvoiceProduct->sell_price = $products[$i]['sell_price'];
+            $InvoiceProduct->status = 1;
+            $InvoiceProduct->save();
+        }
+        
+        return array('invoice' => $invoice, 'InvoiceProduct' => $InvoiceProduct);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function show($id)
     {
-        //
+
+
+        $invoice = Invoice::find($id);
+        $InvoiceProduct = InvoiceProduct::where('invoice_id',$id)->get();
+
+        return array('Invoice' => $invoice, 'InvoiceProduct' => $InvoiceProduct);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
-        //
+        $req = $request->Invoice;
+        $invoice = Invoice::find($id);
+        $invoice->invoice_no = 1111;
+        $invoice->supplier_id = $req['supplier_id'];
+        $invoice->warehouse_id = $req['warehouse_id'];
+        $invoice->invoice_date = $req['invoice_date'];
+        $invoice->grand_total_price = $req['grand_total_price'];
+        $invoice->paid_amount = $req['paid_amount'];
+        $invoice->due_amount = $req['due_amount'];
+        $invoice->discount = $req['discount'];
+        $invoice->status = 1;
+        // if($req['image']){
+        //     $name = time().'.' . explode('/', explode(':', substr($req['image'], 0, strpos($req['image'], ';')))[1])[1];
+        //     \Image::make($req['image'])->save(public_path('images/invoice/').$name);
+        //     $req->merge(['image' => $name]);
+        //     // $userPhoto = public_path('img/profile/').$currentPhoto;
+        //     // if(file_exists($userPhoto)){
+        //     //     @unlink($userPhoto);
+        //     // }
+        //     $invoice->image = $name ;
+        // }
+        $invoice->save();
+        
+
+        $products = $req['products'];
+        if ($products) {
+            InvoiceProduct::where('invoice_id', $invoice->id)->delete();
+            for ($i=0; $i < count($products); $i++) { 
+                $InvoiceProduct = new InvoiceProduct;
+                $InvoiceProduct->invoice_id = $invoice->id;
+                $InvoiceProduct->product_name = $products[$i]['product_name'];
+                $InvoiceProduct->product_quantity = $products[$i]['product_quantity'];
+                $InvoiceProduct->supplier_price = $products[$i]['supplier_price'];
+                $InvoiceProduct->status = 1;
+                $InvoiceProduct->save();
+            }
+        }
+        
+        return array('invoice' => $invoice, 'InvoiceProduct' => $InvoiceProduct);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
-        //
+        $Invoice = Invoice::find($id);
+        $Invoice->delete();
     }
 }

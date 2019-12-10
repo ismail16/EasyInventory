@@ -13,11 +13,10 @@
                               <div class="form-inline ml-3 mr-2">
                                 <div class="input-group input-group-sm w-100">
                                     <select v-model="queryFiled" class="form-control w-25" id="fileds">
-                                        <option value="supplier_id">Supplier Name</option>
-                                        <option value="supplier_contact_name">Contact Name</option>
-                                        <option value="supplier_email">Email</option>
-                                        <option value="supplier_phone">Phone</option>
-                                        <option value="supplier_address">Address</option>
+                                        <option value="customer_name">Supplier Name</option>
+                                        <option value="customer_mobile">Contact Name</option>
+                                        <option value="customer_email">Email</option>
+                                        <option value="customer_address">Address</option>
                                     </select>
                                   <input class="form-control w-50" v-model="query" type="search" placeholder="Search" aria-label="Search">
                                   <div class="input-group-append">
@@ -42,11 +41,12 @@
                                 <thead>
                                 <tr>
                                     <th class="text-center">S.N</th>
-                                    <th class="text-center">Supplier Name</th>
-                                    <th class="text-center">Warehouse Name</th>
-                                    <th class="text-center">Image</th>
-                                    <th class="text-center">Paid Amount</th>
-                                    <th class="text-center">Due Amount</th>
+                                    <th class="text-center">Customer Name</th>
+                                    <th class="text-center">Customer Mobile</th>
+                                    <th class="text-center">Customer Email</th>
+                                    <th class="text-center">Total</th>
+                                    <th class="text-center">Paid</th>
+                                    <th class="text-center">Due</th>
                                     <th class="text-center">status</th>
                                     <th class="text-center">Action</th>
                                 </tr>
@@ -54,15 +54,14 @@
                                 <tbody v-if="Invoices.length > 0 ">
 
                                     <tr v-for="(Invoice, index) in Invoices">
-                                        <td>{{ index+1 }}</td>
-                                        <td>{{ Invoice.supplier_id }}</td>
-                                        <td>{{ Invoice.warehouse_id }}</td>
-                                        <td>
-                                            <img v-show="Invoice.image" :src="getImgUrl(Invoice.image)"  class="img-fluid" style="max-height: 50px; max-width: 50px;" alt="User Avatar">
-                                        </td>
-                                        <td>{{ Invoice.paid_amount }}</td>
-                                        <td>{{ Invoice.due_amount }}</td>
-                                        <td>
+                                        <td class="text-center">{{ index+1 }}</td>
+                                        <td class="text-center">{{ Invoice.customer_name }}</td>
+                                        <td class="text-center">{{ Invoice.customer_phone }}</td>
+                                        <td class="text-center">{{ Invoice.customer_email }}</td>
+                                        <td class="text-center">{{ Invoice.grand_total_price }}</td>
+                                        <td class="text-center">{{ Invoice.paid_amount }}</td>
+                                        <td class="text-center">{{ Invoice.due_amount }}</td>
+                                        <td class="text-center">
                                             <span v-if="Invoice.status == 1" class="text-success">
                                                 Active
                                             </span>
@@ -120,27 +119,12 @@
          data() {
             return {
                 query: "",
-                queryFiled: "supplier_id",
+                queryFiled: "customer_name",
                 Invoices:{},
 
                 pagination:{
                     current_page: 1,
                 },
-
-                supplier_id : '',
-
-                form: new Form({
-                  id : '',
-                  product_name : '',
-                  product_quantity : '',
-                  product_rate : '',
-                  total_price : '',
-                  supplier_id : '',
-                  warehouse_id : '',
-                  datepicker_invoice_exp : '',
-                  image : '',
-                }),
-
             }
         },
 
@@ -200,31 +184,6 @@
                     });
             },
 
-            addNewSupplier(){
-                var temp = this
-                axios.post('/api/suppliers', {
-                    supplier_name : temp.supplier_name,
-                    supplier_contact_name : temp.supplier_contact_name,
-                    supplier_email : temp.supplier_email,
-                    supplier_phone : temp.supplier_phone,
-                    supplier_address : temp.supplier_address,
-                })
-                .then(function (response) {
-                    console.log(response.data)
-                    temp.getData();
-                    toastr.success('Saved Supplier Successfully'),
-
-                    temp.supplier_name = '',
-                    temp.supplier_contact_name = '',
-                    temp.supplier_email = '',
-                    temp.supplier_phone = '',
-                    temp.supplier_address = ''
-                })
-                .catch(function (error) {
-                    toastr.error('Saved Supplier Failed')
-                });
-            },
-
             deleteSupplier(id){
                const swalWithBootstrapButtons = Swal.mixin({
                   customClass: {
@@ -257,45 +216,6 @@
                         });
                   }
                })
-            },
-
-            editSupplier(InvoiceId){
-                var temp = this;
-                var temp = this
-                axios.delete('/api/invoices/'+InvoiceId)
-                .then((response) => {
-                    window.location.href = "/admin/invoice-edit";
-                    temp.Invoices = response.data.data;
-                    temp.pagination = response.data.meta;
-                })
-                .catch(function (error) {
-                    this.loadin = true;
-                    toastr.error('Something is wrong Data Loaded')
-                });
-                // this.supplier_id = Invoice.id,
-                // this.supplier_name = Invoice.supplier_name,
-                // this.supplier_contact_name = Invoice.supplier_contact_name,
-                // this.supplier_email = Invoice.supplier_email,
-                // this.supplier_phone = Invoice.supplier_phone,
-                // this.supplier_address = Invoice.supplier_address
-            },
-
-            updateSupplier(id){
-                var temp = this
-                axios.put('/api/suppliers/'+id, {
-                    supplier_name : this.supplier_name,
-                    supplier_contact_name : this.supplier_contact_name,
-                    supplier_email : this.supplier_email,
-                    supplier_phone : this.supplier_phone,
-                    supplier_address : this.supplier_address,
-                })
-                .then(function (response) {
-                    toastr.success('Updated Supplier Successfully');
-                    temp.getData();
-                })
-                .catch(function (error) {
-                    toastr.error('Updated Supplier Failed')
-                });
             },
         }
     }

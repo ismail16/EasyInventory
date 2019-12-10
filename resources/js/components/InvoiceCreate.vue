@@ -14,8 +14,8 @@
                           </div>
                           <div class="col-md-3">
                               <div class="d-inline-flex float-right">
-                                <router-link to="/supplier-invoice" class="btn btn-sm btn-primary float-right">
-                                    <i class="nav-icon far fa-file-alt"></i>Invoice
+                                <router-link to="/invoice" class="btn btn-sm btn-primary float-right">
+                                    <i class="nav-icon far fa-file-alt"></i> Invoice
                                 </router-link>
                             </div>
                         </div>
@@ -25,43 +25,58 @@
                     <form @submit.prevent="addNewInvoice">
                         <div class="panel-body">
                             <div class="row">
-                                <div class="col-md-7">
+                                <div class="col-md-4">
                                     <div class="form-group row">
-                                        <label class="col-sm-3 form-control-label">Select Supplier <i class="text-danger">*</i></label>
+                                        <label class="col-sm-3 form-control-label">Name <i class="text-danger">*</i></label>
                                         <div class="col-sm-8">
-                                            <select id="supplier_id" v-model="form.supplier_id" name="supplier_id" class="form-control-sm w-100 w-100" required>
-                                                 <option v-for="supplier in suppliers" :value="supplier.id">{{ supplier.supplier_name }}</option>
-                                            </select>
-                                            <input id="auth_id" type="hidden" name="auth_id" value="1">
+
+                                            <input @blur="onBlur2=true" @focus="onFocus2 = true;onBlur2 = false;" v-model="form.customer_name" @keyDown="keyDown2"  type="text" placeholder="Customer Name" class="form-control form-control-sm w-100" required>
+
+                                            <div class="form.customer_name-items" style="z-index: 999; position: absolute; width: 29%; background-color: white; padding: 0px 10px; max-height: 150px; overflow: auto;">
+                                              
+                                              <div :class="currentFocus2 == index ? 'form.customer_name-active' : ''" v-for="(i, index) in customer_arr" v-if= "onFocus2 && i.customer_name.substr(0, form.customer_name.length).toUpperCase() == form.customer_name.toUpperCase()" @click="form.customer_name = i.customer_name; form.customer_phone = i.customer_phone; form.customer_email = i.customer_email; form.customer_address = i.customer_address; onFocus2 = false;">
+                                                <strong>{{i.customer_name.substr(0, form.customer_name.length)}}</strong>{{i.customer_name.substr(form.customer_name.length)}}
+                                              </div>
+
+                                            </div>
+
                                         </div>
                                     </div>
-
-                                    <div class="form-group row">
-                                        <label for="warehouse_id" class="col-sm-3 form-control-label">Warehouse </label>
-                                        <div class="col-sm-8">
-                                            <select id="warehouse_id" v-model="form.warehouse_id" name="warehouse_id" class="form-control-sm w-100 w-100" data-plugin="select2" required>
-                                                <option v-for="warehouse in warehouses" :value="warehouse.id">{{ warehouse.warehouse_name }}</option>
-                                            </select>
-                                        </div>
-                                    </div>
-
                                 </div>
-                                <div class="col-md-5">
-                                    <div class="form-group row mb-1">
-                                        <label for="inputPassword" class="col-sm-2 col-form-label">Date</label>
-                                        <div class="col-sm-10">                                      
-                                            <datetime format="DD/MM/YYYY h:i:s" width="300px" v-model="form.invoice_date" class="form-control-sm w-100" :class="{ 'is-invalid': form.errors.has('invoice_date') }" autocomplete="off"></datetime>
-                                            <has-error :form="form" field="invoice_date"></has-error>
+
+                                <div class="col-md-4">
+                                    <div class="form-group row">
+                                        <label for="warehouse_id" class="col-sm-3 form-control-label">Phone <i class="text-danger">*</i></label>
+                                        <div class="col-sm-8">
+                                           <input type="text" name="" v-model="form.customer_phone" class="form-control form-control-sm w-100">
                                         </div>
                                     </div>
-                                    <div class="form-group row">
-                                        <label for="inputPassword" class="col-sm-2 col-form-label">Image</label>
-                                        <div class="col-sm-7 ml-2">
-                                            <input type="file" :src="form.image" @change="uploadImage" />
-                                        </div>
+                                </div>
 
-                                        <div id="preview col-sm-2">
-                                            <img v-if="img_url" :src="img_url" class="img-fluid" style="max-height: 50px; max-width: 50px;"/>
+                                <div class="col-md-4">
+                                    <div class="form-group row">
+                                        <label for="warehouse_id" class="col-sm-3 form-control-label">Email </label>
+                                        <div class="col-sm-8">
+                                           <input type="text" name="" v-model="form.customer_email" class="form-control form-control-sm w-100">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-8">
+                                    <div class="form-group row mb-0">
+                                        <label class="col-sm-2 form-control-label" style="margin-right: -28px;">Address <i class="text-danger">*</i></label>
+                                        <div class="col-sm-8">
+                                           <textarea  v-model="form.customer_address" cols="70" rows="1"></textarea>
+                                        </div> 
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="form-group row">
+                                        <label class="col-sm-3 col-form-label pt-0">Date <i class="text-danger">*</i></label>
+                                        <div class="col-sm-9">                                      
+                                            <datetime format="DD/MM/YYYY h:i:s" width="200px" v-model="form.invoice_date" class="" :class="{ 'is-invalid': form.errors.has('invoice_date') }" autocomplete="off"></datetime>
+                                            <has-error :form="form" field="invoice_date"></has-error>
                                         </div>
                                     </div>
                                 </div>
@@ -83,23 +98,18 @@
                                         <tr v-for="(product, index) in form.products">
                                             <td style="width: 320px">
 
-    <input @blur="onBlur=true" @focus="onFocus = true;onBlur = false;" v-model="product.product_name" @keyDown="keyDown"  type="text" placeholder="Product Name" class="form-control-sm w-100" required>
+                                                <input @blur="onBlur=true" @focus="onFocus = true;onBlur = false;" v-model="product.product_name" @keyDown="keyDown"  type="text" placeholder="Product Name" class="form-control-sm w-100" required>
 
-    <div class="product.product_name-items" style="z-index: 999; position: absolute; width: 29%; background-color: white; padding: 0px 10px; max-height: 150px; overflow: auto;">
-      
-      <div :class="currentFocus == index ? 'product.product_name-active' : ''" v-for="(i, index) in product_arr" v-if= "onFocus && i.product_name.substr(0, product.product_name.length).toUpperCase() == product.product_name.toUpperCase()" @click="product.product_name = i.product_name; product.sell_price = i.sell_price; onFocus = false;">
+                                                <div class="product.product_name-items" style="z-index: 999; position: absolute; width: 29%; background-color: white; padding: 0px 10px; max-height: 150px; overflow: auto;">
+                                                  
+                                                  <div :class="currentFocus == index ? 'product.product_name-active' : ''" v-for="(i, index) in product_arr" v-if= "onFocus && i.product_name.substr(0, product.product_name.length).toUpperCase() == product.product_name.toUpperCase()" @click="product.product_name = i.product_name; product.sell_price = i.sell_price; onFocus = false;">
+                                                    <strong>{{i.product_name.substr(0, product.product_name.length)}}</strong>{{i.product_name.substr(product.product_name.length)}}
+                                                  </div>
 
-        <strong>{{i.product_name.substr(0, product.product_name.length)}}</strong>{{i.product_name.substr(product.product_name.length)}}
-        
-      </div>
-
-    </div>
-                                                <!-- <input v-model="product.product_name" placeholder="Item Name" required type="text" class="form-control-sm w-100" :class="{ 'is-invalid': form.errors.has('product_name') }" autocomplete="off"> -->
-                                                <!-- <has-error :form="form" field="product_name"></has-error> -->
+                                                </div>
                                             </td>
                                             <td style="width: 320px">
                                                 <input v-model="product.product_quantity" placeholder="Product Quantity" type="text" class="form-control-sm w-100" :class="{ 'is-invalid': form.errors.has('product_quantity') }" autocomplete="off" required>
-
                                             </td>
                                             <td>
                                                 <input v-model="product.sell_price" placeholder="Product Price" type="text" class="form-control-sm w-100" :class="{ 'is-invalid': form.errors.has('product.sell_price') }" autocomplete="off" required>
@@ -107,7 +117,6 @@
                                             <td class="text-center">
                                                 <input class="form-control-sm w-100" :value="product.product_quantity * product.sell_price" type="text" style="text-align: center;" disabled>
                                             </td>
-
                                             <td class="text-center">
                                                 <span @click="deleteRow(index)" class="btn btn-danger btn-sm">&times;</span>
                                             </td>
@@ -138,7 +147,6 @@
                                             </td>
                                         </tr>
 
-
                                         <tr>
                                             <td style="text-align:right;" colspan="3"><b>Paid Amount:</b></td>
                                             <td class="text-right">
@@ -148,7 +156,7 @@
                                         <tr v-show="due_amount">
                                             <td style="text-align:right;" colspan="3"><b>Due:</b></td>
                                             <td  class="text-center">
-                                                <input class="form-control-sm w-100" :value="due_amount"  type="number" style="text-align: center;" disabled>
+                                                <input class="form-control-sm w-100"  :value="due_amount"  type="number" style="text-align: center;" disabled>
                                             </td>
                                         </tr>
                                     </tfoot>
@@ -176,53 +184,53 @@
 <script>
 import datetime from 'vuejs-datetimepicker'
 export default {
-
     components: { datetime },
-    name: 'imageUpload',
-
-    // https://www.youtube.com/watch?v=h6sTdAX6yTs
-    // https://github.com/codekerala/laravel-vuejs-invoice/blob/master/resources/views/invoices/form.blade.php
 
     data() {
         return {
             form: new Form({
               id : '',
-              products:[{product_name : '',product_quantity : 1,sell_price : 0,sub_total_price : '' }],
-
-              supplier_id : '',
-              warehouse_id : '',
+              customer_name : '',
+              customer_phone : '',
+              customer_email : '',
+              customer_address : '',
               invoice_date :new Date().toLocaleString(),
-              image : '',
+
+              products:[{product_name : '',product_quantity : 1,sell_price : 0 }],
+
               grand_total_price : '',
-              paid_amount : '',
               discount : '',
-              due_amount : ''
-          }), 
+              paid_amount : '',
+              due_amount : 0
+            }), 
 
-            img_url: '',
-
-            suppliers:{},
-            warehouses:{},
-
-
+            product_arr: [],
             currentFocus: '',
             autocomplete: '',
             onBlur: true,
             onFocus: false,
-            product_arr: []
+
+            customer_arr: [],
+            currentFocus2: '',
+            autocomplete2: '',
+            onBlur2: true,
+            onFocus2: false
         }
     },
 
     mounted(){
-        this.getSuppliers();
-        this.getWarehouses();
         this.getProducts();
-
-
         var vm = this;
         document.addEventListener("click", function(e){
-          vm.onBlur ?vm.onFocus = false: false});
-        },
+            vm.onBlur ?vm.onFocus = false: false
+        });
+
+        this.getCustomers();
+        var vm2 = this;
+        document.addEventListener("click", function(e){
+            vm2.onBlur2 ?vm2.onFocus2 = false: false
+        });
+    },
 
     computed: {
         grand_total_price: function() {
@@ -245,26 +253,23 @@ export default {
             let total = temp.total;
             if (total) {
                 let fdiscount = total - parseFloat(temp.form.paid_amount);
+                temp.form.due_amount = fdiscount;
                 return fdiscount
             }else{
                 let due_ammount = temp.form.grand_total_price - parseFloat(temp.form.paid_amount);
+                temp.form.due_amount = due_ammount;
                 return due_ammount
             }           
         }
-
-
     },
 
     methods:{
-
-
         addActive(){
           var vm = this;
           if (!vm.array) return false;
           if (vm.currentFocus >= vm.array.length) vm.currentFocus = 0;
           if (vm.currentFocus < 0) vm.currentFocus = (vm.array.length - 1);
         },
-
         keyDown(e){ 
             var vm = this;
               if (e.keyCode == 40) {
@@ -275,6 +280,24 @@ export default {
               vm.addActive()
             }
         },
+
+        addActive2(){
+          var vm2 = this;
+          if (!vm2.array) return false;
+          if (vm2.currentFocus >= vm2.array.length) vm2.currentFocus = 0;
+          if (vm2.currentFocus < 0) vm2.currentFocus = (vm2.array.length - 1);
+        },
+        keyDown2(e){ 
+            var vm2 = this;
+              if (e.keyCode == 40) {
+              vm2.currentFocus++;
+              vm2.addActive2()
+            } else if (e.keyCode == 38) {
+              vm2.currentFocus;
+              vm2.addActive2()
+            }
+        },
+
 
         addNewInvoice(){
             var temp = this
@@ -291,27 +314,6 @@ export default {
           });
         },
 
-        uploadImage(e) {
-            let file = e.target.files[0];
-            let reader = new FileReader();
-            let limit = 1024 * 1024 * 2;
-            if(file['size'] > limit){
-                swal({
-                    type: 'error',
-                    title: 'Oops...',
-                    text: 'You are uploading a large file',
-                })
-                return false;
-            }else{
-                file = e.target.files[0]
-                this.img_url = URL.createObjectURL(file);
-            }
-            reader.onloadend = (file) => {
-                this.form.image = reader.result
-            }
-            reader.readAsDataURL(file);
-        },
-
         add_new_row_to_invoice: function(){
             this.form.products.push({product_name : '',product_quantity : 1,sell_price : 0,sub_total_price : '' })
         },
@@ -320,37 +322,27 @@ export default {
             this.form.products.splice(index, 1)
         },
 
-        getSuppliers(){
+        getCustomers(){
             var temp = this;
-            axios.get('/api/suppliers')
-            .then((response) => {
-              temp.suppliers = response.data.data;
-          })
-            .catch(function (error) {
-              toastr.error('Something is wrong Data Loaded')
-          });
+            axios.get('/api/customers')
+                .then((response) => {
+                    temp.customer_arr = response.data.data;
+                })
+                .catch(function (error) {
+                    this.loadin = true; 
+                    toastr.error('Something is wrong Data Loaded')
+                });
         },
 
         getProducts(){
             var temp = this;
             axios.get('/api/products')
-            .then((response) => {
-              temp.product_arr = response.data.data;
-          })
-            .catch(function (error) {
-              toastr.error('Something is wrong Data Loaded')
-          });
-        },
-
-        getWarehouses(){
-            var temp = this;
-            axios.get('/api/warehouses')
-            .then((response) => {
-                temp.warehouses = response.data.data;
-            })
-            .catch(function (error) {
-                toastr.error('Something is wrong Data Loaded')
-            });
+                .then((response) => {
+                  temp.product_arr = response.data.data;
+                })
+                .catch(function (error) {
+                  toastr.error('Something is wrong Data Loaded')
+                });
         },
     }
 }

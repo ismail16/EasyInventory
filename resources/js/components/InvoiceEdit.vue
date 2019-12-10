@@ -1,6 +1,5 @@
 <template>
-    <div class="container">
-        <!-- hukTnOztP5tzBwH5jwVKqztE7OR6heUccNGizTPXp9QFTphl4pr4atir501a -->
+     <div class="container">
         <section class="content mt-2">
             <div class="row">
                 <div class="col-12">
@@ -8,64 +7,75 @@
                         <div class="card-header pb-0">
                           <div class="row">
                             <div class="col-md-3 float-left">
-                                <p><a href="/">Home</a> / Add New SupplierInvoice</p>
+                                <p><a href="/">Home</a> / Add New Invoice</p>
                           </div>
                           <div class="col-md-6">
 
                           </div>
                           <div class="col-md-3">
                               <div class="d-inline-flex float-right">
-                                <router-link to="/supplier-invoice" class="btn btn-sm btn-primary float-right">
-                                    <i class="nav-icon far fa-file-alt"></i> Supplier Invoice
+                                <router-link to="/invoice" class="btn btn-sm btn-primary float-right">
+                                    <i class="nav-icon far fa-file-alt"></i> Invoice
                                 </router-link>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="card-body" style="background-color: #f6f6f7;">
-                    <form @submit.prevent="updateSupplierInvoice">
+                    <form @submit.prevent="addNewInvoice">
                         <div class="panel-body">
                             <div class="row">
-                                <div class="col-md-7">
+                                <div class="col-md-4">
                                     <div class="form-group row">
-                                        <label class="col-sm-3 form-control-label">Select Supplier <i class="text-danger">*</i></label>
+                                        <label class="col-sm-3 form-control-label">Name <i class="text-danger">*</i></label>
                                         <div class="col-sm-8">
-                                            <select id="supplier_id" v-model="form.supplier_id" name="supplier_id" class="form-control-sm w-100 w-100" required>
-                                                 <option v-for="supplier in suppliers" :value="supplier.id">{{ supplier.supplier_name }}</option>
-                                            </select>
-                                            <input id="auth_id" type="hidden" name="auth_id" value="1">
+
+                                            <input @blur="onBlur2=true" @focus="onFocus2 = true;onBlur2 = false;" v-model="form.customer_name" @keyDown="keyDown2"  type="text" placeholder="Customer Name" class="form-control form-control-sm w-100" required>
+
+                                            <div class="form.customer_name-items" style="z-index: 999; position: absolute; width: 29%; background-color: white; padding: 0px 10px; max-height: 150px; overflow: auto;">
+                                              
+                                              <div :class="currentFocus2 == index ? 'form.customer_name-active' : ''" v-for="(i, index) in customer_arr" v-if= "onFocus2 && i.customer_name.substr(0, form.customer_name.length).toUpperCase() == form.customer_name.toUpperCase()" @click="form.customer_name = i.customer_name; form.customer_phone = i.customer_phone; form.customer_email = i.customer_email; form.customer_address = i.customer_address; onFocus2 = false;">
+                                                <strong>{{i.customer_name.substr(0, form.customer_name.length)}}</strong>{{i.customer_name.substr(form.customer_name.length)}}
+                                              </div>
+
+                                            </div>
+
                                         </div>
                                     </div>
-
-                                    <div class="form-group row">
-                                        <label for="warehouse_id" class="col-sm-3 form-control-label">Warehouse </label>
-                                        <div class="col-sm-8">
-                                            <select id="warehouse_id" v-model="form.warehouse_id" name="warehouse_id" class="form-control-sm w-100 w-100" data-plugin="select2" required>
-                                                <option v-for="warehouse in warehouses" :value="warehouse.id">{{ warehouse.warehouse_name }}</option>
-                                            </select>
-                                        </div>
-                                    </div>
-
                                 </div>
-                                <div class="col-md-5">
-                                    <div class="form-group row mb-1">
-                                        <label for="inputPassword" class="col-sm-2 col-form-label">Date</label>
-                                        <div class="col-sm-10">
-                                            <datetime format="DD/MM/YYYY h:i:s" width="300px" v-model="form.invoice_date" class="form-control-sm w-100" autocomplete="off"></datetime>
+
+                                <div class="col-md-4">
+                                    <div class="form-group row">
+                                        <label for="warehouse_id" class="col-sm-3 form-control-label">Phone <i class="text-danger">*</i></label>
+                                        <div class="col-sm-8">
+                                           <input type="text" name="" v-model="form.customer_phone" class="form-control form-control-sm w-100">
                                         </div>
                                     </div>
+                                </div>
+
+                                <div class="col-md-4">
                                     <div class="form-group row">
-                                        <label for="inputPassword" class="col-sm-2 col-form-label">Image</label>
-                                        <div class="col-sm-7 ml-2">
-                                            <input type="file" :src="form.image" @change="uploadImage" />
+                                        <label for="warehouse_id" class="col-sm-3 form-control-label">Email </label>
+                                        <div class="col-sm-8">
+                                           <input type="text" name="" v-model="form.customer_email" class="form-control form-control-sm w-100">
                                         </div>
+                                    </div>
+                                </div>
 
-                                        <div v-if="!img_url" id="preview col-sm-2">
-                                            <img v-show="this.form.image" :src="getImgUrl(this.form.image)"  class="img-fluid" style="max-height: 50px; max-width: 50px;" alt="User Avatar">
-                                        </div>
+                                <div class="col-md-8">
+                                    <div class="form-group row mb-0">
+                                        <label class="col-sm-2 form-control-label" style="margin-right: -28px;">Address <i class="text-danger">*</i></label>
+                                        <div class="col-sm-8">
+                                           <textarea  v-model="form.customer_address" cols="70" rows="1"></textarea>
+                                        </div> 
+                                    </div>
+                                </div>
 
-                                        <div id="preview col-sm-2">
-                                            <img v-if="img_url" :src="img_url" class="img-fluid" style="max-height: 50px; max-width: 50px;"/>
+                                <div class="col-md-4">
+                                    <div class="form-group row">
+                                        <label class="col-sm-3 col-form-label pt-0">Date <i class="text-danger">*</i></label>
+                                        <div class="col-sm-9">                                      
+                                            <datetime format="DD/MM/YYYY h:i:s" width="200px" v-model="form.invoice_date" class=""  autocomplete="off"></datetime>
                                         </div>
                                     </div>
                                 </div>
@@ -84,48 +94,60 @@
                                     </thead>
                                     <tbody id="add_row_to_invoice">
 
-                                        <tr v-for="(product, index) in products">
+                                        <tr v-for="(product, index) in form.products">
                                             <td style="width: 320px">
-                                                <input v-model="product.product_name" placeholder="Item Name" required type="text" class="form-control-sm w-100" autocomplete="off">
 
+                                               <input v-model="product.product_name" placeholder="Item Name" required type="text" class="form-control-sm w-100" autocomplete="off">
                                             </td>
                                             <td style="width: 320px">
                                                 <input v-model="product.product_quantity" placeholder="Product Quantity" type="text" class="form-control-sm w-100" autocomplete="off" required>
-
                                             </td>
                                             <td>
-                                                <input v-model="product.product_price" placeholder="Product Price" type="text" class="form-control-sm w-100" autocomplete="off" required>
+                                                <input v-model="product.sell_price" placeholder="Product Price" type="text" class="form-control-sm w-100" autocomplete="off" required>
                                             </td>
                                             <td class="text-center">
-                                                <input class="form-control-sm w-100" :value="product.product_quantity * product.product_price" tabindex="-1" type="text" style="text-align: center;" disabled>
+                                                <input class="form-control-sm w-100" :value="product.product_quantity * product.sell_price" type="text" style="text-align: center;" disabled>
                                             </td>
-
                                             <td class="text-center">
                                                 <span @click="deleteRow(index)" class="btn btn-danger btn-sm">&times;</span>
                                             </td>
                                         </tr>
                                     </tbody>
                                     <tfoot>
+                                        <tr>
+                                            <td style="text-align:right;" colspan="3"><b>Discount:</b></td>
+                                            <td class="text-right">
+                                                <input id="paidAmount" class="form-control-sm w-100" v-model="form.discount" value="" name="discount" type="number" required style="text-align: center;">
+                                            </td>
+                                            <td align="center">
+                                                <input id="add-invoice-item" class="btn btn-info btn-sm" name="add-invoice-item" @click="add_new_row_to_invoice" value="Add New Item" type="button">
+                                            </td>
+                                        </tr>
+
                                         <tr id="appssss">
                                             <td colspan="3" style="text-align:right;"><b>Grand Total:</b></td>
                                             <td class="text-center">
-                                                <input class="form-control-sm w-100" :value="grand_total_price" tabindex="-1" type="text" style="text-align: center;" disabled>
+                                                <input class="form-control-sm w-100" v-model="grand_total_price" type="text" style="text-align: center;" disabled>
                                             </td>
-                                            <td align="center">
-                                                <input id="add-invoice-item" class="btn btn-info btn-sm" name="add-invoice-item" @click="add_new_row_to_invoice" value="Add New Item" tabindex="5" type="button">
-                                            </td>
+                                        </tr> 
 
+                                        <tr v-show="total">
+                                            <td colspan="3" style="text-align:right;"><b>Final Total:</b></td>
+                                            <td class="text-center">
+                                                <input class="form-control-sm w-100" v-model="total" type="text" style="text-align: center;" disabled>
+                                            </td>
                                         </tr>
+
                                         <tr>
                                             <td style="text-align:right;" colspan="3"><b>Paid Amount:</b></td>
                                             <td class="text-right">
-                                                <input id="paidAmount" class="form-control-sm w-100" v-model="form.paid_amount" value="5455" name="paid_amount" tabindex="6" type="number" required style="text-align: center;">
+                                                <input id="paidAmount" class="form-control-sm w-100" v-model="form.paid_amount" value="5455" name="paid_amount" type="number" required style="text-align: center;">
                                             </td>
                                         </tr>
                                         <tr v-show="due_amount">
                                             <td style="text-align:right;" colspan="3"><b>Due:</b></td>
                                             <td  class="text-center">
-                                                <input class="form-control-sm w-100" :value="due_amount"  type="number" style="text-align: center;" disabled>
+                                                <input class="form-control-sm w-100"  :value="due_amount"  type="number" style="text-align: center;" disabled>
                                             </td>
                                         </tr>
                                     </tfoot>
@@ -136,7 +158,7 @@
                                     </router-link>
 
                                     <button class="btn btn-sm btn-success float-right" >
-                                        Update Supplier Invoice
+                                        Create Invoice
                                     </button>
                                 </div>
                             </div>
@@ -155,58 +177,112 @@ import datetime from 'vuejs-datetimepicker'
 export default {
 
     components: { datetime },
-    // name: 'imageUpload',
-    // https://www.youtube.com/watch?v=h6sTdAX6yTs
-    // https://github.com/codekerala/laravel-vuejs-invoice/blob/master/resources/views/invoices/form.blade.php
 
     data() {
         return {
             form: new Form({
-              id : '',
-              products:[],
+             id : '',
+              customer_name : '',
+              customer_phone : '',
+              customer_email : '',
+              customer_address : '',
+              invoice_date :new Date().toLocaleString(),
 
-              supplier_id : '',
-              warehouse_id : '',
-              invoice_date :'',
-              image : '',
+              products:[{product_name : '',product_quantity : 1,sell_price : 0 }],
+
               grand_total_price : '',
-              paid_amount : '',
               discount : '',
-              due_amount : ''
+              paid_amount : '',
+              due_amount : 0
             }),
-            img_url: '',
-            suppliers:{},
-            warehouses:{},
-            products:[]
+
+            products:[],
+            product_arr: [],
+            currentFocus: '',
+            autocomplete: '',
+            onBlur: true,
+            onFocus: false,
+
+            customer_arr: [],
+            currentFocus2: '',
+            autocomplete2: '',
+            onBlur2: true,
+            onFocus2: false
         }
     },
 
     mounted(){
-        this.getSuppliers();
-        this.getWarehouses();
-        this.getSupplierInvoice();
+        this.getInvoice();
     },
 
     computed: {
 
         grand_total_price: function() {
             var temp = this
-            return temp.products.reduce(function(carry, product) {
-                let total = carry + (parseFloat(product.product_quantity) * parseFloat(product.product_price));
-                temp.form.grand_total_price = total
-                return total
+            return temp.form.products.reduce(function(carry, product) {
+                let total = carry + (parseFloat(product.product_quantity) * parseFloat(product.sell_price));
+                    temp.form.grand_total_price = total;
+                    return total
             }, 0);
         },
 
+        total: function() {
+            var temp = this
+            let discount = temp.form.grand_total_price - parseFloat(temp.form.discount);
+                return discount      
+        },
+
         due_amount: function() {
-           var temp = this
-           let due_ammount = temp.grand_total_price - parseFloat(temp.form.paid_amount);
-           temp.form.due_amount = due_ammount
-           return due_ammount
+            var temp = this
+            let total = temp.total;
+            if (total) {
+                let fdiscount = total - parseFloat(temp.form.paid_amount);
+                temp.form.due_amount = fdiscount;
+                return fdiscount
+            }else{
+                let due_ammount = temp.form.grand_total_price - parseFloat(temp.form.paid_amount);
+                temp.form.due_amount = due_ammount;
+                return due_ammount
+            }           
         }
     },
 
     methods:{
+
+
+        addActive(){
+          var vm = this;
+          if (!vm.array) return false;
+          if (vm.currentFocus >= vm.array.length) vm.currentFocus = 0;
+          if (vm.currentFocus < 0) vm.currentFocus = (vm.array.length - 1);
+        },
+        keyDown(e){ 
+            var vm = this;
+              if (e.keyCode == 40) {
+              vm.currentFocus++;
+              vm.addActive()
+            } else if (e.keyCode == 38) {
+              vm.currentFocus;
+              vm.addActive()
+            }
+        },
+
+        addActive2(){
+          var vm2 = this;
+          if (!vm2.array) return false;
+          if (vm2.currentFocus >= vm2.array.length) vm2.currentFocus = 0;
+          if (vm2.currentFocus < 0) vm2.currentFocus = (vm2.array.length - 1);
+        },
+        keyDown2(e){ 
+            var vm2 = this;
+              if (e.keyCode == 40) {
+              vm2.currentFocus++;
+              vm2.addActive2()
+            } else if (e.keyCode == 38) {
+              vm2.currentFocus;
+              vm2.addActive2()
+            }
+        },
 
         updateSupplierInvoice: function(){
             this.$Progress.start()
@@ -260,12 +336,14 @@ export default {
            this.products.splice(index, 1)
         },
 
-        getSupplierInvoice(){
+        getInvoice(){
             var temp = this;
-            axios.get('/api/supllier-invoice/'+this.$route.params.id)
+            axios.get('/api/invoices/'+this.$route.params.id)
             .then((response) => {
-              temp.form = response.data.supplierInvoice;
-              temp.products = response.data.supplierInvoiceProduct;
+
+              temp.form = response.data.Invoice;
+              temp.products = response.data.InvoiceProduct;
+              temp.product_arr = response.data.InvoiceProduct;
             })
             .catch(function (error) {
               toastr.error('Something is wrong Data Loaded')
