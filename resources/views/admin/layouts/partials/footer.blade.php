@@ -47,5 +47,16 @@
 <!-- PAGE SCRIPTS -->
 {{-- <script src="{{ asset('backend_assets/dist/js/pages/dashboard2.js') }}"></script> --}}
   @stack('scripts')
+   <script>
+ $('#printInvoice').click(function(){
+            // Popup($('.invoice')[0].outerHTML);
+            // function Popup(data) 
+            // {
+            	console.log('lllllllllll')
+                window.print();
+                // return true;
+            // }
+        });
+  </script>
 </body>
 </html>

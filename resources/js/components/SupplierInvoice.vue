@@ -72,9 +72,10 @@
 
                                         </td>
                                         <td class="text-center">
-                                            <a href="" class="btn btn-xs btn-success">
+                                            <router-link :to="'/supplier-invoice/'+ supplierInvoice.id +'/show'" class="btn btn-xs btn-success mr-1 ml-1">
                                                 <i class="fa fa-eye"></i>
-                                            </a>
+                                            </router-link>
+
                                             <router-link :to="'/supplier-invoice/'+ supplierInvoice.id +'/edit'" class="btn btn-xs btn-success mr-1 ml-1">
                                                 <i class="fa fa-edit"></i>
                                             </router-link>

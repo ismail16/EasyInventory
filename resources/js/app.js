@@ -40,6 +40,7 @@ const routes = [
     { path: '/invoice', component: require('./components/Invoice.vue').default },
     { path: '/invoice-create', component: require('./components/InvoiceCreate.vue').default },
     { path: '/invoice/:id/edit', component: require('./components/InvoiceEdit.vue').default },
+    { path: '/invoice/:id/show', component: require('./components/InvoiceShow.vue').default },
 
     { path: '/expense', component: require('./components/Expense.vue').default },
     { path: '/expense-create', component: require('./components/ExpenseCreate.vue').default },
@@ -48,6 +49,7 @@ const routes = [
     { path: '/supplier-invoice', component: require('./components/SupplierInvoice.vue').default },
     { path: '/supplier-invoice-create', component: require('./components/SupplierInvoiceCreate.vue').default },
     { path: '/supplier-invoice/:id/edit', component: require('./components/SupplierInvoiceEdit.vue').default },
+    { path: '/supplier-invoice/:id/show', component: require('./components/SupplierInvoiceShow.vue').default },
     
     { path: '/product', component: require('./components/Product.vue').default },
     { path: '/product-create', component: require('./components/ProductCreate.vue').default },
