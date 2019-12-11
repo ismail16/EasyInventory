@@ -73,43 +73,43 @@ class InvoiceController extends Controller
     public function update(Request $request, $id)
     {
         $req = $request->Invoice;
+        
+        // $request->validate([
+        //     'customer_name' => 'required',
+        //     'customer_phone' => 'required',
+        //     'invoice_date' => 'required',
+        //     'grand_total_price' => 'required'
+        // ]);
+
         $invoice = Invoice::find($id);
+
         $invoice->invoice_no = 1111;
-        $invoice->supplier_id = $req['supplier_id'];
-        $invoice->warehouse_id = $req['warehouse_id'];
+        $invoice->customer_name = $req['customer_name'];
+        $invoice->customer_phone = $req['customer_phone'];
+        $invoice->customer_email = $req['customer_email'];
+        $invoice->customer_address = $req['customer_address'];
         $invoice->invoice_date = $req['invoice_date'];
         $invoice->grand_total_price = $req['grand_total_price'];
+        $invoice->discount = $req['discount'];
         $invoice->paid_amount = $req['paid_amount'];
         $invoice->due_amount = $req['due_amount'];
-        $invoice->discount = $req['discount'];
         $invoice->status = 1;
-        // if($req['image']){
-        //     $name = time().'.' . explode('/', explode(':', substr($req['image'], 0, strpos($req['image'], ';')))[1])[1];
-        //     \Image::make($req['image'])->save(public_path('images/invoice/').$name);
-        //     $req->merge(['image' => $name]);
-        //     // $userPhoto = public_path('img/profile/').$currentPhoto;
-        //     // if(file_exists($userPhoto)){
-        //     //     @unlink($userPhoto);
-        //     // }
-        //     $invoice->image = $name ;
-        // }
         $invoice->save();
-        
 
         $products = $req['products'];
         if ($products) {
-            InvoiceProduct::where('invoice_id', $invoice->id)->delete();
+            InvoiceProduct::where('invoice_id',$invoice->id)->delete();
             for ($i=0; $i < count($products); $i++) { 
                 $InvoiceProduct = new InvoiceProduct;
                 $InvoiceProduct->invoice_id = $invoice->id;
                 $InvoiceProduct->product_name = $products[$i]['product_name'];
                 $InvoiceProduct->product_quantity = $products[$i]['product_quantity'];
-                $InvoiceProduct->supplier_price = $products[$i]['supplier_price'];
+                $InvoiceProduct->sell_price = $products[$i]['sell_price'];
                 $InvoiceProduct->status = 1;
                 $InvoiceProduct->save();
             }
         }
-        
+       
         return array('invoice' => $invoice, 'InvoiceProduct' => $InvoiceProduct);
     }
 

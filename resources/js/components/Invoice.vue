@@ -59,8 +59,23 @@
                                         <td class="text-center">{{ Invoice.customer_phone }}</td>
                                         <td class="text-center">{{ Invoice.customer_email }}</td>
                                         <td class="text-center">{{ Invoice.grand_total_price }}</td>
-                                        <td class="text-center">{{ Invoice.paid_amount }}</td>
-                                        <td class="text-center">{{ Invoice.due_amount }}</td>
+                                        <td class="text-center">
+                                          <span v-if="Invoice.paid_amount == Invoice.grand_total_price" class="text-success">
+                                            Full paid
+                                          </span>
+                                          <span v-else class="text-primary">
+                                            {{ Invoice.paid_amount }}
+                                          </span>
+                                        </td>
+                                        <td class="text-center">
+                                          <span v-if="Invoice.due_amount == 0.00" class="text-success">
+                                            Full paid
+                                          </span>
+                                          <span v-else class="text-danger">
+                                            {{ Invoice.due_amount }}
+                                          </span>
+                                          <!-- {{ Invoice.due_amount }} -->
+                                        </td>
                                         <td class="text-center">
                                             <span v-if="Invoice.status == 1" class="text-success">
                                                 Active

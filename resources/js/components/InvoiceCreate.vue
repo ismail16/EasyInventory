@@ -315,7 +315,7 @@ export default {
         },
 
         add_new_row_to_invoice: function(){
-            this.form.products.push({product_name : '',product_quantity : 1,sell_price : 0,sub_total_price : '' })
+            this.form.products.push({product_name : '',product_quantity : 1,sell_price : 0 })
         },
 
         deleteRow: function(index){

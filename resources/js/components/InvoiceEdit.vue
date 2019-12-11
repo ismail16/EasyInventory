@@ -22,9 +22,9 @@
                     </div>
                 </div>
                 <div class="card-body" style="background-color: #f6f6f7;">
-                    <form @submit.prevent="addNewInvoice">
+                    <form @submit.prevent="updateInvoice">
                         <div class="panel-body">
-                            <div class="row">
+                            <div class="row" @click="onFocus = false;">
                                 <div class="col-md-4">
                                     <div class="form-group row">
                                         <label class="col-sm-3 form-control-label">Name <i class="text-danger">*</i></label>
@@ -83,7 +83,7 @@
 
                             <div class="table-responsive" style="margin-top: 10px">
                                 <table class="table table-bordered table-sm table-hover" id="normalinvoice">
-                                    <thead>
+                                    <thead @click="onFocus = false;">
                                         <tr>
                                             <th class="text-center">Item Information <i class="text-danger">*</i></th>
                                             <th class="text-center">Quantity <i class="text-danger">*</i></th>
@@ -94,26 +94,45 @@
                                     </thead>
                                     <tbody id="add_row_to_invoice">
 
-                                        <tr v-for="(product, index) in form.products">
+                                        <tr v-for="(product, index) in product_arr">
                                             <td style="width: 320px">
 
-                                               <input v-model="product.product_name" placeholder="Item Name" required type="text" class="form-control-sm w-100" autocomplete="off">
+
+
+
+        <input @blur="onBlur=true" @focus="onFocus = true;onBlur = false;" v-model="product.product_name" @keyDown="keyDown"  type="text" placeholder="Product Name" class="form-control-sm w-100" required>
+
+        <div class="product.index-items" style="z-index: 99999; position: absolute; width: 29%; background-color: red; padding: 0px 10px; max-height: 150px; overflow: auto;">
+          
+          <div :class="currentFocus == index ? 'product.index-active' : ''" v-for="(i, index) in product_arr" v-if= "onFocus && i.product_name.substr(0, product.product_name.length).toUpperCase() == product.product_name.toUpperCase()" @click="product.product_name = i.product_name; product.sell_price = i.sell_price; onFocus = false;">
+            <strong>{{i.product_name.substr(0, product.product_name.length)}}</strong>{{i.product_name.substr(product.product_name.length)}}
+          </div>
+
+        </div>
+
+
+                                               <!-- <input v-model="product.product_name" placeholder="Item Name" required type="text" class="form-control-sm w-100" autocomplete="off"> -->
+
+
+
+
+
                                             </td>
-                                            <td style="width: 320px">
+                                            <td style="width: 320px" @click="onFocus = false;">
                                                 <input v-model="product.product_quantity" placeholder="Product Quantity" type="text" class="form-control-sm w-100" autocomplete="off" required>
                                             </td>
-                                            <td>
+                                            <td @click="onFocus = false;"> 
                                                 <input v-model="product.sell_price" placeholder="Product Price" type="text" class="form-control-sm w-100" autocomplete="off" required>
-                                            </td>
+                                            </td @click="onFocus = false;">
                                             <td class="text-center">
                                                 <input class="form-control-sm w-100" :value="product.product_quantity * product.sell_price" type="text" style="text-align: center;" disabled>
                                             </td>
-                                            <td class="text-center">
+                                            <td class="text-center" @click="onFocus = false;">
                                                 <span @click="deleteRow(index)" class="btn btn-danger btn-sm">&times;</span>
                                             </td>
                                         </tr>
                                     </tbody>
-                                    <tfoot>
+                                    <tfoot @click="onFocus = false;">
                                         <tr>
                                             <td style="text-align:right;" colspan="3"><b>Discount:</b></td>
                                             <td class="text-right">
@@ -152,7 +171,7 @@
                                         </tr>
                                     </tfoot>
                                 </table>
-                                <div class="card-footer">
+                                <div class="card-footer" @click="onFocus = false;">
                                     <router-link to="/supplier-invoice" class="btn btn-sm btn-default float-left">
                                         Back to Invoice list
                                     </router-link>
@@ -188,7 +207,7 @@ export default {
               customer_address : '',
               invoice_date :new Date().toLocaleString(),
 
-              products:[{product_name : '',product_quantity : 1,sell_price : 0 }],
+              products:[],
 
               grand_total_price : '',
               discount : '',
@@ -196,7 +215,6 @@ export default {
               due_amount : 0
             }),
 
-            products:[],
             product_arr: [],
             currentFocus: '',
             autocomplete: '',
@@ -213,13 +231,14 @@ export default {
 
     mounted(){
         this.getInvoice();
+        this.getCustomers();
     },
 
     computed: {
 
         grand_total_price: function() {
             var temp = this
-            return temp.form.products.reduce(function(carry, product) {
+            return temp.product_arr.reduce(function(carry, product) {
                 let total = carry + (parseFloat(product.product_quantity) * parseFloat(product.sell_price));
                     temp.form.grand_total_price = total;
                     return total
@@ -284,93 +303,56 @@ export default {
             }
         },
 
-        updateSupplierInvoice: function(){
+        updateInvoice: function(){
             this.$Progress.start()
             var temp = this
-            temp.form.products = temp.products;
-            axios.put('/api/supllier-invoice/'+this.form.id,{
-                SupplierInvoice:temp.form
+            temp.form.products = temp.product_arr;
+            console.log(temp.form)
+            axios.put('/api/invoices/'+this.form.id,{
+                Invoice:temp.form
             })
             .then(function (response) {
-              toastr.success('Updated Supplier Successfully');
+              toastr.success('Updated Invoice Successfully');
               temp.$Progress.finish()
             })
             .catch(function (error) {
-              toastr.error('Updated Supplier Failed')
+              toastr.error('Updated Invoice Failed')
               temp.$Progress.fail()
             });
         },
 
-        getImgUrl: function(image){
-            var photo = "/images/supplier_invoice/"+ image
-            return photo
-        },
-
-        uploadImage(e) {
-            let file = e.target.files[0];
-            let reader = new FileReader();
-            let limit = 1024 * 1024 * 2;
-            if(file['size'] > limit){
-                swal({
-                    type: 'error',
-                    title: 'Oops...',
-                    text: 'You are uploading a large file',
-                })
-                return false;
-            }else{
-                file = e.target.files[0]
-                this.img_url = URL.createObjectURL(file);
-            }
-            reader.onloadend = (file) => {
-                this.form.image = reader.result
-            }
-            reader.readAsDataURL(file);
-        },
-
         add_new_row_to_invoice: function(){
             var temp = this;
-            this.products.push({product_name : '', product_quantity : 1, product_price : 0 })
+            this.product_arr.push({product_name : '', product_quantity : 1, sell_price : 0 })
         },
 
         deleteRow: function(index){
-           this.products.splice(index, 1)
+           this.product_arr.splice(index, 1)
         },
 
         getInvoice(){
             var temp = this;
             axios.get('/api/invoices/'+this.$route.params.id)
             .then((response) => {
-
-              temp.form = response.data.Invoice;
-              temp.products = response.data.InvoiceProduct;
+              temp.form = response.data.Invoice
               temp.product_arr = response.data.InvoiceProduct;
             })
             .catch(function (error) {
               toastr.error('Something is wrong Data Loaded')
             });
         },
-
-        getSuppliers(){
+        getCustomers(){
             var temp = this;
-            axios.get('/api/suppliers')
-            .then((response) => {
-              temp.suppliers = response.data.data;
-            })
-            .catch(function (error) {
-              toastr.error('Something is wrong Data Loaded')
-            });
+            axios.get('/api/customers')
+                .then((response) => {
+                    temp.customer_arr = response.data.data;
+                })
+                .catch(function (error) {
+                    this.loadin = true; 
+                    toastr.error('Something is wrong Data Loaded')
+                });
         },
 
-        getWarehouses(){
-            var temp = this;
-            axios.get('/api/warehouses')
-            .then((response) => {
-                temp.warehouses = response.data.data;
-            })
-            .catch(function (error) {
-                toastr.error('Something is wrong Data Loaded')
-            });
-        },
     }
 }
 </script>
