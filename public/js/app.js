@@ -48326,7 +48326,7 @@ var staticRenderFns = [
         _c("div", { staticClass: "row mb-2" }, [
           _c("div", { staticClass: "col-sm-6" }, [
             _c("h1", { staticClass: "m-0 text-dark" }, [
-              _vm._v("Admin Dashboard v2")
+              _vm._v("Admin Dashboard")
             ])
           ]),
           _vm._v(" "),
@@ -48337,7 +48337,7 @@ var staticRenderFns = [
               ]),
               _vm._v(" "),
               _c("li", { staticClass: "breadcrumb-item active" }, [
-                _vm._v("Dashboard v2")
+                _vm._v("Dashboard")
               ])
             ])
           ])
