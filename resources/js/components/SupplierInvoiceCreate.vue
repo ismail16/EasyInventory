@@ -91,8 +91,7 @@
         <strong>{{i.product_name.substr(0, product.product_name.length)}}</strong>{{i.product_name.substr(product.product_name.length)}}
       </div>
     </div>
-                                                <!-- <input v-model="product.product_name" placeholder="Item Name" required type="text" class="form-control-sm w-100" :class="{ 'is-invalid': form.errors.has('product_name') }" autocomplete="off"> -->
-                                                <!-- <has-error :form="form" field="product_name"></has-error> -->
+
                                             </td>
                                             <td style="width: 320px">
                                                 <input v-model="product.product_quantity" placeholder="Product Quantity" type="text" class="form-control-sm w-100" :class="{ 'is-invalid': form.errors.has('product_quantity') }" autocomplete="off" required>
@@ -169,7 +168,7 @@ export default {
         return {
             form: new Form({
               id : '',
-              products:[{product_name : '',product_quantity : 1,supplier_price : 0,sub_total_price : '' }],
+              products:[{product_name : '',product_quantity : 1,supplier_price : 0}],
 
               supplier_id : '',
               warehouse_id : '',
@@ -208,8 +207,6 @@ export default {
 
     computed: {
         grand_total_price: function() {
-
-            console.log('llll');
             var temp = this
             return temp.form.products.reduce(function(carry, product) {
                 let total = carry + (parseFloat(product.product_quantity) * parseFloat(product.supplier_price));
