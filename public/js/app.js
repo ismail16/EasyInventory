@@ -5783,10 +5783,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   // el: '#staff_app',
   data: function data() {
@@ -56202,7 +56198,7 @@ var render = function() {
                                   staticClass: "fas fa-user-plus fa-fw"
                                 }),
                                 _vm._v(
-                                  " Add New staff\n                                        "
+                                  " Add New staff\n                                    "
                                 )
                               ]
                             )
@@ -56472,9 +56468,6 @@ var render = function() {
                       ]),
                       _vm._v(" "),
                       _c("div", { staticClass: "col-sm-9" }, [
-                        _vm._v(
-                          "\n<<<<<<< HEAD\n                                "
-                        ),
                         _c("input", {
                           directives: [
                             {
@@ -56504,41 +56497,7 @@ var render = function() {
                               )
                             }
                           }
-                        }),
-                        _vm._v("\n=======\n                                "),
-                        _c("input", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.form.staff_phone,
-                              expression: "form.staff_phone"
-                            }
-                          ],
-                          staticClass: "form-control-sm w-100",
-                          attrs: {
-                            type: "number",
-                            id: "staff_phone",
-                            name: "staff_phone",
-                            placeholder: "staff Phone"
-                          },
-                          domProps: { value: _vm.form.staff_phone },
-                          on: {
-                            input: function($event) {
-                              if ($event.target.composing) {
-                                return
-                              }
-                              _vm.$set(
-                                _vm.form,
-                                "staff_phone",
-                                $event.target.value
-                              )
-                            }
-                          }
-                        }),
-                        _vm._v(
-                          "\n>>>>>>> de387a977b131a423ebcd20dceee7510d4390888\n                            "
-                        )
+                        })
                       ])
                     ]),
                     _vm._v(" "),
@@ -56721,7 +56680,7 @@ var render = function() {
                       },
                       [
                         _c("i", { staticClass: "fa fa-plus" }),
-                        _vm._v(" Create\n                        ")
+                        _vm._v(" Create\n                    ")
                       ]
                     ),
                     _vm._v(" "),
@@ -56741,7 +56700,7 @@ var render = function() {
                       },
                       [
                         _c("i", { staticClass: "fa fa-sync" }),
-                        _vm._v(" Update\n                        ")
+                        _vm._v(" Update\n                    ")
                       ]
                     )
                   ])

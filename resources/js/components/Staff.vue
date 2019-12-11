@@ -133,11 +133,7 @@
                         <div class="form-group mb-0 row">
                             <label class="col-sm-3 col-form-label">Phone</label>
                             <div class="col-sm-9">
-<<<<<<< HEAD
                                 <input type="number" v-model="form.staff_phone" id="staff_phone" name="staff_phone" class="form-control form-control-sm w-100" placeholder="staff Phone">
-=======
-                                <input type="number" v-model="form.staff_phone" id="staff_phone" name="staff_phone" class="form-control-sm w-100" placeholder="staff Phone">
->>>>>>> de387a977b131a423ebcd20dceee7510d4390888
                             </div>
                         </div>
                         <div class="form-group mb-0 row">
