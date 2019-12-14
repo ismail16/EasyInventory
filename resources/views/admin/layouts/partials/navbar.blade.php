@@ -11,7 +11,7 @@
             </router-link>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
-            <router-link to="/dashboard" class="nav-link bg-light mr-2 ">
+            <router-link to="/setting" class="nav-link bg-light mr-2 ">
                 <i class="nav-icon fas fa-cogs text-danger"></i> Setting
             </router-link>
         </li>

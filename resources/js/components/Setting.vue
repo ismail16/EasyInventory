@@ -1,0 +1,205 @@
+<template>
+    <div class="container">
+        <section class="content mt-2">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card mt-2 rounded-0" style="margin-bottom: 5px !important;">
+                        <div class="card-header pb-0">
+                            <div class="row">
+                                <div class="col-md-3 float-left">
+                                    <p><a href="/">Home</a> / Settings</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body" style="background-color: #f6f6f7;">
+                            <form @submit.prevent="updateLoan">
+                                <div class="panel-body">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label class="col-sm-3 form-control-label">Store Name <i class="text-danger">*</i></label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" v-model="form.store_name" placeholder="Store Name" class="form-control-sm w-100">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                               <label for="inputPassword" class="col-sm-3 col-form-label">Brand Logo</label>
+                                                <div class="col-sm-7 ml-2">
+                                                    <input type="file" :src="form.store_logo" @change="uploadStore_logo" />
+                                                </div>
+
+                                                <div id="preview col-sm-2">
+                                                    <img v-if="store_logo_url" :src="store_logo_url" class="img-fluid" style="max-height: 50px; max-width: 50px;"/>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label class="col-sm-3 form-control-label">Owner Name <i class="text-danger">*</i></label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" v-model="form.owner_name" placeholder="Store Name" class="form-control-sm w-100">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                               <label for="inputPassword" class="col-sm-3 col-form-label">Owner Photo</label>
+                                                <div class="col-sm-7 ml-2">
+                                                    <input type="file" :src="form.owner_image" @change="uploadImage" />
+                                                </div>
+
+                                                <div id="preview col-sm-2">
+                                                    <img v-if="owner_img_url" :src="owner_img_url" class="img-fluid" style="max-height: 50px; max-width: 50px;"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                               <label class="col-sm-3 form-control-label">Store Mobile <i class="text-danger">*</i></label>
+                                                <div class="col-sm-9">
+                                                    <input type="number" v-model="form.store_mobile" placeholder="Store Mobile" class="form-control-sm w-100">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                               <label class="col-sm-3 form-control-label">Store Email</label>
+                                                <div class="col-sm-9">
+                                                    <input type="email" v-model="form.store_email" placeholder="Store Email" class="form-control-sm w-100">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label class="col-sm-3 form-control-label">Navbar Color <i class="text-danger">*</i></label>
+                                                <div class="col-sm-9">
+                                                    <select v-model="form.navbar_color" name="navbar_color" class="form-control-sm w-100 w-100">
+                                                         <option value="navbar-light">navbar-light</option>
+                                                         <option value="navbar-dark">navbar-dark</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label class="col-sm-3 form-control-label">Sidebar Color <i class="text-danger">*</i></label>
+                                                <div class="col-sm-9">
+                                                    <select v-model="form.sidebar_color" name="sidebar_color" class="form-control-sm w-100 w-100">
+                                                        <option value="sidebar-light-navy">sidebar-light</option>
+                                                        <option value="sidebar-dark-navy">sidebar-dark</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label class="col-sm-3 form-control-label">Text Size <i class="text-danger">*</i></label>
+                                                <div class="col-sm-9">
+                                                     <select v-model="form.text_size" name="text_size" class="form-control-sm w-100 w-100" required>
+                                                         <option value="text-sm">Small</option>
+                                                         <option value="1">Lerge</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                               <label class="col-sm-3 form-control-label">Store Address</label>
+                                                <div class="col-sm-9">
+                                                    <textarea v-model="form.store_address" id="store_address" name="Store_address" class="form-control" rows="2" placeholder="Store Address"></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div class="card-footer">
+                                    <button class="btn btn-sm btn-success float-right" >
+                                        Update Settings
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</template>
+
+<script>
+export default {
+
+    data() {
+        return {
+            form: new Form({
+                id : '',
+                store_name : '',
+                store_logo : '',
+                owner_name : '',
+                owner_image : '',
+                store_mobile : '',
+                store_email : '',
+                navbar_color : 'navbar-light',
+                sidebar_color : 'sidebar-light-navy',
+                text_size : 1,
+                store_address : ''
+            }),
+        }
+    },
+
+    mounted(){
+        this.getData();
+    },
+
+    computed: {
+
+    },
+
+    methods:{
+
+        updateLoan: function(){
+            this.$Progress.start()
+            var temp = this
+            temp.form.products = temp.products;
+            axios.put('/api/loans/'+this.form.id,{
+                loan:temp.form
+            })
+            .then(function (response) {
+              toastr.success('Updated Supplier Successfully');
+              temp.$Progress.finish()
+            })
+            .catch(function (error) {
+              toastr.error('Updated Supplier Failed')
+              temp.$Progress.fail()
+            });
+        },
+
+        getData(){
+            var temp = this;
+            axios.get('/api/loans/'+this.$route.params.id)
+              .then((response) => {
+                temp.form = response.data.data;
+              })
+              .catch(function (error) {
+                this.loadin = true; 
+                    toastr.error('Something is wrong Data Loaded')
+              });
+        },
+
+    }
+}
+</script>
