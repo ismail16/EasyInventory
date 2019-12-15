@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Setting;
 use App\Models\Supplier;
 use App\Models\SupplierInvoice;
 use Illuminate\Http\Request;
@@ -17,8 +18,9 @@ class PagesController extends Controller
 
     public function index()
     {
+        $setting = Setting::find(1);
 
-        return view('admin.layouts.dashboard');
+        return view('admin.layouts.dashboard',compact('setting'));
         
     }
 

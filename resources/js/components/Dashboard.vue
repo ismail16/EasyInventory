@@ -80,6 +80,7 @@
             categories:'',
             products:'',
             invoices:'',
+            setting:'',
           }
     },
 
@@ -89,6 +90,7 @@
         this.getCategory();
         this.getProducts();
         this.getInvoices();
+        this.getSetting();
     },
     computed: {
     },
@@ -149,6 +151,18 @@
             .catch(function (error) {
                 toastr.error('Something is wrong Data Loaded')
             });
+        },
+
+        getSetting(){
+            var temp = this;
+            axios.get('/api/setting/1')
+              .then((response) => {
+                temp.form = response.data;
+              })
+              .catch(function (error) {
+                this.loadin = true; 
+                    toastr.error('Something is wrong Data Loaded')
+              });
         },
     }
     }

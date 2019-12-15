@@ -2340,7 +2340,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       suppliers: '',
       products: '',
       categories: ''
-    }, _defineProperty(_ref, "products", ''), _defineProperty(_ref, "invoices", ''), _ref;
+    }, _defineProperty(_ref, "products", ''), _defineProperty(_ref, "invoices", ''), _defineProperty(_ref, "setting", ''), _ref;
   },
   mounted: function mounted() {
     this.getSuppliers();
@@ -2348,6 +2348,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     this.getCategory();
     this.getProducts();
     this.getInvoices();
+    this.getSetting();
   },
   computed: {},
   methods: {
@@ -2389,6 +2390,15 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       axios.get('/api/warehouses').then(function (response) {
         temp.warehouses = response.data.data;
       })["catch"](function (error) {
+        toastr.error('Something is wrong Data Loaded');
+      });
+    },
+    getSetting: function getSetting() {
+      var temp = this;
+      axios.get('/api/setting/1').then(function (response) {
+        temp.form = response.data;
+      })["catch"](function (error) {
+        this.loadin = true;
         toastr.error('Something is wrong Data Loaded');
       });
     }
@@ -5743,6 +5753,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -5758,7 +5776,9 @@ __webpack_require__.r(__webpack_exports__);
         sidebar_color: 'sidebar-light-navy',
         text_size: 1,
         store_address: ''
-      })
+      }),
+      store_logo_url: '',
+      owner_img_url: ''
     };
   },
   mounted: function mounted() {
@@ -5766,15 +5786,78 @@ __webpack_require__.r(__webpack_exports__);
   },
   computed: {},
   methods: {
-    updateLoan: function updateLoan() {
+    getImgUrl: function getImgUrl(image) {
+      var photo = "/images/store_logo/" + image;
+      return photo;
+      console.log(photo);
+    },
+    getImgUrl1: function getImgUrl1(image) {
+      var photo = "/images/owner_image/" + image;
+      return photo;
+      console.log(photo);
+    },
+    uploadStore_logo: function uploadStore_logo(e) {
+      var _this = this;
+
+      var file = e.target.files[0];
+      var reader = new FileReader();
+      var limit = 1024 * 1024 * 2;
+
+      if (file['size'] > limit) {
+        swal({
+          type: 'error',
+          title: 'Oops...',
+          text: 'You are uploading a large file'
+        });
+        return false;
+      } else {
+        file = e.target.files[0];
+        this.store_logo_url = URL.createObjectURL(file);
+      }
+
+      reader.onloadend = function (file) {
+        _this.form.store_logo = reader.result;
+      };
+
+      reader.readAsDataURL(file);
+    },
+    uploadOwnerImage: function uploadOwnerImage(e) {
+      var _this2 = this;
+
+      var file = e.target.files[0];
+      var reader = new FileReader();
+      var limit = 1024 * 1024 * 2;
+
+      if (file['size'] > limit) {
+        swal({
+          type: 'error',
+          title: 'Oops...',
+          text: 'You are uploading a large file'
+        });
+        return false;
+      } else {
+        file = e.target.files[0];
+        this.owner_img_url = URL.createObjectURL(file);
+      }
+
+      reader.onloadend = function (file) {
+        _this2.form.owner_image = reader.result;
+      };
+
+      reader.readAsDataURL(file);
+    },
+    updateSetting: function updateSetting() {
       this.$Progress.start();
       var temp = this;
       temp.form.products = temp.products;
-      axios.put('/api/loans/' + this.form.id, {
-        loan: temp.form
+      axios.put('/api/setting/' + this.form.id, {
+        setting: temp.form,
+        store_logo_url: temp.store_logo_url,
+        owner_img_url: temp.owner_img_url
       }).then(function (response) {
         toastr.success('Updated Supplier Successfully');
         temp.$Progress.finish();
+        location.reload();
       })["catch"](function (error) {
         toastr.error('Updated Supplier Failed');
         temp.$Progress.fail();
@@ -5782,8 +5865,8 @@ __webpack_require__.r(__webpack_exports__);
     },
     getData: function getData() {
       var temp = this;
-      axios.get('/api/loans/' + this.$route.params.id).then(function (response) {
-        temp.form = response.data.data;
+      axios.get('/api/setting/1').then(function (response) {
+        temp.form = response.data;
       })["catch"](function (error) {
         this.loadin = true;
         toastr.error('Something is wrong Data Loaded');
@@ -56274,7 +56357,7 @@ var render = function() {
                       on: {
                         submit: function($event) {
                           $event.preventDefault()
-                          return _vm.updateLoan($event)
+                          return _vm.updateSetting($event)
                         }
                       }
                     },
@@ -56340,16 +56423,25 @@ var render = function() {
                               ]),
                               _vm._v(" "),
                               _c("div", { attrs: { id: "preview col-sm-2" } }, [
-                                _vm.store_logo_url
+                                _vm.form.store_logo
                                   ? _c("img", {
                                       staticClass: "img-fluid",
                                       staticStyle: {
                                         "max-height": "50px",
                                         "max-width": "50px"
                                       },
-                                      attrs: { src: _vm.store_logo_url }
+                                      attrs: {
+                                        src: _vm.getImgUrl(_vm.form.store_logo)
+                                      }
                                     })
-                                  : _vm._e()
+                                  : _c("img", {
+                                      staticClass: "img-fluid",
+                                      staticStyle: {
+                                        "max-height": "50px",
+                                        "max-width": "50px"
+                                      },
+                                      attrs: { src: "/images/logo.png" }
+                                    })
                               ])
                             ])
                           ]),
@@ -56408,21 +56500,32 @@ var render = function() {
                                     type: "file",
                                     src: _vm.form.owner_image
                                   },
-                                  on: { change: _vm.uploadImage }
+                                  on: { change: _vm.uploadOwnerImage }
                                 })
                               ]),
                               _vm._v(" "),
                               _c("div", { attrs: { id: "preview col-sm-2" } }, [
-                                _vm.owner_img_url
+                                _vm.form.owner_image
                                   ? _c("img", {
                                       staticClass: "img-fluid",
                                       staticStyle: {
                                         "max-height": "50px",
                                         "max-width": "50px"
                                       },
-                                      attrs: { src: _vm.owner_img_url }
+                                      attrs: {
+                                        src: _vm.getImgUrl1(
+                                          _vm.form.owner_image
+                                        )
+                                      }
                                     })
-                                  : _vm._e()
+                                  : _c("img", {
+                                      staticClass: "img-fluid",
+                                      staticStyle: {
+                                        "max-height": "50px",
+                                        "max-width": "50px"
+                                      },
+                                      attrs: { src: "/images/default.png" }
+                                    })
                               ])
                             ])
                           ]),

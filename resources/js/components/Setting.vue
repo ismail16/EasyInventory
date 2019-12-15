@@ -12,7 +12,7 @@
                             </div>
                         </div>
                         <div class="card-body" style="background-color: #f6f6f7;">
-                            <form @submit.prevent="updateLoan">
+                            <form @submit.prevent="updateSetting">
                                 <div class="panel-body">
                                     <div class="row">
                                         <div class="col-md-6">
@@ -32,7 +32,11 @@
                                                 </div>
 
                                                 <div id="preview col-sm-2">
-                                                    <img v-if="store_logo_url" :src="store_logo_url" class="img-fluid" style="max-height: 50px; max-width: 50px;"/>
+                                                    <!-- <img v-if="store_logo_url" :src="store_logo_url" class="img-fluid" style="max-height: 50px; max-width: 50px;"/> -->
+
+                                                    <img v-if="form.store_logo" :src="getImgUrl(form.store_logo)" class="img-fluid" style="max-height: 50px; max-width: 50px;"/>
+
+                                                    <img v-else src="/images/logo.png" class="img-fluid" style="max-height: 50px; max-width: 50px;"/>
                                                 </div>
                                             </div>
                                         </div>
@@ -50,11 +54,15 @@
                                             <div class="form-group row">
                                                <label for="inputPassword" class="col-sm-3 col-form-label">Owner Photo</label>
                                                 <div class="col-sm-7 ml-2">
-                                                    <input type="file" :src="form.owner_image" @change="uploadImage" />
+                                                    <input type="file" :src="form.owner_image" @change="uploadOwnerImage" />
                                                 </div>
 
                                                 <div id="preview col-sm-2">
-                                                    <img v-if="owner_img_url" :src="owner_img_url" class="img-fluid" style="max-height: 50px; max-width: 50px;"/>
+                                                    <!-- <img v-if="owner_img_url" :src="owner_img_url" class="img-fluid" style="max-height: 50px; max-width: 50px;"/> -->
+
+                                                    <img v-if="form.owner_image" :src="getImgUrl1(form.owner_image)" class="img-fluid" style="max-height: 50px; max-width: 50px;"/>
+
+                                                    <img v-else src="/images/default.png" class="img-fluid" style="max-height: 50px; max-width: 50px;"/>
                                                 </div>
                                             </div>
                                         </div>
@@ -158,6 +166,9 @@ export default {
                 text_size : 1,
                 store_address : ''
             }),
+
+            store_logo_url:'',
+            owner_img_url:'',
         }
     },
 
@@ -171,16 +182,75 @@ export default {
 
     methods:{
 
-        updateLoan: function(){
+        getImgUrl: function(image){
+          var photo = "/images/store_logo/"+ image
+          return photo
+          console.log(photo)
+      }, 
+
+      getImgUrl1: function(image){
+          var photo = "/images/owner_image/"+ image
+          return photo
+          console.log(photo)
+      },
+
+
+        uploadStore_logo(e) {
+            let file = e.target.files[0];
+            let reader = new FileReader();
+            let limit = 1024 * 1024 * 2;
+            if(file['size'] > limit){
+                swal({
+                    type: 'error',
+                    title: 'Oops...',
+                    text: 'You are uploading a large file',
+                })
+                return false;
+            }else{
+                file = e.target.files[0]
+                this.store_logo_url = URL.createObjectURL(file);
+            }
+            reader.onloadend = (file) => {
+                this.form.store_logo = reader.result
+            }
+            reader.readAsDataURL(file);
+        },
+
+        uploadOwnerImage(e) {
+            let file = e.target.files[0];
+            let reader = new FileReader();
+            let limit = 1024 * 1024 * 2;
+            if(file['size'] > limit){
+                swal({
+                    type: 'error',
+                    title: 'Oops...',
+                    text: 'You are uploading a large file',
+                })
+                return false;
+            }else{
+                file = e.target.files[0]
+                this.owner_img_url = URL.createObjectURL(file);
+            }
+            reader.onloadend = (file) => {
+                this.form.owner_image = reader.result
+            }
+            reader.readAsDataURL(file);
+        },
+
+
+        updateSetting: function(){
             this.$Progress.start()
             var temp = this
             temp.form.products = temp.products;
-            axios.put('/api/loans/'+this.form.id,{
-                loan:temp.form
+            axios.put('/api/setting/'+this.form.id,{
+                setting:temp.form,
+                store_logo_url:temp.store_logo_url,
+                owner_img_url:temp.owner_img_url
             })
             .then(function (response) {
               toastr.success('Updated Supplier Successfully');
               temp.$Progress.finish()
+              location.reload();
             })
             .catch(function (error) {
               toastr.error('Updated Supplier Failed')
@@ -190,9 +260,9 @@ export default {
 
         getData(){
             var temp = this;
-            axios.get('/api/loans/'+this.$route.params.id)
+            axios.get('/api/setting/1')
               .then((response) => {
-                temp.form = response.data.data;
+                temp.form = response.data;
               })
               .catch(function (error) {
                 this.loadin = true; 
