@@ -2332,6 +2332,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     var _ref;
@@ -2347,8 +2350,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     this.getWarehouses();
     this.getCategory();
     this.getProducts();
-    this.getInvoices();
-    this.getSetting();
+    this.getInvoices(); // this.getSetting();
   },
   computed: {},
   methods: {
@@ -2392,16 +2394,18 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       })["catch"](function (error) {
         toastr.error('Something is wrong Data Loaded');
       });
-    },
-    getSetting: function getSetting() {
-      var temp = this;
-      axios.get('/api/setting/1').then(function (response) {
-        temp.form = response.data;
-      })["catch"](function (error) {
-        this.loadin = true;
-        toastr.error('Something is wrong Data Loaded');
-      });
-    }
+    } // getSetting(){
+    //     var temp = this;
+    //     axios.get('/api/setting/1')
+    //       .then((response) => {
+    //         temp.form = response.data;
+    //       })
+    //       .catch(function (error) {
+    //         this.loadin = true; 
+    //             toastr.error('Something is wrong Data Loaded')
+    //       });
+    // },
+
   }
 });
 
@@ -5858,6 +5862,7 @@ __webpack_require__.r(__webpack_exports__);
         toastr.success('Updated Supplier Successfully');
         temp.$Progress.finish();
         location.reload();
+        window.location.href = "/admin/dashboard";
       })["catch"](function (error) {
         toastr.error('Updated Supplier Failed');
         temp.$Progress.fail();
@@ -56719,7 +56724,9 @@ var render = function() {
                                     _vm._v(" "),
                                     _c(
                                       "option",
-                                      { attrs: { value: "sidebar-dark-navy" } },
+                                      {
+                                        attrs: { value: "sidebar-dark-primary" }
+                                      },
                                       [_vm._v("sidebar-dark")]
                                     )
                                   ]
@@ -76618,7 +76625,22 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_2__["default"]({
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('pagination-component', __webpack_require__(/*! ./components/partials/PaginationComponent.vue */ "./resources/js/components/partials/PaginationComponent.vue")["default"]);
 var app = new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
   el: '#app',
-  router: router
+  router: router,
+  data: function data() {
+    return {
+      users: []
+    };
+  },
+  created: function created() {
+    var vm = this;
+    axios.get('/api/setting/1').then(function (response) {
+      vm.users = response.data;
+      console.log(response.data);
+    })["catch"](function (error) {
+      this.loadin = true;
+      toastr.error('Something is wrong Data Loaded');
+    });
+  }
 });
 
 /***/ }),
@@ -78422,8 +78444,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! E:\xampp\htdocs\EasyInventory\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! E:\xampp\htdocs\EasyInventory\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /home/mnbtech/Projects/EasyInventory/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /home/mnbtech/Projects/EasyInventory/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

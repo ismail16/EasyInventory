@@ -18,7 +18,9 @@ class PagesController extends Controller
 
     public function index()
     {
-        $setting = Setting::find(1);
+        $setting = Setting::where('id',1)->first();
+
+        // return $setting;
 
         return view('admin.layouts.dashboard',compact('setting'));
         

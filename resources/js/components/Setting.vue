@@ -104,7 +104,7 @@
                                                 <div class="col-sm-9">
                                                     <select v-model="form.sidebar_color" name="sidebar_color" class="form-control-sm w-100 w-100">
                                                         <option value="sidebar-light-navy">sidebar-light</option>
-                                                        <option value="sidebar-dark-navy">sidebar-dark</option>
+                                                        <option value="sidebar-dark-primary">sidebar-dark</option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -251,6 +251,7 @@ export default {
               toastr.success('Updated Supplier Successfully');
               temp.$Progress.finish()
               location.reload();
+              window.location.href = "/admin/dashboard";
             })
             .catch(function (error) {
               toastr.error('Updated Supplier Failed')

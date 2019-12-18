@@ -1,5 +1,5 @@
 <!-- Navbar -->
-<nav class="main-header navbar navbar-expand navbar-white navbar-light">
+<nav class="main-header navbar navbar-expand {{ $setting->navbar_color }}">
     <!-- Left navbar links -->
     <ul class="navbar-nav">
         <li class="nav-item">
@@ -27,7 +27,7 @@
     <ul class="navbar-nav ml-auto">
         <li class="nav-item dropdown">
             <a href="#" class="_dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
-                <img src="https://www.searchpng.com/wp-content/uploads/2019/02/Deafult-Profile-Pitcher.png" class="user-image" alt="User Image" width="30" style="margin: 5px 10px 0px 10px;">
+                <img src="{{ asset('/images/owner_image/'. $setting->owner_image) }}" class="user-image" alt="User Image" width="30" style="margin: 5px 10px 0px 10px;">
             </a>
             <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
                 <span class="dropdown-item dropdown-header">

@@ -1,9 +1,10 @@
-<aside class="main-sidebar elevation-4 sidebar-light-navy">
+<aside class="main-sidebar elevation-4 {{ $setting->sidebar_color }}">
 
     <a href="{{ route('admin.dashboard') }}" class="brand-link">
-        <img src="{{ asset('backend_assets/dist/img/AdminLTELogo.png') }}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
+        <img src="{{ asset('/images/store_logo/'. $setting->store_logo) }}" alt="Logo" class="brand-image img-circle elevation-3"
         style="opacity: .8">
-        <span class="brand-text font-weight-light">Dashboard</span>
+        <span class="brand-text font-weight-light">{{ $setting->store_name }}</span>
+
     </a>
     <div class="sidebar"> 
         <nav class="mt-2 sidebar-nav">

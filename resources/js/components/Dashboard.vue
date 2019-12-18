@@ -19,6 +19,9 @@
       <div class="container-fluid">
         <div class="row">
 
+
+          <!-- {{ navbar_color }} -->
+
           <div class="col-12 col-sm-6 col-md-3">
             <div class="info-box">
               <span class="info-box-icon bg-info elevation-1"><i class="fas fa-th-large"></i></span>
@@ -90,7 +93,7 @@
         this.getCategory();
         this.getProducts();
         this.getInvoices();
-        this.getSetting();
+        // this.getSetting();
     },
     computed: {
     },
@@ -153,17 +156,17 @@
             });
         },
 
-        getSetting(){
-            var temp = this;
-            axios.get('/api/setting/1')
-              .then((response) => {
-                temp.form = response.data;
-              })
-              .catch(function (error) {
-                this.loadin = true; 
-                    toastr.error('Something is wrong Data Loaded')
-              });
-        },
+        // getSetting(){
+        //     var temp = this;
+        //     axios.get('/api/setting/1')
+        //       .then((response) => {
+        //         temp.form = response.data;
+        //       })
+        //       .catch(function (error) {
+        //         this.loadin = true; 
+        //             toastr.error('Something is wrong Data Loaded')
+        //       });
+        // },
     }
     }
 </script>

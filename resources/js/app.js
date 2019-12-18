@@ -69,6 +69,8 @@ const router = new VueRouter({
     routes, // short for `routes: routes`
 });
 
+
+
 // Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 Vue.component('pagination-component', require('./components/partials/PaginationComponent.vue').default);
 
@@ -76,4 +78,23 @@ Vue.component('pagination-component', require('./components/partials/PaginationC
 const app= new Vue({
     el: '#app',
     router,
+
+    data: function() {
+        return {
+          users: []
+        };
+      },
+
+    created() {
+        var vm = this;
+        axios.get('/api/setting/1')
+        .then((response) => {
+            vm.users = response.data;
+            console.log(response.data)
+        })
+        .catch(function (error) {
+            this.loadin = true; 
+            toastr.error('Something is wrong Data Loaded')
+        });
+    }
 });
