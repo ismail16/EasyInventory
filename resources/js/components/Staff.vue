@@ -52,12 +52,12 @@
                                 <tbody v-if="staffs.length > 0 ">
 
                                     <tr v-for="(staff, index) in staffs">
-                                        <td>{{ index+1 }}</td>
-                                        <td>{{ staff.staff_name }}</td>
-                                        <td>{{ staff.staff_user_name }}</td>
-                                        <td>{{ staff.staff_phone }}</td>
-                                        <td>{{ staff.staff_address }}</td>
-                                        <td>{{ staff.user_type }}</td>
+                                        <td class="text-center">{{ index+1 }}</td>
+                                        <td class="text-center">{{ staff.staff_name }}</td>
+                                        <td class="text-center">{{ staff.staff_user_name }}</td>
+                                        <td class="text-center">{{ staff.staff_phone }}</td>
+                                        <td class="text-center">{{ staff.staff_address }}</td>
+                                        <td class="text-center">{{ staff.user_type }}</td>
                                         <td class="text-center">
                                             <a href="" class="btn btn-xs btn-success">
                                                 <i class="fa fa-eye"></i>

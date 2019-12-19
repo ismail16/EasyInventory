@@ -52,12 +52,12 @@
                                 <tbody v-if="suppliers.length > 0 ">
 
                                     <tr v-for="(supplier, index) in suppliers">
-                                        <td>{{ index+1 }}</td>
-                                        <td>{{ supplier.supplier_name }}</td>
-                                        <td>{{ supplier.supplier_contact_name }}</td>
-                                        <td>{{ supplier.supplier_email }}</td>
-                                        <td>{{ supplier.supplier_phone }}</td>
-                                        <td>{{ supplier.supplier_address }}</td>
+                                        <td class="text-center">{{ index+1 }}</td>
+                                        <td class="text-center">{{ supplier.supplier_name }}</td>
+                                        <td class="text-center">{{ supplier.supplier_contact_name }}</td>
+                                        <td class="text-center">{{ supplier.supplier_email }}</td>
+                                        <td class="text-center">{{ supplier.supplier_phone }}</td>
+                                        <td class="text-center">{{ supplier.supplier_address }}</td>
                                         <td class="text-center">
                                             <a href="" class="btn btn-xs btn-success">
                                                 <i class="fa fa-eye"></i>

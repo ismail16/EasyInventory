@@ -47,7 +47,7 @@
                 <tbody v-if="categories.length > 0">
                   <tr v-for="(category, index) in categories">
                     <td class="text-center">{{ index+1 }}</td>
-                    <td>{{ category.category_name }}</td>
+                    <td class="text-center">{{ category.category_name }}</td>
                     <td class="text-center">{{ category.status }}</td>
                     <td class="text-center">{{ category.create_at | myDate }}</td>
                     <td class="text-center">

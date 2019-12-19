@@ -47481,7 +47481,7 @@ var render = function() {
                                 _vm._v(_vm._s(index + 1))
                               ]),
                               _vm._v(" "),
-                              _c("td", [
+                              _c("td", { staticClass: "text-center" }, [
                                 _vm._v(_vm._s(category.category_name))
                               ]),
                               _vm._v(" "),
@@ -48034,21 +48034,23 @@ var render = function() {
                             "tbody",
                             _vm._l(_vm.customers, function(customer, index) {
                               return _c("tr", [
-                                _c("td", [_vm._v(_vm._s(index + 1))]),
+                                _c("td", { staticClass: "text-center" }, [
+                                  _vm._v(_vm._s(index + 1))
+                                ]),
                                 _vm._v(" "),
-                                _c("td", [
+                                _c("td", { staticClass: "text-center" }, [
                                   _vm._v(_vm._s(customer.customer_name))
                                 ]),
                                 _vm._v(" "),
-                                _c("td", [
+                                _c("td", { staticClass: "text-center" }, [
                                   _vm._v(_vm._s(customer.customer_phone))
                                 ]),
                                 _vm._v(" "),
-                                _c("td", [
+                                _c("td", { staticClass: "text-center" }, [
                                   _vm._v(_vm._s(customer.customer_email))
                                 ]),
                                 _vm._v(" "),
-                                _c("td", [
+                                _c("td", { staticClass: "text-center" }, [
                                   _vm._v(_vm._s(customer.customer_address))
                                 ]),
                                 _vm._v(" "),
@@ -57130,19 +57132,29 @@ var render = function() {
                             "tbody",
                             _vm._l(_vm.staffs, function(staff, index) {
                               return _c("tr", [
-                                _c("td", [_vm._v(_vm._s(index + 1))]),
+                                _c("td", { staticClass: "text-center" }, [
+                                  _vm._v(_vm._s(index + 1))
+                                ]),
                                 _vm._v(" "),
-                                _c("td", [_vm._v(_vm._s(staff.staff_name))]),
+                                _c("td", { staticClass: "text-center" }, [
+                                  _vm._v(_vm._s(staff.staff_name))
+                                ]),
                                 _vm._v(" "),
-                                _c("td", [
+                                _c("td", { staticClass: "text-center" }, [
                                   _vm._v(_vm._s(staff.staff_user_name))
                                 ]),
                                 _vm._v(" "),
-                                _c("td", [_vm._v(_vm._s(staff.staff_phone))]),
+                                _c("td", { staticClass: "text-center" }, [
+                                  _vm._v(_vm._s(staff.staff_phone))
+                                ]),
                                 _vm._v(" "),
-                                _c("td", [_vm._v(_vm._s(staff.staff_address))]),
+                                _c("td", { staticClass: "text-center" }, [
+                                  _vm._v(_vm._s(staff.staff_address))
+                                ]),
                                 _vm._v(" "),
-                                _c("td", [_vm._v(_vm._s(staff.user_type))]),
+                                _c("td", { staticClass: "text-center" }, [
+                                  _vm._v(_vm._s(staff.user_type))
+                                ]),
                                 _vm._v(" "),
                                 _c("td", { staticClass: "text-center" }, [
                                   _vm._m(3, true),
@@ -57946,25 +57958,27 @@ var render = function() {
                             "tbody",
                             _vm._l(_vm.suppliers, function(supplier, index) {
                               return _c("tr", [
-                                _c("td", [_vm._v(_vm._s(index + 1))]),
+                                _c("td", { staticClass: "text-center" }, [
+                                  _vm._v(_vm._s(index + 1))
+                                ]),
                                 _vm._v(" "),
-                                _c("td", [
+                                _c("td", { staticClass: "text-center" }, [
                                   _vm._v(_vm._s(supplier.supplier_name))
                                 ]),
                                 _vm._v(" "),
-                                _c("td", [
+                                _c("td", { staticClass: "text-center" }, [
                                   _vm._v(_vm._s(supplier.supplier_contact_name))
                                 ]),
                                 _vm._v(" "),
-                                _c("td", [
+                                _c("td", { staticClass: "text-center" }, [
                                   _vm._v(_vm._s(supplier.supplier_email))
                                 ]),
                                 _vm._v(" "),
-                                _c("td", [
+                                _c("td", { staticClass: "text-center" }, [
                                   _vm._v(_vm._s(supplier.supplier_phone))
                                 ]),
                                 _vm._v(" "),
-                                _c("td", [
+                                _c("td", { staticClass: "text-center" }, [
                                   _vm._v(_vm._s(supplier.supplier_address))
                                 ]),
                                 _vm._v(" "),
@@ -58638,17 +58652,19 @@ var render = function() {
                             index
                           ) {
                             return _c("tr", [
-                              _c("td", [_vm._v(_vm._s(index + 1))]),
+                              _c("td", { staticClass: "text-center" }, [
+                                _vm._v(_vm._s(index + 1))
+                              ]),
                               _vm._v(" "),
-                              _c("td", [
+                              _c("td", { staticClass: "text-center" }, [
                                 _vm._v(_vm._s(supplierInvoice.supplier_id))
                               ]),
                               _vm._v(" "),
-                              _c("td", [
+                              _c("td", { staticClass: "text-center" }, [
                                 _vm._v(_vm._s(supplierInvoice.warehouse_id))
                               ]),
                               _vm._v(" "),
-                              _c("td", [
+                              _c("td", { staticClass: "text-center" }, [
                                 _c("img", {
                                   directives: [
                                     {
@@ -58670,15 +58686,15 @@ var render = function() {
                                 })
                               ]),
                               _vm._v(" "),
-                              _c("td", [
+                              _c("td", { staticClass: "text-center" }, [
                                 _vm._v(_vm._s(supplierInvoice.paid_amount))
                               ]),
                               _vm._v(" "),
-                              _c("td", [
+                              _c("td", { staticClass: "text-center" }, [
                                 _vm._v(_vm._s(supplierInvoice.due_amount))
                               ]),
                               _vm._v(" "),
-                              _c("td", [
+                              _c("td", { staticClass: "text-center" }, [
                                 supplierInvoice.status == 1
                                   ? _c(
                                       "span",
@@ -60842,7 +60858,7 @@ var render = function() {
                                 _vm._v(_vm._s(index + 1))
                               ]),
                               _vm._v(" "),
-                              _c("td", [
+                              _c("td", { staticClass: "text-center" }, [
                                 _vm._v(_vm._s(warehouse.warehouse_name))
                               ]),
                               _vm._v(" "),
@@ -78444,8 +78460,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /home/mnbtech/Projects/EasyInventory/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /home/mnbtech/Projects/EasyInventory/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! E:\xampp\htdocs\EasyInventory\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! E:\xampp\htdocs\EasyInventory\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

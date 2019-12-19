@@ -47,7 +47,7 @@
                 <tbody v-if="warehouses.length > 0">
                   <tr v-for="(warehouse, index) in warehouses">
                     <td class="text-center">{{ index+1 }}</td>
-                    <td>{{ warehouse.warehouse_name }}</td>
+                    <td class="text-center">{{ warehouse.warehouse_name }}</td>
                     <td class="text-center">{{ warehouse.status }}</td>
                     <td class="text-center">{{ warehouse.create_at | myDate }}</td>
                     <td class="text-center">

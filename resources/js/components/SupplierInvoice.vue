@@ -54,15 +54,15 @@
                                 <tbody v-if="supplierInvoices.length > 0 ">
 
                                     <tr v-for="(supplierInvoice, index) in supplierInvoices">
-                                        <td>{{ index+1 }}</td>
-                                        <td>{{ supplierInvoice.supplier_id }}</td>
-                                        <td>{{ supplierInvoice.warehouse_id }}</td>
-                                        <td>
+                                        <td class="text-center">{{ index+1 }}</td>
+                                        <td class="text-center">{{ supplierInvoice.supplier_id }}</td>
+                                        <td class="text-center">{{ supplierInvoice.warehouse_id }}</td>
+                                        <td class="text-center">
                                             <img v-show="supplierInvoice.image" :src="getImgUrl(supplierInvoice.image)"  class="img-fluid" style="max-height: 50px; max-width: 50px;" alt="User Avatar">
                                         </td>
-                                        <td>{{ supplierInvoice.paid_amount }}</td>
-                                        <td>{{ supplierInvoice.due_amount }}</td>
-                                        <td>
+                                        <td class="text-center">{{ supplierInvoice.paid_amount }}</td>
+                                        <td class="text-center">{{ supplierInvoice.due_amount }}</td>
+                                        <td class="text-center">
                                             <span v-if="supplierInvoice.status == 1" class="text-success">
                                                 Active
                                             </span>

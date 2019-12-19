@@ -51,11 +51,11 @@
                                 <tbody v-if="customers.length > 0 ">
 
                                     <tr v-for="(customer, index) in customers">
-                                        <td>{{ index+1 }}</td>
-                                        <td>{{ customer.customer_name }}</td>
-                                        <td>{{ customer.customer_phone }}</td>
-                                        <td>{{ customer.customer_email }}</td>
-                                        <td>{{ customer.customer_address }}</td>
+                                        <td class="text-center">{{ index+1 }}</td>
+                                        <td class="text-center">{{ customer.customer_name }}</td>
+                                        <td class="text-center">{{ customer.customer_phone }}</td>
+                                        <td class="text-center">{{ customer.customer_email }}</td>
+                                        <td class="text-center">{{ customer.customer_address }}</td>
                                         <td class="text-center">
                                             <a href="" class="btn btn-xs btn-success">
                                                 <i class="fa fa-eye"></i>

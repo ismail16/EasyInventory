@@ -1,0 +1,147 @@
+.btn-group-xs > .btn, .btn-xs {
+  		padding: .25rem .4rem;
+  		font-size: .65rem;
+  		line-height: .5;
+  		border-radius: .2rem;
+  	}
+
+  	.swal2-icon {
+  		position: relative;
+  		box-sizing: content-box;
+  		justify-content: center;
+  		width: 2em;
+  		height: 2em;
+  		margin: 10px auto;
+  		border: .25em solid transparent;
+  		border-radius: 50%;
+  		font-family: inherit;
+  		line-height: 2em;
+  		cursor: default;
+  		-webkit-user-select: none;
+  		-moz-user-select: none;
+  		-ms-user-select: none;
+  		user-select: none;
+  	}
+  	.swal2-icon .swal2-icon-content {
+  		display: flex;
+  		align-items: center;
+  		font-size: 34px;
+  	}
+
+  	.fade.in {
+  		opacity: 1;
+  	}
+  	.modal.in .modal-dialog {
+  		-webkit-transform: translate(0, 0);
+  		-o-transform: translate(0, 0);
+  		transform: translate(0, 0);
+  	}
+  	.modal-backdrop .fade .in {
+  		opacity: 0.5 !important;
+  	}
+  	.modal-backdrop.fade {
+  		opacity: 0.5 !important;
+  	}
+
+  	.nav-link { display: block; padding: 5px 1rem !important; }
+  	.sidebar-nav ul li { border-bottom: 1px solid #545d67; }
+
+
+
+
+
+
+
+    #invoice{
+      padding: 30px;
+    }
+
+    .invoice {
+      position: relative;
+      background-color: #FFF;
+      min-height: 680px;
+      padding: 15px
+    }
+
+    .invoice header {
+      padding: 10px 0;
+      margin-bottom: 20px;
+      border-bottom: 1px solid #3989c6
+    }
+
+    .invoice .company-details {
+      text-align: right
+    }
+
+    .invoice .company-details .name {
+      margin-top: 0;
+      margin-bottom: 0
+    }
+
+    .invoice .contacts {
+      margin-bottom: 20px
+    }
+
+    .invoice .invoice-to {
+      text-align: left
+    }
+
+    .invoice .invoice-to .to {
+      margin-top: 0;
+      margin-bottom: 0
+    }
+
+    .invoice .invoice-details {
+      text-align: right
+    }
+
+    .invoice .invoice-details .invoice-id {
+      margin-top: 0;
+      color: #3989c6
+    }
+
+    .invoice main {
+      padding-bottom: 50px
+    }
+
+    .invoice main .thanks {
+      margin-top: -100px;
+      font-size: 2em;
+      margin-bottom: 50px
+    }
+
+    .invoice main .notices {
+      padding-left: 6px;
+      border-left: 6px solid #3989c6
+    }
+
+    .invoice main .notices .notice {
+      font-size: 1.2em
+    }
+
+
+
+    .invoice footer {
+      width: 100%;
+      text-align: center;
+      color: #777;
+      border-top: 1px solid #aaa;
+      padding: 8px 0
+    }
+
+    @media print {
+      .invoice {
+        font-size: 11px!important;
+        overflow: hidden!important
+      }
+
+      .invoice footer {
+        position: absolute;
+        bottom: 10px;
+        page-break-after: always
+      }
+
+      .invoice>div:last-child {
+        page-break-before: always
+      }
+    }
