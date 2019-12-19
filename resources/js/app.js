@@ -32,6 +32,7 @@ Vue.component(AlertError.name, AlertError)
 const routes = [
     { path: '/dashboard', component: require('./components/Dashboard.vue').default },
     { path: '/setting', component: require('./components/Setting.vue').default },
+    { path: '/report', component: require('./components/Report.vue').default },
 
     { path: '/supplier', component: require('./components/Supplier.vue').default },
     { path: '/customer', component: require('./components/Customer.vue').default },

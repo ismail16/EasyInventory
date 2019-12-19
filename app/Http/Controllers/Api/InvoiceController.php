@@ -118,4 +118,14 @@ class InvoiceController extends Controller
         $Invoice = Invoice::find($id);
         $Invoice->delete();
     }
+
+    public function allInvoice()
+    {
+        return  DefaultResource::collection(Invoice::orderBy('id','asc')->get());
+    }
+
+    public function getThisMonthInvoices($month)
+    {
+        return  DefaultResource::collection(Invoice::orderBy('id','asc')->whereMonth('created_at', $month)->get());
+    }
 }

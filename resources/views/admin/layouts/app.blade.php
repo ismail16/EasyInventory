@@ -61,7 +61,7 @@
 					</li>
 
 					<li class="nav-item d-none d-sm-inline-block">
-						<router-link to="/dashboard" class="nav-link bg-light">
+						<router-link to="/report" class="nav-link bg-light">
 							<i class="fas fa-chart-line text-success"></i> Reports
 						</router-link>
 					</li>
@@ -293,16 +293,15 @@
 
 		<script src="{{ mix('js/app.js') }}"></script>
 
-		<!-- <link rel="stylesheet" type="text/css" href="{{ asset('backend_assets/plugins/daterangepicker/jquery.datetimepicker.min.css')}}"/> -->
-		<script src="{{ asset('backend_assets/plugins/daterangepicker/daterangepicker.css')}}"></script>
-		<script src="{{ asset('backend_assets/plugins/daterangepicker/daterangepicker.js')}}"></script>
 
-		<!-- <link rel="stylesheet" type="text/css" href="https://www.johnhopkinspress.com/datetime_picker/jquery.datetimepicker.min.css"/>
+		<link rel="stylesheet" type="text/css" href="https://www.johnhopkinspress.com/datetime_picker/jquery.datetimepicker.min.css"/>
 		<script src="https://www.johnhopkinspress.com/datetime_picker/bootstrap.min.js"></script>
-		<script src="https://www.johnhopkinspress.com/datetime_picker/jquery.datetimepicker.js"></script> -->
+		<script src="https://www.johnhopkinspress.com/datetime_picker/jquery.datetimepicker.js"></script>
 
 		<!-- PAGE SCRIPTS -->
 		{{-- <script src="{{ asset('backend_assets/dist/js/pages/dashboard2.js') }}"></script> --}}
+
+		
 		@stack('scripts')
 		<script>
 			$('#printInvoice').click(function(){
