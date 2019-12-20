@@ -126,6 +126,6 @@ class InvoiceController extends Controller
 
     public function getThisMonthInvoices($month)
     {
-        return  DefaultResource::collection(Invoice::orderBy('id','asc')->whereMonth('created_at', $month)->get());
+        return  DefaultResource::collection(Invoice::orderBy('id','asc')->whereYear('created_at', $month)->get());
     }
 }

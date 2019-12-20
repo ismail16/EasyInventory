@@ -317,9 +317,13 @@
 
           var month_no = date.getMonth()+1
             var temp = this;
-            axios.get('/api/getThisMonthInvoices/'+month_no)
+            axios.get('/api/getThisMonthInvoices/2019')
               .then((response) => {
                 temp.thisMonthInvoices = response.data.data;
+
+                console.log('response')
+                console.log(response.data.data)
+
                 this.report(response.data.data);
               })
               .catch(function (error) {
@@ -357,22 +361,80 @@
 
 
             var dataset = []
+            var month_arr = []
             var total_seles = 0;
             for (let i = 0; i < data.length ; i++) {
-                dataset.push(data[i].paid_amount); 
+
+
+                var date = new Date(data[i].created_at);
+                var monthIndex = date.getMonth()+1;
+
+                  dataset.push(data[i].paid_amount);
+
+                if (month_arr.indexOf(monthIndex)) {
+                  month_arr.push(monthIndex); 
+                  // var vaue = { }
+
+                  // dataset.push(data[i].paid_amount); 
+                }
+
+                var date = new Date(data[1].created_at);
+                var monthIndex = date.getMonth()+1;
+
                 total_seles+=data[i].paid_amount
 
-                // return total_seles;
             }
 
-            console.log(dataset)
-            console.log(total_seles)
+
+
+
+
+            var arrt = [1,2,3,4,5,6,7,8,9,10,11,12]
+            var arrs = []
+            for (let j = 0; j < month_arr.length ; j++) {
+              for (let i = 0; i < arrt.length ; i++) {
+
+                if (month_arr[j] == arrt[i]) {
+                  arrs.push(i+1)
+                }else{
+                  arrs.push(0)
+                }
+              }
+            }
+            console.log('dataset')
+            console.log(arrs)
+
+            var monthNames = [
+                               month_arr.indexOf(1) != -1 ? 2000 : 0,
+                               month_arr.indexOf(2) != -1 ? 2000 : 0,
+                               month_arr.indexOf(3) != -1 ? 2000 : 0,
+                               month_arr.indexOf(4) != -1 ? 2000 : 0,
+                               month_arr.indexOf(5) != -1 ? 2000 : 0,
+                               month_arr.indexOf(6) != -1 ? 2000 : 0,
+                               month_arr.indexOf(7) != -1 ? 2000 : 0,
+                               month_arr.indexOf(8) != -1 ? 2000 : 0,
+                               month_arr.indexOf(9) != -1 ? 25000 : 0,
+                               month_arr.indexOf(10) != -1 ? 1000 : 0,
+                               month_arr.indexOf(11) != -1 ? 1000 : 0,
+                               month_arr.indexOf(12) != -1 ? 50000 : 0
+                            ];
+          
+
+
+            console.log('total_seles')
+            // console.log( month_arr.indexOf(12) != -1 ? data[12].paid_amount:0)
+
+            // if (true) {
+            //   var date = new Date(data[1].created_at);
+            //   var monthIndex = date.getMonth()+1;
+            // }
+
 
 
             var salesChartCanvas = $('#salesChart').get(0).getContext('2d')
 
             var salesChartData = {
-              labels  : [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31],
+              labels  : ["January", "February", "March","April", "May", "June", "July","August", "September", "October","November", "December"],
               datasets: [
                 {
                   label               : 'Digital Goods',
@@ -383,7 +445,7 @@
                   pointStrokeColor    : 'rgba(60,141,188,1)',
                   pointHighlightFill  : '#fff',
                   pointHighlightStroke: 'rgba(60,141,188,1)',
-                  data                : dataset
+                  data                : monthNames
                 },
                 // {
                 //   label               : 'Electronics',

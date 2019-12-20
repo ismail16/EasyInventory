@@ -5916,8 +5916,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
       var month_no = date.getMonth() + 1;
       var temp = this;
-      axios.get('/api/getThisMonthInvoices/' + month_no).then(function (response) {
+      axios.get('/api/getThisMonthInvoices/2019').then(function (response) {
         temp.thisMonthInvoices = response.data.data;
+        console.log('response');
+        console.log(response.data.data);
 
         _this.report(response.data.data);
       })["catch"](function (error) {
@@ -5946,18 +5948,49 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         'use strict';
 
         var dataset = [];
+        var month_arr = [];
         var total_seles = 0;
 
         for (var i = 0; i < data.length; i++) {
+          var date = new Date(data[i].created_at);
+          var monthIndex = date.getMonth() + 1;
           dataset.push(data[i].paid_amount);
-          total_seles += data[i].paid_amount; // return total_seles;
+
+          if (month_arr.indexOf(monthIndex)) {
+            month_arr.push(monthIndex); // var vaue = { }
+            // dataset.push(data[i].paid_amount); 
+          }
+
+          var date = new Date(data[1].created_at);
+          var monthIndex = date.getMonth() + 1;
+          total_seles += data[i].paid_amount;
         }
 
-        console.log(dataset);
-        console.log(total_seles);
+        var arrt = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+        var arrs = [];
+
+        for (var j = 0; j < month_arr.length; j++) {
+          for (var _i = 0; _i < arrt.length; _i++) {
+            if (month_arr[j] == arrt[_i]) {
+              arrt.push(_i + 1);
+            } else {
+              arrt.push(0);
+            }
+          }
+        }
+
+        console.log('dataset');
+        console.log(arrt);
+        var monthNames = [month_arr.indexOf(1) != -1 ? 2000 : 0, month_arr.indexOf(2) != -1 ? 2000 : 0, month_arr.indexOf(3) != -1 ? 2000 : 0, month_arr.indexOf(4) != -1 ? 2000 : 0, month_arr.indexOf(5) != -1 ? 2000 : 0, month_arr.indexOf(6) != -1 ? 2000 : 0, month_arr.indexOf(7) != -1 ? 2000 : 0, month_arr.indexOf(8) != -1 ? 2000 : 0, month_arr.indexOf(9) != -1 ? 25000 : 0, month_arr.indexOf(10) != -1 ? 1000 : 0, month_arr.indexOf(11) != -1 ? 1000 : 0, month_arr.indexOf(12) != -1 ? 50000 : 0];
+        console.log('total_seles'); // console.log( month_arr.indexOf(12) != -1 ? data[12].paid_amount:0)
+        // if (true) {
+        //   var date = new Date(data[1].created_at);
+        //   var monthIndex = date.getMonth()+1;
+        // }
+
         var salesChartCanvas = $('#salesChart').get(0).getContext('2d');
         var salesChartData = {
-          labels: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31],
+          labels: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
           datasets: [{
             label: 'Digital Goods',
             backgroundColor: 'rgba(60,141,188,0.9)',
@@ -5967,7 +6000,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             pointStrokeColor: 'rgba(60,141,188,1)',
             pointHighlightFill: '#fff',
             pointHighlightStroke: 'rgba(60,141,188,1)',
-            data: dataset
+            data: monthNames
           } // {
           //   label               : 'Electronics',
           //   backgroundColor     : 'rgba(210, 214, 222, 1)',
@@ -79349,8 +79382,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /home/mnbtech/Projects/EasyInventory/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /home/mnbtech/Projects/EasyInventory/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! E:\xampp\htdocs\EasyInventory\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! E:\xampp\htdocs\EasyInventory\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
