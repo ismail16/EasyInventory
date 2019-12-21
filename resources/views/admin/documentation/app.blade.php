@@ -1,35 +1,35 @@
 
 <!DOCTYPE html>
 <html lang="en">
-	<meta http-equiv="content-type" content="text/html;charset=utf-8" />
-	<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<meta http-equiv="x-ua-compatible" content="ie=edge">
-		<meta name="csrf-token" content="{{ csrf_token() }}">
-		<title>@yield('title')</title>
-		<!-- Font Awesome Icons -->
-		<link rel="stylesheet" href="{{ asset('backend_assets/plugins/fontawesome-free/css/all.min.css')}}">
-		<!-- overlayScrollbars -->
-		<link rel="stylesheet" href="{{ asset('backend_assets/plugins/overlayScrollbars/css/OverlayScrollbars.min.css')}}">
-		<!-- Theme style -->
-		<link rel="stylesheet" href="{{ asset('backend_assets/dist/css/adminlte.min.css')}}">
-		<!-- Toastr -->
-		<link rel="stylesheet" href="{{ asset('backend_assets/plugins/toastr/toastr.min.css')}}">
-		<link rel="stylesheet" href="{{ asset('backend_assets/plugins/sweetalert2/sweetalert2.min.css')}}"> 
+<meta http-equiv="content-type" content="text/html;charset=utf-8" />
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<meta name="csrf-token" content="{{ csrf_token() }}">
+	<title>@yield('title')</title>
+	<!-- Font Awesome Icons -->
+	<link rel="stylesheet" href="{{ asset('backend_assets/plugins/fontawesome-free/css/all.min.css')}}">
+	<!-- overlayScrollbars -->
+	<link rel="stylesheet" href="{{ asset('backend_assets/plugins/overlayScrollbars/css/OverlayScrollbars.min.css')}}">
+	<!-- Theme style -->
+	<link rel="stylesheet" href="{{ asset('backend_assets/dist/css/adminlte.min.css')}}">
+	<!-- Toastr -->
+	<link rel="stylesheet" href="{{ asset('backend_assets/plugins/toastr/toastr.min.css')}}">
+	<link rel="stylesheet" href="{{ asset('backend_assets/plugins/sweetalert2/sweetalert2.min.css')}}"> 
 
-		<!-- Toastr -->
+	<!-- Toastr -->
 		<!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 	  	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9/dist/sweetalert2.min.js"></script>
 	  	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@9/dist/sweetalert2.min.css" id="theme-styles"> -->
 	  	<!-- Google Font: Source Sans Pro -->
 	  	<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
-		<link rel="stylesheet" href="{{ asset('css/customs.css')}}"> 
+	  	<link rel="stylesheet" href="{{ asset('css/customs.css')}}"> 
 
 	  	<script src="https://www.johnhopkinspress.com/datetime_picker/jquery.min.js"></script>
 
-		<script type="text/javascript">
-		  	$(document).ready(function () {
+	  	<script type="text/javascript">
+	  		$(document).ready(function () {
 		        //DatePicker Example
 		        $('#datetimepicker').datetimepicker({
 		        	format:'Y-m-d H:i:s'
@@ -44,15 +44,15 @@
 		<?php $setting = \App\Models\Setting::orderBy('id','desc')->first(); ?>
 		<div class="wrapper" id="app">
 
-			<nav class="main-header navbar navbar-expand {{$setting->navbar_color}}">
+	{{-- 		<nav class="main-header navbar navbar-expand {{$setting->navbar_color}}">
 				<ul class="navbar-nav">
 					<li class="nav-item">
 						<a class="nav-link" data-widget="pushmenu" href="#"><i class="fas fa-bars"></i></a>
 					</li>
 					<li class="nav-item d-none d-sm-inline-block">
-						<a href="{{ route('admin.documentation') }}" target="_blank" class="nav-link bg-light mr-2">
+						<router-link to="/dashboard" class="nav-link bg-light mr-2">
 							<i class="nav-icon far fa-file-alt text-warning"></i> Documentation
-						</a>
+						</router-link>
 					</li>
 					<li class="nav-item d-none d-sm-inline-block">
 						<router-link to="/setting" class="nav-link bg-light mr-2 ">
@@ -116,7 +116,7 @@
 						</div>
 					</li>
 				</ul>
-			</nav>
+			</nav> --}}
 
 			<aside class="main-sidebar elevation-4 {{$setting->sidebar_color}}">
 				<a href="{{ route('admin.dashboard') }}" class="brand-link">
@@ -127,130 +127,71 @@
 				<div class="sidebar"> 
 					<nav class="mt-2 sidebar-nav">
 						<ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-							<li class="nav-item">
-								<router-link to="/supplier" class="nav-link">
-									<i class="nav-icon fas fa-users"></i>
-									<p>Suppliers</p>
-								</router-link>
-							</li>
-
-							<li class="nav-item">
-								<router-link to="/category" class="nav-link">
-									<i class="nav-icon fas fa-th-large"></i>
-									<p>Categories</p>
-								</router-link>
-							</li>
-
-							<li class="nav-item">
-								<router-link to="/warehouse" class="nav-link">
-									<i class="nav-icon fas fa-home"></i>
-									<p> Warehouse</p>
-								</router-link>
-							</li>
-
-							<li class="nav-item">
-								<router-link to="/product" class="nav-link">
-									<i class="nav-icon fab fa-product-hunt"></i>
-									<p>Products</p>
-								</router-link>
-							</li> 
-
-							<li class="nav-item">
-								<router-link to="/supplier-invoice" class="nav-link">
-									<i class="nav-icon far fa-file-alt"></i>
-									<p>Suppliers Invoice</p>
-								</router-link>
-							</li> 
-
-
-
-							{{--  <li class="nav-item has-treeview">
-								<a href="#" class="nav-link">
-									<i class="nav-icon fab fa-product-hunt"></i>
-									<p>
-										Expired Products
-										<i class="fas fa-angle-left right"></i>
-									</p>
-								</a>
-								<ul class="nav nav-treeview">
-									<li class="nav-item">
-										<a href="pages/mailbox/mailbox.html" class="nav-link ml-2">
-											<i class="fas fa-plus-circle"></i>
-											<p> Add Category</p>
-										</a>
-									</li>
-									<li class="nav-item">
-										<a href="pages/mailbox/mailbox.html" class="nav-link ml-2">
-											<i class="fas fa-tools"></i>
-											<p> Manage Category</p>
-										</a>
-									</li>
-								</ul>
-							</li>
-
-							<li class="nav-item has-treeview">
-								<a href="#" class="nav-link">
-									<i class="nav-icon fas fa-folder-minus"></i>
-									<p>
-										Dead Stock
-										<i class="fas fa-angle-left right"></i>
-									</p>
-								</a>
-								<ul class="nav nav-treeview">
-									<li class="nav-item">
-										<a href="pages/mailbox/mailbox.html" class="nav-link ml-2">
-											<i class="fas fa-plus-circle"></i>
-											<p> Add Category</p>
-										</a>
-									</li>
-									<li class="nav-item">
-										<a href="pages/mailbox/mailbox.html" class="nav-link ml-2">
-											<i class="fas fa-tools"></i>
-											<p> Manage Category</p>
-										</a>
-									</li>
-								</ul>
-							</li> --}}
-
-							<li class="nav-item">
-								<router-link to="/customer" class="nav-link">
-									<i class="nav-icon fas fa-user-friends"></i>
-									<p>Customers</p>
-								</router-link>
-							</li>
-
-							<li class="nav-item">
-								<router-link to="/invoice" class="nav-link">
-									<i class="nav-icon far fa-file-alt"></i>
-									<p>Invoice</p>
-								</router-link>
-							</li>
-
-							<li class="nav-item">
-								<router-link to="/expense" class="nav-link">
-									<i class="nav-icon fas fa-dollar-sign"></i>
-									<p>Expenses</p>
-								</router-link>
-							</li>
-
-							<li class="nav-item">
-								<router-link to="/loan" class="nav-link">
-									<i class="nav-icon far fa-money-bill-alt"></i>
-									<p>Loan</p>
-								</router-link>
-							</li>
-
-							<li class="nav-item">
-								<router-link to="/staff" class="nav-link">
-									<i class="nav-icon fas fa-users-cog"></i>
-									<p>Staff</p>
-								</router-link>
-							</li> 
+							{{-- <ul id="documenter_nav"> --}}
+								<li><a href="#start" class="current">Start</a></li>
+								<li><a href="#install" title="Installation">Installation</a></li>
+								<li><a href="#login" title="Initial Login Details">Initial Login Details</a></li>    
+								<li><a href="#admin_dashboard" title="Admin Dashboard">Admin Dashboard</a></li>
+								<li><a href="#supplier_hr" title="Supplier"><h3>Supplier</h3></a></li>
+								<li><a href="#supplier" title="Supplier">Add New Supplier</a></li>
+								<li><a href="#SuppliersList" title="Suppliers List">Suppliers List </a></li>
+								<li><a href="#ViewSuppliers" title="View Suppliers">View Suppliers</a></li>    
+								<li><a href="#category" title="Category"><h3>Category</h3></a></li>
+								<li><a href="#addcategory" title="Add Category">Add Category</a></li>
+								<li><a href="#CategoriesList" title="Categories List">Categories List</a></li>
+								<li><a href="#warehouse" title="Warehouse"><h3>Warehouse</h3></a></li>
+								<li><a href="#addwarehouse" title="Add Warehouse">Add Warehouse</a></li>
+								<li><a href="#warehouseList" title="Warehouse List">Warehouse List</a></li>
+								<li><a href="#Products" title="Products"><h3>Products</h3></a></li>
+								<li><a href="#addProducts" title="Add Products">Add Products</a></li>
+								<li><a href="#ProductsList" title="Products List">Products List</a></li>
+								<li><a href="#ViewProduct" title="View Product">View Product</a></li>
+								<li><a href="#ExportProducts" title="Export Products">Export Products</a></li>
+								<li><a href="#ExpireProducts" title="Expire Products"><h3>Expire Products</h3></a></li>    
+								<li><a href="#ExpireProductsList" title="Expire Products List">Expire Products List</a></li>
+								<li><a href="#ViewExpireProduct" title="View Expire Product">View Expire Product</a></li>
+								<li><a href="#ExportExpireProduct" title="Export Expire Product">Export Expire Product</a></li>
+								<li><a href="#DeadStock" title="Dead Stock Products"><h3>Dead Stock Products</h3></a></li>
+								<li><a href="#DeadStock" title="Dead Stock Products">View Dead Stock Products</a></li>
+								<li><a href="#Customers" title="Customers"><h3>Customers</h3></a></li>
+								<li><a href="#Customers" title="Add Customers">Add Customers</a></li>
+								<li><a href="#Customers" title="Customers List">Customers List</a></li>
+								<li><a href="#Customers" title="Credit Customers List">Credit Customers List</a></li>
+								<li><a href="#Customers" title="Paid  Customers List">Paid  Customers List</a></li>
+								<li><a href="#Invoices" title="Invoices"><h3>Invoices</h3></a></li>
+								<li><a href="#Invoices" title="Add Invoices">Add Invoice</a></li>
+								<li><a href="#Invoices" title="Invoices List">Invoices List</a></li>
+								<li><a href="#Invoices" title="UnPaid Invoices List">UnPaid Invoices List</a></li>
+								<li><a href="#Invoices" title="Paid Invoices List">Paid Invoices List</a></li>
+								<li><a href="#ExpenseInvoices" title="Expense Invoices"><h3>Expense Invoices</h3></a></li>
+								<li><a href="#ExpenseInvoices" title="Add Expense Type">Add Expense Type</a></li>
+								<li><a href="#ExpenseInvoices" title="Manage Expense Invoics">Manage Expense Invoice</a></li>
+								<li><a href="#ExpenseInvoices" title="Add Expense Invoics">Add Expense Invoice</a></li>
+								<li><a href="#ExpenseInvoices" title="Expense Invoices List">Expense Invoices List</a></li>
+								<li><a href="#ExpenseInvoices" title="UnPaid Expense Invoice List">UnPaid Expense Invoices List</a></li>
+								<li><a href="#ExpenseInvoices" title="Paid Expense Invoices List">Paid Expense Invoices List</a></li>
+								<li><a href="#Loan" title="Loan"><h3>Loan</h3></a></li>
+								<li><a href="#Loan" title="Add Loaner Type">Add Loaner Type</a></li>
+								<li><a href="#Loan" title="Manage Loaner Type">Manage Loaner Type</a></li>
+								<li><a href="#Loan" title="Add Loan">Add Loan</a></li>
+								<li><a href="#Loan" title="Manage Loan List">Manage Loan List</a></li>
+								<li><a href="#Staff" title="Staff"><h3>Staff</h3></a></li>
+								<li><a href="#Staff" title="Staff">Manage Staff</a></li>
+								<li><a href="#Reports" title="Reports"><h3>Reports</h3></a></li>
+								<li><a href="#Reports" title="Reports">Profit/Loss Reports</a></li>
+								<li><a href="#Reports" title="Reports">Sales Reports</a></li>
+								<li><a href="#Reports" title="Reports">Expense Reports</a></li>
+								<li><a href="#Setting" title="Setting"><h3>Setting</h3></a></li>
+								<li><a href="#Setting" title="Company Info">Company Info</a></li>
+								<li><a href="#Setting" title="Currency Setting">Currency Setting</a></li>    
+								<li><a href="#customer_support" title="Customer Support"><h3>Customer Support</h3></a></li>
+								<li><a href="#product_customization" title="Product Customization"><h3>Product Customization</h3></a></li>  
 						</ul>
 					</nav>
 				</div>
 			</aside>
 
+			
 			@yield('content')
 
 
@@ -314,5 +255,5 @@
 	        });
 	    </script>
 	</body>
-</html>
+	</html>
 

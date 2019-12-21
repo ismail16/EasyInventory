@@ -3260,6 +3260,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -3298,7 +3301,7 @@ __webpack_require__.r(__webpack_exports__);
     },
     getData: function getData() {
       var temp = this;
-      axios.get('/api/invoices?page=' + this.pagination.current_page).then(function (response) {
+      axios.get('/api/invoices').then(function (response) {
         temp.Invoices = response.data.data;
         temp.pagination = response.data.meta;
       })["catch"](function (error) {
@@ -5783,45 +5786,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     var _ref;
@@ -5868,6 +5832,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }
 
       return total;
+    },
+    total_invoice: function total_invoice() {
+      return this.thisMonthInvoices.length;
     }
   },
   methods: {
@@ -5898,7 +5865,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     getInvoices: function getInvoices() {
       var temp = this;
       axios.get('/api/allInvoice').then(function (response) {
-        temp.Invoices = response.data.data; // this.report(response.data.data);
+        temp.Invoices = response.data.data;
       })["catch"](function (error) {
         this.loadin = true;
         toastr.error('Something is wrong Data Loaded');
@@ -5907,21 +5874,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     getThisMonthInvoices: function getThisMonthInvoices() {
       var _this = this;
 
-      var date = new Date(); // var monthNames = ["January", "February", "March","April", "May", "June", "July","August", "September", "October","November", "December"
-      // ];
-      // var monthIndex = date.getMonth();
-      // var year = date.getFullYear();
-      // var this_month = monthNames[monthIndex] + ' ' + year;
-      // $('#this_month').append(this_month)
-
+      var date = new Date();
       var month_no = date.getMonth() + 1;
       var temp = this;
-      axios.get('/api/getThisMonthInvoices/2019').then(function (response) {
-        temp.thisMonthInvoices = response.data.data;
-        console.log('response');
-        console.log(response.data.data);
+      axios.get('/api/getThisMonthInvoices/' + month_no).then(function (response) {
+        temp.thisMonthInvoices = response.data.all_data;
 
-        _this.report(response.data.data);
+        _this.report(response.data);
       })["catch"](function (error) {
         this.loadin = true;
         toastr.error('Something is wrong Data Loaded');
@@ -5947,55 +5906,40 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       $(function () {
         'use strict';
 
-        var dataset = [];
-        var month_arr = [];
+        if (data.all_data) {
+          var month_name = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+
+          var _d = new Date(data.all_data[0].created_at);
+
+          $('#date_month').append(' ' + month_name[_d.getMonth()] + ' ' + _d.getFullYear());
+        }
+
         var total_seles = 0;
 
-        for (var i = 0; i < data.length; i++) {
-          var date = new Date(data[i].created_at);
-          var monthIndex = date.getMonth() + 1;
-          dataset.push(data[i].paid_amount);
-
-          if (month_arr.indexOf(monthIndex)) {
-            month_arr.push(monthIndex); // var vaue = { }
-            // dataset.push(data[i].paid_amount); 
-          }
-
-          var date = new Date(data[1].created_at);
-          var monthIndex = date.getMonth() + 1;
-          total_seles += data[i].paid_amount;
+        for (var i = 0; i < data.all_data.length; i++) {
+          total_seles += parseFloat(data.all_data[i].paid_amount);
         }
 
-        var arrt = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
-        var arrs = [];
+        var monthNames = [];
 
-        for (var j = 0; j < month_arr.length; j++) {
-          for (var _i = 0; _i < arrt.length; _i++) {
-            if (month_arr[j] == arrt[_i]) {
-              arrt.push(_i + 1);
-            } else {
-              arrt.push(0);
-            }
-          }
+        for (var k = 0; k < data.days.length; k++) {
+          monthNames.push(data.days[k] == 0 ? 0 : data.days[k]);
         }
 
-        console.log('dataset');
-        console.log(arrt);
-        var monthNames = [month_arr.indexOf(1) != -1 ? 2000 : 0, month_arr.indexOf(2) != -1 ? 2000 : 0, month_arr.indexOf(3) != -1 ? 2000 : 0, month_arr.indexOf(4) != -1 ? 2000 : 0, month_arr.indexOf(5) != -1 ? 2000 : 0, month_arr.indexOf(6) != -1 ? 2000 : 0, month_arr.indexOf(7) != -1 ? 2000 : 0, month_arr.indexOf(8) != -1 ? 2000 : 0, month_arr.indexOf(9) != -1 ? 25000 : 0, month_arr.indexOf(10) != -1 ? 1000 : 0, month_arr.indexOf(11) != -1 ? 1000 : 0, month_arr.indexOf(12) != -1 ? 50000 : 0];
-        console.log('total_seles'); // console.log( month_arr.indexOf(12) != -1 ? data[12].paid_amount:0)
-        // if (true) {
-        //   var date = new Date(data[1].created_at);
-        //   var monthIndex = date.getMonth()+1;
-        // }
+        var month_days = [];
+
+        for (var d = 1; d <= data.days.length; d++) {
+          month_days.push(d);
+        }
 
         var salesChartCanvas = $('#salesChart').get(0).getContext('2d');
         var salesChartData = {
-          labels: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
+          labels: month_days,
           datasets: [{
-            label: 'Digital Goods',
+            label: 'Sales',
             backgroundColor: 'rgba(60,141,188,0.9)',
             borderColor: 'rgba(60,141,188,0.8)',
-            pointRadius: false,
+            pointRadius: true,
             pointColor: '#3b8bba',
             pointStrokeColor: 'rgba(60,141,188,1)',
             pointHighlightFill: '#fff',
@@ -6010,7 +5954,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           //   pointStrokeColor    : '#c1c7d1',
           //   pointHighlightFill  : '#fff',
           //   pointHighlightStroke: 'rgba(220,220,220,1)',
-          //   data                : [1000, 5000, 80000, 10000, 15000, 20000, 50000]
+          //   data                : [25000, 25000, 25000, 25000, 15000, 25000, 25000,25000, 10000, 8000, 25000, 15000, 20000, 25000,25000, 10000, 25000, 25000, 15000, 20000, 25000,25000, 10000, 8000, 25000, 15000, 20000, 25000, 25000, 10000, 8000, 25000, 15000, 20000, 25000]
           // },
           ]
         };
@@ -6018,17 +5962,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           maintainAspectRatio: false,
           responsive: true,
           legend: {
-            display: false
+            display: true
           },
           scales: {
             xAxes: [{
               gridLines: {
-                display: false
+                display: true
               }
             }],
             yAxes: [{
               gridLines: {
-                display: false
+                display: true
               }
             }]
           }
@@ -50972,6 +50916,10 @@ var render = function() {
                               ]),
                               _vm._v(" "),
                               _c("td", { staticClass: "text-center" }, [
+                                _vm._v(_vm._s(Invoice.created_at))
+                              ]),
+                              _vm._v(" "),
+                              _c("td", { staticClass: "text-center" }, [
                                 Invoice.status == 1
                                   ? _c(
                                       "span",
@@ -51113,6 +51061,8 @@ var staticRenderFns = [
         _c("th", { staticClass: "text-center" }, [_vm._v("Paid")]),
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [_vm._v("Due")]),
+        _vm._v(" "),
+        _c("th", { staticClass: "text-center" }, [_vm._v("Date")]),
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [_vm._v("status")]),
         _vm._v(" "),
@@ -56795,144 +56745,99 @@ var render = function() {
     _c("section", { staticClass: "content" }, [
       _c("div", { staticClass: "container" }, [
         _c("div", { staticClass: "row" }, [
-          _c("div", { staticClass: "col-12 col-sm-6 col-md-3" }, [
-            _c("div", { staticClass: "info-box" }, [
-              _vm._m(1),
-              _vm._v(" "),
-              _c("div", { staticClass: "info-box-content" }, [
-                _c("span", { staticClass: "info-box-text" }, [
-                  _vm._v("Category")
-                ]),
-                _vm._v(" "),
-                _c("span", { staticClass: "info-box-number" }, [
-                  _vm._v(
-                    "\n              " +
-                      _vm._s(_vm.categories.length) +
-                      "\n            "
-                  )
-                ])
-              ])
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "col-12 col-sm-6 col-md-3" }, [
-            _c("div", { staticClass: "info-box" }, [
-              _vm._m(2),
-              _vm._v(" "),
-              _c("div", { staticClass: "info-box-content" }, [
-                _c("span", { staticClass: "info-box-text" }, [
-                  _vm._v("Product")
-                ]),
-                _vm._v(" "),
-                _c("span", { staticClass: "info-box-number" }, [
-                  _vm._v(
-                    "\n              " +
-                      _vm._s(_vm.products.length) +
-                      "\n            "
-                  )
-                ])
-              ])
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "col-12 col-sm-6 col-md-3" }, [
-            _c("div", { staticClass: "info-box mb-3" }, [
-              _vm._m(3),
-              _vm._v(" "),
-              _c("div", { staticClass: "info-box-content" }, [
-                _c("span", { staticClass: "info-box-text" }, [_vm._v("Sales")]),
-                _vm._v(" "),
-                _c("span", { staticClass: "info-box-number" }, [
-                  _vm._v(_vm._s(_vm.invoices.length))
-                ])
-              ])
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "col-12 col-sm-6 col-md-3" }, [
-            _c("div", { staticClass: "info-box mb-3" }, [
-              _vm._m(4),
-              _vm._v(" "),
-              _c("div", { staticClass: "info-box-content" }, [
-                _c("span", { staticClass: "info-box-text" }, [
-                  _vm._v("Supplier")
-                ]),
-                _vm._v(" "),
-                _c("span", { staticClass: "info-box-number" }, [
-                  _vm._v(_vm._s(_vm.suppliers.length))
-                ])
-              ])
-            ])
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "row" }, [
           _c("div", { staticClass: "col-md-12" }, [
             _c("div", { staticClass: "card" }, [
-              _vm._m(5),
+              _vm._m(1),
               _vm._v(" "),
-              _vm._m(6),
+              _c("div", { staticClass: "card-body" }, [
+                _c("div", { staticClass: "row" }, [
+                  _c("div", { staticClass: "col-md-4" }, [
+                    _c("p", { staticClass: "text-center" }, [
+                      _c("strong", [_vm._v("TOTAL INVOICE")]),
+                      _c("span", { staticClass: "m-1 pl-2 pr-2 bg-success" }, [
+                        _vm._v(_vm._s(_vm.total_invoice))
+                      ])
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _vm._m(2),
+                  _vm._v(" "),
+                  _vm._m(3),
+                  _vm._v(" "),
+                  _vm._m(4)
+                ])
+              ]),
               _vm._v(" "),
               _c("div", { staticClass: "card-footer" }, [
                 _c("div", { staticClass: "row" }, [
-                  _c("div", { staticClass: "col-sm-3 col-6" }, [
-                    _c(
-                      "div",
-                      { staticClass: "description-block border-right" },
-                      [
-                        _c("h5", { staticClass: "description-header" }, [
-                          _vm._v("$ " + _vm._s(_vm.grant_total))
-                        ]),
-                        _vm._v(" "),
-                        _c("span", { staticClass: "description-text" }, [
-                          _vm._v("TOTAL REVENUE")
-                        ])
-                      ]
-                    )
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "col-sm-3 col-6" }, [
-                    _c(
-                      "div",
-                      { staticClass: "description-block border-right" },
-                      [
-                        _c("h5", { staticClass: "description-header" }, [
-                          _vm._v("$ " + _vm._s(_vm.total_due))
-                        ]),
-                        _vm._v(" "),
-                        _c("span", { staticClass: "description-text" }, [
-                          _vm._v("TOTAL DUE")
-                        ])
-                      ]
-                    )
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "col-sm-3 col-6" }, [
-                    _c(
-                      "div",
-                      { staticClass: "description-block border-right" },
-                      [
-                        _c("h5", { staticClass: "description-header" }, [
-                          _vm._v("$ " + _vm._s(_vm.total_expense))
-                        ]),
-                        _vm._v(" "),
-                        _c("span", { staticClass: "description-text" }, [
-                          _vm._v("TOTAL EXPENSE")
-                        ])
-                      ]
-                    )
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "col-sm-3 col-6" }, [
+                  _c("div", { staticClass: "col-sm-3" }, [
                     _c("div", { staticClass: "description-block" }, [
-                      _c("h5", { staticClass: "description-header" }, [
-                        _vm._v(
-                          "$ " + _vm._s(_vm.grant_total - _vm.total_expense)
-                        )
-                      ]),
-                      _vm._v(" "),
-                      _c("span", { staticClass: "description-text" }, [
-                        _vm._v("TOTAL PROFIT")
+                      _c("div", { staticClass: "info-box mb-3" }, [
+                        _vm._m(5),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "info-box-content" }, [
+                          _c("span", { staticClass: "info-box-text" }, [
+                            _vm._v("TOTAL REVENUE")
+                          ]),
+                          _vm._v(" "),
+                          _c("span", { staticClass: "info-box-number" }, [
+                            _vm._v(_vm._s(_vm.grant_total))
+                          ])
+                        ])
+                      ])
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-sm-3" }, [
+                    _c("div", { staticClass: "description-block" }, [
+                      _c("div", { staticClass: "info-box mb-3" }, [
+                        _vm._m(6),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "info-box-content" }, [
+                          _c("span", { staticClass: "info-box-text" }, [
+                            _vm._v("TOTAL DUE")
+                          ]),
+                          _vm._v(" "),
+                          _c("span", { staticClass: "info-box-number" }, [
+                            _vm._v(_vm._s(_vm.total_due))
+                          ])
+                        ])
+                      ])
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-sm-3" }, [
+                    _c("div", { staticClass: "description-block" }, [
+                      _c("div", { staticClass: "info-box mb-3" }, [
+                        _vm._m(7),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "info-box-content" }, [
+                          _c("span", { staticClass: "info-box-text" }, [
+                            _vm._v("TOTAL EXPENSE")
+                          ]),
+                          _vm._v(" "),
+                          _c("span", { staticClass: "info-box-number" }, [
+                            _vm._v(_vm._s(_vm.total_expense))
+                          ])
+                        ])
+                      ])
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-sm-3" }, [
+                    _c("div", { staticClass: "description-block" }, [
+                      _c("div", { staticClass: "info-box mb-3" }, [
+                        _vm._m(8),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "info-box-content" }, [
+                          _c("span", { staticClass: "info-box-text" }, [
+                            _vm._v("TOTAL PROFIT")
+                          ]),
+                          _vm._v(" "),
+                          _c("span", { staticClass: "info-box-number" }, [
+                            _vm._v(_vm._s(_vm.grant_total - _vm.total_expense))
+                          ])
+                        ])
                       ])
                     ])
                   ])
@@ -56978,38 +56883,6 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("span", { staticClass: "info-box-icon bg-info elevation-1" }, [
-      _c("i", { staticClass: "fas fa-th-large" })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("span", { staticClass: "info-box-icon bg-primary elevation-1" }, [
-      _c("i", { staticClass: "fab fa-product-hunt" })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("span", { staticClass: "info-box-icon bg-success elevation-1" }, [
-      _c("i", { staticClass: "fas fa-shopping-cart" })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("span", { staticClass: "info-box-icon bg-warning elevation-1" }, [
-      _c("i", { staticClass: "fas fa-users" })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
     return _c("div", { staticClass: "card-header" }, [
       _c("h5", { staticClass: "card-title" }, [_vm._v("This Month Report")]),
       _vm._v(" "),
@@ -57022,44 +56895,6 @@ var staticRenderFns = [
           },
           [_c("i", { staticClass: "fas fa-minus" })]
         ),
-        _vm._v(" "),
-        _c("div", { staticClass: "btn-group" }, [
-          _c(
-            "button",
-            {
-              staticClass: "btn btn-tool dropdown-toggle",
-              attrs: { type: "button", "data-toggle": "dropdown" }
-            },
-            [_c("i", { staticClass: "fas fa-wrench" })]
-          ),
-          _vm._v(" "),
-          _c(
-            "div",
-            {
-              staticClass: "dropdown-menu dropdown-menu-right",
-              attrs: { role: "menu" }
-            },
-            [
-              _c("a", { staticClass: "dropdown-item", attrs: { href: "#" } }, [
-                _vm._v("Action")
-              ]),
-              _vm._v(" "),
-              _c("a", { staticClass: "dropdown-item", attrs: { href: "#" } }, [
-                _vm._v("Another action")
-              ]),
-              _vm._v(" "),
-              _c("a", { staticClass: "dropdown-item", attrs: { href: "#" } }, [
-                _vm._v("Something else here")
-              ]),
-              _vm._v(" "),
-              _c("a", { staticClass: "dropdown-divider" }),
-              _vm._v(" "),
-              _c("a", { staticClass: "dropdown-item", attrs: { href: "#" } }, [
-                _vm._v("Separated link")
-              ])
-            ]
-          )
-        ]),
         _vm._v(" "),
         _c(
           "button",
@@ -57076,94 +56911,65 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card-body" }, [
-      _c("div", { staticClass: "row" }, [
-        _c("div", { staticClass: "col-md-6" }, [
-          _c("p", { staticClass: "text-center" }, [
-            _c("strong", { attrs: { id: "this_month" } }, [
-              _vm._v("This Month Sales Graph")
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "chart" }, [
-            _c("canvas", {
-              staticStyle: { height: "180px" },
-              attrs: { id: "salesChart", height: "180" }
-            })
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "col-md-6" }, [
-          _c("p", { staticClass: "text-center" }, [
-            _c("strong", [_vm._v("Goal Completion")])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "progress-group" }, [
-            _vm._v(
-              "\n                  Add Products to Cart\n                  "
-            ),
-            _c("span", { staticClass: "float-right" }, [
-              _c("b", [_vm._v("160")]),
-              _vm._v("/200")
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "progress progress-sm" }, [
-              _c("div", {
-                staticClass: "progress-bar bg-primary",
-                staticStyle: { width: "80%" }
-              })
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "progress-group" }, [
-            _vm._v("\n                  Complete Purchase\n                  "),
-            _c("span", { staticClass: "float-right" }, [
-              _c("b", [_vm._v("310")]),
-              _vm._v("/400")
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "progress progress-sm" }, [
-              _c("div", {
-                staticClass: "progress-bar bg-danger",
-                staticStyle: { width: "75%" }
-              })
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "progress-group" }, [
-            _c("span", { staticClass: "progress-text" }, [
-              _vm._v("Visit Premium Page")
-            ]),
-            _vm._v(" "),
-            _c("span", { staticClass: "float-right" }, [
-              _c("b", [_vm._v("480")]),
-              _vm._v("/800")
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "progress progress-sm" }, [
-              _c("div", {
-                staticClass: "progress-bar bg-success",
-                staticStyle: { width: "60%" }
-              })
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "progress-group" }, [
-            _vm._v("\n                  Send Inquiries\n                  "),
-            _c("span", { staticClass: "float-right" }, [
-              _c("b", [_vm._v("250")]),
-              _vm._v("/500")
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "progress progress-sm" }, [
-              _c("div", {
-                staticClass: "progress-bar bg-warning",
-                staticStyle: { width: "50%" }
-              })
-            ])
-          ])
-        ])
+    return _c("div", { staticClass: "col-md-4" }, [
+      _c("p", { staticClass: "text-center" }, [
+        _c("strong", [_vm._v("This Month Sales Graph")])
       ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-md-4" }, [
+      _c("p", { staticClass: "text-center" }, [
+        _c("strong", { attrs: { id: "date_month" } }, [_vm._v("Report of ")])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-md-12" }, [
+      _c("div", { staticClass: "chart" }, [
+        _c("canvas", {
+          staticStyle: { height: "180px" },
+          attrs: { id: "salesChart", height: "180" }
+        })
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("span", { staticClass: "info-box-icon bg-primary elevation-1" }, [
+      _c("i", { staticClass: "fas fa-shopping-cart" })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("span", { staticClass: "info-box-icon bg-warning elevation-1" }, [
+      _c("i", { staticClass: "fas fa-shopping-cart" })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("span", { staticClass: "info-box-icon bg-danger elevation-1" }, [
+      _c("i", { staticClass: "far fa-money-bill-alt" })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("span", { staticClass: "info-box-icon bg-success elevation-1" }, [
+      _c("i", { staticClass: "fas fa-dollar-sign" })
     ])
   }
 ]
@@ -79382,8 +79188,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! E:\xampp\htdocs\EasyInventory\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! E:\xampp\htdocs\EasyInventory\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /home/mnbtech/Projects/EasyInventory/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /home/mnbtech/Projects/EasyInventory/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

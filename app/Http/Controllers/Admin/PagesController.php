@@ -110,5 +110,10 @@ class PagesController extends Controller
         return view('admin.supplier_invoice.edit');
     }
 
+    public function documentation()
+    {
+        return view('admin.documentation.index');
+    }
+
 
 }

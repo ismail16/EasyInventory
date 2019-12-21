@@ -47,6 +47,7 @@
                                     <th class="text-center">Total</th>
                                     <th class="text-center">Paid</th>
                                     <th class="text-center">Due</th>
+                                    <th class="text-center">Date</th>
                                     <th class="text-center">status</th>
                                     <th class="text-center">Action</th>
                                 </tr>
@@ -76,6 +77,8 @@
                                           </span>
                                           <!-- {{ Invoice.due_amount }} -->
                                         </td>
+                                        <td class="text-center">{{ Invoice.created_at }}</td>
+
                                         <td class="text-center">
                                             <span v-if="Invoice.status == 1" class="text-success">
                                                 Active
@@ -174,7 +177,7 @@
 
             getData(){
                 var temp = this;
-                axios.get('/api/invoices?page='+this.pagination.current_page)
+                axios.get('/api/invoices')
                   .then((response) => {
                     temp.Invoices = response.data.data;
                     temp.pagination = response.data.meta;

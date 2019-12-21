@@ -46,7 +46,7 @@ class InvoiceController extends Controller
         $invoice->save();
 
         $products = $request->products;
-        for ($i=0; $i < count($products); $i++) { 
+        for ($i=0; $i < count($products); $i++) {
             $InvoiceProduct = new InvoiceProduct;
             $InvoiceProduct->invoice_id = $invoice->id;
             $InvoiceProduct->product_name = $products[$i]['product_name'];
@@ -55,7 +55,7 @@ class InvoiceController extends Controller
             $InvoiceProduct->status = 1;
             $InvoiceProduct->save();
         }
-        
+
         return array('invoice' => $invoice, 'InvoiceProduct' => $InvoiceProduct);
     }
 
@@ -73,13 +73,13 @@ class InvoiceController extends Controller
     public function update(Request $request, $id)
     {
         $req = $request->Invoice;
-        
-        // $request->validate([
-        //     'customer_name' => 'required',
-        //     'customer_phone' => 'required',
-        //     'invoice_date' => 'required',
-        //     'grand_total_price' => 'required'
-        // ]);
+
+// $request->validate([
+//     'customer_name' => 'required',
+//     'customer_phone' => 'required',
+//     'invoice_date' => 'required',
+//     'grand_total_price' => 'required'
+// ]);
 
         $invoice = Invoice::find($id);
 
@@ -99,7 +99,7 @@ class InvoiceController extends Controller
         $products = $req['products'];
         if ($products) {
             InvoiceProduct::where('invoice_id',$invoice->id)->delete();
-            for ($i=0; $i < count($products); $i++) { 
+            for ($i=0; $i < count($products); $i++) {
                 $InvoiceProduct = new InvoiceProduct;
                 $InvoiceProduct->invoice_id = $invoice->id;
                 $InvoiceProduct->product_name = $products[$i]['product_name'];
@@ -109,7 +109,7 @@ class InvoiceController extends Controller
                 $InvoiceProduct->save();
             }
         }
-       
+
         return array('invoice' => $invoice, 'InvoiceProduct' => $InvoiceProduct);
     }
 
@@ -126,6 +126,32 @@ class InvoiceController extends Controller
 
     public function getThisMonthInvoices($month)
     {
-        return  DefaultResource::collection(Invoice::orderBy('id','asc')->whereYear('created_at', $month)->get());
+
+        $year = date('Y');
+        $mon = date('m');
+
+        $total_days=cal_days_in_month(CAL_GREGORIAN, $mon, $year);
+        $arrss = array();
+        for ($m=0; $m < $total_days; $m++) {
+            array_push($arrss, $year.'-'.$mon.'-'.$m);
+        }
+
+        $arrs = array();
+        for($i= 1; $i<= count($arrss); $i++) {
+            // $jan_total += $total->paid_amount;
+            $jan = Invoice::where('created_at', 'LIKE','%'. $year.'-'.$mon.'-'.sprintf("%02d", $i). '%')->select('paid_amount')->get();
+            $jan_total = 0;
+            if (count($jan) > 0) {
+                foreach($jan as $total) {
+                    $jan_total += $total->paid_amount;
+                }
+            }
+            array_push($arrs, $jan_total);
+        }
+
+        $all_data = DefaultResource::collection(Invoice::orderBy('id','asc')->whereYear('created_at', $year.'-'.$mon.'-'.sprintf("%02d", $i))->get());
+
+
+        return array('all_data' => $all_data , 'days'=>$arrs );
     }
 }

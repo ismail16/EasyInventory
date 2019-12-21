@@ -8,6 +8,7 @@ Auth::routes();
 //=================== Admin Route ==========================
 Route::group(['as'=>'admin.', 'prefix'=>'admin','namespace'=>'Admin', 'middleware'=>['auth','admin']], function(){
 	Route::get('/dashboard', 'PagesController@index')->name('dashboard');
+	Route::get('/documentation', 'PagesController@documentation')->name('documentation');
 });
 
 
