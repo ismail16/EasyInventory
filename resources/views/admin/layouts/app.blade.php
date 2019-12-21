@@ -8,6 +8,7 @@
 		<meta http-equiv="x-ua-compatible" content="ie=edge">
 		<meta name="csrf-token" content="{{ csrf_token() }}">
 		<title>@yield('title')</title>
+		<link rel="shortcut icon" type="image/ico" href="{{ asset('/images/store_logo/'. \App\Models\Setting::orderBy('id','desc')->first()->store_logo) }}" />
 		<!-- Font Awesome Icons -->
 		<link rel="stylesheet" href="{{ asset('backend_assets/plugins/fontawesome-free/css/all.min.css')}}">
 		<!-- overlayScrollbars -->
