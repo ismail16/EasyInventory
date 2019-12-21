@@ -1,10 +1,10 @@
 @extends('admin.documentation.app')
 
+@section('title','Documentation')
 @section('content')
 
 <div class="content-wrapper mt-0">
-	<style>
-		
+	<!-- <style>
 		html {
 			background-color: #fcfcfc;
 			color: #404040;
@@ -78,7 +78,12 @@
 			clear: both;
 			margin: 20px 20px;
 		}
-	</style>
+	</style> -->
+	<!-- <style type="text/css">
+		#documenter_content section{
+			padding-top: 100px !important;
+		}
+	</style> -->
 	<div class="container">
 		<section class="content">
 			<div class="row">
