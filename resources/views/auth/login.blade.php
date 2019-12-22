@@ -8,19 +8,18 @@
     <link rel="stylesheet" href="{{ asset('backend_assets/dist/css/adminlte.min.css')}}">
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 </head>
-<body class="hold-transition login-page">
-    <div class="login-box" id="app">
-        <div class="login-logo">
-            <b>Admin</b> Easy Inventory
-        </div>
+<body class="hold-transition login-page" style="background-image: url('/backend_assets/dist/img/login_bg5.jpg');background-repeat: no-repeat; background-attachment: fixed; background-position: center;">
+    <div class="login-box" id="app">        
         <div class="card">
+            <div class="card-header text-center">
+                <h4 class="text-center"><b>Admin</b> Easy Inventory</h4>
+                <span>Live and Easy System</span>
+            </div>
             <div class="card-body login-card-body">
-                <p class="login-box-msg">Sign in to start your session</p>
-
                 <form method="POST" action="{{ route('login') }}">
                     @csrf
                     <div class="input-group mb-3">
-                        <input id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" required autofocus>
+                        <input id="email" type="email" value="admin@email.com" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" required autofocus>
                         <div class="input-group-append input-group-text">
                             <span class="fas fa-envelope"></span>
                         </div>
@@ -32,7 +31,7 @@
                     </div>
 
                     <div class="input-group mb-3">
-                        <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required>
+                        <input id="password" type="password" value="11111111" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required>
                         <div class="input-group-append input-group-text">
                             <span class="fas fa-lock"></span>
                         </div>    
@@ -58,12 +57,11 @@
                         </div>
                     </div>
                 </form>
-
-                <p class="mb-1">
-                    <p>User ID: <b>admin@email.com</b> </p>
-                    <p>Password: <b>11111111</b> </p>
-                </p>
             </div>
+           {{--  <div class="card-footer text-center">
+                User ID: <b>admin@email.com</b> <br>
+                Password: <b>11111111</b>
+            </div> --}}
         </div>
     </div>
 

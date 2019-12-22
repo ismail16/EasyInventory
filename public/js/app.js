@@ -4187,6 +4187,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -4203,11 +4205,13 @@ __webpack_require__.r(__webpack_exports__);
         paid_amount: '',
         due_amount: 0
       }),
-      product_arr: []
+      product_arr: [],
+      setting: ''
     };
   },
   mounted: function mounted() {
     this.getInvoice();
+    this.getSettings();
   },
   computed: {
     grand_total_price: function grand_total_price() {
@@ -4254,6 +4258,20 @@ __webpack_require__.r(__webpack_exports__);
       })["catch"](function (error) {
         toastr.error('Something is wrong Data Loaded');
       });
+    },
+    getSettings: function getSettings() {
+      var temp = this;
+      axios.get('/api/setting/1').then(function (response) {
+        temp.setting = response.data;
+      })["catch"](function (error) {
+        this.loadin = true;
+        toastr.error('Something is wrong Data Loaded');
+      });
+    },
+    getImgUrl: function getImgUrl(image) {
+      var photo = "/images/store_logo/" + image;
+      return photo;
+      console.log(photo);
     }
   }
 });
@@ -53230,7 +53248,45 @@ var render = function() {
           [
             _c("header", [
               _c("div", { staticClass: "row" }, [
-                _vm._m(0),
+                _c("div", { staticClass: "col" }, [
+                  _c("div", { staticClass: "text-gray-light" }, [
+                    _vm._v("INVOICE FROM:")
+                  ]),
+                  _vm._v(" "),
+                  _vm.setting.store_logo
+                    ? _c("img", {
+                        attrs: {
+                          src: _vm.getImgUrl(_vm.setting.store_logo),
+                          lass: "img-fluid",
+                          width: "50",
+                          "data-holder-rendered": "true"
+                        }
+                      })
+                    : _c("img", {
+                        staticClass: "img-fluid",
+                        attrs: {
+                          src: "/images/logo.png",
+                          width: "50",
+                          "data-holder-rendered": "true"
+                        }
+                      }),
+                  _vm._v(" "),
+                  _c("h5", { staticClass: "name" }, [
+                    _vm._v(_vm._s(_vm.setting.store_name))
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "address" }, [
+                    _vm._v(_vm._s(_vm.setting.store_address))
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "email" }, [
+                    _vm._v(_vm._s(_vm.setting.store_mobile))
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "email" }, [
+                    _vm._v(_vm._s(_vm.setting.store_email))
+                  ])
+                ]),
                 _vm._v(" "),
                 _c(
                   "div",
@@ -53285,7 +53341,7 @@ var render = function() {
                       attrs: { id: "normalinvoice" }
                     },
                     [
-                      _vm._m(1),
+                      _vm._m(0),
                       _vm._v(" "),
                       _c(
                         "tbody",
@@ -53434,7 +53490,7 @@ var render = function() {
                     ]
                   ),
                   _vm._v(" "),
-                  _vm._m(2)
+                  _vm._m(1)
                 ]
               )
             ]),
@@ -53483,33 +53539,6 @@ var render = function() {
   ])
 }
 var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col" }, [
-      _c("a", { attrs: { target: "_blank", href: "/" } }, [
-        _c("img", {
-          attrs: {
-            src:
-              "http://lobianijs.com/lobiadmin/version/1.0/ajax/img/logo/lobiadmin-logo-text-64.png",
-            width: "200",
-            "data-holder-rendered": "true"
-          }
-        })
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "text-gray-light" }, [_vm._v("INVOICE FROM:")]),
-      _vm._v(" "),
-      _c("h5", { staticClass: "name" }, [_vm._v("Arboshiki")]),
-      _vm._v(" "),
-      _c("div", { staticClass: "address" }, [
-        _vm._v("796 Silver Harbour, TX 79273, US")
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "email" }, [_vm._v("john@example.com")])
-    ])
-  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
@@ -79188,8 +79217,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! E:\xampp\htdocs\EasyInventory\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! E:\xampp\htdocs\EasyInventory\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /home/mnbtech/Projects/EasyInventory/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /home/mnbtech/Projects/EasyInventory/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
