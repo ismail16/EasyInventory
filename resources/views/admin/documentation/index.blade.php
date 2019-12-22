@@ -4,86 +4,7 @@
 @section('content')
 
 <div class="content-wrapper mt-0">
-	<!-- <style>
-		html {
-			background-color: #fcfcfc;
-			color: #404040;
-		}
-		::-moz-selection {
-			background:#333636;
-			color:#00DFFC;
-		}
-		::selection {
-			background: #333636;
-			color: #00DFFC;
-		}
-		#documenter_sidebar #documenter_logo {
-			background-image: url(logo.html);
-		}
-		a {
-			color: #111;
-		}
-		.btn {
-			border-radius: 3px;
-		}
-		.btn-primary {
-			background-image: -moz-linear-gradient(top, #008C9E, #006673);
-			background-image: -ms-linear-gradient(top, #008C9E, #006673);
-			background-image: -webkit-gradient(linear, 0 0, 0 008C9E%, from(#343838), to(#006673));
-			background-image: -webkit-linear-gradient(top, #008C9E, #006673);
-			background-image: -o-linear-gradient(top, #008C9E, #006673);
-			background-image: linear-gradient(top, #008C9E, #006673);
-			filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#008C9E', endColorstr='#006673', GradientType=0);
-			border-color: #006673 #006673 #bfbfbf;
-			color: #FFFFFF;
-		}
-		.btn-primary:hover,  .btn-primary:active,  .btn-primary.active,  .btn-primary.disabled,  .btn-primary[disabled] {
-			border-color: #008C9E #008C9E #bfbfbf;
-			background-color: #006673;
-		}
-		hr {
-			border-top: 1px solid #D4D4D4;
-			border-bottom: 1px solid #FFFFFF;
-		}
-		#documenter_sidebar, #documenter_sidebar ul a {
-			background-color: #ffffff;
-			color: #111;
-		}
-		#documenter_sidebar ul {
-			border-top: 1px solid #212424;
-		}
-		#documenter_sidebar ul a {
-			border-bottom: 1px solid #212424;
-			color: #111111;
-		}
-		#documenter_sidebar ul a:hover {
-			background: #22313F;
-			color: #00DFFC;
-			border-top: 1px solid #333636;
-		}
-		#documenter_sidebar ul a.current {
-			background: #22313F;
-			color: #00DFFC;
-			border-top: 1px solid #333636;
-		}
-		#documenter_copyright {
-			display: block !important;
-			visibility: visible !important;
-		}
-		.preview {
-			max-height: 600px;
-			-webkit-box-shadow: 0 0px 15px 0 rgba(0,0,0,0.1);
-			-moz-box-shadow: 0 0px 15px 0 rgba(0,0,0,0.1);
-			box-shadow: 0 0px 15px 0 rgba(0,0,0,0.1);
-			clear: both;
-			margin: 20px 20px;
-		}
-	</style> -->
-	<!-- <style type="text/css">
-		#documenter_content section{
-			padding-top: 100px !important;
-		}
-	</style> -->
+	
 	<div class="container">
 		<section class="content">
 			<div class="row">
@@ -103,7 +24,7 @@
 								<table>
 									<tbody><tr>
 										<td>E-mail Address :</td>
-										<td><a href="mailto:adaptinventory@gmail.com">adaptinventory@gmail.com</a></td>
+										<td><a href="mailto:ismail32cse@gmail.com">ismail32cse@gmail.com</a></td>
 									</tr>
 								</tbody></table>
 							</section>
@@ -128,11 +49,11 @@
 								<ul>
 									<li><strong>Step 1</strong></li>
 									<li>Unzip the downloaded folder</li>
-									<li>Copy the files from inside the folder : "adaptinventory_1_0_1" into your server</li>
+									<li>Copy the files from inside the folder : "ismail32cse_1_0_1" into your server</li>
 									<li><strong>Step 2</strong></li>           
 									<li>Create Database, Database Username, Password.</li>
 									<li>Then go to Your Server phpMyAdmin.</li>
-									<li>import adaptinventoryDB.sql to database.</li>
+									<li>import ismail32cseDB.sql to database.</li>
 									<li><strong>Step 3</strong></li>
 									<li>Go back to files inside connection folder open connection.php</li>
 									<li>Then enter hostname, username, password and database name.</li>      
@@ -154,7 +75,7 @@
 										<hr class="notop">
 									</div>
 									<p style="text-align: justify;; width: 900px;">To log-in to admin panel - please use the following login credentials provided below.</p>
-									<p style="text-align: justify;; width: 900px;"><strong style="color: red">Please Note:</strong> Once you installed the system and you are on login page, if the login page not showing correctly OR not logging to system then you need to check again the connection file which is in side connection/connection.php, make sure your server have PHP-7 version installed. and (extension=php_mysqli.dll) should be enable on your server. if still problem exist you may contact us at adaptinventory@gmail.com, we will reply you as soon as possible.<br>
+									<p style="text-align: justify;; width: 900px;"><strong style="color: red">Please Note:</strong> Once you installed the system and you are on login page, if the login page not showing correctly OR not logging to system then you need to check again the connection file which is in side connection/connection.php, make sure your server have PHP-7 version installed. and (extension=php_mysqli.dll) should be enable on your server. if still problem exist you may contact us at ismail32cse@gmail.com, we will reply you as soon as possible.<br>
 										<br>
 										<strong>The login credentials provided below are for initial usage only - do not forget to update your password after first successful login.</strong> </p>
 										<p>After login to admin panel, you can create accounts for employees</p>
@@ -678,11 +599,11 @@
 																																																					<h3>Customer Support</h3>
 																																																					<hr class="notop">
 																																																				</div>
-																																																				<p style="text-align: justify;; width: 900px;"><strong>All the support related issue should be emailed directly to adaptinventory@gmail.com Please be informed that CodeCanyon comments page isn't for support.</strong> <br>
+																																																				<p style="text-align: justify;; width: 900px;"><strong>All the support related issue should be emailed directly to ismail32cse@gmail.com Please be informed that CodeCanyon comments page isn't for support.</strong> <br>
 																																																					<br>
 																																																					Support is available from 9:00 AM - 6:00 PM (GMT+5), Monday - Saturday.<br>
 																																																					<br>
-																																																				If you are having any difficulty in understanding the product or you have any question, We encourage you to contact us. Email us at adaptinventory@gmail.com for fast response. We will be glad to help you. </p>
+																																																				If you are having any difficulty in understanding the product or you have any question, We encourage you to contact us. Email us at ismail32cse@gmail.com for fast response. We will be glad to help you. </p>
 																																																			</section>
 																																																			<!-- Support Section End --> 
 																																																			<!-- Customization Section Start -->
