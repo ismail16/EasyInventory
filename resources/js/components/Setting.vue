@@ -87,6 +87,24 @@
 
                                         <div class="col-md-6">
                                             <div class="form-group row">
+                                               <label class="col-sm-3 form-control-label">Store Website <i class="text-danger">*</i></label>
+                                                <div class="col-sm-9">
+                                                    <input type="number" v-model="form.store_website" placeholder="Store Website" class="form-control-sm w-100">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                               <label class="col-sm-3 form-control-label">Store Currency <i class="text-danger">*</i></label>
+                                                <div class="col-sm-9">
+                                                    <input type="number" v-model="form.store_currency" placeholder="Ex: $/£/€/¥/₤/Bs/Tk" class="form-control-sm w-100">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
                                                 <label class="col-sm-3 form-control-label">Navbar Color <i class="text-danger">*</i></label>
                                                 <div class="col-sm-9">
                                                     <select v-model="form.navbar_color" name="navbar_color" class="form-control-sm w-100 w-100">
@@ -161,6 +179,8 @@ export default {
                 owner_image : '',
                 store_mobile : '',
                 store_email : '',
+                store_website : 'admin.com',
+                store_currency : '$',
                 navbar_color : 'navbar-light',
                 sidebar_color : 'sidebar-light-navy',
                 text_size : 1,

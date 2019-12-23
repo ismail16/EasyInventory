@@ -15,6 +15,8 @@ class SettingsTableSeeder extends Seeder
             'owner_image' => 'default.png',
             'store_mobile' => '123456789',
             'store_email' => 'admin@email.com',
+            'store_website' => 'www.admin.com',
+            'store_currency' => '$',
             'navbar_color' => 'navbar-light',
             'sidebar_color' => 'sidebar-light-navy',
             'text_size' => '1',

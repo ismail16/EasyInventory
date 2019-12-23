@@ -6,6 +6,7 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<meta name="csrf-token" content="{{ csrf_token() }}">
 	<title>@yield('title')</title>
 	<!-- Font Awesome Icons -->
 	<link rel="stylesheet" href="{{ asset('backend_assets/plugins/fontawesome-free/css/all.min.css')}}">
@@ -23,7 +24,7 @@
 	<body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed">
 
 		<?php $setting = \App\Models\Setting::orderBy('id','desc')->first(); ?>
-		<div class="wrapper">
+		<div class="wrapper" id="app">
 	 		<!-- <nav class="main-header navbar navbar-expand navbar-light">
 				<ul class="navbar-nav">
 					<li class="nav-item">
@@ -38,7 +39,7 @@
 
 			</nav>  -->
 
-			<aside class="main-sidebar elevation-4 {{$setting->sidebar_color}}">
+			<aside class="main-sidebar elevation-4 ">
 				<a href="{{ route('admin.dashboard') }}" class="brand-link bg-light">
 					<img src="{{ asset('/images/store_logo/'.$setting->store_logo) }}" alt="Logo" class="brand-image img-circle elevation-3"
 					style="opacity: .8">

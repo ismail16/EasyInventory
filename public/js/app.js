@@ -6178,6 +6178,24 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -6189,6 +6207,8 @@ __webpack_require__.r(__webpack_exports__);
         owner_image: '',
         store_mobile: '',
         store_email: '',
+        store_website: 'admin.com',
+        store_currency: '$',
         navbar_color: 'navbar-light',
         sidebar_color: 'sidebar-light-navy',
         text_size: 1,
@@ -57305,6 +57325,80 @@ var render = function() {
                               _vm._m(4),
                               _vm._v(" "),
                               _c("div", { staticClass: "col-sm-9" }, [
+                                _c("input", {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: _vm.form.store_website,
+                                      expression: "form.store_website"
+                                    }
+                                  ],
+                                  staticClass: "form-control-sm w-100",
+                                  attrs: {
+                                    type: "number",
+                                    placeholder: "Store Website"
+                                  },
+                                  domProps: { value: _vm.form.store_website },
+                                  on: {
+                                    input: function($event) {
+                                      if ($event.target.composing) {
+                                        return
+                                      }
+                                      _vm.$set(
+                                        _vm.form,
+                                        "store_website",
+                                        $event.target.value
+                                      )
+                                    }
+                                  }
+                                })
+                              ])
+                            ])
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "col-md-6" }, [
+                            _c("div", { staticClass: "form-group row" }, [
+                              _vm._m(5),
+                              _vm._v(" "),
+                              _c("div", { staticClass: "col-sm-9" }, [
+                                _c("input", {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: _vm.form.store_currency,
+                                      expression: "form.store_currency"
+                                    }
+                                  ],
+                                  staticClass: "form-control-sm w-100",
+                                  attrs: {
+                                    type: "number",
+                                    placeholder: "Ex: $/£/€/¥/₤/Bs/Tk"
+                                  },
+                                  domProps: { value: _vm.form.store_currency },
+                                  on: {
+                                    input: function($event) {
+                                      if ($event.target.composing) {
+                                        return
+                                      }
+                                      _vm.$set(
+                                        _vm.form,
+                                        "store_currency",
+                                        $event.target.value
+                                      )
+                                    }
+                                  }
+                                })
+                              ])
+                            ])
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "col-md-6" }, [
+                            _c("div", { staticClass: "form-group row" }, [
+                              _vm._m(6),
+                              _vm._v(" "),
+                              _c("div", { staticClass: "col-sm-9" }, [
                                 _c(
                                   "select",
                                   {
@@ -57361,7 +57455,7 @@ var render = function() {
                           _vm._v(" "),
                           _c("div", { staticClass: "col-md-6" }, [
                             _c("div", { staticClass: "form-group row" }, [
-                              _vm._m(5),
+                              _vm._m(7),
                               _vm._v(" "),
                               _c("div", { staticClass: "col-sm-9" }, [
                                 _c(
@@ -57424,7 +57518,7 @@ var render = function() {
                           _vm._v(" "),
                           _c("div", { staticClass: "col-md-6" }, [
                             _c("div", { staticClass: "form-group row" }, [
-                              _vm._m(6),
+                              _vm._m(8),
                               _vm._v(" "),
                               _c("div", { staticClass: "col-sm-9" }, [
                                 _c(
@@ -57524,7 +57618,7 @@ var render = function() {
                         ])
                       ]),
                       _vm._v(" "),
-                      _vm._m(7)
+                      _vm._m(9)
                     ]
                   )
                 ]
@@ -57576,6 +57670,24 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("label", { staticClass: "col-sm-3 form-control-label" }, [
       _vm._v("Store Mobile "),
+      _c("i", { staticClass: "text-danger" }, [_vm._v("*")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", { staticClass: "col-sm-3 form-control-label" }, [
+      _vm._v("Store Website "),
+      _c("i", { staticClass: "text-danger" }, [_vm._v("*")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", { staticClass: "col-sm-3 form-control-label" }, [
+      _vm._v("Store Currency "),
       _c("i", { staticClass: "text-danger" }, [_vm._v("*")])
     ])
   },
@@ -79217,8 +79329,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! E:\xampp\htdocs\EasyInventory\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! E:\xampp\htdocs\EasyInventory\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /home/mnbtech/Projects/EasyInventory/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /home/mnbtech/Projects/EasyInventory/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

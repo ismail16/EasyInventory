@@ -21,6 +21,8 @@ class CreateSettingsTable extends Migration
             $table->string('owner_image')->nullable();
             $table->string('store_mobile')->nullable();
             $table->string('store_email')->nullable();
+            $table->string('store_website')->nullable();
+            $table->string('store_currency')->nullable();
             $table->string('navbar_color')->nullable();
             $table->string('sidebar_color')->nullable();
             $table->string('text_size')->nullable();
