@@ -33,7 +33,13 @@
 		  	$(document).ready(function () {
 		        //DatePicker Example
 		        $('#datetimepicker').datetimepicker({
-		        	format:'Y-m-d H:i:s'
+		        	format: "dd-mm-yyyy",
+		        	timepicker: false,
+		        });
+
+		         $('#datetimepicker2').datetimepicker({
+		        	format: "dd-mm-yyyy",
+		        	timepicker: false,
 		        });
 		    });
 		</script>
@@ -304,6 +310,7 @@
 
 		
 		@stack('scripts')
+
 		<script>
 			$('#printInvoice').click(function(){
 	            // Popup($('.invoice')[0].outerHTML);

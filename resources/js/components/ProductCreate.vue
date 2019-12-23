@@ -100,9 +100,11 @@
                                     <div class="form-group row">
                                         <label class="col-sm-3 col-form-label"> Make Date</label>
                                         <div class="col-sm-9">    
-                                            <input type="date" v-model="form.mfg_date" name="" class="form-control-sm w-100" :class="{ 'is-invalid': form.errors.has('mfg_date') }" autocomplete="off">
 
-                                            <has-error :form="form" field="mfg_date"></has-error>                                  
+                                            <input type="text" id="datetimepicker"  v-model="form.mfg_date" name="" class="form-control-sm w-100" :class="{ 'is-invalid': form.errors.has('mfg_date') }" autocomplete="off">
+                                            <!-- <input type="date" v-model="form.mfg_date" name="" class="form-control-sm w-100" :class="{ 'is-invalid': form.errors.has('mfg_date') }" autocomplete="off"> -->
+
+                                            <!-- <has-error :form="form" field="mfg_date"></has-error>                                   -->
                                             <!-- <datetime format="DD/MM/YYYY h:i:s" v-model="form.mfg_date" :class="{ 'is-invalid': form.errors.has('mfg_date') }" autocomplete="off"></datetime>
                                             <has-error :form="form" field="mfg_date"></has-error> -->
                                         </div>
@@ -112,8 +114,10 @@
                                 <div class="col-md-6">
                                     <div class="form-group row">
                                         <label class="col-sm-3 col-form-label">Expired Date</label>
-                                        <div class="col-sm-9">                                      
-                                            <datetime format="DD/MM/YYYY h:i:s" v-model="form.exp_date"  :class="{ 'is-invalid': form.errors.has('exp_date') }" autocomplete="off"></datetime>
+                                        <div class="col-sm-9">       
+                                            <input type="text" id="datetimepicker2"  v-model="form.exp_date" name="" class="form-control-sm w-100" :class="{ 'is-invalid': form.errors.has('exp_date') }" autocomplete="off">
+
+                                            <!-- <datetime format="DD/MM/YYYY h:i:s" v-model="form.exp_date"  :class="{ 'is-invalid': form.errors.has('exp_date') }" autocomplete="off"></datetime> -->
                                             <has-error :form="form" field="exp_date"></has-error>
                                         </div>
                                     </div>
@@ -177,6 +181,13 @@ export default {
     name: 'imageUpload',
 
     data() {
+
+        var date = new Date().getDay()
+        var month = new Date().getMonth()
+        var year = new Date().getFullYear()
+
+        var current_date = date + '-' + month + '-' + year
+
         return {
             form: new Form({
                 product_name : '',
@@ -186,8 +197,8 @@ export default {
                 product_qty : '',
                 supplier_price : '',
                 sell_price : '',
-                mfg_date : new Date().toLocaleString('en-BD'),
-                exp_date : new Date().toLocaleString('en-BD'),
+                mfg_date : current_date ,
+                exp_date : current_date,
                 model : '',
                 image : '',
                 product_detail : '',              

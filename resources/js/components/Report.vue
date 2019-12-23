@@ -18,52 +18,6 @@
     <section class="content">
       <div class="container">
 
-        <!-- <div class="row">
-          <div class="col-12 col-sm-6 col-md-3">
-            <div class="info-box">
-              <span class="info-box-icon bg-info elevation-1"><i class="fas fa-th-large"></i></span>
-              <div class="info-box-content">
-                <span class="info-box-text">Category</span>
-                <span class="info-box-number">
-                  {{ categories.length }}
-                </span>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-12 col-sm-6 col-md-3">
-            <div class="info-box">
-              <span class="info-box-icon bg-primary elevation-1"><i class="fab fa-product-hunt"></i></span>
-              <div class="info-box-content">
-                <span class="info-box-text">Product</span>
-                <span class="info-box-number">
-                  {{ products.length }}
-                </span>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-12 col-sm-6 col-md-3">
-            <div class="info-box mb-3">
-              <span class="info-box-icon bg-success elevation-1"><i class="fas fa-shopping-cart"></i></span>
-              <div class="info-box-content">
-                <span class="info-box-text">Sales</span>
-                <span class="info-box-number">{{invoices.length}}</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-12 col-sm-6 col-md-3">
-            <div class="info-box mb-3">
-              <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-users"></i></span>
-              <div class="info-box-content">
-                <span class="info-box-text">Supplier</span>
-                <span class="info-box-number">{{ suppliers.length }}</span>
-              </div>
-            </div>
-          </div>
-        </div> -->
-
        <div class="row">
           <div class="col-md-12">
             <div class="card">
@@ -159,6 +113,7 @@
             </div>
           </div>
         </div>
+        
       </div>
     </section>
     </div>
@@ -310,27 +265,32 @@
           $(function () {
             'use strict'
 
-            if (data.all_data) {
-              const month_name = ["January", "February", "March", "April", "May", "June","July", "August", "September", "October", "November", "December"
-                ];
-              const d = new Date(data.all_data[0].created_at);
-              $('#date_month').append(' '+month_name[d.getMonth()]+ ' ' + d.getFullYear())
-            }
-
+            var month_name = ["January", "February", "March", "April", "May", "June","July", "August", "September", "October", "November", "December"];
             var total_seles = 0;
-            for (let i = 0; i < data.all_data.length ; i++) {
-              total_seles+=parseFloat(data.all_data[i].paid_amount)
+            if (data.all_data.length > 0) {
+
+              var d = new Date(data.all_data[0].created_at);
+              $('#date_month').append(' '+month_name[d.getMonth()]+ ' ' + d.getFullYear())
+
+              for (let i = 0; i < data.all_data.length ; i++) {
+                total_seles+=parseFloat(data.all_data[i].paid_amount)
+              }
+
+            }else{
+              var now = new Date();
+              $('#date_month').append(' '+month_name[now.getMonth()]+ ' ' + now.getFullYear())
             }
 
             var monthNames = []
             for(var k = 0; k<data.days.length; k++){
-              monthNames.push(data.days[k] == 0? 0: data.days[k])
+               monthNames.push(data.days[k] == 0? 0: data.days[k])
             }
 
             var month_days = []
             for(var d = 1; d<=data.days.length; d++){
               month_days.push(d)
             }
+
 
             var salesChartCanvas = $('#salesChart').get(0).getContext('2d')
             var salesChartData = {

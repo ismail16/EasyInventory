@@ -19,6 +19,17 @@
   	<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
   	<link rel="stylesheet" href="{{ asset('css/customs.css')}}"> 
 
+  	<style type="text/css">
+  		.nav-link{
+  			padding-top: 0px !important;
+  			padding-bottom: 0px !important;
+  			/*margin-bottom: 0px !important;*/
+  		}
+  		h5 {
+            font-weight: bolder !important;
+        }
+  	</style>
+
 	</head>
 
 	<body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed">
@@ -40,9 +51,9 @@
 			</nav>  -->
 
 			<aside class="main-sidebar elevation-4 ">
-				<a href="{{ route('admin.dashboard') }}" class="brand-link bg-light">
-					<img src="{{ asset('/images/store_logo/'.$setting->store_logo) }}" alt="Logo" class="brand-image img-circle elevation-3"
-					style="opacity: .8">
+				<a href="{{ route('admin.dashboard') }}" class="brand-link bg-light text-center">
+					<!-- <img src="{{ asset('/images/store_logo/'.$setting->store_logo) }}" alt="Logo" class="brand-image img-circle elevation-3"
+					style="opacity: .8"> -->
 					<span class="brand-text font-weight-light">Documentation</span>
 				</a>
 

@@ -2335,6 +2335,101 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     var _ref;
@@ -2343,7 +2438,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       suppliers: '',
       products: '',
       categories: ''
-    }, _defineProperty(_ref, "products", ''), _defineProperty(_ref, "invoices", ''), _defineProperty(_ref, "setting", ''), _ref;
+    }, _defineProperty(_ref, "products", ''), _defineProperty(_ref, "invoices", ''), _defineProperty(_ref, "setting", ''), _defineProperty(_ref, "thisMonthInvoices", ''), _defineProperty(_ref, "expenses", ''), _ref;
   },
   mounted: function mounted() {
     this.getSuppliers();
@@ -2351,8 +2446,42 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     this.getCategory();
     this.getProducts();
     this.getInvoices(); // this.getSetting();
+
+    this.getThisMonthInvoices();
+    this.getExpenses();
   },
-  computed: {},
+  computed: {
+    grant_total: function grant_total() {
+      var total = 0;
+
+      for (var i = 0; i < this.thisMonthInvoices.length; i++) {
+        total += parseFloat(this.thisMonthInvoices[i].paid_amount);
+      }
+
+      return total;
+    },
+    total_due: function total_due() {
+      var total = 0;
+
+      for (var i = 0; i < this.thisMonthInvoices.length; i++) {
+        total += parseFloat(this.thisMonthInvoices[i].due_amount);
+      }
+
+      return total;
+    },
+    total_expense: function total_expense() {
+      var total = 0;
+
+      for (var i = 0; i < this.expenses.length; i++) {
+        total += parseFloat(this.expenses[i].expense_paid_amount);
+      }
+
+      return total;
+    },
+    total_invoice: function total_invoice() {
+      return this.thisMonthInvoices.length;
+    }
+  },
   methods: {
     getSuppliers: function getSuppliers() {
       var temp = this;
@@ -2393,6 +2522,113 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         temp.warehouses = response.data.data;
       })["catch"](function (error) {
         toastr.error('Something is wrong Data Loaded');
+      });
+    },
+    getThisMonthInvoices: function getThisMonthInvoices() {
+      var _this = this;
+
+      var date = new Date();
+      var month_no = date.getMonth() + 1;
+      var temp = this;
+      axios.get('/api/getThisMonthInvoices/' + month_no).then(function (response) {
+        temp.thisMonthInvoices = response.data.all_data;
+
+        _this.report(response.data);
+      })["catch"](function (error) {
+        this.loadin = true;
+        toastr.error('Something is wrong Data Loaded');
+      });
+    },
+    getExpenses: function getExpenses() {
+      var temp = this;
+      axios.get('/api/expenses').then(function (response) {
+        temp.expenses = response.data.data;
+      })["catch"](function (error) {
+        toastr.error('Something is wrong Data Loaded');
+      });
+    },
+    report: function report(data) {
+      $(function () {
+        'use strict';
+
+        var month_name = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+        var total_seles = 0;
+
+        if (data.all_data.length > 0) {
+          var d = new Date(data.all_data[0].created_at);
+          $('#date_month').append(' ' + month_name[d.getMonth()] + ' ' + d.getFullYear());
+
+          for (var i = 0; i < data.all_data.length; i++) {
+            total_seles += parseFloat(data.all_data[i].paid_amount);
+          }
+        } else {
+          var now = new Date();
+          $('#date_month').append(' ' + month_name[now.getMonth()] + ' ' + now.getFullYear());
+        }
+
+        var monthNames = [];
+
+        for (var k = 0; k < data.days.length; k++) {
+          monthNames.push(data.days[k] == 0 ? 0 : data.days[k]);
+        }
+
+        var month_days = [];
+
+        for (var d = 1; d <= data.days.length; d++) {
+          month_days.push(d);
+        }
+
+        var salesChartCanvas = $('#salesChart').get(0).getContext('2d');
+        var salesChartData = {
+          labels: month_days,
+          datasets: [{
+            label: 'Sales',
+            backgroundColor: 'rgba(60,141,188,0.9)',
+            borderColor: 'rgba(60,141,188,0.8)',
+            pointRadius: true,
+            pointColor: '#3b8bba',
+            pointStrokeColor: 'rgba(60,141,188,1)',
+            pointHighlightFill: '#fff',
+            pointHighlightStroke: 'rgba(60,141,188,1)',
+            data: monthNames
+          } // {
+          //   label               : 'Electronics',
+          //   backgroundColor     : 'rgba(210, 214, 222, 1)',
+          //   borderColor         : 'rgba(210, 214, 222, 1)',
+          //   pointRadius         : false,
+          //   pointColor          : 'rgba(210, 214, 222, 1)',
+          //   pointStrokeColor    : '#c1c7d1',
+          //   pointHighlightFill  : '#fff',
+          //   pointHighlightStroke: 'rgba(220,220,220,1)',
+          //   data                : [25000, 25000, 25000, 25000, 15000, 25000, 25000,25000, 10000, 8000, 25000, 15000, 20000, 25000,25000, 10000, 25000, 25000, 15000, 20000, 25000,25000, 10000, 8000, 25000, 15000, 20000, 25000, 25000, 10000, 8000, 25000, 15000, 20000, 25000]
+          // },
+          ]
+        };
+        var salesChartOptions = {
+          maintainAspectRatio: false,
+          responsive: true,
+          legend: {
+            display: true
+          },
+          scales: {
+            xAxes: [{
+              gridLines: {
+                display: true
+              }
+            }],
+            yAxes: [{
+              gridLines: {
+                display: true
+              }
+            }]
+          }
+        }; // This will get the first returned node in the jQuery collection.
+
+        var salesChart = new Chart(salesChartCanvas, {
+          type: 'line',
+          data: salesChartData,
+          options: salesChartOptions
+        });
       });
     } // getSetting(){
     //     var temp = this;
@@ -5245,6 +5481,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -5252,6 +5492,10 @@ __webpack_require__.r(__webpack_exports__);
   },
   name: 'imageUpload',
   data: function data() {
+    var date = new Date().getDay();
+    var month = new Date().getMonth();
+    var year = new Date().getFullYear();
+    var current_date = date + '-' + month + '-' + year;
     return {
       form: new Form({
         product_name: '',
@@ -5261,8 +5505,8 @@ __webpack_require__.r(__webpack_exports__);
         product_qty: '',
         supplier_price: '',
         sell_price: '',
-        mfg_date: new Date().toLocaleString('en-BD'),
-        exp_date: new Date().toLocaleString('en-BD'),
+        mfg_date: current_date,
+        exp_date: current_date,
         model: '',
         image: '',
         product_detail: ''
@@ -5762,51 +6006,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     var _ref;
@@ -5927,18 +6126,19 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       $(function () {
         'use strict';
 
-        if (data.all_data) {
-          var month_name = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-
-          var _d = new Date(data.all_data[0].created_at);
-
-          $('#date_month').append(' ' + month_name[_d.getMonth()] + ' ' + _d.getFullYear());
-        }
-
+        var month_name = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
         var total_seles = 0;
 
-        for (var i = 0; i < data.all_data.length; i++) {
-          total_seles += parseFloat(data.all_data[i].paid_amount);
+        if (data.all_data.length > 0) {
+          var d = new Date(data.all_data[0].created_at);
+          $('#date_month').append(' ' + month_name[d.getMonth()] + ' ' + d.getFullYear());
+
+          for (var i = 0; i < data.all_data.length; i++) {
+            total_seles += parseFloat(data.all_data[i].paid_amount);
+          }
+        } else {
+          var now = new Date();
+          $('#date_month').append(' ' + month_name[now.getMonth()] + ' ' + now.getFullYear());
         }
 
         var monthNames = [];
@@ -49035,6 +49235,109 @@ var render = function() {
               ])
             ])
           ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "row" }, [
+          _c("div", { staticClass: "col-md-12" }, [
+            _c("div", { staticClass: "card" }, [
+              _vm._m(5),
+              _vm._v(" "),
+              _c("div", { staticClass: "card-body" }, [
+                _c("div", { staticClass: "row" }, [
+                  _c("div", { staticClass: "col-md-4" }, [
+                    _c("p", { staticClass: "text-center" }, [
+                      _c("strong", [_vm._v("TOTAL INVOICE")]),
+                      _c("span", { staticClass: "m-1 pl-2 pr-2 bg-success" }, [
+                        _vm._v(_vm._s(_vm.total_invoice))
+                      ])
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _vm._m(6),
+                  _vm._v(" "),
+                  _vm._m(7),
+                  _vm._v(" "),
+                  _vm._m(8)
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "card-footer" }, [
+                _c("div", { staticClass: "row" }, [
+                  _c("div", { staticClass: "col-sm-3" }, [
+                    _c("div", { staticClass: "description-block" }, [
+                      _c("div", { staticClass: "info-box mb-3" }, [
+                        _vm._m(9),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "info-box-content" }, [
+                          _c("span", { staticClass: "info-box-text" }, [
+                            _vm._v("TOTAL REVENUE")
+                          ]),
+                          _vm._v(" "),
+                          _c("span", { staticClass: "info-box-number" }, [
+                            _vm._v(_vm._s(_vm.grant_total))
+                          ])
+                        ])
+                      ])
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-sm-3" }, [
+                    _c("div", { staticClass: "description-block" }, [
+                      _c("div", { staticClass: "info-box mb-3" }, [
+                        _vm._m(10),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "info-box-content" }, [
+                          _c("span", { staticClass: "info-box-text" }, [
+                            _vm._v("TOTAL DUE")
+                          ]),
+                          _vm._v(" "),
+                          _c("span", { staticClass: "info-box-number" }, [
+                            _vm._v(_vm._s(_vm.total_due))
+                          ])
+                        ])
+                      ])
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-sm-3" }, [
+                    _c("div", { staticClass: "description-block" }, [
+                      _c("div", { staticClass: "info-box mb-3" }, [
+                        _vm._m(11),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "info-box-content" }, [
+                          _c("span", { staticClass: "info-box-text" }, [
+                            _vm._v("TOTAL EXPENSE")
+                          ]),
+                          _vm._v(" "),
+                          _c("span", { staticClass: "info-box-number" }, [
+                            _vm._v(_vm._s(_vm.total_expense))
+                          ])
+                        ])
+                      ])
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-sm-3" }, [
+                    _c("div", { staticClass: "description-block" }, [
+                      _c("div", { staticClass: "info-box mb-3" }, [
+                        _vm._m(12),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "info-box-content" }, [
+                          _c("span", { staticClass: "info-box-text" }, [
+                            _vm._v("TOTAL PROFIT")
+                          ]),
+                          _vm._v(" "),
+                          _c("span", { staticClass: "info-box-number" }, [
+                            _vm._v(_vm._s(_vm.grant_total - _vm.total_expense))
+                          ])
+                        ])
+                      ])
+                    ])
+                  ])
+                ])
+              ])
+            ])
+          ])
         ])
       ])
     ])
@@ -49099,6 +49402,99 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("span", { staticClass: "info-box-icon bg-warning elevation-1" }, [
       _c("i", { staticClass: "fas fa-users" })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "card-header" }, [
+      _c("h5", { staticClass: "card-title" }, [_vm._v("This Month Report")]),
+      _vm._v(" "),
+      _c("div", { staticClass: "card-tools" }, [
+        _c(
+          "button",
+          {
+            staticClass: "btn btn-tool",
+            attrs: { type: "button", "data-widget": "collapse" }
+          },
+          [_c("i", { staticClass: "fas fa-minus" })]
+        ),
+        _vm._v(" "),
+        _c(
+          "button",
+          {
+            staticClass: "btn btn-tool",
+            attrs: { type: "button", "data-widget": "remove" }
+          },
+          [_c("i", { staticClass: "fas fa-times" })]
+        )
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-md-4" }, [
+      _c("p", { staticClass: "text-center" }, [
+        _c("strong", [_vm._v("This Month Sales Graph")])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-md-4" }, [
+      _c("p", { staticClass: "text-center" }, [
+        _c("strong", { attrs: { id: "date_month" } }, [_vm._v("Report of ")])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-md-12" }, [
+      _c("div", { staticClass: "chart" }, [
+        _c("canvas", {
+          staticStyle: { height: "180px" },
+          attrs: { id: "salesChart", height: "180" }
+        })
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("span", { staticClass: "info-box-icon bg-primary elevation-1" }, [
+      _c("i", { staticClass: "fas fa-shopping-cart" })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("span", { staticClass: "info-box-icon bg-warning elevation-1" }, [
+      _c("i", { staticClass: "fas fa-shopping-cart" })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("span", { staticClass: "info-box-icon bg-danger elevation-1" }, [
+      _c("i", { staticClass: "far fa-money-bill-alt" })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("span", { staticClass: "info-box-icon bg-success elevation-1" }, [
+      _c("i", { staticClass: "fas fa-dollar-sign" })
     ])
   }
 ]
@@ -55710,51 +56106,43 @@ var render = function() {
                                 [_vm._v(" Make Date")]
                               ),
                               _vm._v(" "),
-                              _c(
-                                "div",
-                                { staticClass: "col-sm-9" },
-                                [
-                                  _c("input", {
-                                    directives: [
-                                      {
-                                        name: "model",
-                                        rawName: "v-model",
-                                        value: _vm.form.mfg_date,
-                                        expression: "form.mfg_date"
-                                      }
-                                    ],
-                                    staticClass: "form-control-sm w-100",
-                                    class: {
-                                      "is-invalid": _vm.form.errors.has(
-                                        "mfg_date"
-                                      )
-                                    },
-                                    attrs: {
-                                      type: "date",
-                                      name: "",
-                                      autocomplete: "off"
-                                    },
-                                    domProps: { value: _vm.form.mfg_date },
-                                    on: {
-                                      input: function($event) {
-                                        if ($event.target.composing) {
-                                          return
-                                        }
-                                        _vm.$set(
-                                          _vm.form,
-                                          "mfg_date",
-                                          $event.target.value
-                                        )
-                                      }
+                              _c("div", { staticClass: "col-sm-9" }, [
+                                _c("input", {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: _vm.form.mfg_date,
+                                      expression: "form.mfg_date"
                                     }
-                                  }),
-                                  _vm._v(" "),
-                                  _c("has-error", {
-                                    attrs: { form: _vm.form, field: "mfg_date" }
-                                  })
-                                ],
-                                1
-                              )
+                                  ],
+                                  staticClass: "form-control-sm w-100",
+                                  class: {
+                                    "is-invalid": _vm.form.errors.has(
+                                      "mfg_date"
+                                    )
+                                  },
+                                  attrs: {
+                                    type: "text",
+                                    id: "datetimepicker",
+                                    name: "",
+                                    autocomplete: "off"
+                                  },
+                                  domProps: { value: _vm.form.mfg_date },
+                                  on: {
+                                    input: function($event) {
+                                      if ($event.target.composing) {
+                                        return
+                                      }
+                                      _vm.$set(
+                                        _vm.form,
+                                        "mfg_date",
+                                        $event.target.value
+                                      )
+                                    }
+                                  }
+                                })
+                              ])
                             ])
                           ]),
                           _vm._v(" "),
@@ -55770,22 +56158,39 @@ var render = function() {
                                 "div",
                                 { staticClass: "col-sm-9" },
                                 [
-                                  _c("datetime", {
+                                  _c("input", {
+                                    directives: [
+                                      {
+                                        name: "model",
+                                        rawName: "v-model",
+                                        value: _vm.form.exp_date,
+                                        expression: "form.exp_date"
+                                      }
+                                    ],
+                                    staticClass: "form-control-sm w-100",
                                     class: {
                                       "is-invalid": _vm.form.errors.has(
                                         "exp_date"
                                       )
                                     },
                                     attrs: {
-                                      format: "DD/MM/YYYY h:i:s",
+                                      type: "text",
+                                      id: "datetimepicker2",
+                                      name: "",
                                       autocomplete: "off"
                                     },
-                                    model: {
-                                      value: _vm.form.exp_date,
-                                      callback: function($$v) {
-                                        _vm.$set(_vm.form, "exp_date", $$v)
-                                      },
-                                      expression: "form.exp_date"
+                                    domProps: { value: _vm.form.exp_date },
+                                    on: {
+                                      input: function($event) {
+                                        if ($event.target.composing) {
+                                          return
+                                        }
+                                        _vm.$set(
+                                          _vm.form,
+                                          "exp_date",
+                                          $event.target.value
+                                        )
+                                      }
                                     }
                                   }),
                                   _vm._v(" "),
@@ -79348,8 +79753,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /home/mnbtech/Projects/EasyInventory/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /home/mnbtech/Projects/EasyInventory/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! E:\xampp\htdocs\EasyInventory\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! E:\xampp\htdocs\EasyInventory\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

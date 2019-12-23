@@ -30,7 +30,7 @@
                                         </div>
                                     </div>
                                     <div class="col-md-5">
-                                        <h2>Minimal Requirements</h2>
+                                        <h5>Minimal Requirements</h5>
                                         <ul>
                                             <li>MySQL 5.x or higher.</li>
                                             <li>PHP 7.0 or higher.</li>
@@ -39,11 +39,8 @@
                                             <li>Memory limit set up at least 64MB.</li>
                                             <li>Upload_max_filesize at least 10MB.</li>
                                         </ul>
-                                    </div>
 
-                                    <div class="col-md-7">
-
-                                        <h2>Follow these steps to install Easy Inventory.</h2>
+                                        <h5>Follow these steps to install Easy Inventory.</h5>
                                         <ul>
                                             <li><strong>Step 1</strong></li>
                                             <li>Unzip the downloaded folder</li>
@@ -51,7 +48,7 @@
                                             <li><strong>Step 2</strong></li>
                                             <li>Create Database, Database Username, Password.</li>
                                             <li>Then go to Your Server phpMyAdmin.</li>
-                                            <li>import easy_inventory_db.sql to database.</li>
+                                            <li>import <b> easy_inventory_db.sql</b> to database.</li>
                                             <li><strong>Step 3</strong></li>
                                             <li>Go to root folder open .env file </li>
                                             <li>
@@ -61,6 +58,11 @@
                                             </li>
                                             <li>All Done!</li>
                                         </ul>
+                                    </div>
+
+                                    <div class="col-md-7">
+
+                                       
                                         <ul class="enlarge">
                                             <li style="list-style: none;">
                                                 <p><strong>Installation Step</strong></p>
@@ -82,7 +84,7 @@
                                     <div class="col-md-5">
                                         <p style="text-align: justify;">To log-in to admin panel - please use the following login credentials provided below.</p>
                                         <p style="text-align: justify;">
-                                            <strong style="color: red">Please Note:</strong> Once you installed the system and you are on login page, if the login page not showing correctly OR not logging to system then you need to check again the connection file which is in side connection/connection.php, make sure your server have PHP-7 version installed. and (extension=php_mysqli.dll) should be enable on your server. if still problem exist you may contact us at ismail32cse@gmail.com, we will reply you as soon as possible.
+                                            <strong style="color: red">Please Note:</strong> Once you installed the system and you are on login page, if the login page not showing correctly OR not logging to system then you need to check again the connection file which is in side connection/connection.php, make sure your server have PHP-7 version installed. and (extension=php_mysqli.dll) should be enable on your server. if still problem exist you may contact us at <b>ismail32cse@gmail.com</b>, we will reply you as soon as possible.
                                             <br>
                                             <br>
 
