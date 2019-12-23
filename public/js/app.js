@@ -57336,7 +57336,7 @@ var render = function() {
                                   ],
                                   staticClass: "form-control-sm w-100",
                                   attrs: {
-                                    type: "number",
+                                    type: "text",
                                     placeholder: "Store Website"
                                   },
                                   domProps: { value: _vm.form.store_website },
@@ -57373,8 +57373,8 @@ var render = function() {
                                   ],
                                   staticClass: "form-control-sm w-100",
                                   attrs: {
-                                    type: "number",
-                                    placeholder: "Ex: $/£/€/¥/₤/Bs/Tk"
+                                    type: "text",
+                                    placeholder: "Ex: $/£/€/¥/₤/Rs/Bs/Tk"
                                   },
                                   domProps: { value: _vm.form.store_currency },
                                   on: {
