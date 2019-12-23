@@ -13,7 +13,7 @@
                   <div class="form-inline ml-3 mr-2">
                     <div class="input-group input-group-sm w-100">
                       <select v-model="queryFiled" class="form-control w-25" id="fileds">
-                        <option value="warehouse_name">warehouse Name</option>
+                        <option value="warehouse_name">Warehouse Name</option>
                       </select>
                       <input class="form-control w-50" v-model="query" type="search" placeholder="Search" aria-label="Search">
                       <div class="input-group-append">

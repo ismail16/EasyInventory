@@ -115,7 +115,7 @@
                             <label class="col-sm-2 col-form-label">Name <span class="text-red">*</span></label>
                             <div class="col-sm-10">
                                 <input v-model="form.supplier_name" type="text" name="supplier_name"
-                                    placeholder="supplier_name"
+                                    placeholder="Supplier name"
                                     class="form-control" :class="{ 'is-invalid': form.errors.has('supplier_name') }">
                                 <has-error :form="form" field="supplier_name"></has-error>
                             </div>

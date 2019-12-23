@@ -5242,6 +5242,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -5258,8 +5261,8 @@ __webpack_require__.r(__webpack_exports__);
         product_qty: '',
         supplier_price: '',
         sell_price: '',
-        mfg_date: new Date().toLocaleString('en-GB'),
-        exp_date: new Date().toLocaleString('en-GB'),
+        mfg_date: new Date().toLocaleString('en-BD'),
+        exp_date: new Date().toLocaleString('en-BD'),
         model: '',
         image: '',
         product_detail: ''
@@ -55711,22 +55714,38 @@ var render = function() {
                                 "div",
                                 { staticClass: "col-sm-9" },
                                 [
-                                  _c("datetime", {
+                                  _c("input", {
+                                    directives: [
+                                      {
+                                        name: "model",
+                                        rawName: "v-model",
+                                        value: _vm.form.mfg_date,
+                                        expression: "form.mfg_date"
+                                      }
+                                    ],
+                                    staticClass: "form-control-sm w-100",
                                     class: {
                                       "is-invalid": _vm.form.errors.has(
                                         "mfg_date"
                                       )
                                     },
                                     attrs: {
-                                      format: "DD/MM/YYYY h:i:s",
+                                      type: "date",
+                                      name: "",
                                       autocomplete: "off"
                                     },
-                                    model: {
-                                      value: _vm.form.mfg_date,
-                                      callback: function($$v) {
-                                        _vm.$set(_vm.form, "mfg_date", $$v)
-                                      },
-                                      expression: "form.mfg_date"
+                                    domProps: { value: _vm.form.mfg_date },
+                                    on: {
+                                      input: function($event) {
+                                        if ($event.target.composing) {
+                                          return
+                                        }
+                                        _vm.$set(
+                                          _vm.form,
+                                          "mfg_date",
+                                          $event.target.value
+                                        )
+                                      }
                                     }
                                   }),
                                   _vm._v(" "),
@@ -55800,7 +55819,7 @@ var render = function() {
                                       expression: "form.model"
                                     }
                                   ],
-                                  staticClass: "form-control-sm w-100 w-100",
+                                  staticClass: "form-control-sm w-100",
                                   attrs: { type: "", name: "detail" },
                                   domProps: { value: _vm.form.model },
                                   on: {
@@ -58929,7 +58948,7 @@ var render = function() {
                             attrs: {
                               type: "text",
                               name: "supplier_name",
-                              placeholder: "supplier_name"
+                              placeholder: "Supplier name"
                             },
                             domProps: { value: _vm.form.supplier_name },
                             on: {
@@ -61581,7 +61600,7 @@ var render = function() {
                               _c(
                                 "option",
                                 { attrs: { value: "warehouse_name" } },
-                                [_vm._v("warehouse Name")]
+                                [_vm._v("Warehouse Name")]
                               )
                             ]
                           ),

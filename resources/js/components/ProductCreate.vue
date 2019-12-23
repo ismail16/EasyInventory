@@ -99,9 +99,12 @@
                                 <div class="col-md-6">
                                     <div class="form-group row">
                                         <label class="col-sm-3 col-form-label"> Make Date</label>
-                                        <div class="col-sm-9">                                      
-                                            <datetime format="DD/MM/YYYY h:i:s" v-model="form.mfg_date" :class="{ 'is-invalid': form.errors.has('mfg_date') }" autocomplete="off"></datetime>
-                                            <has-error :form="form" field="mfg_date"></has-error>
+                                        <div class="col-sm-9">    
+                                            <input type="date" v-model="form.mfg_date" name="" class="form-control-sm w-100" :class="{ 'is-invalid': form.errors.has('mfg_date') }" autocomplete="off">
+
+                                            <has-error :form="form" field="mfg_date"></has-error>                                  
+                                            <!-- <datetime format="DD/MM/YYYY h:i:s" v-model="form.mfg_date" :class="{ 'is-invalid': form.errors.has('mfg_date') }" autocomplete="off"></datetime>
+                                            <has-error :form="form" field="mfg_date"></has-error> -->
                                         </div>
                                     </div>
                                 </div>
@@ -120,7 +123,7 @@
                                     <div class="form-group row">
                                         <label for="warehouse_id" class="col-sm-3 form-control-label">Model </label>
                                         <div class="col-sm-9">
-                                           <input type="" name="detail" v-model="form.model" class="form-control-sm w-100 w-100">
+                                           <input type="" name="detail" v-model="form.model" class="form-control-sm w-100">
                                         </div>
                                     </div>
                                 </div>
@@ -183,8 +186,8 @@ export default {
                 product_qty : '',
                 supplier_price : '',
                 sell_price : '',
-                mfg_date : new Date().toLocaleString('en-GB'),
-                exp_date : new Date().toLocaleString('en-GB'),
+                mfg_date : new Date().toLocaleString('en-BD'),
+                exp_date : new Date().toLocaleString('en-BD'),
                 model : '',
                 image : '',
                 product_detail : '',              
