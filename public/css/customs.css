@@ -145,3 +145,8 @@
         page-break-before: always
       }
     }
+
+    .report_graph{
+      max-height: 150px;
+      overflow: auto;
+    }

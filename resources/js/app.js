@@ -70,6 +70,7 @@ const router = new VueRouter({
     routes, // short for `routes: routes`
 });
 
+const users = [];
 
 
 // Vue.component('example-component', require('./components/ExampleComponent.vue').default);
@@ -80,17 +81,17 @@ const app= new Vue({
     el: '#app',
     router,
 
-    data: function() {
-        return {
-          users: []
-        };
-      },
+    // data: {
+    //     users: []
+    // },
 
     created() {
         var vm = this;
         axios.get('/api/setting/1')
         .then((response) => {
-            vm.users = response.data;
+
+            return response.data;
+            console.log('response.data')
             console.log(response.data)
         })
         .catch(function (error) {

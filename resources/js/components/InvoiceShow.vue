@@ -12,9 +12,9 @@
                                     <img v-else src="/images/logo.png" class="img-fluid" width="50" data-holder-rendered="true"/>
                                     
                                     <h5 class="name">{{ setting.store_name }}</h5>
-                                <div class="address">{{ setting.store_address }}</div>
-                                <div class="email">{{ setting.store_mobile }}</div>
-                                <div class="email">{{ setting.store_email }}</div>
+                                    <div class="address">{{ setting.store_address }}</div>
+                                    <div class="email">{{ setting.store_mobile }}</div>
+                                    <div class="email">{{ setting.store_email }}</div>
                             </div>
 
                             <div class="col company-details" style="text-align:right">
@@ -216,6 +216,7 @@ export default {
                     toastr.error('Something is wrong Data Loaded')
               });
         },
+        
         getImgUrl: function(image){
           var photo = "/images/store_logo/"+ image
           return photo

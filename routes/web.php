@@ -16,4 +16,6 @@ Route::group(['as'=>'author.', 'prefix'=>'author','namespace'=>'Author', 'middle
     Route::get('/dashboard', 'PagesController@index')->name('dashboard');
 });
 
-Route::get('{path}',"HomeController@index")->where('path','([-a-z0-9_\s]+)');
+
+// Route::get('{path}',"HomeController@index")->where('path','([-a-z0-9_\s]+)');
+Route::any('{query}','HomeController@index')->where('query', '.*');

@@ -2430,22 +2430,25 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     var _ref;
 
     return _ref = {
-      suppliers: '',
+      customers: '',
       products: '',
       categories: ''
     }, _defineProperty(_ref, "products", ''), _defineProperty(_ref, "invoices", ''), _defineProperty(_ref, "setting", ''), _defineProperty(_ref, "thisMonthInvoices", ''), _defineProperty(_ref, "expenses", ''), _ref;
   },
   mounted: function mounted() {
-    this.getSuppliers();
+    this.getCustomers();
     this.getWarehouses();
     this.getCategory();
-    this.getProducts();
-    this.getInvoices(); // this.getSetting();
+    this.getProducts(); // this.getInvoices();
+    // this.getSetting();
 
     this.getThisMonthInvoices();
     this.getExpenses();
@@ -2483,11 +2486,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     }
   },
   methods: {
-    getSuppliers: function getSuppliers() {
+    getCustomers: function getCustomers() {
       var temp = this;
-      axios.get('/api/suppliers').then(function (response) {
-        temp.suppliers = response.data.data;
+      axios.get('/api/customers').then(function (response) {
+        temp.customers = response.data.data;
       })["catch"](function (error) {
+        this.loadin = true;
         toastr.error('Something is wrong Data Loaded');
       });
     },
@@ -2504,15 +2508,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       axios.get('/api/products').then(function (response) {
         temp.products = response.data.data;
       })["catch"](function (error) {
-        toastr.error('Something is wrong Data Loaded');
-      });
-    },
-    getInvoices: function getInvoices() {
-      var temp = this;
-      axios.get('/api/invoices').then(function (response) {
-        temp.Invoices = response.data.data;
-      })["catch"](function (error) {
-        this.loadin = true;
         toastr.error('Something is wrong Data Loaded');
       });
     },
@@ -2630,18 +2625,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           options: salesChartOptions
         });
       });
-    } // getSetting(){
-    //     var temp = this;
-    //     axios.get('/api/setting/1')
-    //       .then((response) => {
-    //         temp.form = response.data;
-    //       })
-    //       .catch(function (error) {
-    //         this.loadin = true; 
-    //             toastr.error('Something is wrong Data Loaded')
-    //       });
-    // },
-
+    }
   }
 });
 
@@ -2926,7 +2910,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var vuejs_datetimepicker__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuejs-datetimepicker */ "./node_modules/vuejs-datetimepicker/src/datetime_picker.vue");
 //
 //
 //
@@ -3065,12 +3048,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-
+//
+//
+// import datetime from 'vuejs-datetimepicker'
 /* harmony default export */ __webpack_exports__["default"] = ({
-  components: {
-    datetime: vuejs_datetimepicker__WEBPACK_IMPORTED_MODULE_0__["default"]
-  },
+  // components: { datetime },
   data: function data() {
+    var today = new Date();
+    var current_date = today.getDate() + '-' + (today.getMonth() + 1) + '-' + today.getFullYear();
     return {
       form: new Form({
         id: '',
@@ -3079,7 +3064,7 @@ __webpack_require__.r(__webpack_exports__);
           expense_quantity: 1,
           expense_amount: 0
         }],
-        expense_date: new Date().toLocaleString(),
+        expense_date: current_date,
         expense_total_amount: '',
         expense_paid_amount: '',
         expense_due: ''
@@ -3140,7 +3125,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var vuejs_datetimepicker__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuejs-datetimepicker */ "./node_modules/vuejs-datetimepicker/src/datetime_picker.vue");
 //
 //
 //
@@ -3275,11 +3259,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-
+//
+//
+// import datetime from 'vuejs-datetimepicker'
 /* harmony default export */ __webpack_exports__["default"] = ({
-  components: {
-    datetime: vuejs_datetimepicker__WEBPACK_IMPORTED_MODULE_0__["default"]
-  },
+  // components: { datetime },
   data: function data() {
     return {
       form: new Form({
@@ -3602,7 +3586,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var vuejs_datetimepicker__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuejs-datetimepicker */ "./node_modules/vuejs-datetimepicker/src/datetime_picker.vue");
 //
 //
 //
@@ -3786,12 +3769,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-
+//
+// import datetime from 'vuejs-datetimepicker'
 /* harmony default export */ __webpack_exports__["default"] = ({
-  components: {
-    datetime: vuejs_datetimepicker__WEBPACK_IMPORTED_MODULE_0__["default"]
-  },
+  // components: { datetime },
   data: function data() {
+    var today = new Date();
+    var current_date = today.getDate() + '-' + (today.getMonth() + 1) + '-' + today.getFullYear();
     return {
       form: new Form({
         id: '',
@@ -3799,7 +3783,7 @@ __webpack_require__.r(__webpack_exports__);
         customer_phone: '',
         customer_email: '',
         customer_address: '',
-        invoice_date: new Date().toLocaleString(),
+        invoice_date: current_date,
         products: [{
           product_name: '',
           product_quantity: 1,
@@ -3952,6 +3936,7 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuejs_datetimepicker__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuejs-datetimepicker */ "./node_modules/vuejs-datetimepicker/src/datetime_picker.vue");
+//
 //
 //
 //
@@ -4728,7 +4713,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var vuejs_datetimepicker__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuejs-datetimepicker */ "./node_modules/vuejs-datetimepicker/src/datetime_picker.vue");
 //
 //
 //
@@ -4846,12 +4830,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-
+//
+//
+//
+// import datetime from 'vuejs-datetimepicker'
 /* harmony default export */ __webpack_exports__["default"] = ({
-  components: {
-    datetime: vuejs_datetimepicker__WEBPACK_IMPORTED_MODULE_0__["default"]
-  },
+  // components: { datetime },
   data: function data() {
+    var today = new Date();
+    var current_date = today.getDate() + '-' + (today.getMonth() + 1) + '-' + today.getFullYear();
     return {
       form: new Form({
         id: '',
@@ -4860,8 +4847,8 @@ __webpack_require__.r(__webpack_exports__);
         loaner_email: '',
         loaner_address: '',
         loan_amount: '',
-        loan_taken_date: new Date().toLocaleString(),
-        loan_end_date: new Date().toLocaleString(),
+        loan_taken_date: current_date,
+        loan_end_date: current_date,
         loan_detail: ''
       })
     };
@@ -4896,6 +4883,8 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuejs_datetimepicker__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuejs-datetimepicker */ "./node_modules/vuejs-datetimepicker/src/datetime_picker.vue");
+//
+//
 //
 //
 //
@@ -5492,10 +5481,8 @@ __webpack_require__.r(__webpack_exports__);
   },
   name: 'imageUpload',
   data: function data() {
-    var date = new Date().getDay();
-    var month = new Date().getMonth();
-    var year = new Date().getFullYear();
-    var current_date = date + '-' + month + '-' + year;
+    var today = new Date();
+    var current_date = today.getDate() + '-' + (today.getMonth() + 1) + '-' + today.getFullYear();
     return {
       form: new Form({
         product_name: '',
@@ -7589,6 +7576,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -7598,6 +7587,8 @@ __webpack_require__.r(__webpack_exports__);
   // https://www.youtube.com/watch?v=h6sTdAX6yTs
   // https://github.com/codekerala/laravel-vuejs-invoice/blob/master/resources/views/invoices/form.blade.php
   data: function data() {
+    var today = new Date();
+    var current_date = today.getDate() + '-' + (today.getMonth() + 1) + '-' + today.getFullYear();
     return {
       form: new Form({
         id: '',
@@ -7608,7 +7599,7 @@ __webpack_require__.r(__webpack_exports__);
         }],
         supplier_id: '',
         warehouse_id: '',
-        invoice_date: new Date().toLocaleString(),
+        invoice_date: current_date,
         image: '',
         grand_total_price: '',
         paid_amount: '',
@@ -7907,6 +7898,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -8050,6 +8043,9 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+//
 //
 //
 //
@@ -8171,12 +8167,13 @@ __webpack_require__.r(__webpack_exports__);
         discount: '',
         due_amount: ''
       }),
-      img_url: '',
-      product_arr: []
+      product_arr: [],
+      setting: ''
     };
   },
   mounted: function mounted() {
     this.getSupplierInvoice();
+    this.getSettings();
   },
   computed: {
     grand_total_price: function grand_total_price() {
@@ -8194,7 +8191,7 @@ __webpack_require__.r(__webpack_exports__);
       return due_ammount;
     }
   },
-  methods: {
+  methods: _defineProperty({
     printInvoice: function printInvoice() {
       var printContents = document.getElementById('printableArea').innerHTML;
       var originalContents = document.body.innerHTML;
@@ -8214,8 +8211,21 @@ __webpack_require__.r(__webpack_exports__);
       })["catch"](function (error) {
         toastr.error('Something is wrong Data Loaded');
       });
+    },
+    getSettings: function getSettings() {
+      var temp = this;
+      axios.get('/api/setting/1').then(function (response) {
+        temp.setting = response.data;
+      })["catch"](function (error) {
+        this.loadin = true;
+        toastr.error('Something is wrong Data Loaded');
+      });
     }
-  }
+  }, "getImgUrl", function getImgUrl(image) {
+    var photo = "/images/store_logo/" + image;
+    return photo;
+    console.log(photo);
+  })
 });
 
 /***/ }),
@@ -49164,7 +49174,7 @@ var render = function() {
     _vm._m(0),
     _vm._v(" "),
     _c("section", { staticClass: "content" }, [
-      _c("div", { staticClass: "container-fluid" }, [
+      _c("div", { staticClass: "container" }, [
         _c("div", { staticClass: "row" }, [
           _c("div", { staticClass: "col-12 col-sm-6 col-md-3" }, [
             _c("div", { staticClass: "info-box" }, [
@@ -49214,7 +49224,7 @@ var render = function() {
                 _c("span", { staticClass: "info-box-text" }, [_vm._v("Sales")]),
                 _vm._v(" "),
                 _c("span", { staticClass: "info-box-number" }, [
-                  _vm._v(_vm._s(_vm.invoices.length))
+                  _vm._v(_vm._s(_vm.total_invoice))
                 ])
               ])
             ])
@@ -49226,11 +49236,11 @@ var render = function() {
               _vm._v(" "),
               _c("div", { staticClass: "info-box-content" }, [
                 _c("span", { staticClass: "info-box-text" }, [
-                  _vm._v("Supplier")
+                  _vm._v("Customers")
                 ]),
                 _vm._v(" "),
                 _c("span", { staticClass: "info-box-number" }, [
-                  _vm._v(_vm._s(_vm.suppliers.length))
+                  _vm._v(_vm._s(_vm.customers.length))
                 ])
               ])
             ])
@@ -49242,22 +49252,45 @@ var render = function() {
             _c("div", { staticClass: "card" }, [
               _vm._m(5),
               _vm._v(" "),
-              _c("div", { staticClass: "card-body" }, [
+              _c("div", { staticClass: "card-body pt-1 pb-1" }, [
                 _c("div", { staticClass: "row" }, [
-                  _c("div", { staticClass: "col-md-4" }, [
-                    _c("p", { staticClass: "text-center" }, [
-                      _c("strong", [_vm._v("TOTAL INVOICE")]),
+                  _c("div", { staticClass: "col-md-3 border-right" }, [
+                    _c("p", { staticClass: "border-bottom mb-1" }, [
+                      _c("strong", [_vm._v("SELL INVOICE")]),
+                      _vm._v(" "),
                       _c("span", { staticClass: "m-1 pl-2 pr-2 bg-success" }, [
                         _vm._v(_vm._s(_vm.total_invoice))
                       ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "report_graph" }, [
+                      _vm.thisMonthInvoices
+                        ? _c(
+                            "div",
+                            _vm._l(_vm.thisMonthInvoices, function(invoice) {
+                              return _c("p", { staticClass: "mb-0" }, [
+                                _c("span", [
+                                  _vm._v(
+                                    "Name: " + _vm._s(invoice.customer_name)
+                                  )
+                                ]),
+                                _vm._v(" - \n                        "),
+                                _c("b", [
+                                  _vm._v(
+                                    "$ " + _vm._s(invoice.grand_total_price)
+                                  )
+                                ])
+                              ])
+                            }),
+                            0
+                          )
+                        : _c("div", [
+                            _c("p", [_vm._v("Invoice Not Available")])
+                          ])
                     ])
                   ]),
                   _vm._v(" "),
-                  _vm._m(6),
-                  _vm._v(" "),
-                  _vm._m(7),
-                  _vm._v(" "),
-                  _vm._m(8)
+                  _vm._m(6)
                 ])
               ]),
               _vm._v(" "),
@@ -49266,7 +49299,7 @@ var render = function() {
                   _c("div", { staticClass: "col-sm-3" }, [
                     _c("div", { staticClass: "description-block" }, [
                       _c("div", { staticClass: "info-box mb-3" }, [
-                        _vm._m(9),
+                        _vm._m(7),
                         _vm._v(" "),
                         _c("div", { staticClass: "info-box-content" }, [
                           _c("span", { staticClass: "info-box-text" }, [
@@ -49284,7 +49317,7 @@ var render = function() {
                   _c("div", { staticClass: "col-sm-3" }, [
                     _c("div", { staticClass: "description-block" }, [
                       _c("div", { staticClass: "info-box mb-3" }, [
-                        _vm._m(10),
+                        _vm._m(8),
                         _vm._v(" "),
                         _c("div", { staticClass: "info-box-content" }, [
                           _c("span", { staticClass: "info-box-text" }, [
@@ -49302,7 +49335,7 @@ var render = function() {
                   _c("div", { staticClass: "col-sm-3" }, [
                     _c("div", { staticClass: "description-block" }, [
                       _c("div", { staticClass: "info-box mb-3" }, [
-                        _vm._m(11),
+                        _vm._m(9),
                         _vm._v(" "),
                         _c("div", { staticClass: "info-box-content" }, [
                           _c("span", { staticClass: "info-box-text" }, [
@@ -49320,7 +49353,7 @@ var render = function() {
                   _c("div", { staticClass: "col-sm-3" }, [
                     _c("div", { staticClass: "description-block" }, [
                       _c("div", { staticClass: "info-box mb-3" }, [
-                        _vm._m(12),
+                        _vm._m(10),
                         _vm._v(" "),
                         _c("div", { staticClass: "info-box-content" }, [
                           _c("span", { staticClass: "info-box-text" }, [
@@ -49348,7 +49381,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "content-header" }, [
+    return _c("div", { staticClass: "content-header pb-0" }, [
       _c("div", { staticClass: "container-fluid" }, [
         _c("div", { staticClass: "row mb-2" }, [
           _c("div", { staticClass: "col-sm-6" }, [
@@ -49409,7 +49442,9 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "card-header" }, [
-      _c("h5", { staticClass: "card-title" }, [_vm._v("This Month Report")]),
+      _c("h6", { staticClass: "card-title" }, [
+        _c("strong", { attrs: { id: "date_month" } }, [_vm._v("Report of ")])
+      ]),
       _vm._v(" "),
       _c("div", { staticClass: "card-tools" }, [
         _c(
@@ -49436,27 +49471,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-md-4" }, [
-      _c("p", { staticClass: "text-center" }, [
-        _c("strong", [_vm._v("This Month Sales Graph")])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-md-4" }, [
-      _c("p", { staticClass: "text-center" }, [
-        _c("strong", { attrs: { id: "date_month" } }, [_vm._v("Report of ")])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-md-12" }, [
+    return _c("div", { staticClass: "col-md-9" }, [
       _c("div", { staticClass: "chart" }, [
         _c("canvas", {
           staticStyle: { height: "180px" },
@@ -49987,24 +50002,39 @@ var render = function() {
                                 "div",
                                 { staticClass: "col-sm-10" },
                                 [
-                                  _c("datetime", {
-                                    staticClass: "form-control-sm w-100",
+                                  _c("input", {
+                                    directives: [
+                                      {
+                                        name: "model",
+                                        rawName: "v-model",
+                                        value: _vm.form.expense_date,
+                                        expression: "form.expense_date"
+                                      }
+                                    ],
+                                    staticClass:
+                                      "form-control-sm w-100 datetimepicker",
                                     class: {
                                       "is-invalid": _vm.form.errors.has(
                                         "expense_date"
                                       )
                                     },
                                     attrs: {
-                                      format: "DD/MM/YYYY h:i:s",
-                                      width: "300px",
+                                      type: "text",
+                                      name: "",
                                       autocomplete: "off"
                                     },
-                                    model: {
-                                      value: _vm.form.expense_date,
-                                      callback: function($$v) {
-                                        _vm.$set(_vm.form, "expense_date", $$v)
-                                      },
-                                      expression: "form.expense_date"
+                                    domProps: { value: _vm.form.expense_date },
+                                    on: {
+                                      input: function($event) {
+                                        if ($event.target.composing) {
+                                          return
+                                        }
+                                        _vm.$set(
+                                          _vm.form,
+                                          "expense_date",
+                                          $event.target.value
+                                        )
+                                      }
                                     }
                                   }),
                                   _vm._v(" "),
@@ -50635,28 +50665,38 @@ var render = function() {
                                 [_vm._v("Date")]
                               ),
                               _vm._v(" "),
-                              _c(
-                                "div",
-                                { staticClass: "col-sm-10" },
-                                [
-                                  _c("datetime", {
-                                    staticClass: "form-control-sm w-100",
-                                    attrs: {
-                                      format: "DD/MM/YYYY h:i:s",
-                                      width: "300px",
-                                      autocomplete: "off"
-                                    },
-                                    model: {
+                              _c("div", { staticClass: "col-sm-10" }, [
+                                _c("input", {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
                                       value: _vm.form.expense_date,
-                                      callback: function($$v) {
-                                        _vm.$set(_vm.form, "expense_date", $$v)
-                                      },
                                       expression: "form.expense_date"
                                     }
-                                  })
-                                ],
-                                1
-                              )
+                                  ],
+                                  staticClass:
+                                    "form-control-sm w-100 datetimepicker",
+                                  attrs: {
+                                    type: "text",
+                                    name: "",
+                                    autocomplete: "off"
+                                  },
+                                  domProps: { value: _vm.form.expense_date },
+                                  on: {
+                                    input: function($event) {
+                                      if ($event.target.composing) {
+                                        return
+                                      }
+                                      _vm.$set(
+                                        _vm.form,
+                                        "expense_date",
+                                        $event.target.value
+                                      )
+                                    }
+                                  }
+                                })
+                              ])
                             ])
                           ]),
                           _vm._v(" "),
@@ -51512,7 +51552,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("tr", [
-      _c("td", { attrs: { colspan: "9" } }, [
+      _c("td", { attrs: { colspan: "10" } }, [
         _c("div", { staticClass: "p-3 mb-2" }, [
           _c("h3", { staticClass: "text-center text-danger" }, [
             _vm._v("Opps!!")
@@ -51845,23 +51885,39 @@ var render = function() {
                                 "div",
                                 { staticClass: "col-sm-9" },
                                 [
-                                  _c("datetime", {
+                                  _c("input", {
+                                    directives: [
+                                      {
+                                        name: "model",
+                                        rawName: "v-model",
+                                        value: _vm.form.invoice_date,
+                                        expression: "form.invoice_date"
+                                      }
+                                    ],
+                                    staticClass:
+                                      "form-control-sm w-100 datetimepicker",
                                     class: {
                                       "is-invalid": _vm.form.errors.has(
-                                        "invoice_date"
+                                        "mfg_date"
                                       )
                                     },
                                     attrs: {
-                                      format: "DD/MM/YYYY h:i:s",
-                                      width: "200px",
+                                      type: "text",
+                                      name: "",
                                       autocomplete: "off"
                                     },
-                                    model: {
-                                      value: _vm.form.invoice_date,
-                                      callback: function($$v) {
-                                        _vm.$set(_vm.form, "invoice_date", $$v)
-                                      },
-                                      expression: "form.invoice_date"
+                                    domProps: { value: _vm.form.invoice_date },
+                                    on: {
+                                      input: function($event) {
+                                        if ($event.target.composing) {
+                                          return
+                                        }
+                                        _vm.$set(
+                                          _vm.form,
+                                          "invoice_date",
+                                          $event.target.value
+                                        )
+                                      }
                                     }
                                   }),
                                   _vm._v(" "),
@@ -52877,31 +52933,38 @@ var render = function() {
                               _c("div", { staticClass: "form-group row" }, [
                                 _vm._m(4),
                                 _vm._v(" "),
-                                _c(
-                                  "div",
-                                  { staticClass: "col-sm-9" },
-                                  [
-                                    _c("datetime", {
-                                      attrs: {
-                                        format: "DD/MM/YYYY h:i:s",
-                                        width: "200px",
-                                        autocomplete: "off"
-                                      },
-                                      model: {
+                                _c("div", { staticClass: "col-sm-9" }, [
+                                  _c("input", {
+                                    directives: [
+                                      {
+                                        name: "model",
+                                        rawName: "v-model",
                                         value: _vm.form.invoice_date,
-                                        callback: function($$v) {
-                                          _vm.$set(
-                                            _vm.form,
-                                            "invoice_date",
-                                            $$v
-                                          )
-                                        },
                                         expression: "form.invoice_date"
                                       }
-                                    })
-                                  ],
-                                  1
-                                )
+                                    ],
+                                    staticClass:
+                                      "form-control-sm w-100 datetimepicker",
+                                    attrs: {
+                                      type: "text",
+                                      name: "",
+                                      autocomplete: "off"
+                                    },
+                                    domProps: { value: _vm.form.invoice_date },
+                                    on: {
+                                      input: function($event) {
+                                        if ($event.target.composing) {
+                                          return
+                                        }
+                                        _vm.$set(
+                                          _vm.form,
+                                          "invoice_date",
+                                          $event.target.value
+                                        )
+                                      }
+                                    }
+                                  })
+                                ])
                               ])
                             ])
                           ]
@@ -54684,32 +54747,38 @@ var render = function() {
                                 [_vm._v("Loan taken date")]
                               ),
                               _vm._v(" "),
-                              _c(
-                                "div",
-                                { staticClass: "col-sm-9" },
-                                [
-                                  _c("datetime", {
-                                    staticClass: "w-100",
-                                    attrs: {
-                                      format: "DD/MM/YYYY h:i:s",
-                                      width: "300px",
-                                      placeholder: "Loan taken date"
-                                    },
-                                    model: {
+                              _c("div", { staticClass: "col-sm-9" }, [
+                                _c("input", {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
                                       value: _vm.form.loan_taken_date,
-                                      callback: function($$v) {
-                                        _vm.$set(
-                                          _vm.form,
-                                          "loan_taken_date",
-                                          $$v
-                                        )
-                                      },
                                       expression: "form.loan_taken_date"
                                     }
-                                  })
-                                ],
-                                1
-                              )
+                                  ],
+                                  staticClass:
+                                    "form-control-sm w-100 datetimepicker",
+                                  attrs: {
+                                    type: "text",
+                                    name: "",
+                                    autocomplete: "off"
+                                  },
+                                  domProps: { value: _vm.form.loan_taken_date },
+                                  on: {
+                                    input: function($event) {
+                                      if ($event.target.composing) {
+                                        return
+                                      }
+                                      _vm.$set(
+                                        _vm.form,
+                                        "loan_taken_date",
+                                        $event.target.value
+                                      )
+                                    }
+                                  }
+                                })
+                              ])
                             ]),
                             _vm._v(" "),
                             _c("div", { staticClass: "form-group row mb-2" }, [
@@ -54722,28 +54791,38 @@ var render = function() {
                                 [_vm._v("Loan end date")]
                               ),
                               _vm._v(" "),
-                              _c(
-                                "div",
-                                { staticClass: "col-sm-9" },
-                                [
-                                  _c("datetime", {
-                                    staticClass: "w-100",
-                                    attrs: {
-                                      format: "DD/MM/YYYY h:i:s",
-                                      width: "300px",
-                                      placeholder: "Loan end date"
-                                    },
-                                    model: {
+                              _c("div", { staticClass: "col-sm-9" }, [
+                                _c("input", {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
                                       value: _vm.form.loan_end_date,
-                                      callback: function($$v) {
-                                        _vm.$set(_vm.form, "loan_end_date", $$v)
-                                      },
                                       expression: "form.loan_end_date"
                                     }
-                                  })
-                                ],
-                                1
-                              )
+                                  ],
+                                  staticClass:
+                                    "form-control-sm w-100 datetimepicker",
+                                  attrs: {
+                                    type: "text",
+                                    name: "",
+                                    autocomplete: "off"
+                                  },
+                                  domProps: { value: _vm.form.loan_end_date },
+                                  on: {
+                                    input: function($event) {
+                                      if ($event.target.composing) {
+                                        return
+                                      }
+                                      _vm.$set(
+                                        _vm.form,
+                                        "loan_end_date",
+                                        $event.target.value
+                                      )
+                                    }
+                                  }
+                                })
+                              ])
                             ]),
                             _vm._v(" "),
                             _c("div", { staticClass: "form-group row" }, [
@@ -55153,32 +55232,38 @@ var render = function() {
                                 [_vm._v("Loan taken date")]
                               ),
                               _vm._v(" "),
-                              _c(
-                                "div",
-                                { staticClass: "col-sm-9" },
-                                [
-                                  _c("datetime", {
-                                    staticClass: "w-100",
-                                    attrs: {
-                                      format: "DD/MM/YYYY h:i:s",
-                                      width: "300px",
-                                      placeholder: "Loan taken date"
-                                    },
-                                    model: {
+                              _c("div", { staticClass: "col-sm-9" }, [
+                                _c("input", {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
                                       value: _vm.form.loan_taken_date,
-                                      callback: function($$v) {
-                                        _vm.$set(
-                                          _vm.form,
-                                          "loan_taken_date",
-                                          $$v
-                                        )
-                                      },
                                       expression: "form.loan_taken_date"
                                     }
-                                  })
-                                ],
-                                1
-                              )
+                                  ],
+                                  staticClass:
+                                    "form-control-sm w-100 datetimepicker",
+                                  attrs: {
+                                    type: "text",
+                                    name: "",
+                                    autocomplete: "off"
+                                  },
+                                  domProps: { value: _vm.form.loan_taken_date },
+                                  on: {
+                                    input: function($event) {
+                                      if ($event.target.composing) {
+                                        return
+                                      }
+                                      _vm.$set(
+                                        _vm.form,
+                                        "loan_taken_date",
+                                        $event.target.value
+                                      )
+                                    }
+                                  }
+                                })
+                              ])
                             ]),
                             _vm._v(" "),
                             _c("div", { staticClass: "form-group row mb-1" }, [
@@ -55191,28 +55276,38 @@ var render = function() {
                                 [_vm._v("Loan end date")]
                               ),
                               _vm._v(" "),
-                              _c(
-                                "div",
-                                { staticClass: "col-sm-9" },
-                                [
-                                  _c("datetime", {
-                                    staticClass: "w-100",
-                                    attrs: {
-                                      format: "DD/MM/YYYY h:i:s",
-                                      width: "300px",
-                                      placeholder: "Loan end date"
-                                    },
-                                    model: {
+                              _c("div", { staticClass: "col-sm-9" }, [
+                                _c("input", {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
                                       value: _vm.form.loan_end_date,
-                                      callback: function($$v) {
-                                        _vm.$set(_vm.form, "loan_end_date", $$v)
-                                      },
                                       expression: "form.loan_end_date"
                                     }
-                                  })
-                                ],
-                                1
-                              )
+                                  ],
+                                  staticClass:
+                                    "form-control-sm w-100 datetimepicker",
+                                  attrs: {
+                                    type: "text",
+                                    name: "",
+                                    autocomplete: "off"
+                                  },
+                                  domProps: { value: _vm.form.loan_end_date },
+                                  on: {
+                                    input: function($event) {
+                                      if ($event.target.composing) {
+                                        return
+                                      }
+                                      _vm.$set(
+                                        _vm.form,
+                                        "loan_end_date",
+                                        $event.target.value
+                                      )
+                                    }
+                                  }
+                                })
+                              ])
                             ]),
                             _vm._v(" "),
                             _c("div", { staticClass: "form-group row" }, [
@@ -56116,7 +56211,8 @@ var render = function() {
                                       expression: "form.mfg_date"
                                     }
                                   ],
-                                  staticClass: "form-control-sm w-100",
+                                  staticClass:
+                                    "form-control-sm w-100 datetimepicker",
                                   class: {
                                     "is-invalid": _vm.form.errors.has(
                                       "mfg_date"
@@ -56124,7 +56220,6 @@ var render = function() {
                                   },
                                   attrs: {
                                     type: "text",
-                                    id: "datetimepicker",
                                     name: "",
                                     autocomplete: "off"
                                   },
@@ -56167,7 +56262,8 @@ var render = function() {
                                         expression: "form.exp_date"
                                       }
                                     ],
-                                    staticClass: "form-control-sm w-100",
+                                    staticClass:
+                                      "form-control-sm w-100 datetimepicker",
                                     class: {
                                       "is-invalid": _vm.form.errors.has(
                                         "exp_date"
@@ -56175,7 +56271,6 @@ var render = function() {
                                     },
                                     attrs: {
                                       type: "text",
-                                      id: "datetimepicker2",
                                       name: "",
                                       autocomplete: "off"
                                     },
@@ -60318,24 +60413,39 @@ var render = function() {
                                 "div",
                                 { staticClass: "col-sm-10" },
                                 [
-                                  _c("datetime", {
-                                    staticClass: "form-control-sm w-100",
+                                  _c("input", {
+                                    directives: [
+                                      {
+                                        name: "model",
+                                        rawName: "v-model",
+                                        value: _vm.form.invoice_date,
+                                        expression: "form.invoice_date"
+                                      }
+                                    ],
+                                    staticClass:
+                                      "form-control-sm w-100 datetimepicker",
                                     class: {
                                       "is-invalid": _vm.form.errors.has(
                                         "invoice_date"
                                       )
                                     },
                                     attrs: {
-                                      format: "DD/MM/YYYY h:i:s",
-                                      width: "300px",
+                                      type: "text",
+                                      name: "",
                                       autocomplete: "off"
                                     },
-                                    model: {
-                                      value: _vm.form.invoice_date,
-                                      callback: function($$v) {
-                                        _vm.$set(_vm.form, "invoice_date", $$v)
-                                      },
-                                      expression: "form.invoice_date"
+                                    domProps: { value: _vm.form.invoice_date },
+                                    on: {
+                                      input: function($event) {
+                                        if ($event.target.composing) {
+                                          return
+                                        }
+                                        _vm.$set(
+                                          _vm.form,
+                                          "invoice_date",
+                                          $event.target.value
+                                        )
+                                      }
                                     }
                                   }),
                                   _vm._v(" "),
@@ -61129,28 +61239,38 @@ var render = function() {
                                 [_vm._v("Date")]
                               ),
                               _vm._v(" "),
-                              _c(
-                                "div",
-                                { staticClass: "col-sm-10" },
-                                [
-                                  _c("datetime", {
-                                    staticClass: "form-control-sm w-100",
-                                    attrs: {
-                                      format: "DD/MM/YYYY h:i:s",
-                                      width: "300px",
-                                      autocomplete: "off"
-                                    },
-                                    model: {
+                              _c("div", { staticClass: "col-sm-10" }, [
+                                _c("input", {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
                                       value: _vm.form.invoice_date,
-                                      callback: function($$v) {
-                                        _vm.$set(_vm.form, "invoice_date", $$v)
-                                      },
                                       expression: "form.invoice_date"
                                     }
-                                  })
-                                ],
-                                1
-                              )
+                                  ],
+                                  staticClass:
+                                    "form-control-sm w-100 datetimepicker",
+                                  attrs: {
+                                    type: "text",
+                                    name: "",
+                                    autocomplete: "off"
+                                  },
+                                  domProps: { value: _vm.form.invoice_date },
+                                  on: {
+                                    input: function($event) {
+                                      if ($event.target.composing) {
+                                        return
+                                      }
+                                      _vm.$set(
+                                        _vm.form,
+                                        "invoice_date",
+                                        $event.target.value
+                                      )
+                                    }
+                                  }
+                                })
+                              ])
                             ]),
                             _vm._v(" "),
                             _c("div", { staticClass: "form-group row" }, [
@@ -61667,7 +61787,41 @@ var render = function() {
           [
             _c("header", [
               _c("div", { staticClass: "row" }, [
-                _vm._m(0),
+                _c("div", { staticClass: "col" }, [
+                  _vm.setting.store_logo
+                    ? _c("img", {
+                        attrs: {
+                          src: _vm.getImgUrl(_vm.setting.store_logo),
+                          lass: "img-fluid",
+                          width: "50",
+                          "data-holder-rendered": "true"
+                        }
+                      })
+                    : _c("img", {
+                        staticClass: "img-fluid",
+                        attrs: {
+                          src: "/images/logo.png",
+                          width: "50",
+                          "data-holder-rendered": "true"
+                        }
+                      }),
+                  _vm._v(" "),
+                  _c("h5", { staticClass: "name" }, [
+                    _vm._v(_vm._s(_vm.setting.store_name))
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "address" }, [
+                    _vm._v(_vm._s(_vm.setting.store_address))
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "email" }, [
+                    _vm._v(_vm._s(_vm.setting.store_mobile))
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "email" }, [
+                    _vm._v(_vm._s(_vm.setting.store_email))
+                  ])
+                ]),
                 _vm._v(" "),
                 _c(
                   "div",
@@ -61711,7 +61865,7 @@ var render = function() {
                       attrs: { id: "normalinvoice" }
                     },
                     [
-                      _vm._m(1),
+                      _vm._m(0),
                       _vm._v(" "),
                       _c(
                         "tbody",
@@ -61819,7 +61973,7 @@ var render = function() {
                     ]
                   ),
                   _vm._v(" "),
-                  _vm._m(2)
+                  _vm._m(1)
                 ]
               )
             ]),
@@ -61868,33 +62022,6 @@ var render = function() {
   ])
 }
 var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col" }, [
-      _c("a", { attrs: { target: "_blank", href: "/" } }, [
-        _c("img", {
-          attrs: {
-            src:
-              "http://lobianijs.com/lobiadmin/version/1.0/ajax/img/logo/lobiadmin-logo-text-64.png",
-            width: "200",
-            "data-holder-rendered": "true"
-          }
-        })
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "text-gray-light" }, [_vm._v("INVOICE FROM:")]),
-      _vm._v(" "),
-      _c("h5", { staticClass: "name" }, [_vm._v("Arboshiki")]),
-      _vm._v(" "),
-      _c("div", { staticClass: "address" }, [
-        _vm._v("796 Silver Harbour, TX 79273, US")
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "email" }, [_vm._v("john@example.com")])
-    ])
-  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
@@ -77860,21 +77987,21 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_2__["default"]({
   mode: 'history',
   routes: routes // short for `routes: routes`
 
-}); // Vue.component('example-component', require('./components/ExampleComponent.vue').default);
+});
+var users = []; // Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('pagination-component', __webpack_require__(/*! ./components/partials/PaginationComponent.vue */ "./resources/js/components/partials/PaginationComponent.vue")["default"]);
 var app = new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
   el: '#app',
   router: router,
-  data: function data() {
-    return {
-      users: []
-    };
-  },
+  // data: {
+  //     users: []
+  // },
   created: function created() {
     var vm = this;
     axios.get('/api/setting/1').then(function (response) {
-      vm.users = response.data;
+      return response.data;
+      console.log('response.data');
       console.log(response.data);
     })["catch"](function (error) {
       this.loadin = true;
@@ -79753,8 +79880,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! E:\xampp\htdocs\EasyInventory\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! E:\xampp\htdocs\EasyInventory\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /home/mnbtech/Projects/EasyInventory/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /home/mnbtech/Projects/EasyInventory/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

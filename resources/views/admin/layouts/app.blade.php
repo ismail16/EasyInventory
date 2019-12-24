@@ -27,20 +27,19 @@
 	  	<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 		<link rel="stylesheet" href="{{ asset('css/customs.css')}}"> 
 
-	  	<script src="https://www.johnhopkinspress.com/datetime_picker/jquery.min.js"></script>
-
+	  	<script src="{{ asset('backend_assets/plugins/datetime_picker/jquery.min.js')}}"></script>
 		<script type="text/javascript">
 		  	$(document).ready(function () {
 		        //DatePicker Example
-		        $('#datetimepicker').datetimepicker({
-		        	format: "dd-mm-yyyy",
+		        $('.datetimepicker').datetimepicker({
+		        	format: "d-m-Y",
 		        	timepicker: false,
 		        });
 
-		         $('#datetimepicker2').datetimepicker({
-		        	format: "dd-mm-yyyy",
-		        	timepicker: false,
-		        });
+		        // $('#datetimepicker2').datetimepicker({
+		        // 	format: "d-m-Y",
+		        // 	timepicker: false,
+		        // });
 		    });
 		</script>
 		@stack('css')
@@ -301,9 +300,9 @@
 		<script src="{{ mix('js/app.js') }}"></script>
 
 
-		<link rel="stylesheet" type="text/css" href="https://www.johnhopkinspress.com/datetime_picker/jquery.datetimepicker.min.css"/>
-		<script src="https://www.johnhopkinspress.com/datetime_picker/bootstrap.min.js"></script>
-		<script src="https://www.johnhopkinspress.com/datetime_picker/jquery.datetimepicker.js"></script>
+		<link rel="stylesheet" type="text/css" href="{{ asset('backend_assets/plugins/datetime_picker/jquery.datetimepicker.min.css')}}"/>
+		{{-- <script src="{{ asset('backend_assets/plugins/datetime_picker/bootstrap.min.js')}}"></script> --}}
+		<script src="{{ asset('backend_assets/plugins/datetime_picker/jquery.datetimepicker.js')}}"></script>
 
 		<!-- PAGE SCRIPTS -->
 		{{-- <script src="{{ asset('backend_assets/dist/js/pages/dashboard2.js') }}"></script> --}}
