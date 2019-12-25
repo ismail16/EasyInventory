@@ -4,6 +4,7 @@
       <div class="row">
         <div class="col-12">
           <div class="card mt-2 rounded-0" style="margin-bottom: 5px !important;">
+
             <div class="card-header pb-0">
               <div class="row">
                 <div class="col-md-3 float-left">
@@ -26,13 +27,14 @@
                 </div>
                 <div class="col-md-3">
                   <div class="d-inline-flex float-right">
-                    <router-link to="/product-create" class="btn btn-sm btn-primary float-right">
+                    <router-link to="/product-create" class="btn btn-outline-primary btn-sm">
                         <i class="fa fa-plus"></i> Add New Product
                     </router-link>
                   </div>
                 </div>
               </div>
             </div>
+
             <div class="card-body p-2">
               <table id="example1-" class="table table-bordered table-striped table-sm">
                 <thead>

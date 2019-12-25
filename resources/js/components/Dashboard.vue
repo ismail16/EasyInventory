@@ -16,9 +16,9 @@
       </div>
     </div>
     <section class="content">
-      <div class="container">
-
+      <div class="container-fluid">
         <div class="row">
+
           <div class="col-12 col-sm-6 col-md-3">
             <div class="info-box">
               <span class="info-box-icon bg-info elevation-1"><i class="fas fa-th-large"></i></span>
@@ -42,13 +42,14 @@
               </div>
             </div>
           </div>
+          <!-- <div class="clearfix hidden-md-up"></div> -->
 
           <div class="col-12 col-sm-6 col-md-3">
             <div class="info-box mb-3">
               <span class="info-box-icon bg-success elevation-1"><i class="fas fa-shopping-cart"></i></span>
               <div class="info-box-content">
                 <span class="info-box-text">Sales</span>
-                <span class="info-box-number">{{ total_invoice }}</span>
+                <span class="info-box-number">{{invoices.length}}</span>
               </div>
             </div>
           </div>
@@ -57,18 +58,19 @@
             <div class="info-box mb-3">
               <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-users"></i></span>
               <div class="info-box-content">
-                <span class="info-box-text">Customers</span>
-                <span class="info-box-number">{{ customers.length }}</span>
+                <span class="info-box-text">Supplier</span>
+                <span class="info-box-number">{{ suppliers.length }}</span>
               </div>
             </div>
           </div>
+          
         </div>
-
         <div class="row">
           <div class="col-md-12">
             <div class="card">
               <div class="card-header">
-                <h6 class="card-title"><strong id="date_month">Report of </strong> </h6>
+                <h5 class="card-title">This Month Report</h5>
+
                 <div class="card-tools">
                   <button type="button" class="btn btn-tool" data-widget="collapse">
                     <i class="fas fa-minus"></i>
@@ -79,30 +81,22 @@
                 </div>
               </div>
 
-              <div class="card-body pt-1 pb-1">
+              <div class="card-body">
                 <div class="row">
-
-                   <div class="col-md-3 border-right">
-                    <p class="border-bottom mb-1">
-                      <strong>SELL INVOICE</strong>
-                      <span class="m-1 pl-2 pr-2 bg-success">{{ total_invoice }}</span>
-                    </p>
-                    <div class="report_graph">
-                      <div v-if="thisMonthInvoices">
-                          <p class="mb-0" v-for="invoice in thisMonthInvoices">
-                            <span>Name: {{ invoice.customer_name }}</span> - 
-                            <b>$ {{ invoice.grand_total_price }}</b>
-                          </p>
-                      </div>
-
-                      <div v-else>
-                          <p>Invoice Not Available</p>
-                      </div>
-
-                    </div>
+                  <div class="col-md-4">
+                      <p class="text-center"><strong>TOTAL INVOICE</strong><span class="m-1 pl-2 pr-2 bg-success">{{ total_invoice }}</span> </p>
                   </div>
 
-                  <div class="col-md-9">
+                  <div class="col-md-4">
+                    <p  class="text-center"><strong>This Month Sales Graph</strong></p>
+                      
+                  </div>
+
+                  <div class="col-md-4">
+                      <p  class="text-center"><strong id="date_month">Report of </strong></p>
+                  </div>
+
+                  <div class="col-md-12">
                     <div class="chart">
                       <canvas id="salesChart" height="180" style="height: 180px;"></canvas>
                     </div>
@@ -110,9 +104,9 @@
 
                 </div>
               </div>
-
               <div class="card-footer">
                 <div class="row">
+
                   <div class="col-sm-3">
                     <div class="description-block">
                       <div class="info-box mb-3">
@@ -161,8 +155,8 @@
                     </div>
                   </div>
                 </div>
-              </div>
 
+              </div>
             </div>
           </div>
         </div>
@@ -174,93 +168,104 @@
 <script>
     export default {
    
-      data() {
-        return {
-          customers:'',
-          products:'',
-          categories:'',
-          products:'',
-          invoices:'',
-          setting:'',
-          thisMonthInvoices:'',
-          expenses:'',
-        }
-      },
+    data() {
+      return {
+            suppliers:'',
+            products:'',
+            categories:'',
+            products:'',
+            invoices:'',
+            setting:'',
+            thisMonthInvoices:'',
+            expenses:'',
+          }
+    },
 
-      mounted(){
-        this.getCustomers();
+    mounted(){
+        this.getSuppliers();
         this.getWarehouses();
         this.getCategory();
         this.getProducts();
-        // this.getInvoices();
+        this.getInvoices();
         // this.getSetting();
         this.getThisMonthInvoices();
         this.getExpenses();
+    },
+    computed: {
+       grant_total: function() {
+        var total = 0;
+        for (let i = 0; i < this.thisMonthInvoices.length ; i++) {
+          total += parseFloat(this.thisMonthInvoices[i].paid_amount); 
+        } 
+        return total
       },
 
-      computed: {
-        grant_total: function() {
-          var total = 0;
-          for (let i = 0; i < this.thisMonthInvoices.length ; i++) {
-            total += parseFloat(this.thisMonthInvoices[i].paid_amount); 
-          } 
-          return total
-        },
-
-        total_due: function() {
-          var total = 0;
-          for (let i = 0; i < this.thisMonthInvoices.length ; i++) {
-            total += parseFloat(this.thisMonthInvoices[i].due_amount); 
-          } 
-          return total
-        },
-
-        total_expense: function() {
-          var total = 0;
-          for (let i = 0; i < this.expenses.length ; i++) {
-            total += parseFloat(this.expenses[i].expense_paid_amount); 
-          } 
-          return total
-        },
-
-        total_invoice: function() {
-          return this.thisMonthInvoices.length
-        }
+      total_due: function() {
+        var total = 0;
+        for (let i = 0; i < this.thisMonthInvoices.length ; i++) {
+          total += parseFloat(this.thisMonthInvoices[i].due_amount); 
+        } 
+        return total
       },
 
-      methods:{
-        getCustomers(){
-          var temp = this;
-          axios.get('/api/customers')
-          .then((response) => {
-            temp.customers = response.data.data;
+      total_expense: function() {
+        var total = 0;
+        for (let i = 0; i < this.expenses.length ; i++) {
+          total += parseFloat(this.expenses[i].expense_paid_amount); 
+        } 
+        return total
+      },
+
+      total_invoice: function() {
+        return this.thisMonthInvoices.length
+      }
+    },
+
+    methods:{
+
+        getSuppliers(){
+            var temp = this;
+            axios.get('/api/suppliers')
+            .then((response) => {
+              temp.suppliers = response.data.data;
           })
-          .catch(function (error) {
-            this.loadin = true; 
-            toastr.error('Something is wrong Data Loaded')
+            .catch(function (error) {
+              toastr.error('Something is wrong Data Loaded')
           });
         },
 
         getCategory(){
-          var temp = this;
-          axios.get('/api/categories')
-          .then((response) => {
+            var temp = this;
+            axios.get('/api/categories')
+            .then((response) => {
               temp.categories = response.data.data;
           })
-          .catch(function (error) {
-            toastr.error('Something is wrong Data Loaded')
+            .catch(function (error) {
+              toastr.error('Something is wrong Data Loaded')
           });
         },
 
         getProducts(){
-          var temp = this;
-          axios.get('/api/products')
-          .then((response) => {
-            temp.products = response.data.data;
+            var temp = this;
+            axios.get('/api/products')
+            .then((response) => {
+              temp.products = response.data.data;
           })
-          .catch(function (error) {
-            toastr.error('Something is wrong Data Loaded')
+            .catch(function (error) {
+              toastr.error('Something is wrong Data Loaded')
           });
+        },
+
+        getInvoices(){
+            var temp = this;
+            axios.get('/api/invoices')
+              .then((response) => {
+                temp.Invoices = response.data.data;
+              })
+              .catch(function (error) {
+                this.loadin = true;
+                    toastr.error('Something is wrong Data Loaded')
+              });
         },
 
         getWarehouses(){
@@ -274,32 +279,34 @@
             });
         },
 
-        getThisMonthInvoices(){
+
+         getThisMonthInvoices(){
           var date = new Date();
           var month_no = date.getMonth()+1
-          var temp = this;
-
-          axios.get('/api/getThisMonthInvoices/'+month_no)
-          .then((response) => {
-            temp.thisMonthInvoices = response.data.all_data;
-            this.report(response.data);
-          })
-          .catch(function (error) {
-            this.loadin = true;
-            toastr.error('Something is wrong Data Loaded')
-          });
+            var temp = this;
+            axios.get('/api/getThisMonthInvoices/'+month_no)
+              .then((response) => {
+                temp.thisMonthInvoices = response.data.all_data;
+                this.report(response.data);
+              })
+              .catch(function (error) {
+                this.loadin = true;
+                    toastr.error('Something is wrong Data Loaded')
+              });
         },
 
-        getExpenses(){
-          var temp = this;
-          axios.get('/api/expenses')
-          .then((response) => {
-              temp.expenses = response.data.data;
-          })
-          .catch(function (error) {
-              toastr.error('Something is wrong Data Loaded')
-          });
+
+          getExpenses(){
+            var temp = this;
+            axios.get('/api/expenses')
+            .then((response) => {
+                temp.expenses = response.data.data;
+            })
+            .catch(function (error) {
+                toastr.error('Something is wrong Data Loaded')
+            });
         },
+
 
         report(data){
           $(function () {
@@ -307,7 +314,6 @@
 
             var month_name = ["January", "February", "March", "April", "May", "June","July", "August", "September", "October", "November", "December"];
             var total_seles = 0;
-
             if (data.all_data.length > 0) {
 
               var d = new Date(data.all_data[0].created_at);
@@ -385,12 +391,26 @@
 
             // This will get the first returned node in the jQuery collection.
             var salesChart = new Chart(salesChartCanvas, { 
-              type: 'line', 
-              data: salesChartData, 
-              options: salesChartOptions
-            })
+                type: 'line', 
+                data: salesChartData, 
+                options: salesChartOptions
+              }
+            )
+
           })
         }
-      }
+
+        // getSetting(){
+        //     var temp = this;
+        //     axios.get('/api/setting/1')
+        //       .then((response) => {
+        //         temp.form = response.data;
+        //       })
+        //       .catch(function (error) {
+        //         this.loadin = true; 
+        //             toastr.error('Something is wrong Data Loaded')
+        //       });
+        // },
+    }
     }
 </script>

@@ -40,10 +40,8 @@
                                 <div class="col-md-4">
                                    <div class="form-group row">
                                         <label for="inputPassword" class="col-sm-2 col-form-label">Date</label>
-                                        <div class="col-sm-10">  
-                                            <input type="text" v-model="form.expense_date" name="" class="form-control-sm w-100 datetimepicker" autocomplete="off">                                      
-
-                                            <!-- <datetime format="DD/MM/YYYY h:i:s" width="300px" v-model="form.expense_date" class="form-control-sm w-100" autocomplete="off"></datetime> -->
+                                        <div class="col-sm-10">                                      
+                                            <datetime format="DD/MM/YYYY h:i:s" width="300px" v-model="form.expense_date" class="form-control-sm w-100" autocomplete="off"></datetime>
                                         </div>
                                     </div>
                                 </div>
@@ -135,9 +133,9 @@
 </template>
 
 <script>
-// import datetime from 'vuejs-datetimepicker'
+import datetime from 'vuejs-datetimepicker'
 export default {
-    // components: { datetime },
+    components: { datetime },
 
     data() {
         return {

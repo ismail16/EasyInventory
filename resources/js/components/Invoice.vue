@@ -4,6 +4,7 @@
             <div class="row">
                 <div class="col-12">
                     <div class="card mt-2 rounded-0" style="margin-bottom: 5px !important;">
+
                         <div class="card-header pb-0">
                           <div class="row">
                             <div class="col-md-3 float-left">
@@ -13,8 +14,8 @@
                               <div class="form-inline ml-3 mr-2">
                                 <div class="input-group input-group-sm w-100">
                                     <select v-model="queryFiled" class="form-control w-25" id="fileds">
-                                        <option value="customer_name">Supplier Name</option>
-                                        <option value="customer_mobile">Contact Name</option>
+                                        <option value="customer_name">Customer Name</option>
+                                        <option value="customer_mobile">Customer Mobile</option>
                                         <option value="customer_email">Email</option>
                                         <option value="customer_address">Address</option>
                                     </select>
@@ -29,13 +30,14 @@
                             </div>
                             <div class="col-md-3">
                               <div class="d-inline-flex float-right">
-                                <router-link to="/invoice-create" class="btn btn-sm btn-primary float-right">
-                                    <i class="fa fa-plus"></i> Supplier Invoice
+                                <router-link to="/invoice-create" class="btn btn-outline-primary btn-sm">
+                                    <i class="fa fa-plus"></i> Customer Invoice
                                 </router-link>
                               </div>
                             </div>
                           </div>
                         </div>
+                        
                         <div class="card-body p-2">
                             <table id="example1-" class="table table-bordered table-striped table-sm">
                                 <thead>

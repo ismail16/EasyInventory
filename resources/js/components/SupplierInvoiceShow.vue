@@ -8,14 +8,13 @@
                     <header>
                         <div class="row">
                             <div class="col">
-                                <img v-if="setting.store_logo" :src="getImgUrl(setting.store_logo)" lass="img-fluid" width="50" data-holder-rendered="true"/>
-
-                                <img v-else src="/images/logo.png" class="img-fluid" width="50" data-holder-rendered="true"/>
-                                
-                                <h5 class="name">{{ setting.store_name }}</h5>
-                                <div class="address">{{ setting.store_address }}</div>
-                                <div class="email">{{ setting.store_mobile }}</div>
-                                <div class="email">{{ setting.store_email }}</div>
+                                <a target="_blank" href="/">
+                                    <img src="http://lobianijs.com/lobiadmin/version/1.0/ajax/img/logo/lobiadmin-logo-text-64.png" width="200" data-holder-rendered="true" />
+                                    </a>
+                                    <div class="text-gray-light">INVOICE FROM:</div>
+                                    <h5 class="name">Arboshiki</h5>
+                                <div class="address">796 Silver Harbour, TX 79273, US</div>
+                                <div class="email">john@example.com</div>
                             </div>
 
                             <div class="col company-details" style="text-align:right">
@@ -122,14 +121,13 @@ export default {
               discount : '',
               due_amount : ''
             }),
-            product_arr:[],
-            setting:'',
+            img_url: '',
+            product_arr:[]
         }
     },
 
     mounted(){
         this.getSupplierInvoice();
-        this.getSettings();
     },
 
     computed: {
@@ -178,24 +176,6 @@ export default {
               toastr.error('Something is wrong Data Loaded')
             });
         },
-
-        getSettings(){
-            var temp = this;
-            axios.get('/api/setting/1')
-              .then((response) => {
-                temp.setting = response.data;
-              })
-              .catch(function (error) {
-                this.loadin = true; 
-                    toastr.error('Something is wrong Data Loaded')
-              });
-        },
-        
-        getImgUrl: function(image){
-          var photo = "/images/store_logo/"+ image
-          return photo
-          console.log(photo)
-        }, 
     }
 }
 </script>

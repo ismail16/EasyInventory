@@ -26,7 +26,7 @@
                             </div>
                             <div class="col-md-3">
                               <div class="d-inline-flex float-right">
-                                <router-link to="/expense-create" class="btn btn-sm btn-primary float-right">
+                                <router-link to="/expense-create" class="btn btn-outline-primary btn-sm float-right">
                                     <i class="fa fa-plus"></i> Expense Create
                                 </router-link>
                               </div>

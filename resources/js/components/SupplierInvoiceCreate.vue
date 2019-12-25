@@ -50,10 +50,8 @@
                                 <div class="col-md-5">
                                     <div class="form-group row mb-1">
                                         <label for="inputPassword" class="col-sm-2 col-form-label">Date</label>
-                                        <div class="col-sm-10">            
-                                            <input type="text"  v-model="form.invoice_date" name="" class="form-control-sm w-100 datetimepicker" :class="{ 'is-invalid': form.errors.has('invoice_date') }" autocomplete="off">
-
-                                            <!-- <datetime format="DD/MM/YYYY h:i:s" width="300px" v-model="form.invoice_date" class="form-control-sm w-100" :class="{ 'is-invalid': form.errors.has('invoice_date') }" autocomplete="off"></datetime> -->
+                                        <div class="col-sm-10">                                      
+                                            <datetime format="DD/MM/YYYY h:i:s" width="300px" v-model="form.invoice_date" class="form-control-sm w-100" :class="{ 'is-invalid': form.errors.has('invoice_date') }" autocomplete="off"></datetime>
                                             <has-error :form="form" field="invoice_date"></has-error>
                                         </div>
                                     </div>
@@ -167,9 +165,6 @@ export default {
     // https://github.com/codekerala/laravel-vuejs-invoice/blob/master/resources/views/invoices/form.blade.php
 
     data() {
-        var today = new Date();
-        var current_date = today.getDate()+'-'+(today.getMonth()+1)+'-'+today.getFullYear();
-
         return {
             form: new Form({
               id : '',
@@ -177,7 +172,7 @@ export default {
 
               supplier_id : '',
               warehouse_id : '',
-              invoice_date : current_date,
+              invoice_date :new Date().toLocaleString(),
               image : '',
               grand_total_price : '',
               paid_amount : '',

@@ -4,6 +4,7 @@
       <div class="row">
         <div class="col-12">
           <div class="card mt-2 rounded-0" style="margin-bottom: 5px !important;">
+
             <div class="card-header pb-0">
               <div class="row">
                 <div class="col-md-3 float-left">
@@ -33,6 +34,7 @@
                 </div>
               </div>
             </div>
+            
             <div class="card-body p-2">
               <table id="example1-" class="table table-bordered table-striped table-sm">
                 <thead>

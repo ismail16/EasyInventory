@@ -3,39 +3,42 @@
         <section class="content mt-2">
             <div class="row">
                 <div class="col-12">
-                    <div class="card" style="background-color: #f4f6f9; box-shadow: 0 0 0 rgba(0,0,0,0), 0 0 0 rgba(0,0,0,0)">
-                        <div class="card-body pt-2 pr-1 pl-1 pb-0">
-                            <div class="row" style="margin: 0px 0px; padding: 7px 0px;background-color: #fff; border: 1px solid #c2ccd6; border-bottom: 0;">
-                                <div class="col-md-3 float-left">
-                                    <p><a href="/">Home</a> / loans</p>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-inline ml-3 mr-2">
-                                        <div class="input-group input-group-sm w-100">
-                                            <select v-model="queryFiled" class="form-control w-25" id="fileds">
-                                                <option value="loaner_name">Loaner Name</option>
-                                                <option value="loaner_mobile">Loaner Mobile</option>
-                                                <option value="loaner_address">Loaner Address</option>
-                                                <option value="loan_amount">Loan Amount</option>
-                                            </select>
-                                            <input class="form-control w-50" v-model="query" type="search" placeholder="Search" aria-label="Search">
-                                            <div class="input-group-append">
-                                                <button class="btn btn-default" type="submit">
-                                                    <i class="fas fa-search"></i>
-                                                </button>
-                                            </div>
+                    <div class="card mt-2 rounded-0" style="margin-bottom: 5px !important;">
+
+                        <div class="card-header pb-0">
+                          <div class="row">
+                            <div class="col-md-3 float-left">
+                             <p><a href="/">Home</a> / Loans</p>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-inline ml-3 mr-2">
+                                    <div class="input-group input-group-sm w-100">
+                                        <select v-model="queryFiled" class="form-control w-25" id="fileds">
+                                            <option value="loaner_name">Loaner Name</option>
+                                            <option value="loaner_mobile">Loaner Mobile</option>
+                                            <option value="loaner_address">Loaner Address</option>
+                                            <option value="loan_amount">Loan Amount</option>
+                                        </select>
+                                        <input class="form-control w-50" v-model="query" type="search" placeholder="Search" aria-label="Search">
+                                        <div class="input-group-append">
+                                            <button class="btn btn-default" type="submit">
+                                                <i class="fas fa-search"></i>
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-3">
-                                    <div class="d-inline-flex float-right">
-                                        <router-link to="/loan-create" class="btn btn-sm btn-primary float-right">
-                                            <i class="fa fa-plus"></i> Add New Loan
-                                        </router-link>
-                                    </div>
-                               </div>
                             </div>
-                           
+                            <div class="col-md-3">
+                                <div class="d-inline-flex float-right">
+                                    <router-link to="/loan-create" class="btn btn-outline-primary btn-sm">
+                                        <i class="fa fa-plus"></i> Add New Loan
+                                    </router-link>
+                                </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="card-body p-2">
                             <table id="example1-" class="table table-bordered table-striped table-sm">
                                 <thead>
                                 <tr>

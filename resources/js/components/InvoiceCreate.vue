@@ -74,9 +74,8 @@
                                 <div class="col-md-4">
                                     <div class="form-group row">
                                         <label class="col-sm-3 col-form-label pt-0">Date <i class="text-danger">*</i></label>
-                                        <div class="col-sm-9">
-                                            <input type="text" v-model="form.invoice_date" name="" class="form-control-sm w-100 datetimepicker" :class="{ 'is-invalid': form.errors.has('mfg_date') }" autocomplete="off">                                      
-                                            <!-- <datetime format="DD/MM/YYYY h:i:s" width="200px" v-model="form.invoice_date" class="" :class="{ 'is-invalid': form.errors.has('invoice_date') }" autocomplete="off"></datetime> -->
+                                        <div class="col-sm-9">                                      
+                                            <datetime format="DD/MM/YYYY h:i:s" width="200px" v-model="form.invoice_date" class="" :class="{ 'is-invalid': form.errors.has('invoice_date') }" autocomplete="off"></datetime>
                                             <has-error :form="form" field="invoice_date"></has-error>
                                         </div>
                                     </div>
@@ -183,14 +182,11 @@
 </template>
 
 <script>
-// import datetime from 'vuejs-datetimepicker'
+import datetime from 'vuejs-datetimepicker'
 export default {
-    // components: { datetime },
+    components: { datetime },
 
     data() {
-        var today = new Date();
-        var current_date = today.getDate()+'-'+(today.getMonth()+1)+'-'+today.getFullYear();
-
         return {
             form: new Form({
               id : '',
@@ -198,7 +194,7 @@ export default {
               customer_phone : '',
               customer_email : '',
               customer_address : '',
-              invoice_date : current_date,
+              invoice_date :new Date().toLocaleString(),
 
               products:[{product_name : '',product_quantity : 1,sell_price : 0 }],
 

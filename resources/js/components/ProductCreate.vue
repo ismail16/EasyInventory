@@ -101,7 +101,7 @@
                                         <label class="col-sm-3 col-form-label"> Make Date</label>
                                         <div class="col-sm-9">    
 
-                                            <input type="text" v-model="form.mfg_date" name="" class="form-control-sm w-100 datetimepicker" :class="{ 'is-invalid': form.errors.has('mfg_date') }" autocomplete="off">
+                                            <input type="text" id="datetimepicker"  v-model="form.mfg_date" name="" class="form-control-sm w-100" :class="{ 'is-invalid': form.errors.has('mfg_date') }" autocomplete="off">
                                             <!-- <input type="date" v-model="form.mfg_date" name="" class="form-control-sm w-100" :class="{ 'is-invalid': form.errors.has('mfg_date') }" autocomplete="off"> -->
 
                                             <!-- <has-error :form="form" field="mfg_date"></has-error>                                   -->
@@ -115,7 +115,7 @@
                                     <div class="form-group row">
                                         <label class="col-sm-3 col-form-label">Expired Date</label>
                                         <div class="col-sm-9">       
-                                            <input type="text"  v-model="form.exp_date" name="" class="form-control-sm w-100 datetimepicker" :class="{ 'is-invalid': form.errors.has('exp_date') }" autocomplete="off">
+                                            <input type="text" id="datetimepicker2"  v-model="form.exp_date" name="" class="form-control-sm w-100" :class="{ 'is-invalid': form.errors.has('exp_date') }" autocomplete="off">
 
                                             <!-- <datetime format="DD/MM/YYYY h:i:s" v-model="form.exp_date"  :class="{ 'is-invalid': form.errors.has('exp_date') }" autocomplete="off"></datetime> -->
                                             <has-error :form="form" field="exp_date"></has-error>
@@ -182,8 +182,11 @@ export default {
 
     data() {
 
-        var today = new Date();
-        var current_date = today.getDate()+'-'+(today.getMonth()+1)+'-'+today.getFullYear();
+        var date = new Date().getDay()
+        var month = new Date().getMonth()
+        var year = new Date().getFullYear()
+
+        var current_date = date + '-' + month + '-' + year
 
         return {
             form: new Form({
