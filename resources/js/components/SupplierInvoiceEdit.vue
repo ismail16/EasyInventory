@@ -51,7 +51,9 @@
                                     <div class="form-group row mb-1">
                                         <label for="inputPassword" class="col-sm-2 col-form-label">Date</label>
                                         <div class="col-sm-10">
-                                            <datetime format="DD/MM/YYYY h:i:s" width="300px" v-model="form.invoice_date" class="form-control-sm w-100" autocomplete="off"></datetime>
+                                            <input type="text" v-model="form.invoice_date" name="" class="form-control-sm w-100 datetimepicker" autocomplete="off">                          
+                                            
+                                            <!-- <datetime format="DD/MM/YYYY h:i:s" width="300px" v-model="form.invoice_date" class="form-control-sm w-100" autocomplete="off"></datetime> -->
                                         </div>
                                     </div>
                                     <div class="form-group row">

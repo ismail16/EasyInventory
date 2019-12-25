@@ -14,7 +14,9 @@
                   <div class="form-inline ml-3 mr-2">
                     <div class="input-group input-group-sm w-100">
                       <select v-model="queryFiled" class="form-control w-25" id="fileds">
-                        <option value="product_name">product Name</option>
+                        <option value="product_name">Product Name</option>
+                        <option value="supplier_price">Supplier Price</option>
+                        <option value="sell_price">Sell Price</option>
                       </select>
                       <input class="form-control w-50" v-model="query" type="search" placeholder="Search" aria-label="Search">
                       <div class="input-group-append">
