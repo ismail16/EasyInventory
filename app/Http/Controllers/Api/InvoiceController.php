@@ -126,10 +126,8 @@ class InvoiceController extends Controller
 
     public function getThisMonthInvoices($month)
     {
-
         $year = date('Y');
         $mon = date('m');
-
         $total_days=cal_days_in_month(CAL_GREGORIAN, $mon, $year);
         $arrss = array();
         for ($m=0; $m < $total_days; $m++) {
@@ -148,10 +146,26 @@ class InvoiceController extends Controller
             }
             array_push($arrs, $jan_total);
         }
-
         $all_data = DefaultResource::collection(Invoice::orderBy('id','asc')->whereYear('created_at', $year.'-'.$mon.'-'.sprintf("%02d", $i))->get());
-
-
         return array('all_data' => $all_data , 'days'=>$arrs );
+    }
+
+    public function getThisYearInvoices($year)
+    {
+        $yr = date('Y');
+        $arrs = array();
+        for($i=1; $i<=12; $i++) {
+            $month = Invoice::where('created_at', 'LIKE','%'. $yr.'-'.sprintf("%02d", $i).'%')->select('paid_amount')->get();
+            $month_total = 0;
+            if (count($month) > 0) {
+                foreach($month as $total) {
+                    $month_total += $total->paid_amount;
+                }
+            }
+            array_push($arrs, $month_total);
+        }
+
+        $all_data = DefaultResource::collection(Invoice::orderBy('id','asc')->whereYear('created_at', $yr)->get());
+        return array('all_data' => $all_data , 'months'=>$arrs );
     }
 }

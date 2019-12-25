@@ -31,6 +31,7 @@ Route::get('search/supllier-invoice/{field}/{query}','Api\SupllierInvoiceControl
 Route::apiResource('invoices','Api\InvoiceController');
 Route::get('allInvoice','Api\InvoiceController@allInvoice');
 Route::get('getThisMonthInvoices/{month}','Api\InvoiceController@getThisMonthInvoices');
+Route::get('getThisYearInvoices/{year}','Api\InvoiceController@getThisYearInvoices');
 Route::get('search/invoices/{field}/{query}','Api\InvoiceController@search');
 
 Route::apiResource('products','Api\ProductController');

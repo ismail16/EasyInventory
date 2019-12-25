@@ -6016,7 +6016,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       suppliers: '',
       products: '',
       categories: ''
-    }, _defineProperty(_ref, "products", ''), _defineProperty(_ref, "invoices", ''), _defineProperty(_ref, "setting", ''), _defineProperty(_ref, "thisMonthInvoices", ''), _defineProperty(_ref, "expenses", ''), _ref;
+    }, _defineProperty(_ref, "products", ''), _defineProperty(_ref, "invoices", ''), _defineProperty(_ref, "setting", ''), _defineProperty(_ref, "thisYearInvoices", ''), _defineProperty(_ref, "expenses", ''), _ref;
   },
   mounted: function mounted() {
     this.getSuppliers();
@@ -6024,15 +6024,15 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     this.getCategory();
     this.getProducts();
     this.getInvoices();
-    this.getThisMonthInvoices();
+    this.getThisYearInvoices();
     this.getExpenses();
   },
   computed: {
     grant_total: function grant_total() {
       var total = 0;
 
-      for (var i = 0; i < this.thisMonthInvoices.length; i++) {
-        total += parseFloat(this.thisMonthInvoices[i].paid_amount);
+      for (var i = 0; i < this.thisYearInvoices.length; i++) {
+        total += parseFloat(this.thisYearInvoices[i].paid_amount);
       }
 
       return total;
@@ -6040,8 +6040,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     total_due: function total_due() {
       var total = 0;
 
-      for (var i = 0; i < this.thisMonthInvoices.length; i++) {
-        total += parseFloat(this.thisMonthInvoices[i].due_amount);
+      for (var i = 0; i < this.thisYearInvoices.length; i++) {
+        total += parseFloat(this.thisYearInvoices[i].due_amount);
       }
 
       return total;
@@ -6056,7 +6056,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       return total;
     },
     total_invoice: function total_invoice() {
-      return this.thisMonthInvoices.length;
+      return this.thisYearInvoices.length;
     }
   },
   methods: {
@@ -6093,14 +6093,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         toastr.error('Something is wrong Data Loaded');
       });
     },
-    getThisMonthInvoices: function getThisMonthInvoices() {
+    getThisYearInvoices: function getThisYearInvoices() {
       var _this = this;
 
       var date = new Date();
-      var month_no = date.getMonth() + 1;
+      var year = date.getFullYear();
       var temp = this;
-      axios.get('/api/getThisMonthInvoices/' + month_no).then(function (response) {
-        temp.thisMonthInvoices = response.data.all_data;
+      axios.get('/api/getThisYearInvoices/' + year).then(function (response) {
+        temp.thisYearInvoices = response.data.all_data;
 
         _this.report(response.data);
       })["catch"](function (error) {
@@ -6133,7 +6133,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
         if (data.all_data.length > 0) {
           var d = new Date(data.all_data[0].created_at);
-          $('#date_month').append(' ' + month_name[d.getMonth()] + ' ' + d.getFullYear());
+          $('#date_month').append(' ' + d.getFullYear());
 
           for (var i = 0; i < data.all_data.length; i++) {
             total_seles += parseFloat(data.all_data[i].paid_amount);
@@ -6145,19 +6145,19 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
         var monthNames = [];
 
-        for (var k = 0; k < data.days.length; k++) {
-          monthNames.push(data.days[k] == 0 ? 0 : data.days[k]);
+        for (var k = 0; k < data.months.length; k++) {
+          monthNames.push(data.months[k] == 0 ? 0 : data.months[k]);
         }
 
-        var month_days = [];
+        var month_months = [];
 
-        for (var d = 1; d <= data.days.length; d++) {
-          month_days.push(d);
+        for (var d = 1; d <= data.months.length; d++) {
+          month_months.push(d);
         }
 
         var salesChartCanvas = $('#salesChart').get(0).getContext('2d');
         var salesChartData = {
-          labels: month_days,
+          labels: month_name,
           datasets: [{
             label: 'Sales',
             backgroundColor: 'rgba(60,141,188,0.9)',

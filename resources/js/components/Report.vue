@@ -130,7 +130,7 @@
             products:'',
             invoices:'',
             setting:'',
-            thisMonthInvoices:'',
+            thisYearInvoices:'',
             expenses:'',
           }
     },
@@ -141,23 +141,23 @@
         this.getCategory();
         this.getProducts();
         this.getInvoices();
-        this.getThisMonthInvoices();
+        this.getThisYearInvoices();
         this.getExpenses();
     },
     computed: {
 
       grant_total: function() {
         var total = 0;
-        for (let i = 0; i < this.thisMonthInvoices.length ; i++) {
-          total += parseFloat(this.thisMonthInvoices[i].paid_amount); 
+        for (let i = 0; i < this.thisYearInvoices.length ; i++) {
+          total += parseFloat(this.thisYearInvoices[i].paid_amount); 
         } 
         return total
       },
 
       total_due: function() {
         var total = 0;
-        for (let i = 0; i < this.thisMonthInvoices.length ; i++) {
-          total += parseFloat(this.thisMonthInvoices[i].due_amount); 
+        for (let i = 0; i < this.thisYearInvoices.length ; i++) {
+          total += parseFloat(this.thisYearInvoices[i].due_amount); 
         } 
         return total
       },
@@ -171,7 +171,7 @@
       },
 
       total_invoice: function() {
-        return this.thisMonthInvoices.length
+        return this.thisYearInvoices.length
       }
 
     },
@@ -223,13 +223,13 @@
               });
         },
 
-        getThisMonthInvoices(){
+        getThisYearInvoices(){
           var date = new Date();
-          var month_no = date.getMonth()+1
+          var year = date.getFullYear()
             var temp = this;
-            axios.get('/api/getThisMonthInvoices/'+month_no)
+            axios.get('/api/getThisYearInvoices/'+year)
               .then((response) => {
-                temp.thisMonthInvoices = response.data.all_data;
+                temp.thisYearInvoices = response.data.all_data;
                 this.report(response.data);
               })
               .catch(function (error) {
@@ -267,10 +267,11 @@
 
             var month_name = ["January", "February", "March", "April", "May", "June","July", "August", "September", "October", "November", "December"];
             var total_seles = 0;
+
             if (data.all_data.length > 0) {
 
               var d = new Date(data.all_data[0].created_at);
-              $('#date_month').append(' '+month_name[d.getMonth()]+ ' ' + d.getFullYear())
+              $('#date_month').append(' '+ d.getFullYear())
 
               for (let i = 0; i < data.all_data.length ; i++) {
                 total_seles+=parseFloat(data.all_data[i].paid_amount)
@@ -282,19 +283,19 @@
             }
 
             var monthNames = []
-            for(var k = 0; k<data.days.length; k++){
-               monthNames.push(data.days[k] == 0? 0: data.days[k])
+            for(var k = 0; k<data.months.length; k++){
+               monthNames.push(data.months[k] == 0? 0: data.months[k])
             }
 
-            var month_days = []
-            for(var d = 1; d<=data.days.length; d++){
-              month_days.push(d)
+            var month_months = []
+            for(var d = 1; d<=data.months.length; d++){
+              month_months.push(d)
             }
 
 
             var salesChartCanvas = $('#salesChart').get(0).getContext('2d')
             var salesChartData = {
-              labels  : month_days,
+              labels  : month_name,
               datasets: [
                 {
                   label               : 'Sales',
