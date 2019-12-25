@@ -4,10 +4,15 @@ require('./bootstrap');
 window.Vue = require('vue');
 import Vue from 'vue'
 
-import moment from 'moment'
-Vue.filter('myDate', function(created){
-    return moment(created).format('MMM Do YYYY');
-})
+// import Vuex from 'vuex'
+// Vue.use(Vuex)
+// import { storage } from './state'
+// const store = new Vuex.Store(storage)
+
+// import moment from 'moment'
+// Vue.filter('myDate', function(created){
+//     return moment(created).format('MMM Do YYYY');
+// })
 
 // Vue Router
 import VueRouter from 'vue-router';
@@ -79,18 +84,20 @@ Vue.component('pagination-component', require('./components/partials/PaginationC
 const app= new Vue({
     el: '#app',
     router,
+    // store,
 
-    data: function() {
+    data() {
         return {
-          users: []
-        };
-      },
+            all_setting: 'llllllllllllll',
+           
+        }
+    },
 
     created() {
         var vm = this;
         axios.get('/api/setting/1')
         .then((response) => {
-            vm.users = response.data;
+            vm.all_setting = response.data;
             console.log(response.data)
         })
         .catch(function (error) {
@@ -99,3 +106,5 @@ const app= new Vue({
         });
     }
 });
+
+

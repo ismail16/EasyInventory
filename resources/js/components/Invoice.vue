@@ -79,7 +79,7 @@
                                           </span>
                                           <!-- {{ Invoice.due_amount }} -->
                                         </td>
-                                        <td class="text-center">{{ Invoice.created_at }}</td>
+                                        <td class="text-center">{{ Invoice.invoice_date }}</td>
 
                                         <td class="text-center">
                                             <span v-if="Invoice.status == 1" class="text-success">

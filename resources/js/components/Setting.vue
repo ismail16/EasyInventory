@@ -284,6 +284,9 @@ export default {
             axios.get('/api/setting/1')
               .then((response) => {
                 temp.form = response.data;
+            // temp.$store.commit('setSetting',response.data)
+                
+
               })
               .catch(function (error) {
                 this.loadin = true; 

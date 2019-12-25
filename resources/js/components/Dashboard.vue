@@ -181,7 +181,7 @@
           categories:'',
           products:'',
           invoices:'',
-          setting:'',
+          // setting:'',
           thisMonthInvoices:'',
           expenses:'',
         }
@@ -282,6 +282,7 @@
           axios.get('/api/getThisMonthInvoices/'+month_no)
           .then((response) => {
             temp.thisMonthInvoices = response.data.all_data;
+
             this.report(response.data);
           })
           .catch(function (error) {
@@ -300,6 +301,8 @@
               toastr.error('Something is wrong Data Loaded')
           });
         },
+
+       
 
         report(data){
           $(function () {
