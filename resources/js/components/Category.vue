@@ -53,9 +53,9 @@
                     <td class="text-center">{{ category.status }}</td>
                     <td class="text-center">{{ category.create_at | myDate }}</td>
                     <td class="text-center">
-                      <a href="" class="btn btn-xs btn-success">
+                      <!--<a href="" class="btn btn-xs btn-success">
                         <i class="fa fa-eye"></i>
-                      </a>
+                      </a>-->
                       <a class="btn btn-xs btn-success mr-1" @click.prevent="editModal(category)">
                         <i class="fa fa-edit"></i>
                       </a>

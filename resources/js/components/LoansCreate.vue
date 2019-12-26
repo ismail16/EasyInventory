@@ -31,6 +31,7 @@
                                         <div class="col-sm-9">
                                             <input v-model="form.loaner_name" type="text" name="loaner_name"
                                             placeholder="Loaner name"
+                                            
                                             class="form-control form-control-sm w-100" :class="{ 'is-invalid': form.errors.has('loaner_name') }">
                                             <has-error :form="form" field="loaner_name"></has-error>
                                         </div>

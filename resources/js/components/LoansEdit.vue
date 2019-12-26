@@ -125,8 +125,8 @@ export default {
                 loaner_email : '',
                 loaner_address : '',
                 loan_amount : '',
-                loan_taken_date : new Date().toLocaleString(),
-                loan_end_date : new Date().toLocaleString(),
+                loan_taken_date : '',
+                loan_end_date : '',
                 loan_detail : '',
             }),
         }
@@ -141,9 +141,7 @@ export default {
     },
 
     methods:{
-
-
-
+        
         updateLoan: function(){
             this.$Progress.start()
             var temp = this

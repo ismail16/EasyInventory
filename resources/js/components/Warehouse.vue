@@ -51,9 +51,9 @@
                     <td class="text-center">{{ warehouse.status }}</td>
                     <td class="text-center">{{ warehouse.create_at | myDate }}</td>
                     <td class="text-center">
-                      <a href="" class="btn btn-xs btn-success">
+                      <!--<a href="" class="btn btn-xs btn-success">
                         <i class="fa fa-eye"></i>
-                      </a>
+                      </a>-->
                       <a class="btn btn-xs btn-success mr-1" @click.prevent="editModal(warehouse)">
                         <i class="fa fa-edit"></i>
                       </a>

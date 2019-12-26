@@ -53,6 +53,7 @@ const routes = [
     { path: '/expense', component: require('./components/Expense.vue').default },
     { path: '/expense-create', component: require('./components/ExpenseCreate.vue').default },
     { path: '/expense/:id/edit', component: require('./components/ExpenseEdit.vue').default },
+    { path: '/expense/:id/show', component: require('./components/ExpenseShow.vue').default },
 
     { path: '/supplier-invoice', component: require('./components/SupplierInvoice.vue').default },
     { path: '/supplier-invoice-create', component: require('./components/SupplierInvoiceCreate.vue').default },

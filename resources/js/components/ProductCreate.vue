@@ -146,9 +146,9 @@
 
                                 <div class="col-md-12">
                                     <div class="form-group row">
-                                        <label for="warehouse_id" class="-col-sm-3 form-control-label">Product Detail </label>
-                                        <div class="col-sm-9" style="margin-left: 32px;">
-                                            <textarea rows="3" v-model="form.product_detail" cols="127"></textarea>
+                                        <label for="warehouse_id" class="col-sm-2 form-control-label">Product Detail </label>
+                                        <div class="col-sm-10" style="margin-left: -43px;">
+                                            <textarea rows="3" class="form-control" v-model="form.product_detail"></textarea>
                                         </div>
                                     </div>
                                 </div>  

@@ -282,16 +282,13 @@ export default {
         getData(){
             var temp = this;
             axios.get('/api/setting/1')
-              .then((response) => {
+            .then((response) => {
                 temp.form = response.data;
-            // temp.$store.commit('setSetting',response.data)
-                
-
-              })
-              .catch(function (error) {
+            })
+            .catch(function (error) {
                 this.loadin = true; 
-                    toastr.error('Something is wrong Data Loaded')
-              });
+                toastr.error('Something is wrong Data Loaded')
+            });
         },
 
     }

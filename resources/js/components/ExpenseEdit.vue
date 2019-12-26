@@ -41,22 +41,23 @@
                                    <div class="form-group row">
                                         <label for="inputPassword" class="col-sm-2 col-form-label">Date</label>
                                         <div class="col-sm-10">  
-                                            <input type="text" v-model="form.expense_date" name="" class="form-control-sm w-100 datetimepicker" autocomplete="off">                                      
-
-                                            <!-- <datetime format="DD/MM/YYYY h:i:s" width="300px" v-model="form.expense_date" class="form-control-sm w-100" autocomplete="off"></datetime> -->
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-6">
-                                   <div class="form-group row">
-                                        <label class="col-sm-3 form-control-label">Expense Detail <i class="text-danger">*</i></label>
-                                        <div class="col-sm-9">
-                                            <textarea cols="128" rows="2" v-model="form.expense_detail"></textarea>
+                                            <input type="text" v-model="form.expense_date" name="" class="form-control-sm w-100 datetimepicker" autocomplete="off">
                                         </div>
                                     </div>
                                 </div>
                             </div>
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                   <div class="form-group row">
+                                        <label class="col-sm-2 form-control-label" style="margin-right: -45px;">Expense Detail <i class="text-danger">*</i></label>
+                                        <div class="col-sm-10">
+                                            <textarea  rows="2" class="form-control" v-model="form.expense_detail"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
                             <div class="table-responsive">
                                 <table class="table table-bordered table-sm table-hover" id="normalExpense">
                                     <thead>
@@ -115,7 +116,7 @@
                                     </tfoot>
                                 </table>
                                 <div class="card-footer">
-                                    <router-link to="/supplier-Expense" class="btn btn-sm btn-default float-left">
+                                    <router-link to="/expense" class="btn btn-sm btn-default float-left">
                                         Back to Expense list
                                     </router-link>
 

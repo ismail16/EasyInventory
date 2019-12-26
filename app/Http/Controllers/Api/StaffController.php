@@ -49,9 +49,11 @@ class StaffController extends Controller
 
     public function update(Request $request, $id)
     {
-        // $request->validate([
-        //     'staff_name' => 'required'
-        // ]);
+        $request->validate([
+            'staff_name' => 'required',
+            'staff_user_name' => 'required',
+            'user_type' => 'required'
+        ]);
 
         $staff = Staff::find($id);
 

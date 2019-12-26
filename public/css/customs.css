@@ -53,7 +53,7 @@
 
 
     #invoice{
-      padding: 30px;
+      padding: 10px;
     }
 
     .invoice {
@@ -101,13 +101,13 @@
     }
 
     .invoice main {
-      padding-bottom: 50px
+      padding-bottom: 5px
     }
 
     .invoice main .thanks {
       margin-top: -100px;
       font-size: 2em;
-      margin-bottom: 50px
+      margin-bottom: 10px
     }
 
     .invoice main .notices {

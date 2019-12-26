@@ -42,19 +42,20 @@
                                    <div class="form-group row">
                                         <label for="inputPassword" class="col-sm-2 col-form-label">Date</label>
                                         <div class="col-sm-10">   
-                                            <input type="text" v-model="form.expense_date" name="" class="form-control-sm w-100 datetimepicker" :class="{ 'is-invalid': form.errors.has('expense_date') }" autocomplete="off">                                      
-
+                                            <input type="text" v-model="form.expense_date" name="" class="form-control-sm w-100 datetimepicker" :class="{ 'is-invalid': form.errors.has('expense_date') }" autocomplete="off">
                                             <!-- <datetime format="DD/MM/YYYY h:i:s" width="300px" v-model="form.expense_date" class="form-control-sm w-100" :class="{ 'is-invalid': form.errors.has('expense_date') }" autocomplete="off"></datetime> -->
                                             <has-error :form="form" field="expense_date"></has-error>
                                         </div>
                                     </div>
                                 </div>
+                            </div>
 
-                                <div class="col-md-6">
+                            <div class="row">
+                                <div class="col-md-12">
                                    <div class="form-group row">
-                                        <label class="col-sm-3 form-control-label">Expense Detail <i class="text-danger">*</i></label>
-                                        <div class="col-sm-9">
-                                            <textarea cols="128" rows="2" v-model="form.expense_detail"></textarea>
+                                        <label class="col-sm-2 form-control-label" style="margin-right: -45px;">Expense Detail <i class="text-danger">*</i></label>
+                                        <div class="col-sm-10">
+                                            <textarea  rows="2" class="form-control" v-model="form.expense_detail"></textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -119,7 +120,7 @@
                                     </tfoot>
                                 </table>
                                 <div class="card-footer">
-                                    <router-link to="/supplier-Expense" class="btn btn-sm btn-default float-left">
+                                    <router-link to="/expense" class="btn btn-sm btn-default float-left">
                                         Back to Expense list
                                     </router-link>
 
@@ -141,11 +142,9 @@
 <script>
 // import datetime from 'vuejs-datetimepicker'
 export default {
-
     // components: { datetime },
-    
-
     data() {
+
         var today = new Date();
         var current_date = today.getDate()+'-'+(today.getMonth()+1)+'-'+today.getFullYear();
         return {
@@ -173,15 +172,12 @@ export default {
                     return total
             }, 0);
         },
-
         expense_due: function() {
             var temp = this
             let expense_due = temp.expense_total_amount - parseFloat(temp.form.expense_paid_amount);
             temp.form.expense_due = expense_due
             return expense_due          
         }
-
-
     },
 
     methods:{
