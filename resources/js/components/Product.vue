@@ -110,7 +110,7 @@
             <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="addNewLabel">Show Loan</h5>
+                        <h5 class="modal-title" id="addNewLabel">Show Product Detail</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -124,11 +124,11 @@
                                     </div>
 
                                     <div class="col-md-6 border">
-                                         <span class="h5">Category : <b>{{ product.category_id }}</b></span>
+                                         <span class="h5">Category ID : <b>{{ product.category_id }}</b></span>
                                     </div>
 
                                     <div class="col-md-6 border">
-                                         <span class="h5">Select Supplier : <b>{{ product.supplier_id }}</b></b></span>
+                                         <span class="h5">Supplier ID : <b>{{ product.supplier_id }}</b></b></span>
                                     </div>
 
                                     <div class="col-md-6 border">
@@ -136,31 +136,31 @@
                                     </div>
 
                                     <div class="col-md-6 border">
-                                         <span class="h5">warehouse_id : <b>{{ product.warehouse_id }}</b></span>
+                                         <span class="h5">Warehouse ID : <b>{{ product.warehouse_id }}</b></span>
                                     </div>
 
 
                                     <div class="col-md-6 border">
-                                         <span class="h5">supplier_price : <b>{{ product.supplier_price }}</b></span>
+                                         <span class="h5">Supplier Price : <b> {{ setting.store_currency }} {{ product.supplier_price }}</b></span>
                                     </div>
 
                                     <div class="col-md-6 border">
-                                         <span class="h5">sell_price : <b>{{ product.sell_price }}</b></span>
+                                         <span class="h5">Sell Price : <b>{{ setting.store_currency }} {{ product.sell_price }}</b></span>
                                     </div>
 
                                     <div class="col-md-6 border">
-                                         <span class="h5">mfg_date : <b>{{ product.mfg_date }}</b></span>
+                                         <span class="h5">Make Of Date : <b>{{ product.mfg_date }}</b></span>
                                     </div>
 
                                     <div class="col-md-6 border">
-                                         <span class="h5">mfg_date : <b>{{ product.exp_date }}</b></span>
+                                         <span class="h5">Expired : <b>{{ product.exp_date }}</b></span>
                                     </div>
 
                                     <div class="col-md-6 border">
-                                         <span class="h5">model : <b>{{ product.model }}</b></span>
+                                         <span class="h5">Model : <b>{{ product.model }}</b></span>
                                     </div>
                                      <div class="col-md-6 border">
-                                         <span class="h5">Image : <b>Image</b></span>
+                                         <span class="h5">Image :  <img v-show="product.image" :src="getImgUrl(product.image)"  class="img-fluid" style="max-height: 50px; max-width: 50px;" alt="User Avatar"></span>
                                     </div>
 
                                     <div class="col-md-12 border">
@@ -168,23 +168,6 @@
                                     </div>
                                     
                                 </div>
-
-                               <!--   <div class="col-md-6 border">
-                                    <div class="form-group row">
-                                        <label class="form-control-label col-sm-3">Image</label>
-                                        <div class="col-sm-5"> -->
-                                            <!-- <input type="file" :src="product.image" @change="uploadImage" class="form-control-sm w-100 w-100"/> -->
-                                        <!-- </div> -->
-
-                                        <!-- <div v-if="!img_url" id="preview col-sm-2"> -->
-                                            <!-- <img v-show="this.product.image" :src="getImgUrl(this.form.image)"  class="img-fluid" style="max-height: 50px; max-width: 50px;" alt="User Avatar"> -->
-                                        <!-- </div> -->
-
-                                        <!-- <div id="preview col-sm-2"> -->
-                                            <!-- <img v-if="img_url" :src="img_url" class="img-fluid" style="max-height: 50px; max-width: 50px;"/> -->
-                                        <!-- </div> -->
-                                    <!-- </div> -->
-                                <!-- </div>     -->
 
                             </div>
 

@@ -20,8 +20,8 @@ class CreateProductsTable extends Migration
             $table->integer('supplier_id');
             $table->integer('warehouse_id')->nullable();
             $table->integer('product_qty');
-            $table->decimal('supplier_price');
-            $table->decimal('sell_price');
+            $table->string('supplier_price');
+            $table->string('sell_price');
             $table->string('mfg_date')->nullable();
             $table->string('exp_date')->nullable();
             $table->string('model')->nullable();

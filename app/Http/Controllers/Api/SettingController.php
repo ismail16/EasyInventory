@@ -32,6 +32,7 @@ class SettingController extends Controller
         $settings->owner_name = $req['owner_name'];
         $settings->store_mobile = $req['store_mobile'];
         $settings->store_email = $req['store_email'];
+        $settings->store_currency = $req['store_currency'];
         $settings->navbar_color = $req['navbar_color'];
         $settings->sidebar_color = $req['sidebar_color'];
         $settings->text_size = $req['text_size'];

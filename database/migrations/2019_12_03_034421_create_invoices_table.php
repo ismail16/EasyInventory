@@ -21,12 +21,11 @@ class CreateInvoicesTable extends Migration
             $table->string('customer_phone');
             $table->string('customer_email')->nullable();
             $table->string('customer_address')->nullable();
-
             $table->string('invoice_date');
-            $table->decimal('grand_total_price');
-            $table->decimal('discount')->nullable();
-            $table->decimal('paid_amount')->nullable();
-            $table->decimal('due_amount')->nullable();            
+            $table->string('grand_total_price');
+            $table->string('discount')->nullable();
+            $table->string('paid_amount')->nullable();
+            $table->string('due_amount')->nullable();            
             
             $table->tinyInteger('status')->default(0);
             $table->timestamps();

@@ -89,8 +89,8 @@
                                         </p>
                                         <div class="report_graph">
                                             <div v-if="thisMonthInvoices">
-                                                <p class="mb-0" v-for="invoice in thisMonthInvoices">
-                                                    <span>name: {{ invoice.customer_name }}</span> - 
+                                                <p class="mb-0 border-bottom" v-for="(invoice, index) in thisMonthInvoices">
+                                                    {{index+1}}. <span>{{ invoice.customer_name }}</span> - 
                                                     <b>{{ setting.store_currency }} {{ invoice.grand_total_price }}</b>
                                                 </p>
                                             </div>

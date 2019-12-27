@@ -18,7 +18,7 @@ class CreateSupplierInvoiceProductsTable extends Migration
             $table->integer('supplier_invoice_id')->unsigned();
             $table->string('product_name');
             $table->integer('product_quantity');
-            $table->decimal('supplier_price');
+            $table->string('supplier_price');
             $table->tinyInteger('status')->default(0);
             $table->timestamps();
         });

@@ -20,10 +20,10 @@ class CreateSupplierInvoicesTable extends Migration
             $table->string('warehouse_id')->nullable();
             $table->string('invoice_date');
             $table->string('image')->nullable();
-            $table->decimal('grand_total_price');
-            $table->decimal('paid_amount');
-            $table->decimal('due_amount');
-            $table->decimal('discount')->nullable();
+            $table->string('grand_total_price');
+            $table->string('paid_amount');
+            $table->string('due_amount');
+            $table->string('discount')->nullable();
             $table->tinyInteger('status')->default(0);
             $table->timestamps();
         });

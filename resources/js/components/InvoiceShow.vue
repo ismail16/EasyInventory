@@ -5,24 +5,24 @@
                 <div style="min-width: 600px" id="printableArea">
                     <header>
                         <div class="row">
-                            <div class="col">
-                                <div class="text-gray-light">INVOICE FROM:</div>
-                                    <img v-if="setting.store_logo" :src="getImgUrl(setting.store_logo)" lass="img-fluid" width="50" data-holder-rendered="true"/>
-
-                                    <img v-else src="/images/logo.png" class="img-fluid" width="50" data-holder-rendered="true"/>
-                                    
-                                    <h5 class="name">{{ setting.store_name }}</h5>
-                                    <div class="address">{{ setting.store_address }}</div>
-                                    <div class="email">{{ setting.store_mobile }}</div>
-                                    <div class="email">{{ setting.store_email }}</div>
+                            <div class="col-2">
+                                <div class="text-gray-light"><b>INVOICE FROM:</b></div>
+                                <img v-if="setting.store_logo" :src="getImgUrl(setting.store_logo)" lass="img-fluid" width="50" data-holder-rendered="true"/>
+                                <img v-else src="/images/logo.png" class="img-fluid" width="50" data-holder-rendered="true"/>
+                            </div>
+                            <div class="col">                         
+                                <h5 class="name">{{ setting.store_name }}</h5>
+                                <div class="address">{{ setting.store_address }}</div>
+                                <div class="email">{{ setting.store_mobile }}</div>
+                                <div class="email">{{ setting.store_email }}</div>
                             </div>
 
                             <div class="col company-details" style="text-align:right">
-                                <div class="text-gray-light">INVOICE TO:</div>
+                                <div class="text-gray-light"><b>INVOICE TO:</b></div>
                                 <h5 class="name">Name: {{form.customer_name}}</h5>
                                 <div class="address">Phone: {{form.customer_phone}}</div>
                                 <div class="email">Email: {{form.customer_email}}</div>
-                                <div class="address">Date: {{form.invoice_date | myDate }}</div>
+                                <div class="address">Date: {{form.invoice_date}}</div>
                                 <div class="address">Address: {{form.customer_address}}</div>
                             </div>
                         </div>
@@ -47,10 +47,10 @@
                                             <span>{{ product.product_quantity }}</span>
                                         </td>
                                         <td class="text-center"> 
-                                            <span>{{ product.sell_price }}</span>
+                                            <span>{{ setting.store_currency }} {{ product.sell_price }}</span>
                                         </td>
                                         <td class="text-center">
-                                            <span>{{ product.product_quantity * product.sell_price }}</span>
+                                            <span>{{ setting.store_currency }} {{ product.product_quantity * product.sell_price }}</span>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -58,34 +58,34 @@
                                     <tr>
                                         <td style="text-align:right;" colspan="3">Discount:</td>
                                         <td class="text-center">
-                                            <span>{{ form.discount }}</span>
+                                            <span>{{ setting.store_currency }} {{ form.discount }}</span>
                                         </td>
                                     </tr>
 
                                     <tr id="appssss">
                                         <td colspan="3" style="text-align:right;">Grand Total:</td>
                                         <td class="text-center">
-                                            <span>{{ grand_total_price }}</span>
+                                            <span>{{ setting.store_currency }} {{ grand_total_price }}</span>
                                         </td>
                                     </tr> 
 
                                     <tr v-show="total">
                                         <td colspan="3" style="text-align:right;">Final Total:</td>
                                         <td class="text-center">
-                                            <span>{{ total }}</span>
+                                            <span>{{ setting.store_currency }} {{ total }}</span>
                                         </td>
                                     </tr>
 
                                     <tr>
                                         <td style="text-align:right;" colspan="3">Paid Amount:</td>
                                         <td class="text-center">
-                                            <span>{{form.paid_amount}}</span>
+                                            <span>{{ setting.store_currency }} {{form.paid_amount}}</span>
                                         </td>
                                     </tr>
                                     <tr v-show="due_amount">
                                         <td style="text-align:right;" colspan="3">Due:</td>
                                         <td  class="text-center">
-                                            <span>{{due_amount}}</span>
+                                            <span>{{ setting.store_currency }} {{due_amount}}</span>
                                         </td>
                                     </tr>
                                 </tfoot>
@@ -147,7 +147,7 @@ export default {
 
     mounted(){
         this.getInvoice();
-        this.getSettings();
+        this.getSetting();
     },
 
     computed: {
@@ -184,6 +184,18 @@ export default {
 
     methods:{
 
+        getSetting(){
+            var temp = this;
+            axios.get('/api/setting/1')
+            .then((response) => {
+                temp.setting = response.data;
+            })
+            .catch(function (error) {
+                this.loadin = true; 
+                toastr.error('Something is wrong Data Loaded')
+            });
+        },
+
         printInvoice: function() {
 
             var printContents = document.getElementById('printableArea').innerHTML;
@@ -203,18 +215,6 @@ export default {
             .catch(function (error) {
               toastr.error('Something is wrong Data Loaded')
             });
-        },
-
-        getSettings(){
-            var temp = this;
-            axios.get('/api/setting/1')
-              .then((response) => {
-                temp.setting = response.data;
-              })
-              .catch(function (error) {
-                this.loadin = true; 
-                    toastr.error('Something is wrong Data Loaded')
-              });
         },
         
         getImgUrl: function(image){

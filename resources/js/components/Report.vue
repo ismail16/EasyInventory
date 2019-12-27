@@ -66,7 +66,7 @@
                           <span class="info-box-icon bg-primary elevation-1"><i class="fas fa-shopping-cart"></i></span>
                           <div class="info-box-content">
                             <span class="info-box-text">TOTAL REVENUE</span>
-                            <span class="info-box-number">{{ grant_total }}</span>
+                            <span class="info-box-number">{{ setting.store_currency }} {{ grant_total }}</span>
                           </div>
                         </div>
                     </div>
@@ -78,7 +78,7 @@
                           <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-shopping-cart"></i></span>
                           <div class="info-box-content">
                             <span class="info-box-text">TOTAL DUE</span>
-                            <span class="info-box-number">{{ total_due }}</span>
+                            <span class="info-box-number">{{ setting.store_currency }} {{ total_due }}</span>
                           </div>
                         </div>
                     </div>
@@ -90,7 +90,7 @@
                           <span class="info-box-icon bg-danger elevation-1"><i class="far fa-money-bill-alt"></i></span>
                           <div class="info-box-content">
                             <span class="info-box-text">TOTAL EXPENSE</span>
-                            <span class="info-box-number">{{ total_expense }}</span>
+                            <span class="info-box-number">{{ setting.store_currency }} {{ total_expense }}</span>
                           </div>
                         </div>
                     </div>
@@ -102,7 +102,7 @@
                           <span class="info-box-icon bg-success elevation-1"><i class="fas fa-dollar-sign"></i></span>
                           <div class="info-box-content">
                             <span class="info-box-text">TOTAL PROFIT</span>
-                            <span class="info-box-number">{{ grant_total-total_expense }}</span>
+                            <span class="info-box-number">{{ setting.store_currency }} {{ grant_total-total_expense }}</span>
                           </div>
                         </div>
                     </div>
@@ -136,6 +136,7 @@
     },
 
     mounted(){
+        this.getSetting();
         this.getSuppliers();
         this.getWarehouses();
         this.getCategory();
@@ -177,6 +178,17 @@
     },
 
     methods:{
+        getSetting(){
+            var temp = this;
+            axios.get('/api/setting/1')
+            .then((response) => {
+                temp.setting = response.data;
+            })
+            .catch(function (error) {
+                this.loadin = true; 
+                toastr.error('Something is wrong Data Loaded')
+            });
+        },
 
         getSuppliers(){
             var temp = this;
@@ -353,18 +365,6 @@
 
           })
         }
-
-        // getSetting(){
-        //     var temp = this;
-        //     axios.get('/api/setting/1')
-        //       .then((response) => {
-        //         temp.form = response.data;
-        //       })
-        //       .catch(function (error) {
-        //         this.loadin = true; 
-        //             toastr.error('Something is wrong Data Loaded')
-        //       });
-        // },
       }
     }
 

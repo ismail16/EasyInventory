@@ -4539,7 +4539,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   mounted: function mounted() {
     this.getInvoice();
-    this.getSettings();
+    this.getSetting();
   },
   computed: {
     grand_total_price: function grand_total_price() {
@@ -4571,6 +4571,15 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   methods: {
+    getSetting: function getSetting() {
+      var temp = this;
+      axios.get('/api/setting/1').then(function (response) {
+        temp.setting = response.data;
+      })["catch"](function (error) {
+        this.loadin = true;
+        toastr.error('Something is wrong Data Loaded');
+      });
+    },
     printInvoice: function printInvoice() {
       var printContents = document.getElementById('printableArea').innerHTML;
       var originalContents = document.body.innerHTML;
@@ -4584,15 +4593,6 @@ __webpack_require__.r(__webpack_exports__);
         temp.form = response.data.Invoice;
         temp.product_arr = response.data.InvoiceProduct;
       })["catch"](function (error) {
-        toastr.error('Something is wrong Data Loaded');
-      });
-    },
-    getSettings: function getSettings() {
-      var temp = this;
-      axios.get('/api/setting/1').then(function (response) {
-        temp.setting = response.data;
-      })["catch"](function (error) {
-        this.loadin = true;
         toastr.error('Something is wrong Data Loaded');
       });
     },
@@ -5214,23 +5214,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -6256,6 +6239,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     }, _defineProperty(_ref, "products", ''), _defineProperty(_ref, "invoices", ''), _defineProperty(_ref, "setting", ''), _defineProperty(_ref, "thisYearInvoices", ''), _defineProperty(_ref, "expenses", ''), _ref;
   },
   mounted: function mounted() {
+    this.getSetting();
     this.getSuppliers();
     this.getWarehouses();
     this.getCategory();
@@ -6297,6 +6281,15 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     }
   },
   methods: {
+    getSetting: function getSetting() {
+      var temp = this;
+      axios.get('/api/setting/1').then(function (response) {
+        temp.setting = response.data;
+      })["catch"](function (error) {
+        this.loadin = true;
+        toastr.error('Something is wrong Data Loaded');
+      });
+    },
     getSuppliers: function getSuppliers() {
       var temp = this;
       axios.get('/api/suppliers').then(function (response) {
@@ -6444,18 +6437,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           options: salesChartOptions
         });
       });
-    } // getSetting(){
-    //     var temp = this;
-    //     axios.get('/api/setting/1')
-    //       .then((response) => {
-    //         temp.form = response.data;
-    //       })
-    //       .catch(function (error) {
-    //         this.loadin = true; 
-    //             toastr.error('Something is wrong Data Loaded')
-    //       });
-    // },
-
+    }
   }
 });
 
@@ -8438,6 +8420,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -8459,7 +8442,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   },
   mounted: function mounted() {
     this.getSupplierInvoice();
-    this.getSettings();
+    this.getSetting();
   },
   computed: {
     grand_total_price: function grand_total_price() {
@@ -8498,7 +8481,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         toastr.error('Something is wrong Data Loaded');
       });
     },
-    getSettings: function getSettings() {
+    getSetting: function getSetting() {
       var temp = this;
       axios.get('/api/setting/1').then(function (response) {
         temp.setting = response.data;
@@ -31900,24 +31883,34 @@ var render = function() {
                       _vm.thisMonthInvoices
                         ? _c(
                             "div",
-                            _vm._l(_vm.thisMonthInvoices, function(invoice) {
-                              return _c("p", { staticClass: "mb-0" }, [
-                                _c("span", [
+                            _vm._l(_vm.thisMonthInvoices, function(
+                              invoice,
+                              index
+                            ) {
+                              return _c(
+                                "p",
+                                { staticClass: "mb-0 border-bottom" },
+                                [
                                   _vm._v(
-                                    "name: " + _vm._s(invoice.customer_name)
-                                  )
-                                ]),
-                                _vm._v(
-                                  " - \n                                                "
-                                ),
-                                _c("b", [
+                                    "\n                                                " +
+                                      _vm._s(index + 1) +
+                                      ". "
+                                  ),
+                                  _c("span", [
+                                    _vm._v(_vm._s(invoice.customer_name))
+                                  ]),
                                   _vm._v(
-                                    _vm._s(_vm.setting.store_currency) +
-                                      " " +
-                                      _vm._s(invoice.grand_total_price)
-                                  )
-                                ])
-                              ])
+                                    " - \n                                                "
+                                  ),
+                                  _c("b", [
+                                    _vm._v(
+                                      _vm._s(_vm.setting.store_currency) +
+                                        " " +
+                                        _vm._s(invoice.grand_total_price)
+                                    )
+                                  ])
+                                ]
+                              )
                             }),
                             0
                           )
@@ -36720,10 +36713,8 @@ var render = function() {
           [
             _c("header", [
               _c("div", { staticClass: "row" }, [
-                _c("div", { staticClass: "col" }, [
-                  _c("div", { staticClass: "text-gray-light" }, [
-                    _vm._v("INVOICE FROM:")
-                  ]),
+                _c("div", { staticClass: "col-2" }, [
+                  _vm._m(0),
                   _vm._v(" "),
                   _vm.setting.store_logo
                     ? _c("img", {
@@ -36741,8 +36732,10 @@ var render = function() {
                           width: "50",
                           "data-holder-rendered": "true"
                         }
-                      }),
-                  _vm._v(" "),
+                      })
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col" }, [
                   _c("h5", { staticClass: "name" }, [
                     _vm._v(_vm._s(_vm.setting.store_name))
                   ]),
@@ -36767,9 +36760,7 @@ var render = function() {
                     staticStyle: { "text-align": "right" }
                   },
                   [
-                    _c("div", { staticClass: "text-gray-light" }, [
-                      _vm._v("INVOICE TO:")
-                    ]),
+                    _vm._m(1),
                     _vm._v(" "),
                     _c("h5", { staticClass: "name" }, [
                       _vm._v("Name: " + _vm._s(_vm.form.customer_name))
@@ -36784,10 +36775,7 @@ var render = function() {
                     ]),
                     _vm._v(" "),
                     _c("div", { staticClass: "address" }, [
-                      _vm._v(
-                        "Date: " +
-                          _vm._s(_vm._f("myDate")(_vm.form.invoice_date))
-                      )
+                      _vm._v("Date: " + _vm._s(_vm.form.invoice_date))
                     ]),
                     _vm._v(" "),
                     _c("div", { staticClass: "address" }, [
@@ -36813,7 +36801,7 @@ var render = function() {
                       attrs: { id: "normalinvoice" }
                     },
                     [
-                      _vm._m(0),
+                      _vm._m(2),
                       _vm._v(" "),
                       _c(
                         "tbody",
@@ -36839,16 +36827,24 @@ var render = function() {
                             ]),
                             _vm._v(" "),
                             _c("td", { staticClass: "text-center" }, [
-                              _c("span", [_vm._v(_vm._s(product.sell_price))])
+                              _c("span", [
+                                _vm._v(
+                                  _vm._s(_vm.setting.store_currency) +
+                                    " " +
+                                    _vm._s(product.sell_price)
+                                )
+                              ])
                             ]),
                             _vm._v(" "),
                             _c("td", { staticClass: "text-center" }, [
                               _c("span", [
                                 _vm._v(
-                                  _vm._s(
-                                    product.product_quantity *
-                                      product.sell_price
-                                  )
+                                  _vm._s(_vm.setting.store_currency) +
+                                    " " +
+                                    _vm._s(
+                                      product.product_quantity *
+                                        product.sell_price
+                                    )
                                 )
                               ])
                             ])
@@ -36869,7 +36865,13 @@ var render = function() {
                           ),
                           _vm._v(" "),
                           _c("td", { staticClass: "text-center" }, [
-                            _c("span", [_vm._v(_vm._s(_vm.form.discount))])
+                            _c("span", [
+                              _vm._v(
+                                _vm._s(_vm.setting.store_currency) +
+                                  " " +
+                                  _vm._s(_vm.form.discount)
+                              )
+                            ])
                           ])
                         ]),
                         _vm._v(" "),
@@ -36884,7 +36886,13 @@ var render = function() {
                           ),
                           _vm._v(" "),
                           _c("td", { staticClass: "text-center" }, [
-                            _c("span", [_vm._v(_vm._s(_vm.grand_total_price))])
+                            _c("span", [
+                              _vm._v(
+                                _vm._s(_vm.setting.store_currency) +
+                                  " " +
+                                  _vm._s(_vm.grand_total_price)
+                              )
+                            ])
                           ])
                         ]),
                         _vm._v(" "),
@@ -36911,7 +36919,13 @@ var render = function() {
                             ),
                             _vm._v(" "),
                             _c("td", { staticClass: "text-center" }, [
-                              _c("span", [_vm._v(_vm._s(_vm.total))])
+                              _c("span", [
+                                _vm._v(
+                                  _vm._s(_vm.setting.store_currency) +
+                                    " " +
+                                    _vm._s(_vm.total)
+                                )
+                              ])
                             ])
                           ]
                         ),
@@ -36927,7 +36941,13 @@ var render = function() {
                           ),
                           _vm._v(" "),
                           _c("td", { staticClass: "text-center" }, [
-                            _c("span", [_vm._v(_vm._s(_vm.form.paid_amount))])
+                            _c("span", [
+                              _vm._v(
+                                _vm._s(_vm.setting.store_currency) +
+                                  " " +
+                                  _vm._s(_vm.form.paid_amount)
+                              )
+                            ])
                           ])
                         ]),
                         _vm._v(" "),
@@ -36954,7 +36974,13 @@ var render = function() {
                             ),
                             _vm._v(" "),
                             _c("td", { staticClass: "text-center" }, [
-                              _c("span", [_vm._v(_vm._s(_vm.due_amount))])
+                              _c("span", [
+                                _vm._v(
+                                  _vm._s(_vm.setting.store_currency) +
+                                    " " +
+                                    _vm._s(_vm.due_amount)
+                                )
+                              ])
                             ])
                           ]
                         )
@@ -36962,7 +36988,7 @@ var render = function() {
                     ]
                   ),
                   _vm._v(" "),
-                  _vm._m(1)
+                  _vm._m(3)
                 ]
               )
             ]),
@@ -37011,6 +37037,22 @@ var render = function() {
   ])
 }
 var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "text-gray-light" }, [
+      _c("b", [_vm._v("INVOICE FROM:")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "text-gray-light" }, [
+      _c("b", [_vm._v("INVOICE TO:")])
+    ])
+  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
@@ -37336,7 +37378,7 @@ var render = function() {
       [
         _c(
           "div",
-          { staticClass: "modal-dialog modal-lg", attrs: { role: "document" } },
+          { staticClass: "modal-dialog modal-md", attrs: { role: "document" } },
           [
             _c("div", { staticClass: "modal-content" }, [
               _vm._m(4),
@@ -38872,14 +38914,14 @@ var render = function() {
                           _vm._v(" "),
                           _c("div", { staticClass: "col-md-6 border" }, [
                             _c("span", { staticClass: "h5" }, [
-                              _vm._v("Category : "),
+                              _vm._v("Category ID : "),
                               _c("b", [_vm._v(_vm._s(_vm.product.category_id))])
                             ])
                           ]),
                           _vm._v(" "),
                           _c("div", { staticClass: "col-md-6 border" }, [
                             _c("span", { staticClass: "h5" }, [
-                              _vm._v("Select Supplier : "),
+                              _vm._v("Supplier ID : "),
                               _c("b", [_vm._v(_vm._s(_vm.product.supplier_id))])
                             ])
                           ]),
@@ -38893,7 +38935,7 @@ var render = function() {
                           _vm._v(" "),
                           _c("div", { staticClass: "col-md-6 border" }, [
                             _c("span", { staticClass: "h5" }, [
-                              _vm._v("warehouse_id : "),
+                              _vm._v("Warehouse ID : "),
                               _c("b", [
                                 _vm._v(_vm._s(_vm.product.warehouse_id))
                               ])
@@ -38902,42 +38944,76 @@ var render = function() {
                           _vm._v(" "),
                           _c("div", { staticClass: "col-md-6 border" }, [
                             _c("span", { staticClass: "h5" }, [
-                              _vm._v("supplier_price : "),
+                              _vm._v("Supplier Price : "),
                               _c("b", [
-                                _vm._v(_vm._s(_vm.product.supplier_price))
+                                _vm._v(
+                                  " " +
+                                    _vm._s(_vm.setting.store_currency) +
+                                    " " +
+                                    _vm._s(_vm.product.supplier_price)
+                                )
                               ])
                             ])
                           ]),
                           _vm._v(" "),
                           _c("div", { staticClass: "col-md-6 border" }, [
                             _c("span", { staticClass: "h5" }, [
-                              _vm._v("sell_price : "),
-                              _c("b", [_vm._v(_vm._s(_vm.product.sell_price))])
+                              _vm._v("Sell Price : "),
+                              _c("b", [
+                                _vm._v(
+                                  _vm._s(_vm.setting.store_currency) +
+                                    " " +
+                                    _vm._s(_vm.product.sell_price)
+                                )
+                              ])
                             ])
                           ]),
                           _vm._v(" "),
                           _c("div", { staticClass: "col-md-6 border" }, [
                             _c("span", { staticClass: "h5" }, [
-                              _vm._v("mfg_date : "),
+                              _vm._v("Make Of Date : "),
                               _c("b", [_vm._v(_vm._s(_vm.product.mfg_date))])
                             ])
                           ]),
                           _vm._v(" "),
                           _c("div", { staticClass: "col-md-6 border" }, [
                             _c("span", { staticClass: "h5" }, [
-                              _vm._v("mfg_date : "),
+                              _vm._v("Expired : "),
                               _c("b", [_vm._v(_vm._s(_vm.product.exp_date))])
                             ])
                           ]),
                           _vm._v(" "),
                           _c("div", { staticClass: "col-md-6 border" }, [
                             _c("span", { staticClass: "h5" }, [
-                              _vm._v("model : "),
+                              _vm._v("Model : "),
                               _c("b", [_vm._v(_vm._s(_vm.product.model))])
                             ])
                           ]),
                           _vm._v(" "),
-                          _vm._m(5),
+                          _c("div", { staticClass: "col-md-6 border" }, [
+                            _c("span", { staticClass: "h5" }, [
+                              _vm._v("Image :  "),
+                              _c("img", {
+                                directives: [
+                                  {
+                                    name: "show",
+                                    rawName: "v-show",
+                                    value: _vm.product.image,
+                                    expression: "product.image"
+                                  }
+                                ],
+                                staticClass: "img-fluid",
+                                staticStyle: {
+                                  "max-height": "50px",
+                                  "max-width": "50px"
+                                },
+                                attrs: {
+                                  src: _vm.getImgUrl(_vm.product.image),
+                                  alt: "User Avatar"
+                                }
+                              })
+                            ])
+                          ]),
                           _vm._v(" "),
                           _c("div", { staticClass: "col-md-12 border" }, [
                             _c("span", { staticClass: "h5" }, [
@@ -39029,7 +39105,7 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "modal-header" }, [
       _c("h5", { staticClass: "modal-title", attrs: { id: "addNewLabel" } }, [
-        _vm._v("Show Loan")
+        _vm._v("Show Product Detail")
       ]),
       _vm._v(" "),
       _c(
@@ -39044,17 +39120,6 @@ var staticRenderFns = [
         },
         [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
       )
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-md-6 border" }, [
-      _c("span", { staticClass: "h5" }, [
-        _vm._v("Image : "),
-        _c("b", [_vm._v("Image")])
-      ])
     ])
   }
 ]
@@ -40630,7 +40695,11 @@ var render = function() {
                           ]),
                           _vm._v(" "),
                           _c("span", { staticClass: "info-box-number" }, [
-                            _vm._v(_vm._s(_vm.grant_total))
+                            _vm._v(
+                              _vm._s(_vm.setting.store_currency) +
+                                " " +
+                                _vm._s(_vm.grant_total)
+                            )
                           ])
                         ])
                       ])
@@ -40648,7 +40717,11 @@ var render = function() {
                           ]),
                           _vm._v(" "),
                           _c("span", { staticClass: "info-box-number" }, [
-                            _vm._v(_vm._s(_vm.total_due))
+                            _vm._v(
+                              _vm._s(_vm.setting.store_currency) +
+                                " " +
+                                _vm._s(_vm.total_due)
+                            )
                           ])
                         ])
                       ])
@@ -40666,7 +40739,11 @@ var render = function() {
                           ]),
                           _vm._v(" "),
                           _c("span", { staticClass: "info-box-number" }, [
-                            _vm._v(_vm._s(_vm.total_expense))
+                            _vm._v(
+                              _vm._s(_vm.setting.store_currency) +
+                                " " +
+                                _vm._s(_vm.total_expense)
+                            )
                           ])
                         ])
                       ])
@@ -40684,7 +40761,11 @@ var render = function() {
                           ]),
                           _vm._v(" "),
                           _c("span", { staticClass: "info-box-number" }, [
-                            _vm._v(_vm._s(_vm.grant_total - _vm.total_expense))
+                            _vm._v(
+                              _vm._s(_vm.setting.store_currency) +
+                                " " +
+                                _vm._s(_vm.grant_total - _vm.total_expense)
+                            )
                           ])
                         ])
                       ])
@@ -45129,7 +45210,9 @@ var render = function() {
           [
             _c("header", [
               _c("div", { staticClass: "row" }, [
-                _c("div", { staticClass: "col" }, [
+                _c("div", { staticClass: "col-1" }, [
+                  _vm._m(0),
+                  _vm._v(" "),
                   _vm.setting.store_logo
                     ? _c("img", {
                         attrs: {
@@ -45146,8 +45229,10 @@ var render = function() {
                           width: "50",
                           "data-holder-rendered": "true"
                         }
-                      }),
-                  _vm._v(" "),
+                      })
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col" }, [
                   _c("h5", { staticClass: "name" }, [
                     _vm._v(_vm._s(_vm.setting.store_name))
                   ]),
@@ -45172,9 +45257,7 @@ var render = function() {
                     staticStyle: { "text-align": "right" }
                   },
                   [
-                    _c("div", { staticClass: "text-gray-light" }, [
-                      _vm._v("INVOICE TO:")
-                    ]),
+                    _vm._m(1),
                     _vm._v(" "),
                     _c("h5", { staticClass: "name" }, [
                       _vm._v("supplier ID: " + _vm._s(_vm.form.supplier_id))
@@ -45207,7 +45290,7 @@ var render = function() {
                       attrs: { id: "normalinvoice" }
                     },
                     [
-                      _vm._m(0),
+                      _vm._m(2),
                       _vm._v(" "),
                       _c(
                         "tbody",
@@ -45234,17 +45317,23 @@ var render = function() {
                             _vm._v(" "),
                             _c("td", { staticClass: "text-center" }, [
                               _c("span", [
-                                _vm._v(_vm._s(product.supplier_price))
+                                _vm._v(
+                                  _vm._s(_vm.setting.store_currency) +
+                                    " " +
+                                    _vm._s(product.supplier_price)
+                                )
                               ])
                             ]),
                             _vm._v(" "),
                             _c("td", { staticClass: "text-center" }, [
                               _c("span", [
                                 _vm._v(
-                                  _vm._s(
-                                    product.product_quantity *
-                                      product.supplier_price
-                                  )
+                                  _vm._s(_vm.setting.store_currency) +
+                                    " " +
+                                    _vm._s(
+                                      product.product_quantity *
+                                        product.supplier_price
+                                    )
                                 )
                               ])
                             ])
@@ -45265,7 +45354,13 @@ var render = function() {
                           ),
                           _vm._v(" "),
                           _c("td", { staticClass: "text-center" }, [
-                            _c("span", [_vm._v(_vm._s(_vm.grand_total_price))])
+                            _c("span", [
+                              _vm._v(
+                                _vm._s(_vm.setting.store_currency) +
+                                  " " +
+                                  _vm._s(_vm.grand_total_price)
+                              )
+                            ])
                           ])
                         ]),
                         _vm._v(" "),
@@ -45280,7 +45375,13 @@ var render = function() {
                           ),
                           _vm._v(" "),
                           _c("td", { staticClass: "text-center" }, [
-                            _c("span", [_vm._v(_vm._s(_vm.form.paid_amount))])
+                            _c("span", [
+                              _vm._v(
+                                _vm._s(_vm.setting.store_currency) +
+                                  " " +
+                                  _vm._s(_vm.form.paid_amount)
+                              )
+                            ])
                           ])
                         ]),
                         _vm._v(" "),
@@ -45307,7 +45408,13 @@ var render = function() {
                             ),
                             _vm._v(" "),
                             _c("td", { staticClass: "text-center" }, [
-                              _c("span", [_vm._v(_vm._s(_vm.form.due_amount))])
+                              _c("span", [
+                                _vm._v(
+                                  _vm._s(_vm.setting.store_currency) +
+                                    " " +
+                                    _vm._s(_vm.form.due_amount)
+                                )
+                              ])
                             ])
                           ]
                         )
@@ -45315,7 +45422,7 @@ var render = function() {
                     ]
                   ),
                   _vm._v(" "),
-                  _vm._m(1)
+                  _vm._m(3)
                 ]
               )
             ]),
@@ -45364,6 +45471,22 @@ var render = function() {
   ])
 }
 var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "text-gray-light" }, [
+      _c("b", [_vm._v("INVOICE FROM:")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "text-gray-light" }, [
+      _c("b", [_vm._v("INVOICE TO:")])
+    ])
+  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
@@ -63285,8 +63408,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /home/mnbtech/Projects/EasyInventory/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /home/mnbtech/Projects/EasyInventory/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! E:\xampp\htdocs\EasyInventory\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! E:\xampp\htdocs\EasyInventory\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
