@@ -51,7 +51,6 @@
                                     </tr>
                                 </thead>
                                 <tbody v-if="suppliers.length > 0 ">
-
                                     <tr v-for="(supplier, index) in suppliers">
                                         <td class="text-center">{{ index+1 }}</td>
                                         <td class="text-center">{{ supplier.supplier_name }}</td>
@@ -60,9 +59,6 @@
                                         <td class="text-center">{{ supplier.supplier_phone }}</td>
                                         <td class="text-center">{{ supplier.supplier_address }}</td>
                                         <td class="text-center">
-                                            <!-- <a href="" class="btn btn-xs btn-success">
-                                                <i class="fa fa-eye"></i>
-                                            </a> -->
                                             <a class="btn btn-xs btn-success mr-1" @click.prevent="editModal(supplier)">
                                                 <i class="fa fa-edit"></i>
                                             </a>
@@ -72,7 +68,6 @@
                                         </td>
                                     </tr>
                                 </tbody>
-
                                 <tbody v-else>
                                     <tr>
                                         <td colspan="7">
@@ -83,16 +78,14 @@
                                         </td>
                                     </tr>
                                 </tbody>
-
-
                             </table>
                             <pagination v-if="pagination.last_page > 1"
                                 :pagination="pagination"
                                 :offset="5"
-                                @paginate="query === '' ? getData() : searchData()"
-                                ></pagination>
-                            </div>
+                                @paginate="query === '' ? getData() : searchData()">
+                            </pagination>
                         </div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -280,9 +273,9 @@
             updateSupplier(id){
                 this.$Progress.start() 
                 var temp = this
-                $('#addNew').modal('hide')
                 this.form.put('/api/suppliers/'+this.form.id)
                 .then(function (response) {
+                    $('#addNew').modal('hide')
                     toastr.success('Updated Supplier Successfully');
                     temp.getData();
                     temp.$Progress.finish()

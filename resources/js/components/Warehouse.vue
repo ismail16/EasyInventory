@@ -48,12 +48,16 @@
                   <tr v-for="(warehouse, index) in warehouses">
                     <td class="text-center">{{ index+1 }}</td>
                     <td class="text-center">{{ warehouse.warehouse_name }}</td>
-                    <td class="text-center">{{ warehouse.status }}</td>
-                    <td class="text-center">{{ warehouse.create_at | myDate }}</td>
                     <td class="text-center">
-                      <!--<a href="" class="btn btn-xs btn-success">
-                        <i class="fa fa-eye"></i>
-                      </a>-->
+                        <span v-if="warehouse.status == 0" class="text-success">
+                            Active
+                        </span>
+                        <span v-else class="text-danger">
+                            Deactive
+                        </span>
+                    </td>
+                    <td class="text-center">{{ warehouse.created_at | myDate }}</td>
+                    <td class="text-center">
                       <a class="btn btn-xs btn-success mr-1" @click.prevent="editModal(warehouse)">
                         <i class="fa fa-edit"></i>
                       </a>

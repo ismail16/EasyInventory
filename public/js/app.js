@@ -1832,6 +1832,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   // el: '#category_app',
   data: function data() {
@@ -7256,13 +7260,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -7373,8 +7370,8 @@ __webpack_require__.r(__webpack_exports__);
     updateSupplier: function updateSupplier(id) {
       this.$Progress.start();
       var temp = this;
-      $('#addNew').modal('hide');
       this.form.put('/api/suppliers/' + this.form.id).then(function (response) {
+        $('#addNew').modal('hide');
         toastr.success('Updated Supplier Successfully');
         temp.getData();
         temp.$Progress.finish();
@@ -8508,6 +8505,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
 //
 //
 //
@@ -30796,12 +30797,26 @@ var render = function() {
                               ]),
                               _vm._v(" "),
                               _c("td", { staticClass: "text-center" }, [
-                                _vm._v(_vm._s(category.status))
+                                category.status == 1
+                                  ? _c(
+                                      "span",
+                                      { staticClass: "text-success" },
+                                      [
+                                        _vm._v(
+                                          "\n                          Active\n                      "
+                                        )
+                                      ]
+                                    )
+                                  : _c("span", { staticClass: "text-danger" }, [
+                                      _vm._v(
+                                        "\n                          Deactive\n                      "
+                                      )
+                                    ])
                               ]),
                               _vm._v(" "),
                               _c("td", { staticClass: "text-center" }, [
                                 _vm._v(
-                                  _vm._s(_vm._f("myDate")(category.create_at))
+                                  _vm._s(_vm._f("myDate")(category.created_at))
                                 )
                               ]),
                               _vm._v(" "),
@@ -45676,12 +45691,26 @@ var render = function() {
                               ]),
                               _vm._v(" "),
                               _c("td", { staticClass: "text-center" }, [
-                                _vm._v(_vm._s(warehouse.status))
+                                warehouse.status == 0
+                                  ? _c(
+                                      "span",
+                                      { staticClass: "text-success" },
+                                      [
+                                        _vm._v(
+                                          "\n                          Active\n                      "
+                                        )
+                                      ]
+                                    )
+                                  : _c("span", { staticClass: "text-danger" }, [
+                                      _vm._v(
+                                        "\n                          Deactive\n                      "
+                                      )
+                                    ])
                               ]),
                               _vm._v(" "),
                               _c("td", { staticClass: "text-center" }, [
                                 _vm._v(
-                                  _vm._s(_vm._f("myDate")(warehouse.create_at))
+                                  _vm._s(_vm._f("myDate")(warehouse.created_at))
                                 )
                               ]),
                               _vm._v(" "),
@@ -63408,8 +63437,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! E:\xampp\htdocs\EasyInventory\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! E:\xampp\htdocs\EasyInventory\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /home/mnbtech/Projects/EasyInventory/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /home/mnbtech/Projects/EasyInventory/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

@@ -50,12 +50,16 @@
                   <tr v-for="(category, index) in categories">
                     <td class="text-center">{{ index+1 }}</td>
                     <td class="text-center">{{ category.category_name }}</td>
-                    <td class="text-center">{{ category.status }}</td>
-                    <td class="text-center">{{ category.create_at | myDate }}</td>
                     <td class="text-center">
-                      <!--<a href="" class="btn btn-xs btn-success">
-                        <i class="fa fa-eye"></i>
-                      </a>-->
+                        <span v-if="category.status == 1" class="text-success">
+                            Active
+                        </span>
+                        <span v-else class="text-danger">
+                            Deactive
+                        </span>
+                    </td>
+                    <td class="text-center">{{ category.created_at | myDate }}</td>
+                    <td class="text-center">
                       <a class="btn btn-xs btn-success mr-1" @click.prevent="editModal(category)">
                         <i class="fa fa-edit"></i>
                       </a>
