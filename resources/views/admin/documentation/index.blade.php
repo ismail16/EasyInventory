@@ -42,11 +42,11 @@
                                         <ul>
                                             <strong>Step 1</strong>
                                             <li>Unzip the downloaded folder</li>
-                                            <li>Copy the files from inside the folder : "ismail32cse_1_0_1" into your server</li>
+                                            <li>Copy the files from inside the folder : " Easy_Inventory " into your server</li>
                                             <strong>Step 2</strong>
                                             <li>Create Database, Database Username, Password.</li>
                                             <li>Then go to Your Server phpMyAdmin.</li>
-                                            <li>import <b> easy_inventory_db.sql</b> to database.</li>
+                                            <li>import " <b>easyinventory_db.sql</b> " to database.</li>
                                             <strong>Step 3</strong>
                                             <li>Go to root folder open .env file </li>
                                             <li>
@@ -91,8 +91,8 @@
 
                                             </div>
                                             <div class="col-sm-4">
-                                                <p><strong>Username : <span class="text-danger">admin</span> </strong> </p>
-                                                <p><strong>Password : <span class="text-danger">123456</span></strong> </p>
+                                                <p><strong>UserID : <span class="text-danger">admin@email.com</span> </strong> </p>
+                                                <p><strong>Password : <span class="text-danger">11111111</span></strong> </p>
                                             </div>
                                             <div class="col-sm-8">
                                                 <img class="img-fluid" src="{{ asset('backend_assets/dist/img/documentation/login.jpg')}}">
@@ -102,7 +102,7 @@
                                 </div>
                             </section>
 
-                            <section id="admin_dashboard">
+                            <section id="admin_dashboard" class="pb-4">
                                 <div class="row">
                                     <div class="col-12">
                                         <div class="page-header">
@@ -113,25 +113,19 @@
                                     <div class="col-md-5 border-right">
                                         <ul>
                                             <li>Easy user interface and interactive design to facilitate admins</li>
-                                            <li>View Total Receivable, Total Received Amount, Total Discount Given, Total Revenue.</li>
-                                            <li>View Total Invoice, Total Sales.</li>
-                                            <li>View 365 Days Sales in chart (percentage).</li>
-                                            <li>View Sold Products Types, Total Sold Pro. Qty.</li>
-                                            <li>View Total Items in Stock, Total Item Categories.</li>
-                                            <li>View Total Customer and Total Supplier.</li>
-                                            <li>View Recent Invoices and quick links to invoices.</li>
-                                            <li>Search invoice through quick search box.</li>
+                                            <li>View Total Category, Total Product, Total Sales, Total Customers.</li>
+                                            <li>View Current Month Sales in Graph.</li>
+                                            <li>View Recent Invoices</li>
+                                            <li>View Total Revenue, Total Due, Total Expence, Total Profit</li>
                                         </ul>
-                                        <br>
+
+                                        <strong>NOTE: First you need to add Suppliers, after Suppliers add Categories, then add Warehouse, and after Warehouse add Products then everything will work smoothly:)<br> <br>
+
+                                        Because Products depends on Categories, Categories depends on Suppliers, Warehouse is the place where you keeps your products.</strong>
 
                                     </div>
 
                                     <div class="col-md-7">
-                                        <strong>NOTE: First you need to add Suppliers, after Suppliers add Categories, then add Warehouse, and after Warehouse add Products then everything will work smoothly:)<br>
-                                            <br>
-                                        Because Products depends on Categories, Categories depends on Suppliers, Warehouse is the place where you keeps your products.</strong>
-                                        <br>
-                                        <br>
                                         <p><strong>Administrator Dashabord</strong></p>
                                         <img class="img-fluid" src="{{ asset('backend_assets/dist/img/documentation/Dashboard.png')}}"> </li>
 
@@ -247,8 +241,8 @@
                                             <li style="list-style: none; text-align: justify; "> You can easily add new Product in the system. The form is elaborate with all possible information you might need to add for a new Product. During addition of new Product you just have to provide the Product, Category, Warehouse, Mfg.Date, Exp.Date, Image, Detail, Quantity, Sell Price, Supplier Price, Model, SKU, Supplier. </li>
                                             <li><strong>Products List</strong></li>
                                             <li style="list-style: none; text-align: justify; "> You can see list of all Products at a glance. </li>
-                                            <li><strong>Export all Products</strong></li>
-                                            <li style="list-style: none; text-align: justify; "> You can Export all Products to CVS, PDF, Excel file. plus you can print is as well. </li>
+                                       {{--      <li><strong>Export all Products</strong></li>
+                                            <li style="list-style: none; text-align: justify; "> You can Export all Products to CVS, PDF, Excel file. plus you can print is as well. </li> --}}
                                         </ul>
                                     </div>
                                     <div class="col-7">
@@ -260,8 +254,8 @@
                                         <p id="ViewProduct"><strong>View Products</strong></p>
                                         <img class="img-fluid" src="{{ asset('backend_assets/dist/img/documentation/viewProducts.png')}}">
 
-                                        <p id="ExportProducts"><strong>Export all Products</strong></p>
-                                        <img class="img-fluid" src="{{ asset('backend_assets/dist/img/documentation/Products.png')}}">
+                                      {{--   <p id="ExportProducts"><strong>Export all Products</strong></p>
+                                        <img class="img-fluid" src="{{ asset('backend_assets/dist/img/documentation/Products.png')}}"> --}}
 
                                     </div>
                                 </div>
@@ -285,10 +279,11 @@
                                             <li style="list-style: none; text-align: justify; "> You can easily add new customer in the system. The form is elaborate with all possible information you might need to add for a new customer. During addition of new customer you just have to provide the Customer Name, Mobile #, Email, Billing Address. </li>
                                             <li><strong>Customers List</strong></li>
                                             <li style="list-style: none; text-align: justify; "> You can see list of all customers at a glance. </li>
-                                            <li><strong>Credit Customers Invoices List List</strong></li>
+
+                                          {{--   <li><strong>Credit Customers Invoices List List</strong></li>
                                             <li style="list-style: none; text-align: justify; "> You can see list of all credit customers invoices list at a glance. </li>
                                             <li><strong>Paid Customers Invoices List</strong></li>
-                                            <li style="list-style: none; text-align: justify; "> You can see list of all paid customers invoices list at a glance. </li>
+                                            <li style="list-style: none; text-align: justify; "> You can see list of all paid customers invoices list at a glance. </li> --}}
                                         </ul>
                                     </div>
                                     <div class="col-7">
@@ -320,10 +315,11 @@
                                             <li style="list-style: none; text-align: justify; "> You can see list of all Invoice at a glance. </li>
                                             <li><strong>Print/View Invoice</strong></li>
                                             <li style="list-style: none; text-align: justify; "> once you created invoice then go to invoice management click view invoice and print. </li>
-                                            <li><strong>Credit Invoices List List</strong></li>
+
+                                           {{--  <li><strong>Credit Invoices List List</strong></li>
                                             <li style="list-style: none; text-align: justify; "> You can see list of all credit invoices list at a glance. </li>
                                             <li><strong>Paid Invoices List</strong></li>
-                                            <li style="list-style: none; text-align: justify; "> You can see list of all paid invoices list at a glance. </li>
+                                            <li style="list-style: none; text-align: justify; "> You can see list of all paid invoices list at a glance. </li> --}}
                                         </ul>
                                     </div>
                                     <div class="col-7">
@@ -352,18 +348,17 @@
                                             <br>
                                             <br> To view invoice go to Expenses &gt; Manage Expense Invoices </p>
                                         <ul>
-                                            <li><strong>Add Expense Type</strong></li>
-                                            <li style="list-style: none; text-align: justify; "> before creating expense invoice you must have to add expense type. to make sure what kind of expanse invoice you are going to create. </li>
                                             <li><strong>Add New Expense Invoice</strong></li>
                                             <li style="list-style: none; text-align: justify; "> once you add expense type to the system then you can easily add new expense invoice in the system. add the Item info , Quantity, Rate, the system will automatially do calculation.</li>
                                             <li><strong>Expense Invoice List</strong></li>
                                             <li style="list-style: none; text-align: justify; "> You can see list of all expense invoice at a glance. </li>
                                             <li><strong>Print/View Expense Invoice</strong></li>
                                             <li style="list-style: none; text-align: justify; "> once you created expense invoice then go to expense invoice management click view invoice and print. </li>
-                                            <li><strong>Credit Expense Invoices List List</strong></li>
+
+                                           {{--  <li><strong>Credit Expense Invoices List List</strong></li>
                                             <li style="list-style: none; text-align: justify; "> You can see list of all credit expense invoices list at a glance. </li>
                                             <li><strong>Paid Expense Invoices List</strong></li>
-                                            <li style="list-style: none; text-align: justify; "> You can see list of all paid expense invoices list at a glance. </li>
+                                            <li style="list-style: none; text-align: justify; "> You can see list of all paid expense invoices list at a glance. </li> --}}
                                         </ul>
                                     </div>
                                     <div class="col-7">
@@ -389,10 +384,8 @@
                                     <div class="col-md-5 border-right">
                                         <p style="text-align: justify;"> Loan Management system is very easy and usefull section in Easy Inventory which makes your lif very easy. The facilities that loan management holds in Easy Inventory are listed below:
                                             <br>
-                                            <br> To view loan go to loan &gt; Manage loan </p>
+                                            <br> To view loan go to <b>Loan</b></p>
                                         <ul>
-                                            <li><strong>Add Loaner </strong></li>
-                                            <li style="list-style: none; text-align: justify; "> before creating loan you must have to add loaner Name. </li>
                                             <li><strong>Add Loan</strong></li>
                                             <li style="list-style: none; text-align: justify; "> once you add loaner Name to the system then you can easily loan contract in the system with all terms and conditions. add the Contract Loan Amount, Loan Contract Date, Loan Contract End-Date, Detail info in the form.</li>
                                             <li><strong>Loans List</strong></li>
@@ -430,7 +423,7 @@
                                             <li><strong>Add New Staff</strong></li>
                                             <li style="list-style: none; text-align: justify; "> You can easily add new staff in the system. The form is elaborate with all possible information you might need to add for a new staff. During addition of new staff you just have to provide the User Name, Full Name, Password, User Type. </li>
                                             <li><strong>User Type</strong></li>
-                                            <li style="list-style: none; text-align: justify; ">There are 3 kind of User type, Super Admin, saleman, Accountant, Super admin can control full system, Salesman can only add and view product invoice only. while Accountant can add,edit,delete product invoices and expense invoices only. </li>
+                                            <li style="list-style: none; text-align: justify; ">There are 2 kind of User type,  Admin, saleman. admin can control full system, Salesman can only add and view product invoice only. while Accountant can add,edit,delete product invoices and expense invoices only. </li>
                                             <li><strong>Staff List</strong></li>
                                             <li style="list-style: none; text-align: justify; "> You can see list of all staff at a glance. </li>
                                         </ul>
@@ -464,8 +457,6 @@
                                             <li style="list-style: none; text-align: justify; "> To view Sales Ledger all you will have to click on Sales Ledger. by default its shows current month reports. </li>
                                             <li><strong>Expense Reports</strong></li>
                                             <li style="list-style: none; text-align: justify; "> To view Expense Ledger all you will have to click on Expense Ledger. by default its shows current month reports. </li>
-                                            <li><strong>Start &amp; End Date Reports</strong></li>
-                                            <li style="list-style: none; text-align: justify; "> Set start and end date for any reports and click GET button - you ll easily get reports from start and end dates. </li>
                                         </ul>
                                     </div>
                                     <div class="col-7">
@@ -487,9 +478,7 @@
                                     <div class="col-md-5 border-right">
                                         <p style="text-align: justify;"> Adding company info in the system is very easy. You have to add all related information of company in form.
                                             <br>
-                                            <br> To view company info go to Setting &gt; Company-info </p>
-                                        <br> you can set your currency sign, go to Setting &gt; Company-info
-                                        <p></p>
+                                            <br> To view company info go to " <b>Setting</b> " </p>
                                     </div>
                                     <div class="col-7">
                                         <p><strong>Company-info</strong></p>
@@ -525,7 +514,7 @@
                                         </div>
                                     </div>
                                     <div class="col-12">
-                                        <p style="text-align: justify;"> <strong>Easy Inventory can be customize depending on your need. Our charges are affordable.</strong> We work and charge for customization as <span class="font-weight-bold text-danger">$10/hour</span>. A fixed price quote can be generated if you provide all the details of customization. </p>
+                                        <p style="text-align: justify;"> <strong>Easy Inventory can be customize depending on your need. Our charges are affordable.</strong> We work and charge for customization as <span class="font-weight-bold text-danger">$12/hour</span>. A fixed price quote can be generated if you provide all the details of customization. </p>
                                     </div>
                                 </div>
                             </section>
