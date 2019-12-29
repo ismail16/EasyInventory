@@ -48,6 +48,7 @@
                                     <th class="text-center">Customer Name</th>
                                     <th class="text-center">Phone</th>
                                     <th class="text-center">Email</th>
+                                    <th class="text-center">Date</th>
                                     <th class="text-center">Address</th>
                                     <th class="text-center">Action</th>
                                 </tr>
@@ -59,6 +60,7 @@
                                         <td class="text-center">{{ customer.customer_name }}</td>
                                         <td class="text-center">{{ customer.customer_phone }}</td>
                                         <td class="text-center">{{ customer.customer_email }}</td>
+                                        <td class="text-center">{{ customer.created_at | myDate }}</td>
                                         <td class="text-center">{{ customer.customer_address }}</td>
                                         <td class="text-center">
                                             <!--<a href="" class="btn btn-xs btn-success">

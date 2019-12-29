@@ -9,10 +9,10 @@ import Vue from 'vue'
 // import { storage } from './state'
 // const store = new Vuex.Store(storage)
 
-// import moment from 'moment'
-// Vue.filter('myDate', function(created){
-//     return moment(created).format('MMM Do YYYY');
-// })
+import moment from 'moment'
+Vue.filter('myDate', function(created){
+    return moment(created).format('DD-MM-YYYY');
+})
 
 // Vue Router
 import VueRouter from 'vue-router';

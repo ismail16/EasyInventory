@@ -49,7 +49,8 @@
                                         <th class="text-center">Image</th>
                                         <th class="text-center">Paid Amount</th>
                                         <th class="text-center">Due Amount</th>
-                                        <th class="text-center">status</th>
+                                        <th class="text-center">Date</th>
+                                        <!-- <th class="text-center">status</th> -->
                                         <th class="text-center">Action</th>
                                     </tr>
                                 </thead>
@@ -62,16 +63,34 @@
                                         <td class="text-center">
                                             <img v-show="supplierInvoice.image" :src="getImgUrl(supplierInvoice.image)"  class="img-fluid" style="max-height: 50px; max-width: 50px;" alt="User Avatar">
                                         </td>
-                                        <td class="text-center">{{ setting.store_currency }} {{ supplierInvoice.paid_amount }}</td>
-                                        <td class="text-center">{{ setting.store_currency }} {{ supplierInvoice.due_amount }}</td>
+
                                         <td class="text-center">
+                                            <span v-if="supplierInvoice.paid_amount == supplierInvoice.grand_total_price" class="text-success">
+                                                Full paid
+                                            </span>
+                                            <span v-else class="text-primary">
+                                                {{ setting.store_currency }} {{ supplierInvoice.paid_amount }}
+                                            </span>
+                                        </td>
+
+                                        <td class="text-center">
+                                            <span v-if="supplierInvoice.due_amount == 0.00" class="text-success">
+                                                Full paid
+                                            </span>
+                                            <span v-else class="text-danger">
+                                                {{ setting.store_currency }} {{ supplierInvoice.due_amount }}
+                                            </span>
+                                        </td>
+
+                                        <td class="text-center">{{ supplierInvoice.created_at | myDate }}</td>
+                                       <!--  <td class="text-center">
                                             <span v-if="supplierInvoice.status == 1" class="text-success">
                                                 Active
                                             </span>
                                             <span v-else class="text-danger">
                                                 Deactive
                                             </span>
-                                        </td>
+                                        </td> -->
                                         <td class="text-center">
                                             <router-link :to="'/supplier-invoice/'+ supplierInvoice.id +'/show'" class="btn btn-xs btn-success mr-1 ml-1">
                                                 <i class="fa fa-eye"></i>

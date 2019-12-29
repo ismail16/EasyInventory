@@ -43,8 +43,10 @@
                                         <th class="text-center">S.N</th>
                                         <th class="text-center">Expense Title</th>
                                         <th class="text-center">Expense Total Amount</th>
+                                        <th class="text-center">Paid Amount</th>
                                         <th class="text-center">Due Amount</th>
-                                        <th class="text-center">Status</th>
+                                        <th class="text-center">Date</th>
+                                        <!-- <th class="text-center">Status</th> -->
                                         <th class="text-center">Action</th>
                                     </tr>
                                 </thead>
@@ -52,17 +54,38 @@
                                     <tr v-for="(expense, index) in expenses">
                                         <td class="text-center">{{ index+1 }}</td>
                                         <td class="text-center">{{ expense.expense_title }}</td>
+
                                         <td class="text-center">{{ setting.store_currency }} {{ expense.expense_total_amount }}</td>
-                                        <td class="text-center">{{ setting.store_currency }} {{ expense.expense_due }}</td>
+
                                         <td class="text-center">
+                                            <span v-if="expense.expense_paid_amount == expense.expense_total_amount" class="text-success">
+                                                Full paid
+                                            </span>
+                                            <span v-else class="text-primary">
+                                                {{ setting.store_currency }} {{ expense.expense_paid_amount }}
+                                            </span>
+                                        </td>
+
+                                        <td class="text-center">
+                                            <span v-if="expense.expense_due == 0.00" class="text-success">
+                                                Full paid
+                                            </span>
+                                            <span v-else class="text-danger">
+                                                {{ setting.store_currency }} {{ expense.expense_due }}
+                                            </span>
+                                        </td>
+
+                                        <td class="text-center">{{ expense.expense_date }}</td>
+
+                                        <!-- <td class="text-center">
                                             <span v-if="expense.status == 1" class="text-success">
                                                 Active
                                             </span>
                                             <span v-else class="text-danger">
                                                 Deactive
                                             </span>
-
-                                        </td>
+                                        </td> -->
+                                        
                                         <td class="text-center">
                                             <router-link :to="'/expense/'+ expense.id +'/show'" class="btn btn-xs btn-success mr-1 ml-1">
                                                 <i class="fa fa-eye"></i>

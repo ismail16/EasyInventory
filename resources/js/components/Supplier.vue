@@ -46,6 +46,7 @@
                                         <th class="text-center">Contact Name</th>
                                         <th class="text-center">Email</th>
                                         <th class="text-center">Phone</th>
+                                        <th class="text-center">Date</th>
                                         <th class="text-center">Address</th>
                                         <th class="text-center">Action</th>
                                     </tr>
@@ -57,6 +58,7 @@
                                         <td class="text-center">{{ supplier.supplier_contact_name }}</td>
                                         <td class="text-center">{{ supplier.supplier_email }}</td>
                                         <td class="text-center">{{ supplier.supplier_phone }}</td>
+                                        <td class="text-center">{{ supplier.created_at | myDate }}</td>
                                         <td class="text-center">{{ supplier.supplier_address }}</td>
                                         <td class="text-center">
                                             <a class="btn btn-xs btn-success mr-1" @click.prevent="editModal(supplier)">

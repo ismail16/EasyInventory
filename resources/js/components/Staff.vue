@@ -15,7 +15,6 @@
                                             <select v-model="queryFiled" class="form-control w-25" id="fileds">
                                                 <option value="staff_name">Staff Name</option>
                                                 <option value="staff_contact_name">Contact Name</option>
-                                                <option value="staff_email">Email</option>
                                                 <option value="staff_phone">Phone</option>
                                                 <option value="staff_address">Address</option>
                                             </select>
@@ -44,10 +43,10 @@
                                     <tr>
                                         <th class="text-center">S.N</th>
                                         <th class="text-center">Name</th>
-                                        <th class="text-center">Contact Name</th>
-                                        <th class="text-center">Email</th>
+                                        <th class="text-center">User Name</th>
                                         <th class="text-center">Phone</th>
                                         <th class="text-center">Address</th>
+                                        <th class="text-center">Type</th>
                                         <th class="text-center">Action</th>
                                     </tr>
                                 </thead>
@@ -59,7 +58,12 @@
                                         <td class="text-center">{{ staff.staff_user_name }}</td>
                                         <td class="text-center">{{ staff.staff_phone }}</td>
                                         <td class="text-center">{{ staff.staff_address }}</td>
-                                        <td class="text-center">{{ staff.user_type }}</td>
+
+                                        <td class="text-center">
+                                            <span v-if="staff.user_type == 1">Admin</span>
+                                            <span v-else>Sales Man</span>
+                                        </td>
+
                                         <td class="text-center">
                                             <a class="btn btn-xs btn-success" @click.prevent="showModal(staff)">
                                                 <i class="fa fa-eye"></i>

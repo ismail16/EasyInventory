@@ -47,7 +47,7 @@
                                         <!-- <th class="text-center">Supplier</th> -->
                                         <th class="text-center">Supplier Price</th>
                                         <th class="text-center">Sell Price</th>
-                                        <th class="text-center">Make Date</th>
+                                        <th class="text-center">Make of Date</th>
                                         <th class="text-center">Expired Date</th>
                                         <th class="text-center">Action</th>
                                     </tr>
