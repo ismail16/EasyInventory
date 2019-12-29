@@ -6993,6 +6993,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -59492,6 +59494,12 @@ var render = function() {
                                 ]),
                                 _vm._v(" "),
                                 _c("td", { staticClass: "text-center" }, [
+                                  _vm._v(
+                                    _vm._s(_vm._f("myDate")(staff.created_at))
+                                  )
+                                ]),
+                                _vm._v(" "),
+                                _c("td", { staticClass: "text-center" }, [
                                   staff.user_type == 1
                                     ? _c("span", [_vm._v("Admin")])
                                     : _c("span", [_vm._v("Sales Man")])
@@ -60089,6 +60097,8 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [_vm._v("Address")]),
         _vm._v(" "),
+        _c("th", { staticClass: "text-center" }, [_vm._v("Date")]),
+        _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [_vm._v("Type")]),
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [_vm._v("Action")])
@@ -60100,7 +60110,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("tr", [
-      _c("td", { attrs: { colspan: "7" } }, [
+      _c("td", { attrs: { colspan: "8" } }, [
         _c("div", { staticClass: "p-3 mb-2" }, [
           _c("h3", { staticClass: "text-center text-danger" }, [
             _vm._v("Opps!!")
@@ -60862,7 +60872,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("tr", [
-      _c("td", { attrs: { colspan: "7" } }, [
+      _c("td", { attrs: { colspan: "8" } }, [
         _c("div", { staticClass: "p-3 mb-2" }, [
           _c("h3", { staticClass: "text-center text-danger" }, [
             _vm._v("Opps!!")

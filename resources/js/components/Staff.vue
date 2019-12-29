@@ -46,6 +46,7 @@
                                         <th class="text-center">User Name</th>
                                         <th class="text-center">Phone</th>
                                         <th class="text-center">Address</th>
+                                        <th class="text-center">Date</th>
                                         <th class="text-center">Type</th>
                                         <th class="text-center">Action</th>
                                     </tr>
@@ -58,6 +59,7 @@
                                         <td class="text-center">{{ staff.staff_user_name }}</td>
                                         <td class="text-center">{{ staff.staff_phone }}</td>
                                         <td class="text-center">{{ staff.staff_address }}</td>
+                                        <td class="text-center">{{ staff.created_at | myDate }}</td>
 
                                         <td class="text-center">
                                             <span v-if="staff.user_type == 1">Admin</span>
@@ -81,7 +83,7 @@
 
                                 <tbody v-else>
                                     <tr>
-                                        <td colspan="7">
+                                        <td colspan="8">
                                             <div class="p-3 mb-2">
                                                 <h3 class="text-center text-danger">Opps!!</h3>
                                                 <p class="text-center">Data not found</p>
