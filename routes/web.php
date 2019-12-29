@@ -2,13 +2,13 @@
 
 
 Route::get('/', 'Frontend\PagesController@index')->name('index');
+Route::get('easy-inventory-documentation', 'Frontend\PagesController@documentation')->name('admin.documentation');
 
 Auth::routes();
 
 //=================== Admin Route ==========================
 Route::group(['as'=>'admin.', 'prefix'=>'admin','namespace'=>'Admin', 'middleware'=>['auth','admin']], function(){
 	Route::get('/dashboard', 'PagesController@index')->name('dashboard');
-	Route::get('/documentation', 'PagesController@documentation')->name('documentation');
 });
 
 

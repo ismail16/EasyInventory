@@ -14,39 +14,18 @@ class PagesController extends Controller
         return view('auth.login');
     }
 
+    public function documentation()
+    {
+        return view('admin.documentation.index');
+    }
+
+
+
     public function getSuppliers()
     {
         $suppliers = Supplier::orderBy('id','desc')->get();
         return $suppliers;
     }
 
-    public function create()
-    {
-        //
-    }
-
-    public function store(Request $request)
-    {
-        //
-    }
-
-    public function show($id)
-    {
-        //
-    }
-
-    public function edit($id)
-    {
-        //
-    }
-
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    public function destroy($id)
-    {
-        //
-    }
+   
 }

@@ -18,11 +18,6 @@
 		<!-- Toastr -->
 		<link rel="stylesheet" href="{{ asset('backend_assets/plugins/toastr/toastr.min.css')}}">
 		<link rel="stylesheet" href="{{ asset('backend_assets/plugins/sweetalert2/sweetalert2.min.css')}}"> 
-
-		<!-- Toastr -->
-		<!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
-	  	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9/dist/sweetalert2.min.js"></script>
-	  	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@9/dist/sweetalert2.min.css" id="theme-styles"> -->
 	  	<!-- Google Font: Source Sans Pro -->
 	  	<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 		<link rel="stylesheet" href="{{ asset('css/customs.css')}}"> 
@@ -44,11 +39,14 @@
 		</script>
 		<style type="text/css" media="screen">
 			.nav-pills .nav-link {
-    color: #000;
-}
-[class*=sidebar-light-] {
-    background-color: #fff;
-}
+			    color: #000;
+			}
+			[class*=sidebar-light-] {
+			    background-color: #fff;
+			}
+			.router-link-active{
+				background-color: rgba(6, 4, 4, 0.22);
+			}
 		</style>
 		@stack('css')
 	</head>
@@ -144,12 +142,20 @@
 				<div class="sidebar"> 
 					<nav class="mt-2 sidebar-nav">
 						<ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+
+							<li class="nav-item">
+					            <a href="{{ route('admin.dashboard') }}" class="nav-link router-link-active" >
+					              <i class="nav-icon fas fa-tachometer-alt"></i><p> Dashboard </p>
+					            </a>
+					        </li>
+
 							<li class="nav-item">
 								<router-link to="/supplier" class="nav-link">
 									<i class="nav-icon fas fa-users"></i>
 									<p>Suppliers</p>
 								</router-link>
 							</li>
+
 							<li class="nav-item">
 								<router-link to="/category" class="nav-link">
 									<i class="nav-icon fas fa-th-large"></i>

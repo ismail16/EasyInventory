@@ -6,17 +6,51 @@
                 <div class="col-12">
                     <div class="_card p-3">
                         <div id="documenter_content">
-
                             <section id="start">
                                 <h1>Easy Inventory</h1>
                                 <h3 style="font-size: 15px; margin:0;">Inventory Control and Inventory Management System - Version 1.0.1</h3>
+                                 <h4  class="text-success">[ System is Fully Live Time. Created by Vue, Laravel ]</h4>
                                 <hr>
-                                <p style="text-align: justify;">If you have any questions that are beyond the scope of this help report, please trip free to e-mail us.
-                                    <br>
-                                    <br> If you face any kind of problem during installation phase of Easy Inventory - <strong>Do Not Worry - We are here to help you!! Contact us directly at below information</strong>
+                                <p style="text-align: justify;">If you have any questions and You face any kind of problem during installation phase of Easy Inventory - <strong>Do Not Worry - We are here to help you!! Contact us directly at below information</strong>
                                     <br>
                                 </p>
                                 <p>E-mail Address : <b>ismail32cse@gmail.com</b></p>
+                            </section>
+
+                            <section id="Features" class="mb-4">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="page-header">
+                                            <h3>System Features</h3>
+                                            <hr class="notop">
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <h5 class="border-bottom">Easy Inventory Management System </h5>
+                                    </div>
+                                    <div class="col-md-5 border-left ml-4">
+                                        <ul>
+                                            <li class="border-bottom">Suppliers Management</li>
+                                            <li class="border-bottom">Category Management</li>
+                                            <li class="border-bottom">Warehouse Management</li>
+                                            <li class="border-bottom">Products Management</li>
+                                            <li class="border-bottom">Customers Management</li>
+                                            <li class="border-bottom">Loan Management</li>
+                                            <li class="border-bottom">Staff Management</li>
+                                            <li class="border-bottom">Expense Management</li>
+                                        </ul>
+                                    </div>
+                                    <div class="col-md-6 border-left">
+                                        <ul>
+                                            <li class="border-bottom">Invoice System</li>
+                                            <li class="border-bottom">Dailly Sales, Expense, Profit/Loss Report</li>
+                                            <li class="border-bottom">Yearly Sales, Expense, Profit/Loss Report</li>
+                                            <li class="border-bottom">Store Settings</li>
+                                            <li class="border-bottom">Store Navbar and Sidebar Color Light and Durk are  available </li>
+                                            <li class="border-bottom">Store Font Size Small and Lerge are available</li>
+                                        </ul>
+                                    </div>
+                                </div>
                             </section>
 
                             <section id="install">
@@ -30,12 +64,15 @@
                                     <div class="col-md-5 border-right">
                                         <h5>Minimal Requirements</h5>
                                         <ul>
-                                            <li>MySQL 5.x or higher.</li>
-                                            <li>PHP 7.0 or higher.</li>
-                                            <li>GD library installed.</li>
-                                            <li>extension=php_mysqli.dll should be installed</li>
-                                            <li>Memory limit set up at least 64MB.</li>
-                                            <li>Upload_max_filesize at least 10MB.</li>
+                                            <li>PHP &gt;= 7.1.3</li>
+                                            <li>OpenSSL PHP Extension</li>
+                                            <li>PDO PHP Extension</li>
+                                            <li>Mbstring PHP Extension</li>
+                                            <li>Tokenizer PHP Extension</li>
+                                            <li>XML PHP Extension</li>
+                                            <li>Ctype PHP Extension</li>
+                                            <li>JSON PHP Extension</li>
+                                            <li>BCMath PHP Extension</li>
                                         </ul>
 
                                         <h5>Follow these steps to install Easy Inventory.</h5>
@@ -76,7 +113,7 @@
                                     <div class="col-md-5 border-right">
                                         <p style="text-align: justify;">To log-in to admin panel - please use the following login credentials provided below.</p>
                                         <p style="text-align: justify;">
-                                            <strong style="color: red">Please Note:</strong> Once you installed the system and you are on login page, if the login page not showing correctly OR not logging to system then you need to check again the connection file which is in side connection/connection.php, make sure your server have PHP-7 version installed. and (extension=php_mysqli.dll) should be enable on your server. if still problem exist you may contact us at <b>ismail32cse@gmail.com</b>, we will reply you as soon as possible.
+                                            <strong style="color: red">Please Note:</strong> Once you installed the system and you are on login page, if the login page not showing correctly OR not logging to system then you need to check again the .env file which is in side root of main folder, make sure your server have 7.1  version installed. if still problem exist you may contact us at <b>ismail32cse@gmail.com</b>, we will reply you as soon as possible.
                                             <br>
                                             <br>
 
@@ -114,14 +151,14 @@
                                         <ul>
                                             <li>Easy user interface and interactive design to facilitate admins</li>
                                             <li>View Total Category, Total Product, Total Sales, Total Customers.</li>
-                                            <li>View Current Month Sales in Graph.</li>
+                                            <li>View Current Monthly Sales in Graph.</li>
                                             <li>View Recent Invoices</li>
                                             <li>View Total Revenue, Total Due, Total Expence, Total Profit</li>
                                         </ul>
 
                                         <strong>NOTE: First you need to add Suppliers, after Suppliers add Categories, then add Warehouse, and after Warehouse add Products then everything will work smoothly:)<br> <br>
 
-                                        Because Products depends on Categories, Categories depends on Suppliers, Warehouse is the place where you keeps your products.</strong>
+                                        Because Products depends on Categories, Suppliers, Warehouse. Warehouse is the place where you keeps your products.</strong>
 
                                     </div>
 
@@ -144,12 +181,12 @@
                                     <div class="col-md-5 border-right">
                                         <p style="text-align: justify;"> Adding a new supplier in the system is very easy. you can add all related information of supplier. The facilities that Supplier management holds in Easy Inventory are listed below:
                                             <br>
-                                            <br> To view Supplier go to Supplier &gt; Manage Supplier </p>
+                                            <br> To click <b>Supplier</b> from sidebar</p>
                                         <ul>
                                             <li><strong>Add New Supplier</strong></li>
-                                            <li style="list-style: none; text-align: justify;"> You can easily add new Supplier in the system. The form is elaborate with all possible information you might need to add for a new supplier. During addition of new supplier you just have to provide the Supplier Name/Compant name, Supplier company Contact Person Name, Email,Phone and Address. </li>
+                                            <li style="list-style: none; text-align: justify;"> You can easily add new Supplier in the system. The form is elaborate with all possible information you might need to add for a new supplier. During addition of new supplier you just have to provide the Supplier name ( <span class="text-danger">Name is required</span>), Supplier Contact Person Name, Email, Phone and Address. </li>
                                             <li><strong>Supplier List</strong></li>
-                                            <li style="list-style: none; text-align: justify;"> You can see list of all supplier at a glance. </li>
+                                            <li style="list-style: none; text-align: justify;"> You can see list of all supplier at a glance. You Can Edit, Delete From here </li>
                                         </ul>
                                         <br>
                                     </div>
@@ -175,10 +212,10 @@
                                     <div class="col-md-5 border-right">
                                         <p style="text-align: justify;"> Adding a new Category in the system is very easy. You can just click on add category. and put the category name. click submit.
                                             <br>
-                                            <br> To view Category go to Category &gt; Manage Categories </p>
+                                            <br> Click to Category From sidebar </p>
                                         <ul>
                                             <li><strong>Categories List</strong></li>
-                                            <li style="list-style: none; text-align: justify;"> You can see list of all Categories at a glance. </li>
+                                            <li style="list-style: none; text-align: justify;"> You can see list of all Categories. You Can Edit, Delete From here</li>
                                         </ul>
                                         <br>
                                     </div>
@@ -201,15 +238,15 @@
                                         </div>
                                     </div>
                                     <div class="col-md-5 border-right">
-                                        <p style="text-align: justify;"> Adding a new warehouse in the system is very easy. You can just click on add warehouse. and put the warehouse name. click submit.
+                                        <p style="text-align: justify;"> Adding a new warehouse in the system is very easy. You can just click on Warehouse. and put the warehouse name. click submit.
                                             <br>
-                                            <br> To view warehouse go to warehouse &gt; Manage warehouse </p>
+                                            <br> Click to warehouse from Sidebar </p>
                                         <ul>
 
                                             <li><strong>Add New warehouse</strong></li>
                                             <li style="list-style: none; text-align: justify;"> You can easily add new warehouse in the system. </li>
                                             <li><strong>warehouse List</strong></li>
-                                            <li style="list-style: none; text-align: justify;"> You can see list of all warehouse at a glance. </li>
+                                            <li style="list-style: none; text-align: justify;"> You can see list of all warehouse.  You Can Edit, Delete From here</li>
                                         </ul>
                                     </div>
                                     <div class="col-7">
@@ -235,14 +272,12 @@
                                     <div class="col-md-5 border-right">
                                         <p style="text-align: justify;"> Adding a new Product in the system is very easy. you can add all related information of Product. The facilities that Product management holds in Easy Inventory are listed below:
                                             <br>
-                                            <br> To view Products go to Products &gt; Manage Products </p>
+                                            <br> Click to ProductsFrom sidebar </p>
                                         <ul>
                                             <li id="addProducts"><strong>Add New Product</strong></li>
                                             <li style="list-style: none; text-align: justify; "> You can easily add new Product in the system. The form is elaborate with all possible information you might need to add for a new Product. During addition of new Product you just have to provide the Product, Category, Warehouse, Mfg.Date, Exp.Date, Image, Detail, Quantity, Sell Price, Supplier Price, Model, SKU, Supplier. </li>
                                             <li><strong>Products List</strong></li>
-                                            <li style="list-style: none; text-align: justify; "> You can see list of all Products at a glance. </li>
-                                       {{--      <li><strong>Export all Products</strong></li>
-                                            <li style="list-style: none; text-align: justify; "> You can Export all Products to CVS, PDF, Excel file. plus you can print is as well. </li> --}}
+                                            <li style="list-style: none; text-align: justify; "> You can see list of all Products. You Can View, Edit, Delete From here</li>
                                         </ul>
                                     </div>
                                     <div class="col-7">
@@ -253,10 +288,6 @@
                                         <img class="img-fluid" src="{{ asset('backend_assets/dist/img/documentation/Products.png')}}">
                                         <p id="ViewProduct"><strong>View Products</strong></p>
                                         <img class="img-fluid" src="{{ asset('backend_assets/dist/img/documentation/viewProducts.png')}}">
-
-                                      {{--   <p id="ExportProducts"><strong>Export all Products</strong></p>
-                                        <img class="img-fluid" src="{{ asset('backend_assets/dist/img/documentation/Products.png')}}"> --}}
-
                                     </div>
                                 </div>
 
@@ -273,17 +304,12 @@
                                     <div class="col-md-5 border-right">
                                         <p style="text-align: justify;"> Adding a new customer in the system is very easy. You can add all related information of a customer. The facilities that customer management holds in Easy Inventory are listed below:
                                             <br>
-                                            <br> To view customers go to Customers &gt; Manage Customers </p>
+                                            <br> Click Customers from sidebar </p>
                                         <ul>
                                             <li><strong>Add New Customer</strong></li>
-                                            <li style="list-style: none; text-align: justify; "> You can easily add new customer in the system. The form is elaborate with all possible information you might need to add for a new customer. During addition of new customer you just have to provide the Customer Name, Mobile #, Email, Billing Address. </li>
+                                            <li style="list-style: none; text-align: justify; "> You can easily add new customer in the system. The form is elaborate with all possible information you might need to add for a new customer. During addition of new customer you just have to provide the Customer Name, Mobile #, Email, Address. </li>
                                             <li><strong>Customers List</strong></li>
-                                            <li style="list-style: none; text-align: justify; "> You can see list of all customers at a glance. </li>
-
-                                          {{--   <li><strong>Credit Customers Invoices List List</strong></li>
-                                            <li style="list-style: none; text-align: justify; "> You can see list of all credit customers invoices list at a glance. </li>
-                                            <li><strong>Paid Customers Invoices List</strong></li>
-                                            <li style="list-style: none; text-align: justify; "> You can see list of all paid customers invoices list at a glance. </li> --}}
+                                            <li style="list-style: none; text-align: justify; "> You can see list of all customers. You Can Edit, Delete From here </li>
                                         </ul>
                                     </div>
                                     <div class="col-7">
@@ -307,19 +333,14 @@
                                     <div class="col-md-5 border-right">
                                         <p style="text-align: justify;"> Adding a new Invoices in the system is very easy. The facilities that invoice management holds in Easy Inventory are listed below:
                                             <br>
-                                            <br> To view invoice go to Invoices &gt; Manage Invoices </p>
+                                            <br> Click Invoices From Sidebar </p>
                                         <ul>
                                             <li><strong>Add New Invoice</strong></li>
                                             <li style="list-style: none; text-align: justify; "> You can easily add new invoice in the system. The form is elaborate with all possible information you might need to add for a new invoice. You can search the customer name by putting the customer first name first alphabet in search box the system will automatically pull out the customer full name. if the customer is new all you will have to click on new customer name button and fill the name, Mobile, Address. </li>
                                             <li><strong>Invoice List</strong></li>
                                             <li style="list-style: none; text-align: justify; "> You can see list of all Invoice at a glance. </li>
                                             <li><strong>Print/View Invoice</strong></li>
-                                            <li style="list-style: none; text-align: justify; "> once you created invoice then go to invoice management click view invoice and print. </li>
-
-                                           {{--  <li><strong>Credit Invoices List List</strong></li>
-                                            <li style="list-style: none; text-align: justify; "> You can see list of all credit invoices list at a glance. </li>
-                                            <li><strong>Paid Invoices List</strong></li>
-                                            <li style="list-style: none; text-align: justify; "> You can see list of all paid invoices list at a glance. </li> --}}
+                                            <li style="list-style: none; text-align: justify; "> once you created invoice then go to invoice view, Edit, Delete invoice and print. </li>
                                         </ul>
                                     </div>
                                     <div class="col-7">
@@ -346,19 +367,15 @@
                                     <div class="col-md-5 border-right">
                                         <p style="text-align: justify;"> Adding a new Expense Invoices in the system is very easy. The facilities that invoice management holds in Easy Inventory are listed below:
                                             <br>
-                                            <br> To view invoice go to Expenses &gt; Manage Expense Invoices </p>
+                                            <br> Click Expenses Invoices From Sidebar </p>
+                                            
                                         <ul>
                                             <li><strong>Add New Expense Invoice</strong></li>
                                             <li style="list-style: none; text-align: justify; "> once you add expense type to the system then you can easily add new expense invoice in the system. add the Item info , Quantity, Rate, the system will automatially do calculation.</li>
                                             <li><strong>Expense Invoice List</strong></li>
                                             <li style="list-style: none; text-align: justify; "> You can see list of all expense invoice at a glance. </li>
                                             <li><strong>Print/View Expense Invoice</strong></li>
-                                            <li style="list-style: none; text-align: justify; "> once you created expense invoice then go to expense invoice management click view invoice and print. </li>
-
-                                           {{--  <li><strong>Credit Expense Invoices List List</strong></li>
-                                            <li style="list-style: none; text-align: justify; "> You can see list of all credit expense invoices list at a glance. </li>
-                                            <li><strong>Paid Expense Invoices List</strong></li>
-                                            <li style="list-style: none; text-align: justify; "> You can see list of all paid expense invoices list at a glance. </li> --}}
+                                            <li style="list-style: none; text-align: justify; "> once you created invoice then go to invoice view, Edit, Delete invoice and print. </li>
                                         </ul>
                                     </div>
                                     <div class="col-7">
@@ -382,16 +399,15 @@
                                         </div>
                                     </div>
                                     <div class="col-md-5 border-right">
-                                        <p style="text-align: justify;"> Loan Management system is very easy and usefull section in Easy Inventory which makes your lif very easy. The facilities that loan management holds in Easy Inventory are listed below:
+                                         <p style="text-align: justify;"> Adding a new Loans in the system is very easy. You can add all related information of a Loans. The facilities that Loans management holds in Easy Inventory are listed below:
                                             <br>
-                                            <br> To view loan go to <b>Loan</b></p>
+                                            <br> Click Loans from sidebar </p>
                                         <ul>
-                                            <li><strong>Add Loan</strong></li>
-                                            <li style="list-style: none; text-align: justify; "> once you add loaner Name to the system then you can easily loan contract in the system with all terms and conditions. add the Contract Loan Amount, Loan Contract Date, Loan Contract End-Date, Detail info in the form.</li>
+                                            <li><strong>Add New Loans</strong></li>
+                                            <li style="list-style: none; text-align: justify; "> You can easily add new Loans in the system. The form is elaborate with all possible information you might need to add for a new Loans. During addition of new Loan you just have to provide the Loaner name, Loaner Mobile, Loaner Email, Taken date, End date Loaner Address. </li>
                                             <li><strong>Loans List</strong></li>
-                                            <li style="list-style: none; text-align: justify; "> You can see list of all Loans at a glance. </li>
-                                            <li><strong>View Loan Detail</strong></li>
-                                            <li style="list-style: none; text-align: justify; "> once you created Loan then go to Loan management click view and to see the contract detail. </li>
+                                            <li style="list-style: none; text-align: justify; "> You can see list of all Loans. You Can View, Edit, Delete From here </li>
+                                        </ul>
 
                                         </ul>
                                     </div>
@@ -418,14 +434,14 @@
                                     <div class="col-md-5 border-right">
                                         <p style="text-align: justify;"> Adding a new Staff in the system is very easy. You can add all related information of a Staff. The facilities that staff management holds in Easy Inventory are listed below:
                                             <br>
-                                            <br> To view Staff go to Staff &gt; Manage Staff </p>
+                                            <br> Click Staff From Sidebar </p>
                                         <ul>
                                             <li><strong>Add New Staff</strong></li>
-                                            <li style="list-style: none; text-align: justify; "> You can easily add new staff in the system. The form is elaborate with all possible information you might need to add for a new staff. During addition of new staff you just have to provide the User Name, Full Name, Password, User Type. </li>
+                                            <li style="list-style: none; text-align: justify; "> You can easily add new staff in the system. The form is elaborate with all possible information you might need to add for a new staff. During addition of new staff you just have to provide the Name, User Name, Phone, Address, User Type, Password. </li>
                                             <li><strong>User Type</strong></li>
                                             <li style="list-style: none; text-align: justify; ">There are 2 kind of User type,  Admin, saleman. admin can control full system, Salesman can only add and view product invoice only. while Accountant can add,edit,delete product invoices and expense invoices only. </li>
                                             <li><strong>Staff List</strong></li>
-                                            <li style="list-style: none; text-align: justify; "> You can see list of all staff at a glance. </li>
+                                            <li style="list-style: none; text-align: justify; "> You can see list of all staff. You Can View, Edit, Delete From here</li>
                                         </ul>
                                     </div>
                                     <div class="col-7">
@@ -451,12 +467,8 @@
                                             <br>
                                             <br> To view Reports go to Reports </p>
                                         <ul>
-                                            <li><strong>Profit/Loss Reports</strong></li>
-                                            <li style="list-style: none; text-align: justify; "> To view Profit/Loss Ledger all you will have to click on Profit/Loss Ledger. by default its shows current month reports. </li>
-                                            <li><strong>Sales Reports</strong></li>
-                                            <li style="list-style: none; text-align: justify; "> To view Sales Ledger all you will have to click on Sales Ledger. by default its shows current month reports. </li>
-                                            <li><strong>Expense Reports</strong></li>
-                                            <li style="list-style: none; text-align: justify; "> To view Expense Ledger all you will have to click on Expense Ledger. by default its shows current month reports. </li>
+                                           <li class="border-bottom">Dailly Sales, Expense, Profit/Loss Report</li>
+                                            <li class="border-bottom">Yearly Sales, Expense, Profit/Loss Report</li>
                                         </ul>
                                     </div>
                                     <div class="col-7">
@@ -497,7 +509,7 @@
                                     </div>
                                     <div class="col-12">
                                         <p style="text-align: justify;"><strong>All the support related issue should be emailed directly to <span class="text-danger">ismail32cse@gmail.com</span> Please be informed that CodeCanyon comments page isn't for support.</strong>
-                                            <br>Support is available from 9:00 AM - 6:00 PM (GMT+6), Monday - Saturday. If you are having any difficulty in understanding the product or you have any question, We encourage you to contact us. Email us at <strong><span class="text-danger">ismail32cse@gmail.com</span></strong> for fast response. We will be glad to help you. </p>
+                                            <br>Support is available from 6:00 PM - 1:00 AM (GMT+6), Sunday - Thursday. If you are having any difficulty in understanding the product or you have any question, We encourage you to contact us. Email us at <strong><span class="text-danger">ismail32cse@gmail.com</span></strong> for fast response. We will be glad to help you. </p>
 
                                     </div>
 
@@ -514,7 +526,7 @@
                                         </div>
                                     </div>
                                     <div class="col-12">
-                                        <p style="text-align: justify;"> <strong>Easy Inventory can be customize depending on your need. Our charges are affordable.</strong> We work and charge for customization as <span class="font-weight-bold text-danger">$12/hour</span>. A fixed price quote can be generated if you provide all the details of customization. </p>
+                                        <p style="text-align: justify;"> <strong>Easy Inventory can be customize depending on your need. Our charges are affordable.</strong> We work and charge for customization as <span class="font-weight-bold text-danger">$12/hour</span>.  </p>
                                     </div>
                                 </div>
                             </section>

@@ -36,19 +36,13 @@
 
 		<?php $setting = \App\Models\Setting::orderBy('id','desc')->first(); ?>
 		<div class="wrapper" id="app">
-	 		<!-- <nav class="main-header navbar navbar-expand navbar-light">
+	 		<nav class="main-header navbar navbar-expand navbar-light" style="width: fit-content; margin-left: 0%; z-index: 99999;">
 				<ul class="navbar-nav">
 					<li class="nav-item">
 						<a class="nav-link" data-widget="pushmenu" href="#"><i class="fas fa-bars"></i></a>
 					</li>
-					<li class="nav-item d-none d-sm-inline-block">
-						<a href="{{ route('admin.dashboard') }}" class="nav-link bg-light">
-							<i class="fas fa-tachometer-alt text-warning"></i> Back To Dashboard
-						</a>
-					</li>
 				</ul>
-
-			</nav>  -->
+			</nav> 
 
 			<aside class="main-sidebar elevation-4 ">
 				<a href="{{ route('admin.dashboard') }}" class="brand-link bg-light text-center">
@@ -66,6 +60,13 @@
 								<a href="#start" title="Start" class="nav-link">
 									<i class="nav-icon  fab fa-accessible-icon"></i>
 									<p>Start</p>
+								</a>
+							</li>
+
+							<li class="nav-item">
+								<a href="#Features" title="Installation" class="nav-link">
+									<i class="nav-icon fas fa-tools"></i>
+									<p>Features</p>
 								</a>
 							</li>
 
