@@ -149,7 +149,7 @@ class InvoiceController extends Controller
             array_push($month_val_arr, $month_total);
         }
 
-        $all_data = DefaultResource::collection(Invoice::whereYear('created_at', '=', $year)->whereMonth('created_at', '=', $month)->get());
+        $all_data = DefaultResource::collection(Invoice::orderBy('id','desc')->whereYear('created_at', '=', $year)->whereMonth('created_at', '=', $month)->get());
 
         return array('all_data' => $all_data , 'days'=>$month_val_arr );
     }
@@ -169,7 +169,7 @@ class InvoiceController extends Controller
             array_push($arrs, $month_total);
         }
 
-        $all_data = DefaultResource::collection(Invoice::orderBy('id','asc')->whereYear('created_at', $yr)->get());
+        $all_data = DefaultResource::collection(Invoice::orderBy('id','desc')->whereYear('created_at', $yr)->get());
         return array('all_data' => $all_data , 'months'=>$arrs );
     }
 }

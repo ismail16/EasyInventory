@@ -30,11 +30,6 @@
 		        	format: "d-m-Y",
 		        	timepicker: false,
 		        });
-
-		        // $('#datetimepicker2').datetimepicker({
-		        // 	format: "d-m-Y",
-		        // 	timepicker: false,
-		        // });
 		    });
 		</script>
 		<style type="text/css" media="screen">
@@ -218,7 +213,7 @@
 			@yield('content')
 
 			<footer class="main-footer" style="position: relative;">
-				<strong>Copyright &copy; 2019 <a href="{{'/'}}">{{ $setting->store_name }}</a>.</strong>
+				<strong>Copyright &copy; 2019 <a href="{{ route('admin.dashboard') }}">{{ $setting->store_name }}</a>.</strong>
 				All rights reserved.
 				<div class="float-right d-none d-sm-inline-block">
 					<b>Version</b> 1.0.0

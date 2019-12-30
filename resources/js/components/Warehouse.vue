@@ -7,7 +7,7 @@
             <div class="card-header pb-0">
               <div class="row">
                 <div class="col-md-3 float-left">
-                  <p><a href="/">Home</a> / warehouse</p>
+                  <p><router-link to="/dashboard"> Home </router-link> / warehouse</p>
                 </div>
                 <div class="col-md-6">
                   <div class="form-inline ml-3 mr-2">
