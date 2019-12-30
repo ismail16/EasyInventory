@@ -11,7 +11,7 @@ use App\Http\Resources\DefaultResource;
 
 class ExpenseController extends Controller
 {
-   public function index()
+    public function index()
     {
         return  DefaultResource::collection(Expense::orderBy('id','desc')->paginate(10));
     }
@@ -23,12 +23,12 @@ class ExpenseController extends Controller
 
     public function store(Request $request)
     {
-        // $request->validate([
-        //     'supplier_id' => 'required',
-        //     'warehouse_id' => 'required',
-        //     'invoice_date' => 'required',
-        //     'grand_total_price' => 'required'
-        // ]);
+        $request->validate([
+            'supplier_id' => 'required',
+            'warehouse_id' => 'required',
+            'invoice_date' => 'required',
+            'grand_total_price' => 'required'
+        ]);
 
         $expense = new Expense;
         $expense->expense_title = $request->expense_title;

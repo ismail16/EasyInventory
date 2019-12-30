@@ -20,8 +20,6 @@ class CategoryController extends Controller
         return  DefaultResource::collection(Category::where($field,'LIKE',"%$query%")->latest()->paginate(10));
     }
 
-    
-
     public function store(Request $request)
     {
         $request->validate([

@@ -31,8 +31,7 @@
                                         <label class="col-sm-3 form-control-label" style="margin-right: -44px;">Expense Title <i class="text-danger">*</i></label>
                                         <div class="col-sm-9">
                                             <input v-model="form.expense_title" type="text" name="expense_title"
-                                            placeholder="Expense Title"
-                                            class="form-control form-control-sm w-100 rounded-0" :class="{ 'is-invalid': form.errors.has('expense_title') }">
+                                            placeholder="Expense Title" class="form-control form-control-sm w-100 rounded-0" :class="{ 'is-invalid': form.errors.has('expense_title') }">
                                             <has-error :form="form" field="expense_title"></has-error>
                                         </div>
                                     </div>

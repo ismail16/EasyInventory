@@ -31,7 +31,7 @@
                                      <div class="form-group row">
                                         <label class="col-sm-2 form-control-label" style="margin-right:-43px;">Title(Name) <i class="text-danger">*</i> </label>
                                         <div class="col-sm-10">
-                                            <input type="" name="" v-model="form.product_name" class="form-control-sm" style="width:105%">
+                                            <input type="text" name="" v-model="form.product_name" class="form-control-sm" style="width:105%" required>
                                         </div>
                                     </div>
                                 </div>
@@ -41,7 +41,7 @@
                                         <label class="form-control-label col-sm-3">Category <i class="text-danger">*</i></label>
                                         <div class="col-sm-9">
                                             <select id="supplier_id" v-model="form.category_id" name="supplier_id" class="form-control-sm w-100 w-100" required>
-                                                 <option v-for="category in categories" :value="category.id">{{ category.category_name }}</option>
+                                                <option v-for="category in categories" :value="category.id">{{ category.category_name }}</option>
                                             </select>
                                         </div>
                                     </div>
