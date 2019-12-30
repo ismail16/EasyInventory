@@ -2445,6 +2445,22 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     var _ref;
@@ -2454,7 +2470,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       customers: '',
       products: '',
       categories: ''
-    }, _defineProperty(_ref, "products", ''), _defineProperty(_ref, "invoices", ''), _defineProperty(_ref, "thisMonthInvoices", ''), _defineProperty(_ref, "expenses", ''), _ref;
+    }, _defineProperty(_ref, "products", ''), _defineProperty(_ref, "invoices", ''), _defineProperty(_ref, "thisMonthInvoices", ''), _defineProperty(_ref, "expenses", ''), _defineProperty(_ref, "month_no", new Date().getMonth() + 1), _ref;
   },
   mounted: function mounted() {
     this.getSetting();
@@ -2498,6 +2514,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     }
   },
   methods: {
+    month_no_change: function month_no_change(month_no) {
+      this.getThisMonthInvoices(month_no);
+      this.getExpenses(month_no);
+    },
     getSetting: function getSetting() {
       var temp = this;
       axios.get('/api/setting/1').then(function (response) {
@@ -2540,13 +2560,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         toastr.error('Something is wrong Data Loaded');
       });
     },
-    getThisMonthInvoices: function getThisMonthInvoices() {
+    getThisMonthInvoices: function getThisMonthInvoices(month_no) {
       var _this = this;
 
-      var date = new Date();
-      var month_no = date.getMonth() + 1;
+      // var date = new Date();
+      // var month_no = date.getMonth()+1
       var temp = this;
-      axios.get('/api/getThisMonthInvoices/' + month_no).then(function (response) {
+      axios.get('/api/getThisMonthInvoices/' + this.month_no).then(function (response) {
         temp.thisMonthInvoices = response.data.all_data;
 
         _this.report(response.data);
@@ -2555,9 +2575,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         toastr.error('Something is wrong Data Loaded');
       });
     },
-    getExpenses: function getExpenses() {
+    getExpenses: function getExpenses(month_no) {
       var temp = this;
-      axios.get('/api/expenses').then(function (response) {
+      axios.get('/api/getThisMonthExpenses/' + this.month_no).then(function (response) {
         temp.expenses = response.data.data;
       })["catch"](function (error) {
         toastr.error('Something is wrong Data Loaded');
@@ -2571,15 +2591,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         var total_seles = 0;
 
         if (data.all_data.length > 0) {
-          var d = new Date(data.all_data[0].created_at);
-          $('#date_month').append(' ' + month_name[d.getMonth()] + ' ' + d.getFullYear());
+          var d = new Date(data.all_data[0].created_at); // $('#date_month').append(' '+month_name[d.getMonth()]+ ' ' + d.getFullYear())
 
           for (var i = 0; i < data.all_data.length; i++) {
             total_seles += parseFloat(data.all_data[i].paid_amount);
           }
         } else {
-          var now = new Date();
-          $('#date_month').append(' ' + month_name[now.getMonth()] + ' ' + now.getFullYear());
+          var now = new Date(); // $('#date_month').append(' '+month_name[now.getMonth()]+ ' ' + now.getFullYear())
         }
 
         var monthNames = [];
@@ -6143,8 +6161,52 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -6268,16 +6330,20 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
-    var _ref;
-
-    return _ref = {
+    return {
       suppliers: '',
       products: '',
-      categories: ''
-    }, _defineProperty(_ref, "products", ''), _defineProperty(_ref, "invoices", ''), _defineProperty(_ref, "setting", ''), _defineProperty(_ref, "thisYearInvoices", ''), _defineProperty(_ref, "expenses", ''), _ref;
+      customers: '',
+      categories: '',
+      invoices: '',
+      setting: '',
+      thisYearInvoices: '',
+      expenses: ''
+    };
   },
   mounted: function mounted() {
     this.getSetting();
+    this.getCustomers();
     this.getSuppliers();
     this.getWarehouses();
     this.getCategory();
@@ -6323,6 +6389,15 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       var temp = this;
       axios.get('/api/setting/1').then(function (response) {
         temp.setting = response.data;
+      })["catch"](function (error) {
+        this.loadin = true;
+        toastr.error('Something is wrong Data Loaded');
+      });
+    },
+    getCustomers: function getCustomers() {
+      var temp = this;
+      axios.get('/api/customers').then(function (response) {
+        temp.customers = response.data.data;
       })["catch"](function (error) {
         this.loadin = true;
         toastr.error('Something is wrong Data Loaded');
@@ -49537,7 +49612,101 @@ var render = function() {
         _c("div", { staticClass: "row" }, [
           _c("div", { staticClass: "col-md-12" }, [
             _c("div", { staticClass: "card" }, [
-              _vm._m(5),
+              _c("div", { staticClass: "card-header" }, [
+                _vm._m(5),
+                _vm._v(" "),
+                _c("div", { staticClass: "card-tools" }, [
+                  _c("div", { staticClass: "btn-group" }, [
+                    _c(
+                      "select",
+                      {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.month_no,
+                            expression: "month_no"
+                          }
+                        ],
+                        staticClass: "form-control form-control-sm",
+                        on: {
+                          change: [
+                            function($event) {
+                              var $$selectedVal = Array.prototype.filter
+                                .call($event.target.options, function(o) {
+                                  return o.selected
+                                })
+                                .map(function(o) {
+                                  var val = "_value" in o ? o._value : o.value
+                                  return val
+                                })
+                              _vm.month_no = $event.target.multiple
+                                ? $$selectedVal
+                                : $$selectedVal[0]
+                            },
+                            function($event) {
+                              return _vm.month_no_change(_vm.month_no)
+                            }
+                          ]
+                        }
+                      },
+                      [
+                        _c("option", { attrs: { value: "1" } }, [
+                          _vm._v("January")
+                        ]),
+                        _vm._v(" "),
+                        _c("option", { attrs: { value: "2" } }, [
+                          _vm._v("February")
+                        ]),
+                        _vm._v(" "),
+                        _c("option", { attrs: { value: "3" } }, [
+                          _vm._v("March")
+                        ]),
+                        _vm._v(" "),
+                        _c("option", { attrs: { value: "4" } }, [
+                          _vm._v("April")
+                        ]),
+                        _vm._v(" "),
+                        _c("option", { attrs: { value: "5" } }, [
+                          _vm._v("May")
+                        ]),
+                        _vm._v(" "),
+                        _c("option", { attrs: { value: "6" } }, [
+                          _vm._v("June")
+                        ]),
+                        _vm._v(" "),
+                        _c("option", { attrs: { value: "7" } }, [
+                          _vm._v("July")
+                        ]),
+                        _vm._v(" "),
+                        _c("option", { attrs: { value: "8" } }, [
+                          _vm._v("August")
+                        ]),
+                        _vm._v(" "),
+                        _c("option", { attrs: { value: "9" } }, [
+                          _vm._v("September")
+                        ]),
+                        _vm._v(" "),
+                        _c("option", { attrs: { value: "10" } }, [
+                          _vm._v("October")
+                        ]),
+                        _vm._v(" "),
+                        _c("option", { attrs: { value: "11" } }, [
+                          _vm._v("November")
+                        ]),
+                        _vm._v(" "),
+                        _c("option", { attrs: { value: "12" } }, [
+                          _vm._v("December")
+                        ])
+                      ]
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _vm._m(6),
+                  _vm._v(" "),
+                  _vm._m(7)
+                ])
+              ]),
               _vm._v(" "),
               _c("div", { staticClass: "card-body pt-1 pb-1" }, [
                 _c("div", { staticClass: "row" }, [
@@ -49591,7 +49760,7 @@ var render = function() {
                     ])
                   ]),
                   _vm._v(" "),
-                  _vm._m(6)
+                  _vm._m(8)
                 ])
               ]),
               _vm._v(" "),
@@ -49600,7 +49769,7 @@ var render = function() {
                   _c("div", { staticClass: "col-sm-3" }, [
                     _c("div", { staticClass: "description-block" }, [
                       _c("div", { staticClass: "info-box mb-3" }, [
-                        _vm._m(7),
+                        _vm._m(9),
                         _vm._v(" "),
                         _c("div", { staticClass: "info-box-content" }, [
                           _c("span", { staticClass: "info-box-text" }, [
@@ -49623,7 +49792,7 @@ var render = function() {
                   _c("div", { staticClass: "col-sm-3" }, [
                     _c("div", { staticClass: "description-block" }, [
                       _c("div", { staticClass: "info-box mb-3" }, [
-                        _vm._m(8),
+                        _vm._m(10),
                         _vm._v(" "),
                         _c("div", { staticClass: "info-box-content" }, [
                           _c("span", { staticClass: "info-box-text" }, [
@@ -49645,7 +49814,7 @@ var render = function() {
                   _c("div", { staticClass: "col-sm-3" }, [
                     _c("div", { staticClass: "description-block" }, [
                       _c("div", { staticClass: "info-box mb-3" }, [
-                        _vm._m(9),
+                        _vm._m(11),
                         _vm._v(" "),
                         _c("div", { staticClass: "info-box-content" }, [
                           _c("span", { staticClass: "info-box-text" }, [
@@ -49667,7 +49836,7 @@ var render = function() {
                   _c("div", { staticClass: "col-sm-3" }, [
                     _c("div", { staticClass: "description-block" }, [
                       _c("div", { staticClass: "info-box mb-3" }, [
-                        _vm._m(10),
+                        _vm._m(12),
                         _vm._v(" "),
                         _c("div", { staticClass: "info-box-content" }, [
                           _c("span", { staticClass: "info-box-text" }, [
@@ -49759,31 +49928,37 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card-header" }, [
-      _c("h6", { staticClass: "card-title" }, [
-        _c("strong", { attrs: { id: "date_month" } }, [_vm._v("Report of ")])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "card-tools" }, [
-        _c(
-          "button",
-          {
-            staticClass: "btn btn-tool",
-            attrs: { type: "button", "data-widget": "collapse" }
-          },
-          [_c("i", { staticClass: "fas fa-minus" })]
-        ),
-        _vm._v(" "),
-        _c(
-          "button",
-          {
-            staticClass: "btn btn-tool",
-            attrs: { type: "button", "data-widget": "remove" }
-          },
-          [_c("i", { staticClass: "fas fa-times" })]
-        )
+    return _c("h6", { staticClass: "card-title" }, [
+      _c("strong", { attrs: { id: "date_month" } }, [
+        _vm._v("The Report Month of ")
       ])
     ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "button",
+      {
+        staticClass: "btn btn-tool",
+        attrs: { type: "button", "data-widget": "collapse" }
+      },
+      [_c("i", { staticClass: "fas fa-minus" })]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "button",
+      {
+        staticClass: "btn btn-tool",
+        attrs: { type: "button", "data-widget": "remove" }
+      },
+      [_c("i", { staticClass: "fas fa-times" })]
+    )
   },
   function() {
     var _vm = this
@@ -58361,9 +58536,81 @@ var render = function() {
     _c("section", { staticClass: "content" }, [
       _c("div", { staticClass: "container" }, [
         _c("div", { staticClass: "row" }, [
+          _c("div", { staticClass: "col-12 col-sm-6 col-md-3" }, [
+            _c("div", { staticClass: "info-box" }, [
+              _vm._m(1),
+              _vm._v(" "),
+              _c("div", { staticClass: "info-box-content" }, [
+                _c("span", { staticClass: "info-box-text" }, [
+                  _vm._v("Category")
+                ]),
+                _vm._v(" "),
+                _c("span", { staticClass: "info-box-number" }, [
+                  _vm._v(
+                    "\n                                " +
+                      _vm._s(_vm.categories.length) +
+                      "\n                            "
+                  )
+                ])
+              ])
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "col-12 col-sm-6 col-md-3" }, [
+            _c("div", { staticClass: "info-box" }, [
+              _vm._m(2),
+              _vm._v(" "),
+              _c("div", { staticClass: "info-box-content" }, [
+                _c("span", { staticClass: "info-box-text" }, [
+                  _vm._v("Product")
+                ]),
+                _vm._v(" "),
+                _c("span", { staticClass: "info-box-number" }, [
+                  _vm._v(
+                    "\n                                " +
+                      _vm._s(_vm.products.length) +
+                      "\n                            "
+                  )
+                ])
+              ])
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "col-12 col-sm-6 col-md-3" }, [
+            _c("div", { staticClass: "info-box mb-3" }, [
+              _vm._m(3),
+              _vm._v(" "),
+              _c("div", { staticClass: "info-box-content" }, [
+                _c("span", { staticClass: "info-box-text" }, [_vm._v("Sales")]),
+                _vm._v(" "),
+                _c("span", { staticClass: "info-box-number" }, [
+                  _vm._v(_vm._s(_vm.total_invoice))
+                ])
+              ])
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "col-12 col-sm-6 col-md-3" }, [
+            _c("div", { staticClass: "info-box mb-3" }, [
+              _vm._m(4),
+              _vm._v(" "),
+              _c("div", { staticClass: "info-box-content" }, [
+                _c("span", { staticClass: "info-box-text" }, [
+                  _vm._v("Customers")
+                ]),
+                _vm._v(" "),
+                _c("span", { staticClass: "info-box-number" }, [
+                  _vm._v(_vm._s(_vm.customers.length))
+                ])
+              ])
+            ])
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "row" }, [
           _c("div", { staticClass: "col-md-12" }, [
             _c("div", { staticClass: "card" }, [
-              _vm._m(1),
+              _vm._m(5),
               _vm._v(" "),
               _c("div", { staticClass: "card-body" }, [
                 _c("div", { staticClass: "row" }, [
@@ -58376,11 +58623,11 @@ var render = function() {
                     ])
                   ]),
                   _vm._v(" "),
-                  _vm._m(2),
+                  _vm._m(6),
                   _vm._v(" "),
-                  _vm._m(3),
+                  _vm._m(7),
                   _vm._v(" "),
-                  _vm._m(4)
+                  _vm._m(8)
                 ])
               ]),
               _vm._v(" "),
@@ -58389,7 +58636,7 @@ var render = function() {
                   _c("div", { staticClass: "col-sm-3" }, [
                     _c("div", { staticClass: "description-block" }, [
                       _c("div", { staticClass: "info-box mb-3" }, [
-                        _vm._m(5),
+                        _vm._m(9),
                         _vm._v(" "),
                         _c("div", { staticClass: "info-box-content" }, [
                           _c("span", { staticClass: "info-box-text" }, [
@@ -58411,7 +58658,7 @@ var render = function() {
                   _c("div", { staticClass: "col-sm-3" }, [
                     _c("div", { staticClass: "description-block" }, [
                       _c("div", { staticClass: "info-box mb-3" }, [
-                        _vm._m(6),
+                        _vm._m(10),
                         _vm._v(" "),
                         _c("div", { staticClass: "info-box-content" }, [
                           _c("span", { staticClass: "info-box-text" }, [
@@ -58433,7 +58680,7 @@ var render = function() {
                   _c("div", { staticClass: "col-sm-3" }, [
                     _c("div", { staticClass: "description-block" }, [
                       _c("div", { staticClass: "info-box mb-3" }, [
-                        _vm._m(7),
+                        _vm._m(11),
                         _vm._v(" "),
                         _c("div", { staticClass: "info-box-content" }, [
                           _c("span", { staticClass: "info-box-text" }, [
@@ -58455,7 +58702,7 @@ var render = function() {
                   _c("div", { staticClass: "col-sm-3" }, [
                     _c("div", { staticClass: "description-block" }, [
                       _c("div", { staticClass: "info-box mb-3" }, [
-                        _vm._m(8),
+                        _vm._m(12),
                         _vm._v(" "),
                         _c("div", { staticClass: "info-box-content" }, [
                           _c("span", { staticClass: "info-box-text" }, [
@@ -58515,8 +58762,40 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
+    return _c("span", { staticClass: "info-box-icon bg-info elevation-1" }, [
+      _c("i", { staticClass: "fas fa-th-large" })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("span", { staticClass: "info-box-icon bg-primary elevation-1" }, [
+      _c("i", { staticClass: "fab fa-product-hunt" })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("span", { staticClass: "info-box-icon bg-success elevation-1" }, [
+      _c("i", { staticClass: "fas fa-shopping-cart" })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("span", { staticClass: "info-box-icon bg-warning elevation-1" }, [
+      _c("i", { staticClass: "fas fa-users" })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
     return _c("div", { staticClass: "card-header" }, [
-      _c("h5", { staticClass: "card-title" }, [_vm._v("This Month Report")]),
+      _c("h5", { staticClass: "card-title" }, [_vm._v("Yearly Report")]),
       _vm._v(" "),
       _c("div", { staticClass: "card-tools" }, [
         _c(

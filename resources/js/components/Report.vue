@@ -18,11 +18,57 @@
     <section class="content">
       <div class="container">
 
+        <div class="row">
+                    <div class="col-12 col-sm-6 col-md-3">
+                        <div class="info-box">
+                            <span class="info-box-icon bg-info elevation-1"><i class="fas fa-th-large"></i></span>
+                            <div class="info-box-content">
+                                <span class="info-box-text">Category</span>
+                                <span class="info-box-number">
+                                    {{ categories.length }}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-sm-6 col-md-3">
+                        <div class="info-box">
+                            <span class="info-box-icon bg-primary elevation-1"><i class="fab fa-product-hunt"></i></span>
+                            <div class="info-box-content">
+                                <span class="info-box-text">Product</span>
+                                <span class="info-box-number">
+                                    {{ products.length }}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-sm-6 col-md-3">
+                        <div class="info-box mb-3">
+                            <span class="info-box-icon bg-success elevation-1"><i class="fas fa-shopping-cart"></i></span>
+                            <div class="info-box-content">
+                                <span class="info-box-text">Sales</span>
+                                <span class="info-box-number">{{ total_invoice }}</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-sm-6 col-md-3">
+                        <div class="info-box mb-3">
+                            <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-users"></i></span>
+                            <div class="info-box-content">
+                                <span class="info-box-text">Customers</span>
+                                <span class="info-box-number">{{ customers.length }}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
        <div class="row">
           <div class="col-md-12">
             <div class="card">
               <div class="card-header">
-                <h5 class="card-title">This Month Report</h5>
+                <h5 class="card-title">Yearly Report</h5>
 
                 <div class="card-tools">
                   <button type="button" class="btn btn-tool" data-widget="collapse">
@@ -126,8 +172,8 @@
       return {
             suppliers:'',
             products:'',
+            customers:'',
             categories:'',
-            products:'',
             invoices:'',
             setting:'',
             thisYearInvoices:'',
@@ -137,6 +183,7 @@
 
     mounted(){
         this.getSetting();
+        this.getCustomers();
         this.getSuppliers();
         this.getWarehouses();
         this.getCategory();
@@ -183,6 +230,18 @@
             axios.get('/api/setting/1')
             .then((response) => {
                 temp.setting = response.data;
+            })
+            .catch(function (error) {
+                this.loadin = true; 
+                toastr.error('Something is wrong Data Loaded')
+            });
+        },
+
+        getCustomers(){
+            var temp = this;
+            axios.get('/api/customers')
+            .then((response) => {
+                temp.customers = response.data.data;
             })
             .catch(function (error) {
                 this.loadin = true; 

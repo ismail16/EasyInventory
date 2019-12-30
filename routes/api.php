@@ -41,6 +41,7 @@ Route::apiResource('customers','Api\CustomerController');
 Route::get('search/customers/{field}/{query}','Api\CustomerController@search');
 
 Route::apiResource('expenses','Api\ExpenseController');
+Route::get('getThisMonthExpenses/{month}','Api\ExpenseController@getThisMonthExpenses');
 Route::get('search/expenses/{field}/{query}','Api\ExpenseController@search');
 
 

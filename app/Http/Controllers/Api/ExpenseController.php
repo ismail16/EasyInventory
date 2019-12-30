@@ -98,4 +98,13 @@ class ExpenseController extends Controller
         Expense::find($id)->delete();
         ExpenseItem::where('expense_id', $id)->delete();
     }
+
+
+     public function getThisMonthExpenses($month)
+    {
+        $year = date('Y');
+        $allExpense = DefaultResource::collection(Expense::whereYear('created_at', '=', $year)->whereMonth('created_at', '=', $month)->get());
+
+        return $allExpense;
+    }
 }

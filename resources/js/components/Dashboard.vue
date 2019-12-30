@@ -69,8 +69,24 @@
                     <div class="col-md-12">
                         <div class="card">
                             <div class="card-header">
-                                <h6 class="card-title"><strong id="date_month">Report of </strong> </h6>
+                                <h6 class="card-title"><strong id="date_month">The Report Month of </strong> </h6>
                                 <div class="card-tools">
+                                    <div class="btn-group">
+                                        <select class="form-control form-control-sm" v-model="month_no" @change="month_no_change(month_no)">
+                                          <option value="1">January</option>
+                                          <option value="2">February</option>
+                                          <option value="3">March</option>
+                                          <option value="4">April</option>
+                                          <option value="5">May</option>
+                                          <option value="6">June</option>
+                                          <option value="7">July</option>
+                                          <option value="8">August</option>
+                                          <option value="9">September</option>
+                                          <option value="10">October</option>
+                                          <option value="11">November</option>
+                                          <option value="12">December</option>
+                                        </select>
+                                    </div>
                                     <button type="button" class="btn btn-tool" data-widget="collapse">
                                         <i class="fas fa-minus"></i>
                                     </button>
@@ -184,6 +200,7 @@ export default {
             invoices:'',
             thisMonthInvoices:'',
             expenses:'',
+            month_no: new Date().getMonth()+1
         }
     },
 
@@ -228,6 +245,11 @@ export default {
     },
 
     methods:{
+        month_no_change(month_no){
+            this.getThisMonthInvoices(month_no)
+            this.getExpenses(month_no)
+        },
+
         getSetting(){
             var temp = this;
             axios.get('/api/setting/1')
@@ -284,12 +306,11 @@ export default {
             });
         },
 
-        getThisMonthInvoices(){
-            var date = new Date();
-            var month_no = date.getMonth()+1
+        getThisMonthInvoices(month_no){
+            // var date = new Date();
+            // var month_no = date.getMonth()+1
             var temp = this;
-
-            axios.get('/api/getThisMonthInvoices/'+month_no)
+            axios.get('/api/getThisMonthInvoices/'+this.month_no)
             .then((response) => {
                 temp.thisMonthInvoices = response.data.all_data;
 
@@ -301,9 +322,9 @@ export default {
             });
         },
 
-        getExpenses(){
+        getExpenses(month_no){
             var temp = this;
-            axios.get('/api/expenses')
+            axios.get('/api/getThisMonthExpenses/'+this.month_no)
             .then((response) => {
                 temp.expenses = response.data.data;
             })
@@ -322,7 +343,7 @@ export default {
                 if (data.all_data.length > 0) {
 
                     var d = new Date(data.all_data[0].created_at);
-                    $('#date_month').append(' '+month_name[d.getMonth()]+ ' ' + d.getFullYear())
+                    // $('#date_month').append(' '+month_name[d.getMonth()]+ ' ' + d.getFullYear())
 
                     for (let i = 0; i < data.all_data.length ; i++) {
                         total_seles+=parseFloat(data.all_data[i].paid_amount)
@@ -330,7 +351,7 @@ export default {
 
                 }else{
                     var now = new Date();
-                    $('#date_month').append(' '+month_name[now.getMonth()]+ ' ' + now.getFullYear())
+                    // $('#date_month').append(' '+month_name[now.getMonth()]+ ' ' + now.getFullYear())
                 }
 
                 var monthNames = []

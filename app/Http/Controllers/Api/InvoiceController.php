@@ -127,27 +127,31 @@ class InvoiceController extends Controller
     public function getThisMonthInvoices($month)
     {
         $year = date('Y');
-        $mon = date('m');
-        $total_days=cal_days_in_month(CAL_GREGORIAN, $mon, $year);
-        $arrss = array();
-        for ($m=0; $m < $total_days; $m++) {
-            array_push($arrss, $year.'-'.$mon.'-'.$m);
+        // $mon = date('m');
+        $total_days=cal_days_in_month(CAL_GREGORIAN, $month, $year);
+
+        $month_arr = array();
+        for ($m=1; $m <= $total_days; $m++) {
+            array_push($month_arr, $year.'-'.$month.'-'.$m);
         }
 
-        $arrs = array();
-        for($i= 1; $i<= count($arrss); $i++) {
-            // $jan_total += $total->paid_amount;
-            $jan = Invoice::where('created_at', 'LIKE','%'. $year.'-'.$mon.'-'.sprintf("%02d", $i). '%')->select('paid_amount')->get();
-            $jan_total = 0;
-            if (count($jan) > 0) {
-                foreach($jan as $total) {
-                    $jan_total += $total->paid_amount;
+        $month_val_arr = array();
+        for($i= 1; $i<= count($month_arr); $i++) {
+
+            $this_months = Invoice::where('created_at', 'LIKE','%'. $year.'-'.$month.'-'.sprintf("%02d", $i). '%')->select('paid_amount')->get();
+
+            $month_total = 0;
+            if (count($this_months) > 0) {
+                foreach($this_months as $this_month) {
+                    $month_total += $this_month->paid_amount;
                 }
             }
-            array_push($arrs, $jan_total);
+            array_push($month_val_arr, $month_total);
         }
-        $all_data = DefaultResource::collection(Invoice::orderBy('id','asc')->whereYear('created_at', $year.'-'.$mon.'-'.sprintf("%02d", $i))->get());
-        return array('all_data' => $all_data , 'days'=>$arrs );
+
+        $all_data = DefaultResource::collection(Invoice::whereYear('created_at', '=', $year)->whereMonth('created_at', '=', $month)->get());
+
+        return array('all_data' => $all_data , 'days'=>$month_val_arr );
     }
 
     public function getThisYearInvoices($year)
