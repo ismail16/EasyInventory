@@ -1,5 +1,6 @@
 <template>
     <div>
+       
         <div class="content-header pb-0">
             <div class="container-fluid">
                 <div class="row mb-2">
@@ -81,7 +82,6 @@
 
                             <div class="card-body pt-1 pb-1">
                                 <div class="row">
-
                                     <div class="col-md-3 border-right">
                                         <p class="border-bottom mb-1">
                                             <strong>SELL INVOICE</strong>
