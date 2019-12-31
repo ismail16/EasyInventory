@@ -30,7 +30,7 @@
                                 </div>
                                 <div class="col-md-3">
                                     <div class="d-inline-flex float-right">
-                                        <router-link to="/invoice-create" class="btn btn-outline-primary btn-sm">
+                                        <router-link to="/invoice-create" class="btn btn-primary btn-sm">
                                             <i class="fa fa-plus"></i> Customer Invoice
                                         </router-link>
                                     </div>

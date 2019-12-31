@@ -47,19 +47,10 @@ class SupllierInvoiceController extends Controller
             $name = time().'.' . explode('/', explode(':', substr($request->image, 0, strpos($request->image, ';')))[1])[1];
             \Image::make($request->image)->save(public_path('images/supplier_invoice/').$name);
             $request->merge(['image' => $name]);
-            // $userPhoto = public_path('img/profile/').$currentPhoto;
-            // if(file_exists($userPhoto)){
-            //     @unlink($userPhoto);
-            // }
-        }else{
-            $name = 'default.png';
         }
         $supplier_invoice->image = $name ;
 
-
         $supplier_invoice->save();
-
-
 
         $products = $request->products;
         for ($i=0; $i < count($products); $i++) { 
@@ -72,17 +63,12 @@ class SupllierInvoiceController extends Controller
             $supplierInvoiceProduct->save();
         }
 
-        // return $supplierInvoiceProduct;
-
         return array('supplier_invoice' => $supplier_invoice, 'supplierInvoiceProduct' => $supplierInvoiceProduct);
-
-
     }
 
 
     public function show($id)
     {
-
 
         $supplier_invoice = SupplierInvoice::find($id);
         $supplierInvoiceProduct = SupplierInvoiceProduct::where('supplier_invoice_id',$id)->get();
@@ -103,16 +89,20 @@ class SupllierInvoiceController extends Controller
         $supplier_invoice->due_amount = $req['due_amount'];
         $supplier_invoice->discount = $req['discount'];
         $supplier_invoice->status = 1;
-        // if($req['image']){
-        //     $name = time().'.' . explode('/', explode(':', substr($req['image'], 0, strpos($req['image'], ';')))[1])[1];
-        //     \Image::make($req['image'])->save(public_path('images/supplier_invoice/').$name);
-        //     $req->merge(['image' => $name]);
-        //     // $userPhoto = public_path('img/profile/').$currentPhoto;
-        //     // if(file_exists($userPhoto)){
-        //     //     @unlink($userPhoto);
-        //     // }
-        //     $supplier_invoice->image = $name ;
-        // }
+
+        if($request['updateImgUrl']){
+
+            $supplier_invoiceImage = public_path('images/supplier_invoice/').$supplier_invoice->image;
+            if(file_exists($supplier_invoiceImage)){
+                @unlink($supplier_invoiceImage);
+            }
+            
+            $name = time().'.'.explode('/', explode(':', substr($req['image'], 0, strpos($req['image'], ';')))[1])[1];
+
+            \Image::make($req['image'])->save(public_path('images/supplier_invoice/').$name);
+            $supplier_invoice->image = $name;
+        }
+
         $supplier_invoice->save();
         
 

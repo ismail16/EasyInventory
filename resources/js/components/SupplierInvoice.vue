@@ -31,7 +31,7 @@
                                 </div>
                                 <div class="col-md-3">
                                     <div class="d-inline-flex float-right">
-                                        <router-link to="/supplier-invoice-create" class="btn btn-outline-primary btn-sm">
+                                        <router-link to="/supplier-invoice-create" class="btn btn-primary btn-sm">
                                             <i class="fa fa-plus"></i> Supplier Invoice
                                         </router-link>
                                     </div>

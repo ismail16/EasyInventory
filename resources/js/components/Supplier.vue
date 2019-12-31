@@ -30,7 +30,7 @@
                                 </div>
                                 <div class="col-md-3">
                                     <div class="d-inline-flex float-right">
-                                        <button class="btn btn-outline-primary btn-sm" @click="newModal">
+                                        <button class="btn btn-primary btn-sm" @click="newModal">
                                             <i class="fas fa-user-plus fa-fw"></i> Add New Supplier
                                         </button>
                                     </div>
@@ -38,54 +38,56 @@
                             </div>
                         </div>
                         <div class="card-body p-2">
-                            <table id="example1-" class="table table-bordered table-striped table-sm">
-                                <thead>
-                                    <tr>
-                                        <th class="text-center">S.N</th>
-                                        <th class="text-center">Name</th>
-                                        <th class="text-center">Contact Name</th>
-                                        <th class="text-center">Email</th>
-                                        <th class="text-center">Phone</th>
-                                        <th class="text-center">Date</th>
-                                        <th class="text-center">Address</th>
-                                        <th class="text-center">Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody v-if="suppliers.length > 0 ">
-                                    <tr v-for="(supplier, index) in suppliers">
-                                        <td class="text-center">{{ index+1 }}</td>
-                                        <td class="text-center">{{ supplier.supplier_name }}</td>
-                                        <td class="text-center">{{ supplier.supplier_contact_name }}</td>
-                                        <td class="text-center">{{ supplier.supplier_email }}</td>
-                                        <td class="text-center">{{ supplier.supplier_phone }}</td>
-                                        <td class="text-center">{{ supplier.created_at | myDate }}</td>
-                                        <td class="text-center">{{ supplier.supplier_address }}</td>
-                                        <td class="text-center">
-                                            <a class="btn btn-xs btn-success mr-1" @click.prevent="editModal(supplier)">
-                                                <i class="fa fa-edit"></i>
-                                            </a>
-                                            <button class="btn btn-xs btn-danger" @click.prevent="deleteSupplier(supplier.id)">
-                                                <i class="fa fa-trash"></i>
-                                            </button>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                                <tbody v-else>
-                                    <tr>
-                                        <td colspan="8">
-                                            <div class="p-3 mb-2">
-                                                <h3 class="text-center text-danger">Opps!!</h3>
-                                                <p class="text-center">Data not found</p>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            <pagination v-if="pagination.last_page > 1"
-                                :pagination="pagination"
-                                :offset="5"
-                                @paginate="query === '' ? getData() : searchData()">
-                            </pagination>
+                            <div class="table-responsive-sm">
+                                <table id="example1-" class="table table-bordered table-striped table-sm">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-center">S.N</th>
+                                            <th class="text-center">Name</th>
+                                            <th class="text-center">Contact Name</th>
+                                            <th class="text-center">Email</th>
+                                            <th class="text-center">Phone</th>
+                                            <th class="text-center">Date</th>
+                                            <th class="text-center">Address</th>
+                                            <th class="text-center">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody v-if="suppliers.length > 0 ">
+                                        <tr v-for="(supplier, index) in suppliers">
+                                            <td class="text-center">{{ index+1 }}</td>
+                                            <td class="text-center">{{ supplier.supplier_name }}</td>
+                                            <td class="text-center">{{ supplier.supplier_contact_name }}</td>
+                                            <td class="text-center">{{ supplier.supplier_email }}</td>
+                                            <td class="text-center">{{ supplier.supplier_phone }}</td>
+                                            <td class="text-center">{{ supplier.created_at | myDate }}</td>
+                                            <td class="text-center">{{ supplier.supplier_address }}</td>
+                                            <td class="text-center">
+                                                <a class="btn btn-xs btn-success mr-1" @click.prevent="editModal(supplier)">
+                                                    <i class="fa fa-edit"></i>
+                                                </a>
+                                                <button class="btn btn-xs btn-danger" @click.prevent="deleteSupplier(supplier.id)">
+                                                    <i class="fa fa-trash"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                    <tbody v-else>
+                                        <tr>
+                                            <td colspan="8">
+                                                <div class="p-3 mb-2">
+                                                    <h3 class="text-center text-danger">Opps!!</h3>
+                                                    <p class="text-center">Data not found</p>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <pagination v-if="pagination.last_page > 1"
+                                    :pagination="pagination"
+                                    :offset="5"
+                                    @paginate="query === '' ? getData() : searchData()">
+                                </pagination>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -108,8 +110,7 @@
                                 <label class="col-sm-2 col-form-label">Name <span class="text-red">*</span></label>
                                 <div class="col-sm-10">
                                     <input v-model="form.supplier_name" type="text" name="supplier_name"
-                                    placeholder="Supplier name"
-                                    class="form-control" :class="{ 'is-invalid': form.errors.has('supplier_name') }">
+                                    placeholder="Supplier name" class="form-control" :class="{ 'is-invalid': form.errors.has('supplier_name') }" required>
                                     <has-error :form="form" field="supplier_name"></has-error>
                                 </div>
                             </div>

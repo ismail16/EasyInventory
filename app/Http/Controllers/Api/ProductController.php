@@ -50,10 +50,9 @@ class ProductController extends Controller
             $name = time().'.' . explode('/', explode(':', substr($request->image, 0, strpos($request->image, ';')))[1])[1];
             \Image::make($request->image)->save(public_path('images/product/').$name);
             $request->merge(['image' => $name]);
-        }else{
-            $name = 'default.png';
+            $product->image = $name ;
         }
-        $product->image = $name ;
+        
         $product->save();
         return $product;
     }
@@ -66,10 +65,8 @@ class ProductController extends Controller
 
     public function update(Request $request, $id)
     {
-
         $product = Product::find($id);
-        $product_req = $request->product;
-        // $product = $product_t->product;    
+        $product_req = $request->product;  
         $product->product_name = $product_req['product_name'];
         $product->category_id = $product_req['category_id'];
         $product->supplier_id = $product_req['supplier_id'];
@@ -84,23 +81,16 @@ class ProductController extends Controller
         $product->sku = str_slug($product_req['product_name']);
         $product->status = 1;
 
-        // if($product_req['image']){
-
-        //     $productImage = public_path('images/product/').$product->image;
-        //     if(file_exists($productImage)){
-        //         @unlink($productImage);
-        //     }
-            // $name = time().'.' . explode('/', explode(':', substr($product_req['image'], 0, strpos($product_req['image'], ';')))[1])[1];
-
-        //     return $name;
-
-        //     \Image::make($product_req['image'])->save(public_path('images/product/').$name);
-        //     $product_req->merge(['image' => $name]);
-        // }else{
-        //     $name = 'default.png';
-        // }
-
-        // $product->image = $name ;
+        if($request['updateImgUrl']){
+            $productImage = public_path('images/product/').$product->image;
+            if(file_exists($productImage)){
+                @unlink($productImage);
+            }
+            $name = str_slug($request->product['product_name']).'-'.time().'.'.explode('/', explode(':', substr($request->product['image'], 0, strpos($request->product['image'], ';')))[1])[1];
+            \Image::make($request->product['image'])->save(public_path('images/product/').$name);
+            $product->image = $name;
+        }
+        
         $product->save();
         return $product;
     }

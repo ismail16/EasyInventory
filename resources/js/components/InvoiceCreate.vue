@@ -15,13 +15,13 @@
                           <div class="col-md-3">
                               <div class="d-inline-flex float-right">
                                 <router-link to="/invoice" class="btn btn-sm btn-primary float-right">
-                                    <i class="nav-icon far fa-file-alt"></i> Invoice
+                                    <i class="nav-icon far fa-file-alt"></i> Invoices
                                 </router-link>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="card-body" style="background-color: #f6f6f7;">
+                <div class="card-body bg_light_gray">
                     <form @submit.prevent="addNewInvoice">
                         <div class="panel-body">
                             <div class="row">
@@ -37,9 +37,7 @@
                                               <div :class="currentFocus2 == index ? 'form.customer_name-active' : ''" v-for="(i, index) in customer_arr" v-if= "onFocus2 && i.customer_name.substr(0, form.customer_name.length).toUpperCase() == form.customer_name.toUpperCase()" @click="form.customer_name = i.customer_name; form.customer_phone = i.customer_phone; form.customer_email = i.customer_email; form.customer_address = i.customer_address; onFocus2 = false;">
                                                 <strong>{{i.customer_name.substr(0, form.customer_name.length)}}</strong>{{i.customer_name.substr(form.customer_name.length)}}
                                               </div>
-
                                             </div>
-
                                         </div>
                                     </div>
                                 </div>
@@ -75,8 +73,7 @@
                                     <div class="form-group row">
                                         <label class="col-sm-3 col-form-label pt-0">Date <i class="text-danger">*</i></label>
                                         <div class="col-sm-9">
-                                            <input type="text" v-model="form.invoice_date" name="" class="form-control-sm w-100 datetimepicker" :class="{ 'is-invalid': form.errors.has('mfg_date') }" autocomplete="off">                                      
-                                            <!-- <datetime format="DD/MM/YYYY h:i:s" width="200px" v-model="form.invoice_date" class="" :class="{ 'is-invalid': form.errors.has('invoice_date') }" autocomplete="off"></datetime> -->
+                                            <input type="text" v-model="form.invoice_date" name="" class="form-control-sm w-100 datetimepicker" :class="{ 'is-invalid': form.errors.has('mfg_date') }" autocomplete="off">
                                             <has-error :form="form" field="invoice_date"></has-error>
                                         </div>
                                     </div>
@@ -167,7 +164,7 @@
                                         Back to Invoice list
                                     </router-link>
 
-                                    <button class="btn btn-sm btn-success float-right" >
+                                    <button class="btn btn-sm btn-primary float-right" >
                                         Create Invoice
                                     </button>
                                 </div>

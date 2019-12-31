@@ -21,7 +21,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="card-body" style="background-color: #f6f6f7;">
+                <div class="card-body bg_light_gray">
                     <form @submit.prevent="updateInvoice">
                         <div class="panel-body">
                             <div class="row" @click="onFocus = false;">
@@ -75,8 +75,7 @@
                                     <div class="form-group row">
                                         <label class="col-sm-3 col-form-label pt-0">Date <i class="text-danger">*</i></label>
                                         <div class="col-sm-9">      
-                                            <input type="text" v-model="form.invoice_date" name="" class="form-control-sm w-100 datetimepicker" autocomplete="off">                          
-                                            <!-- <datetime format="DD/MM/YYYY h:i:s" width="200px" v-model="form.invoice_date" class=""  autocomplete="off"></datetime> -->
+                                            <input type="text" v-model="form.invoice_date" name="" class="form-control-sm w-100 datetimepicker" autocomplete="off">
                                         </div>
                                     </div>
                                 </div>
@@ -97,27 +96,15 @@
 
                                         <tr v-for="(product, index) in product_arr">
                                             <td style="width: 320px">
+                                                <input @blur="onBlur=true" @focus="onFocus = true;onBlur = false;" v-model="product.product_name" @keyDown="keyDown"  type="text" placeholder="Product Name" class="form-control-sm w-100" required>
 
+                                                <div class="product.index-items" style="z-index: 99999; position: absolute; width: 29%; background-color: red; padding: 0px 10px; max-height: 150px; overflow: auto;">
+                                                  
+                                                  <div :class="currentFocus == index ? 'product.index-active' : ''" v-for="(i, index) in product_arr" v-if= "onFocus && i.product_name.substr(0, product.product_name.length).toUpperCase() == product.product_name.toUpperCase()" @click="product.product_name = i.product_name; product.sell_price = i.sell_price; onFocus = false;">
+                                                    <strong>{{i.product_name.substr(0, product.product_name.length)}}</strong>{{i.product_name.substr(product.product_name.length)}}
+                                                  </div>
 
-
-
-        <input @blur="onBlur=true" @focus="onFocus = true;onBlur = false;" v-model="product.product_name" @keyDown="keyDown"  type="text" placeholder="Product Name" class="form-control-sm w-100" required>
-
-        <div class="product.index-items" style="z-index: 99999; position: absolute; width: 29%; background-color: red; padding: 0px 10px; max-height: 150px; overflow: auto;">
-          
-          <div :class="currentFocus == index ? 'product.index-active' : ''" v-for="(i, index) in product_arr" v-if= "onFocus && i.product_name.substr(0, product.product_name.length).toUpperCase() == product.product_name.toUpperCase()" @click="product.product_name = i.product_name; product.sell_price = i.sell_price; onFocus = false;">
-            <strong>{{i.product_name.substr(0, product.product_name.length)}}</strong>{{i.product_name.substr(product.product_name.length)}}
-          </div>
-
-        </div>
-
-
-                                               <!-- <input v-model="product.product_name" placeholder="Item Name" required type="text" class="form-control-sm w-100" autocomplete="off"> -->
-
-
-
-
-
+                                                </div>
                                             </td>
                                             <td style="width: 320px" @click="onFocus = false;">
                                                 <input v-model="product.product_quantity" placeholder="Product Quantity" type="text" class="form-control-sm w-100" autocomplete="off" required>
@@ -177,7 +164,7 @@
                                         Back to Invoice list
                                     </router-link>
 
-                                    <button class="btn btn-sm btn-success float-right" >
+                                    <button class="btn btn-sm btn-primary float-right" >
                                         Create Invoice
                                     </button>
                                 </div>

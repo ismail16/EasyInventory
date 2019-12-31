@@ -20,110 +20,89 @@
 		<link rel="stylesheet" href="{{ asset('backend_assets/plugins/sweetalert2/sweetalert2.min.css')}}"> 
 	  	<!-- Google Font: Source Sans Pro -->
 	  	<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
-		<link rel="stylesheet" href="{{ asset('css/customs.css')}}"> 
-
 	  	<script src="{{ asset('backend_assets/plugins/datetime_picker/jquery.min.js')}}"></script>
-		<script type="text/javascript">
-		  	$(document).ready(function () {
-		        //DatePicker Example
-		        $('.datetimepicker').datetimepicker({
-		        	format: "d-m-Y",
-		        	timepicker: false,
-		        });
-		    });
-		</script>
-		<style type="text/css" media="screen">
-			.nav-pills .nav-link {
-			    color: #000;
-			}
-			[class*=sidebar-light-] {
-			    background-color: #fff;
-			}
-			.router-link-active{
-				background-color: rgba(6, 4, 4, 0.22);
-			}
-		</style>
+	  	<!-- customs css and js -->
+	  	<link rel="stylesheet" href="{{ asset('css/customs.css')}}"> 
+	  	<script src="{{ asset('js/customs.js')}}"></script>
+	  	<!-- pushing css -->
 		@stack('css')
 	</head>
-
 	<body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed">
-
 		<?php $setting = \App\Models\Setting::orderBy('id','desc')->first(); ?>
 		<div class="wrapper" id="app">
 			<nav class="main-header navbar navbar-expand {{$setting->navbar_color}}">
 			    <ul class="navbar-nav">
-			      <li class="nav-item">
-			        <a class="nav-link" data-widget="pushmenu" href="#"><i class="fas fa-bars"></i></a>
-			      </li>
+			    	<li class="nav-item">
+			        	<a class="nav-link" data-widget="pushmenu" href="#"><i class="fas fa-bars"></i></a>
+			      	</li>
 			    </ul>
-
 			    <ul class="navbar-nav ml-auto">
-			      <li class="nav-item dropdown">
-			        <a href="{{ route('admin.documentation') }}" target="_blank" class="nav-link bg-light mr-1">
-						<i class="nav-icon far fa-file-alt text-info"> Documentation</i>
-					</a>
-			      </li>
-			      <li class="nav-item dropdown">
-			       <router-link to="/report" class="nav-link bg-light mr-1">
-						<i class="fas fa-chart-line text-success"> Reports</i>
-					</router-link>
-			      </li>
-			      <li class="nav-item dropdown">
-			        <router-link to="/setting" class="nav-link bg-light">
-						<i class="nav-icon fas fa-cogs text-danger"> Setting</i>
-					</router-link>
-			      </li>
-			      <li class="nav-item">
-			        <ul class="navbar-nav ml-auto">
-					<li class="nav-item dropdown">
-						<a href="#" class="_dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
-							<img src="{{ asset('/images/owner_image/'.$setting->owner_image) }}" class="img-circle" alt="User Image" width="30" style="margin: 5px 10px 0px 10px;">
+			      	<li class="nav-item dropdown">
+			        	<a href="{{ route('admin.documentation') }}" target="_blank" class="nav-link bg-light mr-1">
+							<i class="nav-icon far fa-file-alt text-info"> Documentation</i>
 						</a>
-						<div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-							<span class="dropdown-item dropdown-header">
-								<img src="{{ asset('/images/owner_image/'.$setting->owner_image) }}" width="100" class="img-circle" alt="User Image">
-								<p>
-									{{ $setting->owner_name }} <br>
-									{{ $setting->store_mobile }}
-								</p>
-							</span>
-							<div class="dropdown-divider"></div>
-							<div class="container">
-								<div class="row">
-									<div class="d-flex justify-content-start" style="width: 50%">
-										<a href="#" class="btn btn-default btn-flat">Profile</a>
-									</div>
-									<div class="d-flex justify-content-end" style="width: 50%">
-										<form id="logout-form" action="{{ route('logout') }}" method="POST" style="_display: none;">
-											@csrf
-											<button type="submit" class="btn btn-default btn-flat">Sign out</button>
-										</form>
+			      	</li>
+			      	<li class="nav-item dropdown">
+			       		<router-link to="/report" class="nav-link bg-light mr-1">
+							<i class="fas fa-chart-line text-success"> Reports</i>
+						</router-link>
+			      	</li>
+			      	<li class="nav-item dropdown">
+			        	<router-link to="/setting" class="nav-link bg-light">
+							<i class="nav-icon fas fa-cogs text-danger"> Setting</i>
+						</router-link>
+			      	</li>
+			      	<li class="nav-item">
+			        	<ul class="navbar-nav ml-auto">
+							<li class="nav-item dropdown">
+								<a href="#" class="_dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+									<img src="{{ asset('/images/owner_image/'.$setting->owner_image) }}" class="img-circle" alt="User Image" width="30" style="margin: 5px 10px 0px 10px;">
+								</a>
+								<div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+									<span class="dropdown-item dropdown-header">
+										<img src="{{ asset('/images/owner_image/'.$setting->owner_image) }}" width="100" class="img-circle" alt="User Image">
+										<p>
+											{{ $setting->owner_name }} <br>
+											{{ $setting->store_mobile }}
+										</p>
+									</span>
+									<div class="dropdown-divider"></div>
+									<div class="container">
+										<div class="row">
+											<div class="d-flex justify-content-start" style="width: 50%">
+												<a href="#" class="btn btn-default btn-flat">Profile</a>
+											</div>
+											<div class="d-flex justify-content-end" style="width: 50%">
+												<form id="logout-form" action="{{ route('logout') }}" method="POST" style="_display: none;">
+													@csrf
+													<button type="submit" class="btn btn-default btn-flat">Sign out</button>
+												</form>
+											</div>
+										</div>
 									</div>
 								</div>
-							</div>
-						</div>
-					</li>
-					<li class="nav-item dropdown">
-						<a class="nav-link text-red font-weight-bold" data-toggle="dropdown" href="#">
-							ENG
-							{{-- <i class="fas fa-angle-down"></i> --}}
-						</a>
-						{{-- <div class="dropdown-menu dropdown-menu-right p-0">
-							<a href="#" class="dropdown-item active">
-								<i class="flag-icon flag-icon-us mr-2"></i> English
-							</a>
-							<a href="#" class="dropdown-item">
-								<i class="flag-icon flag-icon-de mr-2"></i> German
-							</a>
-							<a href="#" class="dropdown-item">
-								<i class="flag-icon flag-icon-fr mr-2"></i> French
-							</a>
-							<a href="#" class="dropdown-item">
-								<i class="flag-icon flag-icon-es mr-2"></i> Spanish
-							</a>
-						</div> --}}
-					</li>
-				</ul>
+							</li>
+							<li class="nav-item dropdown">
+								<a class="nav-link text-red font-weight-bold" data-toggle="dropdown" href="#">
+									ENG
+									{{-- <i class="fas fa-angle-down"></i> --}}
+								</a>
+								{{-- <div class="dropdown-menu dropdown-menu-right p-0">
+									<a href="#" class="dropdown-item active">
+										<i class="flag-icon flag-icon-us mr-2"></i> English
+									</a>
+									<a href="#" class="dropdown-item">
+										<i class="flag-icon flag-icon-de mr-2"></i> German
+									</a>
+									<a href="#" class="dropdown-item">
+										<i class="flag-icon flag-icon-fr mr-2"></i> French
+									</a>
+									<a href="#" class="dropdown-item">
+										<i class="flag-icon flag-icon-es mr-2"></i> Spanish
+									</a>
+								</div> --}}
+							</li>
+						</ul>
 			    	</li>
 			    </ul>
 			</nav>
@@ -137,20 +116,17 @@
 				<div class="sidebar"> 
 					<nav class="mt-2 sidebar-nav">
 						<ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-
 							<li class="nav-item">
 					            <a href="{{ route('admin.dashboard') }}" class="nav-link router-link-active" >
 					              <i class="nav-icon fas fa-tachometer-alt"></i><p> Dashboard </p>
 					            </a>
 					        </li>
-
 							<li class="nav-item">
 								<router-link to="/supplier" class="nav-link">
 									<i class="nav-icon fas fa-users"></i>
 									<p>Suppliers</p>
 								</router-link>
 							</li>
-
 							<li class="nav-item">
 								<router-link to="/category" class="nav-link">
 									<i class="nav-icon fas fa-th-large"></i>
@@ -244,29 +220,17 @@
 		<!-- Toastr -->
 		<script src="{{ asset('backend_assets/plugins/toastr/toastr.min.js')}}"></script>
 		<script src="{{ asset('backend_assets/plugins/sweetalert2/sweetalert2.min.js')}}"></script>
-		<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script> -->
 
 		<script src="{{ mix('js/app.js') }}"></script>
 
 		<link rel="stylesheet" type="text/css" href="{{ asset('backend_assets/plugins/datetime_picker/jquery.datetimepicker.min.css')}}"/>
-		{{-- <script src="{{ asset('backend_assets/plugins/datetime_picker/bootstrap.min.js')}}"></script> --}}
 		<script src="{{ asset('backend_assets/plugins/datetime_picker/jquery.datetimepicker.js')}}"></script>
 
 		<!-- PAGE SCRIPTS -->
 		{{-- <script src="{{ asset('backend_assets/dist/js/pages/dashboard2.js') }}"></script> --}}
 
+		<!-- pushing js -->
 		@stack('scripts')
-
-		<script>
-			$('#printInvoice').click(function(){
-	            // Popup($('.invoice')[0].outerHTML);
-	            // function Popup(data) 
-	            // {
-	            	window.print();
-	                // return true;
-	            // }
-	        });
-	    </script>
 	</body>
 </html>
 

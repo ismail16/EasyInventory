@@ -1,280 +1,271 @@
 <template>
-  <div class="container">
-    <section class="content mt-2 mb-0">
-      <div class="row">
-        <div class="col-12">
-          <div class="card mt-2 rounded-0" style="margin-bottom: 5px !important;">
-            <div class="card-header pb-0">
-              <div class="row">
-                <div class="col-md-3 float-left">
-                  <p><router-link to="/dashboard"> Home </router-link> / warehouse</p>
-                </div>
-                <div class="col-md-6">
-                  <div class="form-inline ml-3 mr-2">
-                    <div class="input-group input-group-sm w-100">
-                      <select v-model="queryFiled" class="form-control w-25" id="fileds">
-                        <option value="warehouse_name">Warehouse Name</option>
-                      </select>
-                      <input class="form-control w-50" v-model="query" type="search" placeholder="Search" aria-label="Search">
-                      <div class="input-group-append">
-                        <button class="btn btn-default" type="submit">
-                          <i class="fas fa-search"></i>
-                        </button>
-                      </div>
+    <div class="container">
+        <section class="content mt-2 mb-0">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card mt-2 rounded-0" style="margin-bottom: 5px !important;">
+                        <div class="card-header pb-0">
+                            <div class="row">
+                                <div class="col-md-3 float-left">
+                                    <p><router-link to="/dashboard"> Home </router-link> / warehouse</p>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-inline ml-3 mr-2">
+                                        <div class="input-group input-group-sm w-100">
+                                            <select v-model="queryFiled" class="form-control w-25" id="fileds">
+                                                <option value="warehouse_name">Warehouse Name</option>
+                                            </select>
+                                            <input class="form-control w-50" v-model="query" type="search" placeholder="Search" aria-label="Search">
+                                            <div class="input-group-append">
+                                                <button class="btn btn-default" type="submit">
+                                                    <i class="fas fa-search"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="d-inline-flex float-right">
+                                        <button class="btn btn-primary btn-sm" @click="newModal">
+                                            <i class="fas fa-user-plus fa-fw"></i> Add New warehouse
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body p-2">
+                            <div class="table-responsive-sm">
+                                <table id="example1-" class="table table-bordered table-striped table-sm">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-center">No</th>
+                                            <th class="text-center">warehouse Name</th>
+                                            <th class="text-center">Date</th>
+                                            <th class="text-center">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody v-if="warehouses.length > 0">
+                                        <tr v-for="(warehouse, index) in warehouses">
+                                            <td class="text-center">{{ index+1 }}</td>
+                                            <td class="text-center">{{ warehouse.warehouse_name }}</td>
+                                            <td class="text-center">{{ warehouse.created_at | myDate }}</td>
+                                            <td class="text-center">
+                                                <a class="btn btn-xs btn-success mr-1" @click.prevent="editModal(warehouse)">
+                                                    <i class="fa fa-edit"></i>
+                                                </a>
+                                                <button class="btn btn-xs btn-danger" @click.prevent="deleteWarehouse(warehouse.id)">
+                                                    <i class="fa fa-trash"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+
+                                    <tbody v-else>
+                                        <tr>
+                                            <td colspan="7">
+                                                <div class="p-3 mb-2">
+                                                    <h3 class="text-center text-danger">Opps!!</h3>
+                                                    <p class="text-center">Data not found</p>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="card-footer pb-0 pt-0">
+                            <div class="float-right">
+                                <pagination-component v-if="pagination.last_page > 1"
+                                    :pagination="pagination"
+                                    :offset="5"
+                                    @paginate="query === '' ? getData() : searchData()"
+                                    >
+                                </pagination-component>
+                            </div>
+                        </div>
                     </div>
-                  </div>
+
                 </div>
-                <div class="col-md-3">
-                  <div class="d-inline-flex float-right">
-                    <button class="btn btn-outline-primary btn-sm" @click="newModal">
-                      <i class="fas fa-user-plus fa-fw"></i> Add New warehouse
-                    </button>
-                  </div>
+            </div>
+        </section>
+
+        <!-- Add, Edit Modal -->
+        <div class="modal fade" id="addNew" tabindex="-1" role="dialog" aria-labelledby="addNewLabel" aria-hidden="true">
+            <div class="modal-dialog  _modal-dialog-centered modal-md" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 v-show="!editMode" class="modal-title" id="addNewLabel">Add New warehouse</h5>
+                        <h5 v-show="editMode" class="modal-title" id="addNewLabel">Update warehouse</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <form @submit.prevent="editMode? updateWarehouse() : addNewWarehouse()">
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label>Warehouse Name <span class="text-red">*</span></label>
+                                <input v-model="form.warehouse_name" type="text" name="warehouse_name"
+                                placeholder="Warehouse Name" class="form-control" :class="{ 'is-invalid': form.errors.has('warehouse_name') }" required>
+                                <has-error :form="form" field="warehouse_name"></has-error>
+                            </div>            
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Close</button>
+                            <button v-show="!editMode" type="submit" class="btn btn-primary btn-sm">
+                                <i class="fa fa-plus"></i> Create
+                            </button>
+                            <button v-show="editMode" type="submit" class="btn btn-primary btn-sm">
+                                <i class="fa fa-sync"></i> Update
+                            </button>
+                        </div>
+                    </form>
                 </div>
-              </div>
             </div>
-            <div class="card-body p-2">
-              <table id="example1-" class="table table-bordered table-striped table-sm">
-                <thead>
-                  <tr>
-                    <th class="text-center">No</th>
-                    <th class="text-center">warehouse Name</th>
-                    <!-- <th class="text-center">Status</th> -->
-                    <th class="text-center">Date</th>
-                    <th class="text-center">Action</th>
-                  </tr>
-                </thead>
-                <tbody v-if="warehouses.length > 0">
-                  <tr v-for="(warehouse, index) in warehouses">
-                    <td class="text-center">{{ index+1 }}</td>
-                    <td class="text-center">{{ warehouse.warehouse_name }}</td>
-                    <!-- <td class="text-center">
-                        <span v-if="warehouse.status == 0" class="text-success">
-                            Active
-                        </span>
-                        <span v-else class="text-danger">
-                            Deactive
-                        </span>
-                    </td> -->
-                    <td class="text-center">{{ warehouse.created_at | myDate }}</td>
-                    <td class="text-center">
-                      <a class="btn btn-xs btn-success mr-1" @click.prevent="editModal(warehouse)">
-                        <i class="fa fa-edit"></i>
-                      </a>
-                      <button class="btn btn-xs btn-danger" @click.prevent="deleteWarehouse(warehouse.id)">
-                        <i class="fa fa-trash"></i>
-                      </button>
-                    </td>
-                  </tr>
-                </tbody>
-
-                <tbody v-else>
-                  <tr>
-                    <td colspan="7">
-                      <div class="p-3 mb-2">
-                        <h3 class="text-center text-danger">Opps!!</h3>
-                        <p class="text-center">Data not found</p>
-                      </div>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-            <div class="card-footer pb-0 pt-0">
-              <div class="float-right">
-                <pagination-component v-if="pagination.last_page > 1"
-                  :pagination="pagination"
-                  :offset="5"
-                  @paginate="query === '' ? getData() : searchData()"
-                  >
-                </pagination-component>
-              </div>
-            </div>
-          </div>
-
         </div>
-      </div>
-    </section>
-
-    <div class="modal fade" id="addNew" tabindex="-1" role="dialog" aria-labelledby="addNewLabel" aria-hidden="true">
-      <div class="modal-dialog  _modal-dialog-centered modal-md" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 v-show="!editMode" class="modal-title" id="addNewLabel">Add New warehouse</h5>
-            <h5 v-show="editMode" class="modal-title" id="addNewLabel">Update warehouse</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <form @submit.prevent="editMode? updateWarehouse() : addNewWarehouse()">
-            <div class="modal-body">
-              <div class="form-group">
-                <label>Warehouse Name <span class="text-red">*</span></label>
-                  <input v-model="form.warehouse_name" type="text" name="warehouse_name"
-                  placeholder="Warehouse Name"
-                  class="form-control" :class="{ 'is-invalid': form.errors.has('warehouse_name') }">
-                  <has-error :form="form" field="warehouse_name"></has-error>
-              </div>            
-
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Close</button>
-              <button v-show="!editMode" type="submit" class="btn btn-primary btn-sm">
-                <i class="fa fa-plus"></i> Create
-              </button>
-              <button v-show="editMode" type="submit" class="btn btn-primary btn-sm">
-                <i class="fa fa-sync"></i> Update
-              </button>
-            </div>
-          </form>
-        </div>
-      </div>
     </div>
-  </div>
-
 </template>
 
 <script>
-export default {
-  data() {
-    return {
-      editMode: false,
-      form: new Form({
-        id : '',
-        warehouse_name : '',
-        warehouse_id : '',
-      }),
+    export default {
+        data() {
+            return {
+                editMode: false,
+                form: new Form({
+                    id : '',
+                    warehouse_name : '',
+                    warehouse_id : '',
+                }),
 
-      query: "",
-      queryFiled: "warehouse_name",
-      warehouses:{},
+                query: "",
+                queryFiled: "warehouse_name",
+                warehouses:{},
 
-      pagination:{
-        current_page: 1,
-      },
-    }
-  },
-
-  watch:{
-    query: function(newQ, old) {
-      if (newQ === "") {
-        this.getData();
-      } else {
-        this.searchData();
-      }
-    }
-  },
-
-  mounted(){
-    this.getData();
-  },
-
-  methods:{
-
-    newModal(){
-      this.editMode = false;
-      this.form.reset()
-      $('#addNew').modal('show');
-    },
-
-    editModal(warehouse){
-      this.editMode = true;
-      this.form.reset()
-      $('#addNew').modal('show');
-      this.form.fill(warehouse);
-    },
-
-    getData(){
-      var temp = this;
-      axios.get('/api/warehouses?page='+this.pagination.current_page)
-      .then((response) => {
-        temp.warehouses = response.data.data;
-        temp.pagination = response.data.meta;
-      })
-      .catch(function (error) {
-        toastr.error('Something is wrong Data Loaded')
-      });
-    },
-
-    searchData() {
-      var temp = this;
-      axios.get("/api/search/warehouses/" + temp.queryFiled + "/" + temp.query + "?page=" +
-        temp.pagination.current_page
-        )
-      .then(response => {
-        temp.warehouses = response.data.data;
-        temp.pagination = response.data.meta;
-      })
-      .catch(e => {
-        console.log(e);
-        toastr.error('Something is wrong Search Data')
-      });
-    },
-
-    addNewWarehouse(){
-      var temp = this
-      temp.$Progress.start()
-      temp.form.post('/api/warehouses')
-      .then(function (response) {
-        $('#addNew').modal('hide')
-        temp.getData();
-        toastr.success('Saved warehouse Successfully'),
-        temp.$Progress.finish()
-      })
-      .catch(function (error) {
-        toastr.error('Saved warehouse Failed')
-        temp.$Progress.fail()
-      });
-    },
-
-    deleteWarehouse(id){
-      const swalWithBootstrapButtons = Swal.mixin({
-        customClass: {
-          confirmButton: 'btn btn-success btn-sm',
-          cancelButton: 'btn btn-danger  btn-sm mr-2',
+                pagination:{
+                    current_page: 1,
+                },
+            }
         },
-        buttonsStyling: false
-      })
-      swalWithBootstrapButtons.fire({
-        text: "Are you sure Delete ?",
-        icon: 'question',
-        position: 'top-end',
-        width: '18rem',
-        padding: '10px',
-        showCancelButton: true,
-        confirmButtonText: 'Yes, delete it!',
-        cancelButtonText: 'No, cancel!',
-        reverseButtons: true
-      }).then((result) => {
-        if (result.value) {
-          var temp = this
-          axios.delete('/api/warehouses/'+id)
-          .then(function (response) {
-            toastr.success('Deleted warehouse Successfully')
-            temp.getData();
-          })
-          .catch(function (error) {
-            toastr.error('Delete warehouse Failed')
-          });
-        }
-      })
-    },
 
-    updateWarehouse(id){
-      this.$Progress.start()
-      var temp = this
-      $('#addNew').modal('hide')
-      this.form.put('/api/warehouses/'+this.form.id)
-      .then(function (response) {
-        toastr.success('Updated warehouse Successfully');
-        temp.getData();
-        temp.$Progress.finish()
-      })
-      .catch(function (error) {
-        toastr.error('Updated warehouse Failed')
-        temp.$Progress.fail()
-      });
-    },
-  },
-}
+        watch:{
+            query: function(newQ, old) {
+                if (newQ === "") {
+                    this.getData();
+                } else {
+                    this.searchData();
+                }
+            }
+        },
+
+        mounted(){
+            this.getData();
+        },
+
+        methods:{
+
+            newModal(){
+                this.editMode = false;
+                this.form.reset()
+                $('#addNew').modal('show');
+            },
+
+            editModal(warehouse){
+                this.editMode = true;
+                this.form.reset()
+                $('#addNew').modal('show');
+                this.form.fill(warehouse);
+            },
+
+            getData(){
+                var temp = this;
+                axios.get('/api/warehouses?page='+this.pagination.current_page)
+                .then((response) => {
+                    temp.warehouses = response.data.data;
+                    temp.pagination = response.data.meta;
+                })
+                .catch(function (error) {
+                    toastr.error('Something is wrong Data Loaded')
+                });
+            },
+
+            searchData() {
+                var temp = this;
+                axios.get("/api/search/warehouses/" + temp.queryFiled + "/" + temp.query + "?page=" +
+                    temp.pagination.current_page
+                    )
+                .then(response => {
+                    temp.warehouses = response.data.data;
+                    temp.pagination = response.data.meta;
+                })
+                .catch(e => {
+                    console.log(e);
+                    toastr.error('Something is wrong Search Data')
+                });
+            },
+
+            addNewWarehouse(){
+                var temp = this
+                temp.$Progress.start()
+                temp.form.post('/api/warehouses')
+                .then(function (response) {
+                    $('#addNew').modal('hide')
+                    temp.getData();
+                    toastr.success('Saved warehouse Successfully'),
+                    temp.$Progress.finish()
+                })
+                .catch(function (error) {
+                    toastr.error('Saved warehouse Failed')
+                    temp.$Progress.fail()
+                });
+            },
+
+            deleteWarehouse(id){
+                const swalWithBootstrapButtons = Swal.mixin({
+                    customClass: {
+                        confirmButton: 'btn btn-success btn-sm',
+                        cancelButton: 'btn btn-danger  btn-sm mr-2',
+                    },
+                    buttonsStyling: false
+                })
+                swalWithBootstrapButtons.fire({
+                    text: "Are you sure Delete ?",
+                    icon: 'question',
+                    position: 'top-end',
+                    width: '18rem',
+                    padding: '10px',
+                    showCancelButton: true,
+                    confirmButtonText: 'Yes, delete it!',
+                    cancelButtonText: 'No, cancel!',
+                    reverseButtons: true
+                }).then((result) => {
+                    if (result.value) {
+                        var temp = this
+                        axios.delete('/api/warehouses/'+id)
+                        .then(function (response) {
+                            toastr.success('Deleted warehouse Successfully')
+                            temp.getData();
+                        })
+                        .catch(function (error) {
+                            toastr.error('Delete warehouse Failed')
+                        });
+                    }
+                })
+            },
+
+            updateWarehouse(id){
+                this.$Progress.start()
+                var temp = this
+                $('#addNew').modal('hide')
+                this.form.put('/api/warehouses/'+this.form.id)
+                .then(function (response) {
+                    toastr.success('Updated warehouse Successfully');
+                    temp.getData();
+                    temp.$Progress.finish()
+                })
+                .catch(function (error) {
+                    toastr.error('Updated warehouse Failed')
+                    temp.$Progress.fail()
+                });
+            },
+        },
+    }
 </script>

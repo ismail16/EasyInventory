@@ -15,14 +15,14 @@
                           </div>
                           <div class="col-md-3">
                               <div class="d-inline-flex float-right">
-                                <router-link to="/supplier-invoice" class="btn btn-sm btn-primary float-right">
+                                <router-link to="/supplier-invoice" class="btn btn-sm btn-primary float-right btn_acitve">
                                     <i class="nav-icon far fa-file-alt"></i> Supplier Invoice
                                 </router-link>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="card-body" style="background-color: #f6f6f7;">
+                <div class="card-body bg_light_gray">
                     <form @submit.prevent="updateSupplierInvoice">
                         <div class="panel-body">
                             <div class="row">
@@ -51,29 +51,27 @@
                                     <div class="form-group row mb-1">
                                         <label for="inputPassword" class="col-sm-2 col-form-label">Date</label>
                                         <div class="col-sm-10">
-                                            <input type="text" v-model="form.invoice_date" name="" class="form-control-sm w-100 datetimepicker" autocomplete="off">                          
-                                            
-                                            <!-- <datetime format="DD/MM/YYYY h:i:s" width="300px" v-model="form.invoice_date" class="form-control-sm w-100" autocomplete="off"></datetime> -->
+                                            <input type="text" v-model="form.invoice_date" name="" class="form-control-sm w-100 datetimepicker" autocomplete="off">
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label for="inputPassword" class="col-sm-2 col-form-label">Image</label>
+                                        <label class="col-sm-2 col-form-label">Image</label>
                                         <div class="col-sm-7 ml-2">
-                                            <input type="file" :src="form.image" @change="uploadImage" />
+                                            <input type="file" :src="form.image" @change="uploadImage" class="form-control-sm w-100 border p-0" />
                                         </div>
 
                                         <div v-if="!img_url" id="preview col-sm-2">
-                                            <img v-show="this.form.image" :src="getImgUrl(this.form.image)"  class="img-fluid" style="max-height: 50px; max-width: 50px;" alt="User Avatar">
+                                            <img v-show="this.form.image" :src="getImgUrl(this.form.image)"  class="img-fluid table_img" alt="User Avatar">
                                         </div>
 
                                         <div id="preview col-sm-2">
-                                            <img v-if="img_url" :src="img_url" class="img-fluid" style="max-height: 50px; max-width: 50px;"/>
+                                            <img v-if="img_url" :src="img_url" class="img-fluid table_img"/>
                                         </div>
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="table-responsive" style="margin-top: 10px">
+                            <div class="table-responsive">
                                 <table class="table table-bordered table-sm table-hover" id="normalinvoice">
                                     <thead>
                                         <tr>
@@ -137,7 +135,7 @@
                                         Back to Invoice list
                                     </router-link>
 
-                                    <button class="btn btn-sm btn-success float-right" >
+                                    <button class="btn btn-sm btn-primary float-right" >
                                         Update Supplier Invoice
                                     </button>
                                 </div>
@@ -153,13 +151,7 @@
 </template>
 
 <script>
-import datetime from 'vuejs-datetimepicker'
 export default {
-
-    components: { datetime },
-    // name: 'imageUpload',
-    // https://www.youtube.com/watch?v=h6sTdAX6yTs
-    // https://github.com/codekerala/laravel-vuejs-invoice/blob/master/resources/views/invoices/form.blade.php
 
     data() {
         return {
@@ -215,7 +207,8 @@ export default {
             var temp = this
             temp.form.products = temp.products;
             axios.put('/api/supllier-invoice/'+this.form.id,{
-                SupplierInvoice:temp.form
+                SupplierInvoice:temp.form,
+                updateImgUrl:temp.img_url
             })
             .then(function (response) {
               toastr.success('Updated Supplier Successfully');

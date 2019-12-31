@@ -3,7 +3,7 @@
         <section class="content mt-2 mb-0">
             <div class="row">
                 <div class="col-12">
-                    <div class="card mt-2 rounded-0" style="margin-bottom: 5px !important;">
+                    <div class="card mt-2 rounded-0 mb-0">
 
                         <div class="card-header pb-0">
                             <div class="row">
@@ -29,7 +29,7 @@
                                 </div>
                                 <div class="col-md-3">
                                     <div class="d-inline-flex float-right">
-                                        <router-link to="/product-create" class="btn btn-outline-primary btn-sm">
+                                        <router-link to="/product-create" class="btn btn-primary btn-sm">
                                             <i class="fa fa-plus"></i> Add New Product
                                         </router-link>
                                     </div>
@@ -38,66 +38,67 @@
                         </div>
 
                         <div class="card-body p-2">
-                            <table id="example1-" class="table table-bordered table-striped table-sm">
-                                <thead>
-                                    <tr>
-                                        <th class="text-center">No</th>
-                                        <th class="text-center">Title(Name)</th>
-                                        <th class="text-center">Image</th>
-                                        <!-- <th class="text-center">Supplier</th> -->
-                                        <th class="text-center">Supplier Price</th>
-                                        <th class="text-center">Sell Price</th>
-                                        <th class="text-center">Make of Date</th>
-                                        <th class="text-center">Expired Date</th>
-                                        <th class="text-center">Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody v-if="products.length > 0">
-                                    <tr v-for="(product, index) in products">
-                                        <td class="text-center">{{ index+1 }}</td>
-                                        <td class="text-center">{{ product.product_name }}</td>
-                                        <td class="text-center">
-                                            <img v-show="product.image" :src="getImgUrl(product.image)"  class="img-fluid" style="max-height: 50px; max-width: 50px;" alt="User Avatar">
-                                        </td>
-                                        <!-- <td class="text-center" >{{ product.supplier }}</td> -->
-                                        <td class="text-center">{{ setting.store_currency }} {{ product.supplier_price }}</td>
-                                        <td class="text-center">{{ setting.store_currency }} {{ product.sell_price }}</td>
-                                        <td class="text-center">{{ product.mfg_date }}</td>
-                                        <td class="text-center">{{ product.exp_date }}</td>
-                                        <td class="text-center">
-                                            <a class="btn btn-xs btn-success" @click.prevent="showModal(product)">
-                                                <i class="fa fa-eye"></i>
-                                            </a>
-                                            <router-link :to="'/product/'+ product.id +'/edit'" class="btn btn-xs btn-success mr-1 ml-1">
-                                                <i class="fa fa-edit"></i>
-                                            </router-link>
-                                            <button class="btn btn-xs btn-danger" @click.prevent="deleteproduct(product.id)">
-                                                <i class="fa fa-trash"></i>
-                                            </button>
-                                        </td>
-                                    </tr>
-                                </tbody>
+                            <div class="table-responsive-sm">
+                                <table id="example1-" class="table table-bordered table-striped table-sm mb-0">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-center">No</th>
+                                            <th class="text-center">Title(Name)</th>
+                                            <th class="text-center">Image</th>
+                                            <th class="text-center">Supplier Price</th>
+                                            <th class="text-center">Sell Price</th>
+                                            <th class="text-center">Make of Date</th>
+                                            <th class="text-center">Expired Date</th>
+                                            <th class="text-center">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody v-if="products.length > 0">
+                                        <tr v-for="(product, index) in products">
+                                            <td class="text-center">{{ index+1 }}</td>
+                                            <td class="text-center">{{ product.product_name }}</td>
+                                            <td class="text-center">
+                                                <img v-if="product.image" :src="getImgUrl(product.image)"  class="img-fluid table_img" alt="image">
+                                                <img v-else src="/images/product/default.png"  class="img-fluid table_img" alt="image">
+                                            </td>
+                                            <td class="text-center">{{ setting.store_currency }} {{ product.supplier_price }}</td>
+                                            <td class="text-center">{{ setting.store_currency }} {{ product.sell_price }}</td>
+                                            <td class="text-center">{{ product.mfg_date }}</td>
+                                            <td class="text-center">{{ product.exp_date }}</td>
+                                            <td class="text-center">
+                                                <a class="btn btn-xs btn-success" @click.prevent="showModal(product)">
+                                                    <i class="fa fa-eye"></i>
+                                                </a>
+                                                <router-link :to="'/product/'+ product.id +'/edit'" class="btn btn-xs btn-success mr-1 ml-1">
+                                                    <i class="fa fa-edit"></i>
+                                                </router-link>
+                                                <button class="btn btn-xs btn-danger" @click.prevent="deleteproduct(product.id)">
+                                                    <i class="fa fa-trash"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
 
-                                <tbody v-else>
-                                    <tr>
-                                        <td colspan="9">
-                                            <div class="p-3 mb-2">
-                                                <h3 class="text-center text-danger">Opps!!</h3>
-                                                <p class="text-center">Data not found</p>
+                                    <tbody v-else>
+                                        <tr>
+                                            <td colspan="9">
+                                                <div class="p-3 mb-2">
+                                                    <h3 class="text-center text-danger">Opps!!</h3>
+                                                    <p class="text-center">Data not found</p>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <!--<div class="d-flex flex-column align-items-center justify-content-center">
+                                           <div class="row">
+                                               <div class="spinner-border" role="status">
+                                               </div>
                                             </div>
-                                        </td>
-                                    </tr>
-                                 <!--    <div class="d-flex flex-column align-items-center justify-content-center">
-                                                   <div class="row">
-                                                       <div class="spinner-border" role="status">
-                                                       </div>
-                                                    </div>
-                                                    <div class="row">
-                                                      <strong>Loading...</strong>
-                                                    </div>
-                                                </div> -->
-                                </tbody>
-                            </table>
+                                            <div class="row">
+                                              <strong>Loading...</strong>
+                                            </div>
+                                        </div> -->
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                         <div class="card-footer pb-0 pt-0">
                             <div class="float-right">
@@ -169,11 +170,13 @@
                                          <span class="h5">Model : <b>{{ product.model }}</b></span>
                                     </div>
                                      <div class="col-md-6 border">
-                                         <span class="h5">Image :  <img v-show="product.image" :src="getImgUrl(product.image)"  class="img-fluid" style="max-height: 50px; max-width: 50px;" alt="User Avatar"></span>
+                                        <span class="h5">Image :  </span>
+                                        <img v-if="product.image" :src="getImgUrl(product.image)"  class="img-fluid table_img" alt="image">
+                                        <img v-else src="/images/product/default.png"  class="img-fluid table_img" alt="image">
                                     </div>
 
                                     <div class="col-md-12 border">
-                                        <span class="h5">product_detail : <b>{{ product.product_detail }}</b></span>
+                                        <span class="h5">Product Details : <b>{{ product.product_detail }}</b></span>
                                     </div>
                                     
                                 </div>
