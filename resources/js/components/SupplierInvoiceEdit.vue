@@ -136,7 +136,7 @@
                                     </router-link>
 
                                     <button class="btn btn-sm btn-primary float-right" >
-                                        Update Supplier Invoice
+                                        <i class="fa fa-sync"></i> Update Supplier Invoice
                                     </button>
                                 </div>
                             </div>

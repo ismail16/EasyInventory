@@ -71,7 +71,6 @@
                                         </tr>
                                     </thead>
                                     <tbody id="add_row_to_Expense">
-
                                         <tr v-for="(expense, index) in form.expenses">
                                             <td style="width: 320px">
                                                 <input v-model="expense.expense_purpose" placeholder="Expense Purpose" required type="text" class="form-control-sm w-100" :class="{ 'is-invalid': form.errors.has('expense_purpose') }" autocomplete="off">
@@ -121,8 +120,7 @@
                                     <router-link to="/expense" class="btn btn-sm btn-default float-left">
                                         Back to Expense list
                                     </router-link>
-
-                                    <button class="btn btn-sm btn-success float-right" >
+                                    <button class="btn btn-sm btn-primary float-right" >
                                         Create Expense
                                     </button>
                                 </div>

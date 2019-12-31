@@ -14,7 +14,7 @@
                           </div>
                           <div class="col-md-3">
                               <div class="d-inline-flex float-right">
-                                <router-link to="/expense" class="btn btn-sm btn-primary float-right">
+                                <router-link to="/expense" class="btn btn-sm btn-primary float-right btn_acitve">
                                     <i class="nav-icon far fa-file-alt"></i> Expense list
                                 </router-link>
                             </div>
@@ -50,10 +50,11 @@
                             <div class="row">
                                 <div class="col-md-12">
                                    <div class="form-group row">
-                                        <label class="col-sm-2 form-control-label" style="margin-right: -45px;">Expense Detail <i class="text-danger">*</i></label>
+                                        <label class="col-sm-2 mr-n5 form-control-label">Expense Detail</label>
                                         <div class="col-sm-10">
                                             <textarea  rows="2" class="form-control" v-model="form.expense_detail"></textarea>
                                         </div>
+
                                     </div>
                                 </div>
                             </div>
@@ -120,8 +121,8 @@
                                         Back to Expense list
                                     </router-link>
 
-                                    <button class="btn btn-sm btn-success float-right" >
-                                        Update Expense
+                                    <button class="btn btn-sm btn-primary float-right" >
+                                        <i class="fa fa-sync"></i> Update Expense
                                     </button>
                                 </div>
                             </div>

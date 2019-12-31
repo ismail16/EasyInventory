@@ -2105,19 +2105,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  // el: '#customer_app',
   data: function data() {
     return {
       editMode: false,
@@ -2182,9 +2170,8 @@ __webpack_require__.r(__webpack_exports__);
     addNewcustomer: function addNewcustomer() {
       var temp = this;
       this.$Progress.start();
-      $('#addNew').modal('hide');
       this.form.post('/api/customers').then(function (response) {
-        console.log(response.data);
+        $('#addNew').modal('hide');
         temp.getData();
         toastr.success('Saved customer Successfully'), temp.$Progress.finish();
       })["catch"](function (error) {
@@ -2203,7 +2190,6 @@ __webpack_require__.r(__webpack_exports__);
         buttonsStyling: false
       });
       swalWithBootstrapButtons.fire({
-        // title: '',
         text: "Are you sure Delete ?",
         icon: 'question',
         position: 'top-end',
@@ -2791,6 +2777,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -3029,8 +3016,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     var today = new Date();
@@ -3104,6 +3089,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
 //
 //
 //
@@ -3909,9 +3895,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-// import datetime from 'vuejs-datetimepicker'
 /* harmony default export */ __webpack_exports__["default"] = ({
-  // components: { datetime },
   data: function data() {
     var today = new Date();
     var current_date = today.getDate() + '-' + (today.getMonth() + 1) + '-' + today.getFullYear();
@@ -3929,7 +3913,7 @@ __webpack_require__.r(__webpack_exports__);
           sell_price: 0
         }],
         grand_total_price: '',
-        discount: '',
+        discount: 0,
         paid_amount: '',
         due_amount: 0
       }),
@@ -4074,7 +4058,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var vuejs_datetimepicker__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuejs-datetimepicker */ "./node_modules/vuejs-datetimepicker/src/datetime_picker.vue");
 //
 //
 //
@@ -4255,12 +4238,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-
 /* harmony default export */ __webpack_exports__["default"] = ({
-  components: {
-    datetime: vuejs_datetimepicker__WEBPACK_IMPORTED_MODULE_0__["default"]
-  },
   data: function data() {
     return {
       form: new Form({
@@ -4414,9 +4392,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-//
-//
-//
 //
 //
 //
@@ -4994,12 +4969,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-// import datetime from 'vuejs-datetimepicker'
 /* harmony default export */ __webpack_exports__["default"] = ({
-  // components: { datetime },
   data: function data() {
     var today = new Date();
     var current_date = today.getDate() + '-' + (today.getMonth() + 1) + '-' + today.getFullYear();
@@ -5047,8 +5017,6 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuejs_datetimepicker__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuejs-datetimepicker */ "./node_modules/vuejs-datetimepicker/src/datetime_picker.vue");
-//
-//
 //
 //
 //
@@ -6992,12 +6960,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -7075,7 +7037,8 @@ __webpack_require__.r(__webpack_exports__);
       this.form.post('/api/staffs').then(function (response) {
         $('#addNew').modal('hide');
         temp.getData();
-        toastr.success('Saved staff Successfully'), temp.$Progress.finish();
+        toastr.success('Saved staff Successfully');
+        temp.$Progress.finish();
       })["catch"](function (error) {
         toastr.error('Saved staff Failed');
         temp.$Progress.fail();
@@ -8341,10 +8304,6 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-//
-//
-//
-//
 //
 //
 //
@@ -48916,13 +48875,13 @@ var render = function() {
                       _c(
                         "button",
                         {
-                          staticClass: "btn btn-outline-primary btn-sm",
+                          staticClass: "btn btn-primary btn-sm",
                           on: { click: _vm.newModal }
                         },
                         [
                           _c("i", { staticClass: "fas fa-user-plus fa-fw" }),
                           _vm._v(
-                            " Add New customer\n                                "
+                            " Add New customer\n                                    "
                           )
                         ]
                       )
@@ -48931,104 +48890,110 @@ var render = function() {
                 ])
               ]),
               _vm._v(" "),
-              _c(
-                "div",
-                { staticClass: "card-body p-2" },
-                [
-                  _c(
-                    "table",
-                    {
-                      staticClass:
-                        "table table-bordered table-striped table-sm",
-                      attrs: { id: "example1-" }
-                    },
-                    [
-                      _vm._m(1),
-                      _vm._v(" "),
-                      _vm.customers.length > 0
-                        ? _c(
-                            "tbody",
-                            _vm._l(_vm.customers, function(customer, index) {
-                              return _c("tr", [
-                                _c("td", { staticClass: "text-center" }, [
-                                  _vm._v(_vm._s(index + 1))
-                                ]),
-                                _vm._v(" "),
-                                _c("td", { staticClass: "text-center" }, [
-                                  _vm._v(_vm._s(customer.customer_name))
-                                ]),
-                                _vm._v(" "),
-                                _c("td", { staticClass: "text-center" }, [
-                                  _vm._v(_vm._s(customer.customer_phone))
-                                ]),
-                                _vm._v(" "),
-                                _c("td", { staticClass: "text-center" }, [
-                                  _vm._v(_vm._s(customer.customer_email))
-                                ]),
-                                _vm._v(" "),
-                                _c("td", { staticClass: "text-center" }, [
-                                  _vm._v(
-                                    _vm._s(
-                                      _vm._f("myDate")(customer.created_at)
-                                    )
-                                  )
-                                ]),
-                                _vm._v(" "),
-                                _c("td", { staticClass: "text-center" }, [
-                                  _vm._v(_vm._s(customer.customer_address))
-                                ]),
-                                _vm._v(" "),
-                                _c("td", { staticClass: "text-center" }, [
-                                  _c(
-                                    "a",
-                                    {
-                                      staticClass:
-                                        "btn btn-xs btn-success mr-1",
-                                      on: {
-                                        click: function($event) {
-                                          $event.preventDefault()
-                                          return _vm.editModal(customer)
-                                        }
-                                      }
-                                    },
-                                    [_c("i", { staticClass: "fa fa-edit" })]
-                                  ),
+              _c("div", { staticClass: "card-body p-2" }, [
+                _c(
+                  "div",
+                  { staticClass: "table-responsive-sm" },
+                  [
+                    _c(
+                      "table",
+                      {
+                        staticClass:
+                          "table table-bordered table-striped table-sm",
+                        attrs: { id: "example1-" }
+                      },
+                      [
+                        _vm._m(1),
+                        _vm._v(" "),
+                        _vm.customers.length > 0
+                          ? _c(
+                              "tbody",
+                              _vm._l(_vm.customers, function(customer, index) {
+                                return _c("tr", [
+                                  _c("td", { staticClass: "text-center" }, [
+                                    _vm._v(_vm._s(index + 1))
+                                  ]),
                                   _vm._v(" "),
-                                  _c(
-                                    "button",
-                                    {
-                                      staticClass: "btn btn-xs btn-danger",
-                                      on: {
-                                        click: function($event) {
-                                          $event.preventDefault()
-                                          return _vm.deletecustomer(customer.id)
+                                  _c("td", { staticClass: "text-center" }, [
+                                    _vm._v(_vm._s(customer.customer_name))
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("td", { staticClass: "text-center" }, [
+                                    _vm._v(_vm._s(customer.customer_phone))
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("td", { staticClass: "text-center" }, [
+                                    _vm._v(_vm._s(customer.customer_email))
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("td", { staticClass: "text-center" }, [
+                                    _vm._v(
+                                      _vm._s(
+                                        _vm._f("myDate")(customer.created_at)
+                                      )
+                                    )
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("td", { staticClass: "text-center" }, [
+                                    _vm._v(_vm._s(customer.customer_address))
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("td", { staticClass: "text-center" }, [
+                                    _c(
+                                      "a",
+                                      {
+                                        staticClass:
+                                          "btn btn-xs btn-success mr-1",
+                                        on: {
+                                          click: function($event) {
+                                            $event.preventDefault()
+                                            return _vm.editModal(customer)
+                                          }
                                         }
-                                      }
-                                    },
-                                    [_c("i", { staticClass: "fa fa-trash" })]
-                                  )
+                                      },
+                                      [_c("i", { staticClass: "fa fa-edit" })]
+                                    ),
+                                    _vm._v(" "),
+                                    _c(
+                                      "button",
+                                      {
+                                        staticClass: "btn btn-xs btn-danger",
+                                        on: {
+                                          click: function($event) {
+                                            $event.preventDefault()
+                                            return _vm.deletecustomer(
+                                              customer.id
+                                            )
+                                          }
+                                        }
+                                      },
+                                      [_c("i", { staticClass: "fa fa-trash" })]
+                                    )
+                                  ])
                                 ])
-                              ])
-                            }),
-                            0
-                          )
-                        : _c("tbody", [_vm._m(2)])
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _vm.pagination.last_page > 1
-                    ? _c("pagination", {
-                        attrs: { pagination: _vm.pagination, offset: 5 },
-                        on: {
-                          paginate: function($event) {
-                            _vm.query === "" ? _vm.getData() : _vm.searchData()
+                              }),
+                              0
+                            )
+                          : _c("tbody", [_vm._m(2)])
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _vm.pagination.last_page > 1
+                      ? _c("pagination", {
+                          attrs: { pagination: _vm.pagination, offset: 5 },
+                          on: {
+                            paginate: function($event) {
+                              _vm.query === ""
+                                ? _vm.getData()
+                                : _vm.searchData()
+                            }
                           }
-                        }
-                      })
-                    : _vm._e()
-                ],
-                1
-              )
+                        })
+                      : _vm._e()
+                  ],
+                  1
+                )
+              ])
             ]
           )
         ])
@@ -49126,7 +49091,8 @@ var render = function() {
                             attrs: {
                               type: "text",
                               name: "customer_name",
-                              placeholder: "customer_name"
+                              placeholder: "Customer Name",
+                              required: ""
                             },
                             domProps: { value: _vm.form.customer_name },
                             on: {
@@ -49171,7 +49137,7 @@ var render = function() {
                             type: "email",
                             id: "customer_email",
                             name: "customer_email",
-                            placeholder: "customer Email"
+                            placeholder: "Customer Email"
                           },
                           domProps: { value: _vm.form.customer_email },
                           on: {
@@ -49210,7 +49176,7 @@ var render = function() {
                             type: "number",
                             id: "customer_phone",
                             name: "customer_phone",
-                            placeholder: "customer Phone"
+                            placeholder: "Customer Phone"
                           },
                           domProps: { value: _vm.form.customer_phone },
                           on: {
@@ -49249,7 +49215,7 @@ var render = function() {
                             id: "customer_address",
                             name: "customer_address",
                             rows: "3",
-                            placeholder: "customer Address"
+                            placeholder: "Customer Address"
                           },
                           domProps: { value: _vm.form.customer_address },
                           on: {
@@ -49295,7 +49261,7 @@ var render = function() {
                       },
                       [
                         _c("i", { staticClass: "fa fa-plus" }),
-                        _vm._v(" Create\n                    ")
+                        _vm._v(" Create\n                        ")
                       ]
                     ),
                     _vm._v(" "),
@@ -49315,7 +49281,7 @@ var render = function() {
                       },
                       [
                         _c("i", { staticClass: "fa fa-sync" }),
-                        _vm._v(" Update\n                    ")
+                        _vm._v(" Update\n                        ")
                       ]
                     )
                   ])
@@ -50084,142 +50050,153 @@ var render = function() {
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "card-body p-2" }, [
-                _c(
-                  "table",
-                  {
-                    staticClass: "table table-bordered table-striped table-sm",
-                    attrs: { id: "example1-" }
-                  },
-                  [
-                    _vm._m(1),
-                    _vm._v(" "),
-                    _vm.expenses.length > 0
-                      ? _c(
-                          "tbody",
-                          _vm._l(_vm.expenses, function(expense, index) {
-                            return _c("tr", [
-                              _c("td", { staticClass: "text-center" }, [
-                                _vm._v(_vm._s(index + 1))
-                              ]),
-                              _vm._v(" "),
-                              _c("td", { staticClass: "text-center" }, [
-                                _vm._v(_vm._s(expense.expense_title))
-                              ]),
-                              _vm._v(" "),
-                              _c("td", { staticClass: "text-center" }, [
-                                _vm._v(
-                                  _vm._s(_vm.setting.store_currency) +
-                                    " " +
-                                    _vm._s(expense.expense_total_amount)
-                                )
-                              ]),
-                              _vm._v(" "),
-                              _c("td", { staticClass: "text-center" }, [
-                                expense.expense_paid_amount ==
-                                expense.expense_total_amount
-                                  ? _c(
-                                      "span",
-                                      { staticClass: "text-success" },
-                                      [
-                                        _vm._v(
-                                          "\n                                            Full paid\n                                        "
-                                        )
-                                      ]
-                                    )
-                                  : _c(
-                                      "span",
-                                      { staticClass: "text-primary" },
-                                      [
-                                        _vm._v(
-                                          "\n                                            " +
-                                            _vm._s(_vm.setting.store_currency) +
-                                            " " +
-                                            _vm._s(
-                                              expense.expense_paid_amount
-                                            ) +
-                                            "\n                                        "
-                                        )
-                                      ]
-                                    )
-                              ]),
-                              _vm._v(" "),
-                              _c("td", { staticClass: "text-center" }, [
-                                expense.expense_due == 0.0
-                                  ? _c(
-                                      "span",
-                                      { staticClass: "text-success" },
-                                      [
-                                        _vm._v(
-                                          "\n                                            Full paid\n                                        "
-                                        )
-                                      ]
-                                    )
-                                  : _c("span", { staticClass: "text-danger" }, [
-                                      _vm._v(
-                                        "\n                                            " +
-                                          _vm._s(_vm.setting.store_currency) +
-                                          " " +
-                                          _vm._s(expense.expense_due) +
-                                          "\n                                        "
-                                      )
-                                    ])
-                              ]),
-                              _vm._v(" "),
-                              _c("td", { staticClass: "text-center" }, [
-                                _vm._v(_vm._s(expense.expense_date))
-                              ]),
-                              _vm._v(" "),
-                              _c(
-                                "td",
-                                { staticClass: "text-center" },
-                                [
-                                  _c(
-                                    "router-link",
-                                    {
-                                      staticClass:
-                                        "btn btn-xs btn-success mr-1 ml-1",
-                                      attrs: {
-                                        to: "/expense/" + expense.id + "/show"
-                                      }
-                                    },
-                                    [_c("i", { staticClass: "fa fa-eye" })]
-                                  ),
-                                  _vm._v(" "),
-                                  _c(
-                                    "router-link",
-                                    {
-                                      staticClass:
-                                        "btn btn-xs btn-success mr-1 ml-1",
-                                      attrs: {
-                                        to: "/expense/" + expense.id + "/edit"
-                                      }
-                                    },
-                                    [_c("i", { staticClass: "fa fa-edit" })]
-                                  ),
-                                  _vm._v(" "),
-                                  _c(
-                                    "button",
-                                    {
-                                      staticClass: "btn btn-xs btn-danger",
-                                      on: {
-                                        click: function($event) {
-                                          $event.preventDefault()
-                                          return _vm.deleteexpense(expense.id)
-                                        }
-                                      }
-                                    },
-                                    [_c("i", { staticClass: "fa fa-trash" })]
+                _c("div", { staticClass: "table-responsive-sm" }, [
+                  _c(
+                    "table",
+                    {
+                      staticClass:
+                        "table table-bordered table-striped table-sm",
+                      attrs: { id: "example1-" }
+                    },
+                    [
+                      _vm._m(1),
+                      _vm._v(" "),
+                      _vm.expenses.length > 0
+                        ? _c(
+                            "tbody",
+                            _vm._l(_vm.expenses, function(expense, index) {
+                              return _c("tr", [
+                                _c("td", { staticClass: "text-center" }, [
+                                  _vm._v(_vm._s(index + 1))
+                                ]),
+                                _vm._v(" "),
+                                _c("td", { staticClass: "text-center" }, [
+                                  _vm._v(_vm._s(expense.expense_title))
+                                ]),
+                                _vm._v(" "),
+                                _c("td", { staticClass: "text-center" }, [
+                                  _vm._v(
+                                    _vm._s(_vm.setting.store_currency) +
+                                      " " +
+                                      _vm._s(expense.expense_total_amount)
                                   )
-                                ],
-                                1
-                              )
-                            ])
-                          }),
-                          0
-                        )
-                      : _c("tbody", [_vm._m(2)])
-                  ]
-                )
+                                ]),
+                                _vm._v(" "),
+                                _c("td", { staticClass: "text-center" }, [
+                                  expense.expense_paid_amount ==
+                                  expense.expense_total_amount
+                                    ? _c(
+                                        "span",
+                                        { staticClass: "text-success" },
+                                        [
+                                          _vm._v(
+                                            "\n                                            Full paid\n                                        "
+                                          )
+                                        ]
+                                      )
+                                    : _c(
+                                        "span",
+                                        { staticClass: "text-primary" },
+                                        [
+                                          _vm._v(
+                                            "\n                                            " +
+                                              _vm._s(
+                                                _vm.setting.store_currency
+                                              ) +
+                                              " " +
+                                              _vm._s(
+                                                expense.expense_paid_amount
+                                              ) +
+                                              "\n                                        "
+                                          )
+                                        ]
+                                      )
+                                ]),
+                                _vm._v(" "),
+                                _c("td", { staticClass: "text-center" }, [
+                                  expense.expense_due == 0.0
+                                    ? _c(
+                                        "span",
+                                        { staticClass: "text-success" },
+                                        [
+                                          _vm._v(
+                                            "\n                                            Full paid\n                                        "
+                                          )
+                                        ]
+                                      )
+                                    : _c(
+                                        "span",
+                                        { staticClass: "text-danger" },
+                                        [
+                                          _vm._v(
+                                            "\n                                            " +
+                                              _vm._s(
+                                                _vm.setting.store_currency
+                                              ) +
+                                              " " +
+                                              _vm._s(expense.expense_due) +
+                                              "\n                                        "
+                                          )
+                                        ]
+                                      )
+                                ]),
+                                _vm._v(" "),
+                                _c("td", { staticClass: "text-center" }, [
+                                  _vm._v(_vm._s(expense.expense_date))
+                                ]),
+                                _vm._v(" "),
+                                _c(
+                                  "td",
+                                  { staticClass: "text-center" },
+                                  [
+                                    _c(
+                                      "router-link",
+                                      {
+                                        staticClass:
+                                          "btn btn-xs btn-success mr-1 ml-1",
+                                        attrs: {
+                                          to: "/expense/" + expense.id + "/show"
+                                        }
+                                      },
+                                      [_c("i", { staticClass: "fa fa-eye" })]
+                                    ),
+                                    _vm._v(" "),
+                                    _c(
+                                      "router-link",
+                                      {
+                                        staticClass:
+                                          "btn btn-xs btn-success mr-1 ml-1",
+                                        attrs: {
+                                          to: "/expense/" + expense.id + "/edit"
+                                        }
+                                      },
+                                      [_c("i", { staticClass: "fa fa-edit" })]
+                                    ),
+                                    _vm._v(" "),
+                                    _c(
+                                      "button",
+                                      {
+                                        staticClass: "btn btn-xs btn-danger",
+                                        on: {
+                                          click: function($event) {
+                                            $event.preventDefault()
+                                            return _vm.deleteexpense(expense.id)
+                                          }
+                                        }
+                                      },
+                                      [_c("i", { staticClass: "fa fa-trash" })]
+                                    )
+                                  ],
+                                  1
+                                )
+                              ])
+                            }),
+                            0
+                          )
+                        : _c("tbody", [_vm._m(2)])
+                    ]
+                  )
+                ])
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "card-footer pb-0 pt-0" }, [
@@ -50895,7 +50872,7 @@ var render = function() {
                                 "button",
                                 {
                                   staticClass:
-                                    "btn btn-sm btn-success float-right"
+                                    "btn btn-sm btn-primary float-right"
                                 },
                                 [
                                   _vm._v(
@@ -51051,7 +51028,8 @@ var render = function() {
                         _c(
                           "router-link",
                           {
-                            staticClass: "btn btn-sm btn-primary float-right",
+                            staticClass:
+                              "btn btn-sm btn-primary float-right btn_acitve",
                             attrs: { to: "/expense" }
                           },
                           [
@@ -51179,7 +51157,14 @@ var render = function() {
                         _c("div", { staticClass: "row" }, [
                           _c("div", { staticClass: "col-md-12" }, [
                             _c("div", { staticClass: "form-group row" }, [
-                              _vm._m(1),
+                              _c(
+                                "label",
+                                {
+                                  staticClass:
+                                    "col-sm-2 mr-n5 form-control-label"
+                                },
+                                [_vm._v("Expense Detail")]
+                              ),
                               _vm._v(" "),
                               _c("div", { staticClass: "col-sm-10" }, [
                                 _c("textarea", {
@@ -51221,7 +51206,7 @@ var render = function() {
                               attrs: { id: "normalExpense" }
                             },
                             [
-                              _vm._m(2),
+                              _vm._m(1),
                               _vm._v(" "),
                               _c(
                                 "tbody",
@@ -51380,7 +51365,7 @@ var render = function() {
                               _vm._v(" "),
                               _c("tfoot", [
                                 _c("tr", { attrs: { id: "appssss" } }, [
-                                  _vm._m(3),
+                                  _vm._m(2),
                                   _vm._v(" "),
                                   _c("td", { staticClass: "text-center" }, [
                                     _c("input", {
@@ -51425,7 +51410,7 @@ var render = function() {
                                 ]),
                                 _vm._v(" "),
                                 _c("tr", [
-                                  _vm._m(4),
+                                  _vm._m(3),
                                   _vm._v(" "),
                                   _c("td", { staticClass: "text-right" }, [
                                     _c("input", {
@@ -51478,7 +51463,7 @@ var render = function() {
                                     ]
                                   },
                                   [
-                                    _vm._m(5),
+                                    _vm._m(4),
                                     _vm._v(" "),
                                     _c("td", { staticClass: "text-center" }, [
                                       _c("input", {
@@ -51512,18 +51497,7 @@ var render = function() {
                                 ]
                               ),
                               _vm._v(" "),
-                              _c(
-                                "button",
-                                {
-                                  staticClass:
-                                    "btn btn-sm btn-success float-right"
-                                },
-                                [
-                                  _vm._v(
-                                    "\n                                        Update Expense\n                                    "
-                                  )
-                                ]
-                              )
+                              _vm._m(5)
                             ],
                             1
                           )
@@ -51553,22 +51527,6 @@ var staticRenderFns = [
       },
       [
         _vm._v("Expense Title "),
-        _c("i", { staticClass: "text-danger" }, [_vm._v("*")])
-      ]
-    )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "label",
-      {
-        staticClass: "col-sm-2 form-control-label",
-        staticStyle: { "margin-right": "-45px" }
-      },
-      [
-        _vm._v("Expense Detail "),
         _c("i", { staticClass: "text-danger" }, [_vm._v("*")])
       ]
     )
@@ -51629,6 +51587,15 @@ var staticRenderFns = [
       { staticStyle: { "text-align": "right" }, attrs: { colspan: "3" } },
       [_c("b", [_vm._v("Due:")])]
     )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("button", { staticClass: "btn btn-sm btn-primary float-right" }, [
+      _c("i", { staticClass: "fa fa-sync" }),
+      _vm._v(" Update Expense\n                                    ")
+    ])
   }
 ]
 render._withStripped = true
@@ -52394,7 +52361,7 @@ var render = function() {
                               staticClass: "nav-icon far fa-file-alt"
                             }),
                             _vm._v(
-                              " Invoices\n                                "
+                              " Invoices\n                                    "
                             )
                           ]
                         )
@@ -52521,7 +52488,7 @@ var render = function() {
                                                 _vm.form.customer_name.length
                                               )
                                             ) +
-                                              "\n                                              "
+                                              "\n                                                    "
                                           )
                                         ]
                                       )
@@ -52614,7 +52581,7 @@ var render = function() {
                           _c("div", { staticClass: "form-group row mb-0" }, [
                             _vm._m(2),
                             _vm._v(" "),
-                            _c("div", { staticClass: "col-sm-8" }, [
+                            _c("div", { staticClass: "col-sm-10" }, [
                               _c("textarea", {
                                 directives: [
                                   {
@@ -52624,7 +52591,8 @@ var render = function() {
                                     expression: "form.customer_address"
                                   }
                                 ],
-                                attrs: { cols: "70", rows: "1" },
+                                staticClass: "form-control",
+                                attrs: { rows: "1" },
                                 domProps: { value: _vm.form.customer_address },
                                 on: {
                                   input: function($event) {
@@ -52832,7 +52800,7 @@ var render = function() {
                                                             .length
                                                         )
                                                       ) +
-                                                        "\n                                                  "
+                                                        "\n                                                        "
                                                     )
                                                   ]
                                                 )
@@ -52972,14 +52940,13 @@ var render = function() {
                                           expression: "form.discount"
                                         }
                                       ],
-                                      staticClass: "form-control-sm w-100",
-                                      staticStyle: { "text-align": "center" },
+                                      staticClass:
+                                        "form-control-sm w-100 text-center",
                                       attrs: {
                                         id: "paidAmount",
-                                        value: "",
+                                        value: "0",
                                         name: "discount",
-                                        type: "number",
-                                        required: ""
+                                        type: "number"
                                       },
                                       domProps: { value: _vm.form.discount },
                                       on: {
@@ -53024,9 +52991,9 @@ var render = function() {
                                           expression: "grand_total_price"
                                         }
                                       ],
-                                      staticClass: "form-control-sm w-100",
-                                      staticStyle: { "text-align": "center" },
-                                      attrs: { type: "text", disabled: "" },
+                                      staticClass:
+                                        "form-control-sm w-100 text-center",
+                                      attrs: { type: "number", disabled: "" },
                                       domProps: {
                                         value: _vm.grand_total_price
                                       },
@@ -53068,9 +53035,9 @@ var render = function() {
                                             expression: "total"
                                           }
                                         ],
-                                        staticClass: "form-control-sm w-100",
-                                        staticStyle: { "text-align": "center" },
-                                        attrs: { type: "text", disabled: "" },
+                                        staticClass:
+                                          "form-control-sm w-100 text-center",
+                                        attrs: { type: "number", disabled: "" },
                                         domProps: { value: _vm.total },
                                         on: {
                                           input: function($event) {
@@ -53098,11 +53065,11 @@ var render = function() {
                                           expression: "form.paid_amount"
                                         }
                                       ],
-                                      staticClass: "form-control-sm w-100",
-                                      staticStyle: { "text-align": "center" },
+                                      staticClass:
+                                        "form-control-sm w-100 text-center",
                                       attrs: {
                                         id: "paidAmount",
-                                        value: "5455",
+                                        value: "",
                                         name: "paid_amount",
                                         type: "number",
                                         required: ""
@@ -53141,8 +53108,8 @@ var render = function() {
                                     _vm._v(" "),
                                     _c("td", { staticClass: "text-center" }, [
                                       _c("input", {
-                                        staticClass: "form-control-sm w-100",
-                                        staticStyle: { "text-align": "center" },
+                                        staticClass:
+                                          "form-control-sm w-100 text-center",
                                         attrs: { type: "number", disabled: "" },
                                         domProps: { value: _vm.due_amount }
                                       })
@@ -53166,7 +53133,7 @@ var render = function() {
                                 },
                                 [
                                   _vm._v(
-                                    "\n                                        Back to Invoice list\n                                    "
+                                    "\n                                            Back to Invoice list\n                                        "
                                   )
                                 ]
                               ),
@@ -53179,7 +53146,7 @@ var render = function() {
                                 },
                                 [
                                   _vm._v(
-                                    "\n                                        Create Invoice\n                                    "
+                                    "\n                                            Create Invoice\n                                        "
                                   )
                                 ]
                               )
@@ -53226,17 +53193,10 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c(
-      "label",
-      {
-        staticClass: "col-sm-2 form-control-label",
-        staticStyle: { "margin-right": "-28px" }
-      },
-      [
-        _vm._v("Address "),
-        _c("i", { staticClass: "text-danger" }, [_vm._v("*")])
-      ]
-    )
+    return _c("label", { staticClass: "col-sm-2 form-control-label mr-n4" }, [
+      _vm._v("Address "),
+      _c("i", { staticClass: "text-danger" }, [_vm._v("*")])
+    ])
   },
   function() {
     var _vm = this
@@ -53382,14 +53342,17 @@ var render = function() {
                         _c(
                           "router-link",
                           {
-                            staticClass: "btn btn-sm btn-primary float-right",
+                            staticClass:
+                              "btn btn-sm btn-primary btn_acitve float-right",
                             attrs: { to: "/invoice" }
                           },
                           [
                             _c("i", {
                               staticClass: "nav-icon far fa-file-alt"
                             }),
-                            _vm._v(" Invoice\n                                ")
+                            _vm._v(
+                              " Invoices\n                                    "
+                            )
                           ]
                         )
                       ],
@@ -53529,7 +53492,7 @@ var render = function() {
                                                   _vm.form.customer_name.length
                                                 )
                                               ) +
-                                                "\n                                              "
+                                                "\n                                                    "
                                             )
                                           ]
                                         )
@@ -53835,7 +53798,7 @@ var render = function() {
                                                             .length
                                                         )
                                                       ) +
-                                                        "\n                                                  "
+                                                        "\n                                                        "
                                                     )
                                                   ]
                                                 )
@@ -54214,27 +54177,16 @@ var render = function() {
                                 {
                                   staticClass:
                                     "btn btn-sm btn-default float-left",
-                                  attrs: { to: "/supplier-invoice" }
+                                  attrs: { to: "/invoice" }
                                 },
                                 [
                                   _vm._v(
-                                    "\n                                        Back to Invoice list\n                                    "
+                                    "\n                                            Back to Invoice list\n                                        "
                                   )
                                 ]
                               ),
                               _vm._v(" "),
-                              _c(
-                                "button",
-                                {
-                                  staticClass:
-                                    "btn btn-sm btn-primary float-right"
-                                },
-                                [
-                                  _vm._v(
-                                    "\n                                        Create Invoice\n                                    "
-                                  )
-                                ]
-                              )
+                              _vm._m(10)
                             ],
                             1
                           )
@@ -54373,6 +54325,15 @@ var staticRenderFns = [
       { staticStyle: { "text-align": "right" }, attrs: { colspan: "3" } },
       [_c("b", [_vm._v("Due:")])]
     )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("button", { staticClass: "btn btn-sm btn-primary float-right" }, [
+      _c("i", { staticClass: "fa fa-sync" }),
+      _vm._v(" Update Invoice\n                                        ")
+    ])
   }
 ]
 render._withStripped = true
@@ -54690,7 +54651,7 @@ var render = function() {
             _vm._v(" "),
             _c("footer", [
               _vm._v(
-                "\n                        Invoice was created on a computer and is valid without the signature and seal.\n                    "
+                "\n                    Invoice was created on a computer and is valid without the signature and seal.\n                "
               )
             ])
           ]
@@ -54704,11 +54665,11 @@ var render = function() {
               "router-link",
               {
                 staticClass: "btn btn-sm btn-default float-left",
-                attrs: { to: "/supplier-invoice" }
+                attrs: { to: "/invoice" }
               },
               [
                 _vm._v(
-                  "\n                        Back to Invoice list\n                    "
+                  "\n                    Back to Invoice list\n                "
                 )
               ]
             ),
@@ -54721,7 +54682,7 @@ var render = function() {
               },
               [
                 _c("i", { staticClass: "fa fa-print" }),
-                _vm._v(" Print\n                    ")
+                _vm._v(" Print\n                ")
               ]
             )
           ],
@@ -54770,7 +54731,7 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "notices" }, [
       _vm._v(
-        "\n                                Thank you!\n                                "
+        "\n                            Thank you!\n                            "
       ),
       _c("div", [_vm._v("NOTICE:")]),
       _vm._v(" "),
@@ -54932,7 +54893,7 @@ var render = function() {
                         _c(
                           "router-link",
                           {
-                            staticClass: "btn btn-outline-primary btn-sm",
+                            staticClass: "btn btn-primary btn-sm",
                             attrs: { to: "/loan-create" }
                           },
                           [
@@ -54949,120 +54910,128 @@ var render = function() {
                 ])
               ]),
               _vm._v(" "),
-              _c(
-                "div",
-                { staticClass: "card-body p-2" },
-                [
-                  _c(
-                    "table",
-                    {
-                      staticClass:
-                        "table table-bordered table-striped table-sm",
-                      attrs: { id: "example1-" }
-                    },
-                    [
-                      _vm._m(1),
-                      _vm._v(" "),
-                      _vm.loans.length > 0
-                        ? _c(
-                            "tbody",
-                            _vm._l(_vm.loans, function(loan, index) {
-                              return _c("tr", [
-                                _c("td", { staticClass: "text-center" }, [
-                                  _vm._v(_vm._s(index + 1))
-                                ]),
-                                _vm._v(" "),
-                                _c("td", { staticClass: "text-center" }, [
-                                  _vm._v(_vm._s(loan.loaner_name))
-                                ]),
-                                _vm._v(" "),
-                                _c("td", { staticClass: "text-center" }, [
-                                  _vm._v(_vm._s(loan.loaner_mobile))
-                                ]),
-                                _vm._v(" "),
-                                _c("td", { staticClass: "text-center" }, [
-                                  _vm._v(
-                                    _vm._s(_vm.setting.store_currency) +
-                                      " " +
-                                      _vm._s(loan.loan_amount)
-                                  )
-                                ]),
-                                _vm._v(" "),
-                                _c("td", { staticClass: "text-center" }, [
-                                  _vm._v(_vm._s(loan.loan_taken_date))
-                                ]),
-                                _vm._v(" "),
-                                _c("td", { staticClass: "text-center" }, [
-                                  _vm._v(_vm._s(loan.loan_end_date))
-                                ]),
-                                _vm._v(" "),
-                                _c(
-                                  "td",
-                                  { staticClass: "text-center" },
-                                  [
-                                    _c(
-                                      "a",
-                                      {
-                                        staticClass: "btn btn-xs btn-success",
-                                        on: {
-                                          click: function($event) {
-                                            $event.preventDefault()
-                                            return _vm.showModal(loan)
-                                          }
-                                        }
-                                      },
-                                      [_c("i", { staticClass: "fa fa-eye" })]
-                                    ),
-                                    _vm._v(" "),
-                                    _c(
-                                      "router-link",
-                                      {
-                                        staticClass:
-                                          "btn btn-xs btn-success mr-1 ml-1",
-                                        attrs: {
-                                          to: "/loan/" + loan.id + "/edit"
-                                        }
-                                      },
-                                      [_c("i", { staticClass: "fa fa-edit" })]
-                                    ),
-                                    _vm._v(" "),
-                                    _c(
-                                      "button",
-                                      {
-                                        staticClass: "btn btn-xs btn-danger",
-                                        on: {
-                                          click: function($event) {
-                                            $event.preventDefault()
-                                            return _vm.deleteLoan(loan.id)
-                                          }
-                                        }
-                                      },
-                                      [_c("i", { staticClass: "fa fa-trash" })]
+              _c("div", { staticClass: "card-body p-2" }, [
+                _c(
+                  "div",
+                  { staticClass: "table-responsive-sm" },
+                  [
+                    _c(
+                      "table",
+                      {
+                        staticClass:
+                          "table table-bordered table-striped table-sm",
+                        attrs: { id: "example1-" }
+                      },
+                      [
+                        _vm._m(1),
+                        _vm._v(" "),
+                        _vm.loans.length > 0
+                          ? _c(
+                              "tbody",
+                              _vm._l(_vm.loans, function(loan, index) {
+                                return _c("tr", [
+                                  _c("td", { staticClass: "text-center" }, [
+                                    _vm._v(_vm._s(index + 1))
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("td", { staticClass: "text-center" }, [
+                                    _vm._v(_vm._s(loan.loaner_name))
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("td", { staticClass: "text-center" }, [
+                                    _vm._v(_vm._s(loan.loaner_mobile))
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("td", { staticClass: "text-center" }, [
+                                    _vm._v(
+                                      _vm._s(_vm.setting.store_currency) +
+                                        " " +
+                                        _vm._s(loan.loan_amount)
                                     )
-                                  ],
-                                  1
-                                )
-                              ])
-                            }),
-                            0
-                          )
-                        : _c("tbody", [_vm._m(2)])
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _vm.pagination.last_page > 1
-                    ? _c("pagination", {
-                        attrs: { pagination: _vm.pagination, offset: 5 },
-                        on: {
-                          paginate: function($event) {
-                            _vm.query === "" ? _vm.getData() : _vm.searchData()
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("td", { staticClass: "text-center" }, [
+                                    _vm._v(_vm._s(loan.loan_taken_date))
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("td", { staticClass: "text-center" }, [
+                                    _vm._v(_vm._s(loan.loan_end_date))
+                                  ]),
+                                  _vm._v(" "),
+                                  _c(
+                                    "td",
+                                    { staticClass: "text-center" },
+                                    [
+                                      _c(
+                                        "a",
+                                        {
+                                          staticClass: "btn btn-xs btn-success",
+                                          on: {
+                                            click: function($event) {
+                                              $event.preventDefault()
+                                              return _vm.showModal(loan)
+                                            }
+                                          }
+                                        },
+                                        [_c("i", { staticClass: "fa fa-eye" })]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "router-link",
+                                        {
+                                          staticClass:
+                                            "btn btn-xs btn-success mr-1 ml-1",
+                                          attrs: {
+                                            to: "/loan/" + loan.id + "/edit"
+                                          }
+                                        },
+                                        [_c("i", { staticClass: "fa fa-edit" })]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "button",
+                                        {
+                                          staticClass: "btn btn-xs btn-danger",
+                                          on: {
+                                            click: function($event) {
+                                              $event.preventDefault()
+                                              return _vm.deleteLoan(loan.id)
+                                            }
+                                          }
+                                        },
+                                        [
+                                          _c("i", {
+                                            staticClass: "fa fa-trash"
+                                          })
+                                        ]
+                                      )
+                                    ],
+                                    1
+                                  )
+                                ])
+                              }),
+                              0
+                            )
+                          : _c("tbody", [_vm._m(2)])
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _vm.pagination.last_page > 1
+                      ? _c("pagination", {
+                          attrs: { pagination: _vm.pagination, offset: 5 },
+                          on: {
+                            paginate: function($event) {
+                              _vm.query === ""
+                                ? _vm.getData()
+                                : _vm.searchData()
+                            }
                           }
-                        }
-                      })
-                    : _vm._e()
-                ],
-                1
-              )
+                        })
+                      : _vm._e()
+                  ],
+                  1
+                )
+              ])
             ]
           )
         ])
@@ -55738,7 +55707,7 @@ var render = function() {
                           _c(
                             "button",
                             {
-                              staticClass: "btn btn-sm btn-success float-right"
+                              staticClass: "btn btn-sm btn-primary float-right"
                             },
                             [
                               _vm._v(
@@ -55846,7 +55815,8 @@ var render = function() {
                         _c(
                           "router-link",
                           {
-                            staticClass: "btn btn-sm btn-primary float-right",
+                            staticClass:
+                              "btn btn-sm btn-primary float-right btn_acitve",
                             attrs: { to: "/loan" }
                           },
                           [
@@ -56220,17 +56190,7 @@ var render = function() {
                             ]
                           ),
                           _vm._v(" "),
-                          _c(
-                            "button",
-                            {
-                              staticClass: "btn btn-sm btn-success float-right"
-                            },
-                            [
-                              _vm._v(
-                                "\n                                Save Loan\n                            "
-                              )
-                            ]
-                          )
+                          _vm._m(3)
                         ],
                         1
                       )
@@ -56271,6 +56231,15 @@ var staticRenderFns = [
     return _c("label", { staticClass: "col-sm-3 form-control-label" }, [
       _vm._v("Loan Amount "),
       _c("i", { staticClass: "text-danger" }, [_vm._v("*")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("button", { staticClass: "btn btn-sm btn-primary float-right" }, [
+      _c("i", { staticClass: "fa fa-sync" }),
+      _vm._v(" Update Loan\n                            ")
     ])
   }
 ]
@@ -59558,7 +59527,7 @@ var render = function() {
                       _c(
                         "button",
                         {
-                          staticClass: "btn btn-outline-primary btn-sm",
+                          staticClass: "btn btn-primary btn-sm",
                           on: { click: _vm.newModal }
                         },
                         [
@@ -60115,13 +60084,7 @@ var render = function() {
       "div",
       {
         staticClass: "modal fade",
-        attrs: {
-          id: "showModal",
-          tabindex: "-1",
-          role: "dialog",
-          "aria-labelledby": "addNewLabel",
-          "aria-hidden": "true"
-        }
+        attrs: { id: "showModal", tabindex: "-1", role: "dialog" }
       },
       [
         _c(
@@ -60287,9 +60250,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "modal-header" }, [
-      _c("h5", { staticClass: "modal-title", attrs: { id: "addNewLabel" } }, [
-        _vm._v("Show staff")
-      ]),
+      _c("h5", { staticClass: "modal-title" }, [_vm._v("Show staff")]),
       _vm._v(" "),
       _c(
         "button",
@@ -62843,18 +62804,7 @@ var render = function() {
                               ]
                             ),
                             _vm._v(" "),
-                            _c(
-                              "button",
-                              {
-                                staticClass:
-                                  "btn btn-sm btn-primary float-right"
-                              },
-                              [
-                                _vm._v(
-                                  "\n                                        Update Supplier Invoice\n                                    "
-                                )
-                              ]
-                            )
+                            _vm._m(5)
                           ],
                           1
                         )
@@ -62936,6 +62886,15 @@ var staticRenderFns = [
       { staticStyle: { "text-align": "right" }, attrs: { colspan: "3" } },
       [_c("b", [_vm._v("Due:")])]
     )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("button", { staticClass: "btn btn-sm btn-primary float-right" }, [
+      _c("i", { staticClass: "fa fa-sync" }),
+      _vm._v(" Update Supplier Invoice\n                                    ")
+    ])
   }
 ]
 render._withStripped = true
@@ -63190,7 +63149,7 @@ var render = function() {
             _vm._v(" "),
             _c("footer", [
               _vm._v(
-                "\n                        Invoice was created on a computer and is valid without the signature and seal.\n                    "
+                "\n                    Invoice was created on a computer and is valid without the signature and seal.\n                "
               )
             ])
           ]
@@ -63208,7 +63167,7 @@ var render = function() {
               },
               [
                 _vm._v(
-                  "\n                        Back to Invoice list\n                    "
+                  "\n                    Back to Invoice list\n                "
                 )
               ]
             ),
@@ -63221,7 +63180,7 @@ var render = function() {
               },
               [
                 _c("i", { staticClass: "fa fa-print" }),
-                _vm._v(" Print\n                    ")
+                _vm._v(" Print\n                ")
               ]
             )
           ],
@@ -63270,7 +63229,7 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "notices" }, [
       _vm._v(
-        "\n                                Thank you!\n                                "
+        "\n                            Thank you!\n                            "
       ),
       _c("div", [_vm._v("NOTICE:")]),
       _vm._v(" "),

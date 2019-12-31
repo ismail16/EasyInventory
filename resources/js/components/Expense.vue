@@ -37,6 +37,7 @@
                             </div>
                         </div>
                         <div class="card-body p-2">
+                            <div class="table-responsive-sm">
                             <table id="example1-" class="table table-bordered table-striped table-sm">
                                 <thead>
                                     <tr>
@@ -46,7 +47,6 @@
                                         <th class="text-center">Paid Amount</th>
                                         <th class="text-center">Due Amount</th>
                                         <th class="text-center">Date</th>
-                                        <!-- <th class="text-center">Status</th> -->
                                         <th class="text-center">Action</th>
                                     </tr>
                                 </thead>
@@ -112,6 +112,7 @@
                                     </tr>
                                 </tbody>
                             </table>
+                            </div>
                         </div>
                         <div class="card-footer pb-0 pt-0">
                             <div class="float-right">

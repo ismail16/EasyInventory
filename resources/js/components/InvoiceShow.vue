@@ -90,13 +90,13 @@
                                     </tr>
                                 </tfoot>
                             </table>
-                            
+
                             <div class="notices">
                                 Thank you!
                                 <div>NOTICE:</div>
                                 <div class="notice">A finance charge of 1.5% will be made on unpaid balances after 30 days.</div>
                             </div>
-                            
+
                         </div>                
                     </main>
                     <footer>
@@ -104,125 +104,121 @@
                     </footer>
                 </div>
                 <div class="card-footer">
-                    <router-link to="/supplier-invoice" class="btn btn-sm btn-default float-left">
+                    <router-link to="/invoice" class="btn btn-sm btn-default float-left">
                         Back to Invoice list
                     </router-link>
 
                     <button class="btn btn-sm btn-info float-right" v-on:click="printInvoice">
-                       <i class="fa fa-print"></i> Print
+                        <i class="fa fa-print"></i> Print
                     </button>
                 </div>
             </div>
         </div>
-    
     </div>
-</section>
-</div>
 </template>
 
 <script>
-export default {
-    data() {
-        return {
-            form: new Form({
-             id : '',
-              customer_name : '',
-              customer_phone : '',
-              customer_email : '',
-              customer_address : '',
-              invoice_date :'',
+    export default {
+        data() {
+            return {
+                form: new Form({
+                    id : '',
+                    customer_name : '',
+                    customer_phone : '',
+                    customer_email : '',
+                    customer_address : '',
+                    invoice_date :'',
 
-              products:[],
+                    products:[],
 
-              grand_total_price : '',
-              discount : '',
-              paid_amount : '',
-              due_amount : 0
-            }),
+                    grand_total_price : '',
+                    discount : '',
+                    paid_amount : '',
+                    due_amount : 0
+                }),
 
-            product_arr: [],
-            setting:'',
-        }
-    },
+                product_arr: [],
+                setting:'',
+            }
+        },
 
-    mounted(){
-        this.getInvoice();
-        this.getSetting();
-    },
+        mounted(){
+            this.getInvoice();
+            this.getSetting();
+        },
 
-    computed: {
+        computed: {
 
-        grand_total_price: function() {
-            var temp = this
-            return temp.product_arr.reduce(function(carry, product) {
-                let total = carry + (parseFloat(product.product_quantity) * parseFloat(product.sell_price));
+            grand_total_price: function() {
+                var temp = this
+                return temp.product_arr.reduce(function(carry, product) {
+                    let total = carry + (parseFloat(product.product_quantity) * parseFloat(product.sell_price));
                     temp.form.grand_total_price = total;
                     return total
-            }, 0);
-        },
+                }, 0);
+            },
 
-        total: function() {
-            var temp = this
-            let discount = temp.form.grand_total_price - parseFloat(temp.form.discount);
+            total: function() {
+                var temp = this
+                let discount = temp.form.grand_total_price - parseFloat(temp.form.discount);
                 return discount      
+            },
+
+            due_amount: function() {
+                var temp = this
+                let total = temp.total;
+                if (total) {
+                    let fdiscount = total - parseFloat(temp.form.paid_amount);
+                    temp.form.due_amount = fdiscount;
+                    return fdiscount
+                }else{
+                    let due_ammount = temp.form.grand_total_price - parseFloat(temp.form.paid_amount);
+                    temp.form.due_amount = due_ammount;
+                    return due_ammount
+                }           
+            }
         },
 
-        due_amount: function() {
-            var temp = this
-            let total = temp.total;
-            if (total) {
-                let fdiscount = total - parseFloat(temp.form.paid_amount);
-                temp.form.due_amount = fdiscount;
-                return fdiscount
-            }else{
-                let due_ammount = temp.form.grand_total_price - parseFloat(temp.form.paid_amount);
-                temp.form.due_amount = due_ammount;
-                return due_ammount
-            }           
+        methods:{
+
+            getSetting(){
+                var temp = this;
+                axios.get('/api/setting/1')
+                .then((response) => {
+                    temp.setting = response.data;
+                })
+                .catch(function (error) {
+                    this.loadin = true; 
+                    toastr.error('Something is wrong Data Loaded')
+                });
+            },
+
+            printInvoice: function() {
+
+                var printContents = document.getElementById('printableArea').innerHTML;
+                var originalContents = document.body.innerHTML;
+                document.body.innerHTML = printContents;
+                window.print();
+                document.body.innerHTML = originalContents;
+            },
+
+            getInvoice(){
+                var temp = this;
+                axios.get('/api/invoices/'+this.$route.params.id)
+                .then((response) => {
+                    temp.form = response.data.Invoice
+                    temp.product_arr = response.data.InvoiceProduct;
+                })
+                .catch(function (error) {
+                    toastr.error('Something is wrong Data Loaded')
+                });
+            },
+
+            getImgUrl: function(image){
+                var photo = "/images/store_logo/"+ image
+                return photo
+                console.log(photo)
+            }, 
         }
-    },
-
-    methods:{
-
-        getSetting(){
-            var temp = this;
-            axios.get('/api/setting/1')
-            .then((response) => {
-                temp.setting = response.data;
-            })
-            .catch(function (error) {
-                this.loadin = true; 
-                toastr.error('Something is wrong Data Loaded')
-            });
-        },
-
-        printInvoice: function() {
-
-            var printContents = document.getElementById('printableArea').innerHTML;
-            var originalContents = document.body.innerHTML;
-            document.body.innerHTML = printContents;
-            window.print();
-            document.body.innerHTML = originalContents;
-        },
-
-        getInvoice(){
-            var temp = this;
-            axios.get('/api/invoices/'+this.$route.params.id)
-            .then((response) => {
-              temp.form = response.data.Invoice
-              temp.product_arr = response.data.InvoiceProduct;
-            })
-            .catch(function (error) {
-              toastr.error('Something is wrong Data Loaded')
-            });
-        },
-        
-        getImgUrl: function(image){
-          var photo = "/images/store_logo/"+ image
-          return photo
-          console.log(photo)
-        }, 
-
     }
-}
 </script>

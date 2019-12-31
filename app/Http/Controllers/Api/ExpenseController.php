@@ -25,8 +25,7 @@ class ExpenseController extends Controller
     {
         $request->validate([
             'expense_title' => 'required',
-            'expense_date' => 'required',
-            // 'expense_paid_amount' => 'required'
+            'expense_date' => 'required'
         ]);
 
         $expense = new Expense;
@@ -64,9 +63,6 @@ class ExpenseController extends Controller
     {
         $req = $request->expenses;
 
-
-        // return $req;
-
         $expense = Expense::find($id);
         $expense->expense_title = $req['expense_title'];
         $expense->expense_date = $req['expense_date'];
@@ -99,7 +95,7 @@ class ExpenseController extends Controller
     }
 
 
-     public function getThisMonthExpenses($month)
+    public function getThisMonthExpenses($month)
     {
         $year = date('Y');
         $allExpense = DefaultResource::collection(Expense::whereYear('created_at', '=', $year)->whereMonth('created_at', '=', $month)->get());

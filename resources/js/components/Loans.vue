@@ -4,7 +4,6 @@
             <div class="row">
                 <div class="col-12">
                     <div class="card mt-2 rounded-0" style="margin-bottom: 5px !important;">
-
                         <div class="card-header pb-0">
                             <div class="row">
                                 <div class="col-md-3 float-left">
@@ -30,7 +29,7 @@
                                 </div>
                                 <div class="col-md-3">
                                     <div class="d-inline-flex float-right">
-                                        <router-link to="/loan-create" class="btn btn-outline-primary btn-sm">
+                                        <router-link to="/loan-create" class="btn btn-primary btn-sm">
                                             <i class="fa fa-plus"></i> Add New Loan
                                         </router-link>
                                     </div>
@@ -39,6 +38,7 @@
                         </div>
 
                         <div class="card-body p-2">
+                            <div class="table-responsive-sm">
                             <table id="example1-" class="table table-bordered table-striped table-sm">
                                 <thead>
                                     <tr>
@@ -52,7 +52,6 @@
                                     </tr>
                                 </thead>
                                 <tbody v-if="loans.length > 0 ">
-
                                     <tr v-for="(loan, index) in loans">
                                         <td class="text-center">{{ index+1 }}</td>
                                         <td class="text-center">{{ loan.loaner_name }}</td>
@@ -92,6 +91,7 @@
                                 @paginate="query === '' ? getData() : searchData()"
                                 >
                             </pagination>
+                            </div>
                         </div>
                     </div>
                 </div>

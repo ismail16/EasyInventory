@@ -1,7 +1,5 @@
 <template>
     <div class="container">
-
-
         <div id="invoice">
             <div class="invoice overflow-auto">
                 <div style="min-width: 600px" id="printableArea">
@@ -102,8 +100,6 @@
             </div>
         </div>
     </div>
-</section>
-</div>
 </template>
 
 <script>

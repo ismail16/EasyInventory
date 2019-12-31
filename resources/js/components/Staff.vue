@@ -29,7 +29,7 @@
                                 </div>
                                 <div class="col-md-3">
                                     <div class="d-inline-flex float-right">
-                                        <button class="btn btn-outline-primary btn-sm" @click="newModal">
+                                        <button class="btn btn-primary btn-sm" @click="newModal">
                                             <i class="fas fa-user-plus fa-fw"></i> Add New staff
                                         </button>
                                     </div>
@@ -52,7 +52,6 @@
                                     </tr>
                                 </thead>
                                 <tbody v-if="staffs.length > 0 ">
-
                                     <tr v-for="(staff, index) in staffs">
                                         <td class="text-center">{{ index+1 }}</td>
                                         <td class="text-center">{{ staff.staff_name }}</td>
@@ -60,17 +59,15 @@
                                         <td class="text-center">{{ staff.staff_phone }}</td>
                                         <td class="text-center">{{ staff.staff_address }}</td>
                                         <td class="text-center">{{ staff.created_at | myDate }}</td>
-
                                         <td class="text-center">
                                             <span v-if="staff.user_type == 1">Admin</span>
                                             <span v-else>Sales Man</span>
                                         </td>
-
                                         <td class="text-center">
                                             <a class="btn btn-xs btn-success" @click.prevent="showModal(staff)">
                                                 <i class="fa fa-eye"></i>
                                             </a>
-                                            
+
                                             <a class="btn btn-xs btn-success mr-1" @click.prevent="editModal(staff)">
                                                 <i class="fa fa-edit"></i>
                                             </a>
@@ -183,25 +180,25 @@
             </div>
 
 
-            <div class="modal fade" id="showModal" tabindex="-1" role="dialog" aria-labelledby="addNewLabel" aria-hidden="true">
+            <div class="modal fade" id="showModal" tabindex="-1" role="dialog">
                 <div class="modal-dialog modal-md" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="addNewLabel">Show staff</h5>
+                            <h5 class="modal-title">Show staff</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
                         <div class="modal-body">
                             <div class="card">
-                              <div class="card-body">
-                                <h4 class="card-title">Name : <b>{{form.staff_name}}</b></h4>
-                                <h4 class="card-title">User Name : <b>{{form.staff_user_name}}</b></h4>
-                                <h4 class="card-title">Phone : <b>{{form.staff_phone}}</b></h4>
-                                <h4 class="card-title">Address : <b>{{form.staff_address}}</b></h4>
-                                <h4 class="card-title">User Type : <b>{{ form.user_type == 1?'Admin':'Staff'}}</b></h4>
-                                <h4 class="card-title">Password : <b>**********</b></h4>
-                              </div>
+                                <div class="card-body">
+                                    <h4 class="card-title">Name : <b>{{form.staff_name}}</b></h4>
+                                    <h4 class="card-title">User Name : <b>{{form.staff_user_name}}</b></h4>
+                                    <h4 class="card-title">Phone : <b>{{form.staff_phone}}</b></h4>
+                                    <h4 class="card-title">Address : <b>{{form.staff_address}}</b></h4>
+                                    <h4 class="card-title">User Type : <b>{{ form.user_type == 1?'Admin':'Staff'}}</b></h4>
+                                    <h4 class="card-title">Password : <b>**********</b></h4>
+                                </div>
                             </div>   
                         </div>
                         <div class="modal-footer">
@@ -210,10 +207,7 @@
                     </div>
                 </div>
             </div>
-
-
         </div>
-
     </template>
 
     <script>
@@ -309,7 +303,7 @@
                 .then(function (response) {
                     $('#addNew').modal('hide')
                     temp.getData();
-                    toastr.success('Saved staff Successfully'),
+                    toastr.success('Saved staff Successfully')
                     temp.$Progress.finish()
                 })
                 .catch(function (error) {
@@ -369,4 +363,4 @@
 
         },
     }
-</script>
+    </script>

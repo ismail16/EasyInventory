@@ -76,16 +76,13 @@
                                     <div class="form-group row mb-2">
                                         <label for="inputPassword" class="col-sm-3 col-form-label">Loan taken date</label>
                                         <div class="col-sm-9">
-                                            <input type="text" v-model="form.loan_taken_date" name="" class="form-control-sm w-100 datetimepicker" autocomplete="off">                                      
-                                            <!-- <datetime format="DD/MM/YYYY h:i:s" width="300px" v-model="form.loan_taken_date" placeholder="Loan taken date" class="w-100"></datetime> -->
+                                            <input type="text" v-model="form.loan_taken_date" name="" class="form-control-sm w-100 datetimepicker" autocomplete="off">
                                         </div>
                                     </div>
                                     <div class="form-group row mb-2">
                                         <label for="inputPassword" class="col-sm-3 col-form-label">Loan end date</label>
                                         <div class="col-sm-9">    
-                                            <input type="text" v-model="form.loan_end_date" name="" class="form-control-sm w-100 datetimepicker" autocomplete="off">                                      
-
-                                            <!-- <datetime format="DD/MM/YYYY h:i:s" width="300px" v-model="form.loan_end_date" placeholder="Loan end date" class="w-100"></datetime> -->
+                                            <input type="text" v-model="form.loan_end_date" name="" class="form-control-sm w-100 datetimepicker" autocomplete="off">                                    
                                         </div>
                                     </div>
 
@@ -106,7 +103,7 @@
                                 Back to Loan list
                             </router-link>
 
-                            <button class="btn btn-sm btn-success float-right" >
+                            <button class="btn btn-sm btn-primary float-right" >
                                 Save Loan
                             </button>
                         </div>
@@ -120,11 +117,7 @@
 </template>
 
 <script>
-// import datetime from 'vuejs-datetimepicker'
 export default {
-
-    // components: { datetime },
-
     data() {
         var today = new Date();
         var current_date = today.getDate()+'-'+(today.getMonth()+1)+'-'+today.getFullYear();
@@ -144,15 +137,12 @@ export default {
     },
 
     mounted(){
-     
     },
 
     computed: {
-
     },
 
     methods:{
-
         addNewLoan(){
             var temp = this
             temp.$Progress.start()
@@ -167,10 +157,6 @@ export default {
               temp.$Progress.fail()
           });
         },
-
-
-        
-
     }
 }
 </script>
