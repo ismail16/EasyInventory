@@ -24,10 +24,9 @@ class ExpenseController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'supplier_id' => 'required',
-            'warehouse_id' => 'required',
-            'invoice_date' => 'required',
-            'grand_total_price' => 'required'
+            'expense_title' => 'required',
+            'expense_date' => 'required',
+            // 'expense_paid_amount' => 'required'
         ]);
 
         $expense = new Expense;

@@ -2,12 +2,12 @@
     <div class="container">
 
 
-         <div id="invoice">
+        <div id="invoice">
             <div class="invoice overflow-auto">
                 <div style="min-width: 600px" id="printableArea">
                     <header>
                         <div class="row">
-                            <div class="col-1">
+                            <div class="col-2">
                                 <div class="text-gray-light"><b>INVOICE FROM:</b></div>
                                 <img v-if="setting.store_logo" :src="getImgUrl(setting.store_logo)" lass="img-fluid" width="50" data-holder-rendered="true"/>
                                 <img v-else src="/images/logo.png" class="img-fluid" width="50" data-holder-rendered="true"/>
@@ -24,7 +24,7 @@
                                 <h5  class="name">supplier ID: {{form.supplier_id}}</h5>
                                 <div class="address">Warehouse ID: {{form.warehouse_id}}</div>
                                 <div class="address">Date: {{form.invoice_date }}</div>
-                               
+
                             </div>
                         </div>
                     </header>
@@ -77,13 +77,13 @@
                                     </tr>
                                 </tfoot>
                             </table>
-                            
+
                             <div class="notices">
                                 Thank you!
                                 <div>NOTICE:</div>
                                 <div class="notice">A finance charge of 1.5% will be made on unpaid balances after 30 days.</div>
                             </div>
-                            
+
                         </div>                
                     </main>
                     <footer>
@@ -96,7 +96,7 @@
                     </router-link>
 
                     <button class="btn btn-sm btn-info float-right" v-on:click="printInvoice">
-                       <i class="fa fa-print"></i> Print
+                        <i class="fa fa-print"></i> Print
                     </button>
                 </div>
             </div>
@@ -107,96 +107,96 @@
 </template>
 
 <script>
-export default {
-    data() {
-        return {
-            form: new Form({
-              id : '',
-              product_arr:[],
+    export default {
+        data() {
+            return {
+                form: new Form({
+                    id : '',
+                    product_arr:[],
 
-              supplier_id : '',
-              warehouse_id : '',
-              invoice_date :'',
-              image : '',
-              grand_total_price : '',
-              paid_amount : '',
-              discount : '',
-              due_amount : ''
-            }),
-            product_arr:[],
-            setting:'',
-        }
-    },
-
-    mounted(){
-        this.getSupplierInvoice();
-        this.getSetting();
-    },
-
-    computed: {
-
-        grand_total_price: function() {
-            var temp = this
-            return temp.product_arr.reduce(function(carry, product) {
-                let total = carry + (parseFloat(product.product_quantity) * parseFloat(product.supplier_price));
-                temp.form.grand_total_price = total
-                return total
-            }, 0);
+                    supplier_id : '',
+                    warehouse_id : '',
+                    invoice_date :'',
+                    image : '',
+                    grand_total_price : '',
+                    paid_amount : '',
+                    discount : '',
+                    due_amount : ''
+                }),
+                product_arr:[],
+                setting:'',
+            }
         },
 
-        due_amount: function() {
-           var temp = this
-           let due_ammount = temp.grand_total_price - parseFloat(temp.form.paid_amount);
-           temp.form.due_amount = due_ammount
-           return due_ammount
-        }
-    },
-
-    methods:{
-
-        printInvoice: function() {
-
-            var printContents = document.getElementById('printableArea').innerHTML;
-            var originalContents = document.body.innerHTML;
-            document.body.innerHTML = printContents;
-            window.print();
-            document.body.innerHTML = originalContents;
+        mounted(){
+            this.getSupplierInvoice();
+            this.getSetting();
         },
 
-        getImgUrl: function(image){
-            var photo = "/images/supplier_invoice/"+ image
-            return photo
+        computed: {
+
+            grand_total_price: function() {
+                var temp = this
+                return temp.product_arr.reduce(function(carry, product) {
+                    let total = carry + (parseFloat(product.product_quantity) * parseFloat(product.supplier_price));
+                    temp.form.grand_total_price = total
+                    return total
+                }, 0);
+            },
+
+            due_amount: function() {
+                var temp = this
+                let due_ammount = temp.grand_total_price - parseFloat(temp.form.paid_amount);
+                temp.form.due_amount = due_ammount
+                return due_ammount
+            }
         },
 
-        getSupplierInvoice(){
-            var temp = this;
-            axios.get('/api/supllier-invoice/'+this.$route.params.id)
-            .then((response) => {
-              temp.form = response.data.supplierInvoice;
-              temp.product_arr = response.data.supplierInvoiceProduct;
-            })
-            .catch(function (error) {
-              toastr.error('Something is wrong Data Loaded')
-            });
-        },
+        methods:{
 
-        getSetting(){
-            var temp = this;
-            axios.get('/api/setting/1')
-              .then((response) => {
-                temp.setting = response.data;
-              })
-              .catch(function (error) {
-                this.loadin = true; 
+            printInvoice: function() {
+
+                var printContents = document.getElementById('printableArea').innerHTML;
+                var originalContents = document.body.innerHTML;
+                document.body.innerHTML = printContents;
+                window.print();
+                document.body.innerHTML = originalContents;
+            },
+
+            getImgUrl: function(image){
+                var photo = "/images/supplier_invoice/"+ image
+                return photo
+            },
+
+            getSupplierInvoice(){
+                var temp = this;
+                axios.get('/api/supllier-invoice/'+this.$route.params.id)
+                .then((response) => {
+                    temp.form = response.data.supplierInvoice;
+                    temp.product_arr = response.data.supplierInvoiceProduct;
+                })
+                .catch(function (error) {
                     toastr.error('Something is wrong Data Loaded')
-              });
-        },
-        
-        getImgUrl: function(image){
-          var photo = "/images/store_logo/"+ image
-          return photo
-          console.log(photo)
-        }, 
+                });
+            },
+
+            getSetting(){
+                var temp = this;
+                axios.get('/api/setting/1')
+                .then((response) => {
+                    temp.setting = response.data;
+                })
+                .catch(function (error) {
+                    this.loadin = true; 
+                    toastr.error('Something is wrong Data Loaded')
+                });
+            },
+
+            getImgUrl: function(image){
+                var photo = "/images/store_logo/"+ image
+                return photo
+                console.log(photo)
+            }, 
+        }
     }
-}
 </script>

@@ -3031,10 +3031,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-// import datetime from 'vuejs-datetimepicker'
 /* harmony default export */ __webpack_exports__["default"] = ({
-  // components: { datetime },
   data: function data() {
     var today = new Date();
     var current_date = today.getDate() + '-' + (today.getMonth() + 1) + '-' + today.getFullYear();
@@ -5982,10 +5979,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -6030,7 +6023,14 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     getImgUrl: function getImgUrl(image) {
-      var photo = "/images/product/" + image;
+      var temp = this;
+
+      if (temp.img_url) {
+        var photo = temp.img_url;
+      } else {
+        photo = "/images/product/" + image;
+      }
+
       return photo;
     },
     uploadImage: function uploadImage(e) {
@@ -50429,7 +50429,8 @@ var render = function() {
                                     attrs: {
                                       type: "text",
                                       name: "expense_title",
-                                      placeholder: "Expense Title"
+                                      placeholder: "Expense Title",
+                                      required: ""
                                     },
                                     domProps: { value: _vm.form.expense_title },
                                     on: {
@@ -50492,7 +50493,8 @@ var render = function() {
                                     attrs: {
                                       type: "text",
                                       name: "",
-                                      autocomplete: "off"
+                                      autocomplete: "off",
+                                      required: ""
                                     },
                                     domProps: { value: _vm.form.expense_date },
                                     on: {
@@ -50525,7 +50527,14 @@ var render = function() {
                         _c("div", { staticClass: "row" }, [
                           _c("div", { staticClass: "col-md-12" }, [
                             _c("div", { staticClass: "form-group row" }, [
-                              _vm._m(1),
+                              _c(
+                                "label",
+                                {
+                                  staticClass:
+                                    "col-sm-2 mr-n5 form-control-label"
+                                },
+                                [_vm._v("Expense Detail")]
+                              ),
                               _vm._v(" "),
                               _c("div", { staticClass: "col-sm-10" }, [
                                 _c("textarea", {
@@ -50567,7 +50576,7 @@ var render = function() {
                               attrs: { id: "normalExpense" }
                             },
                             [
-                              _vm._m(2),
+                              _vm._m(1),
                               _vm._v(" "),
                               _c(
                                 "tbody",
@@ -50644,7 +50653,8 @@ var render = function() {
                                                 "expense.expense_quantity"
                                             }
                                           ],
-                                          staticClass: "form-control-sm w-100",
+                                          staticClass:
+                                            "form-control-sm w-100 text-center",
                                           class: {
                                             "is-invalid": _vm.form.errors.has(
                                               "expense_quantity"
@@ -50652,7 +50662,7 @@ var render = function() {
                                           },
                                           attrs: {
                                             placeholder: "Expense Quantity",
-                                            type: "text",
+                                            type: "number",
                                             autocomplete: "off",
                                             required: ""
                                           },
@@ -50685,7 +50695,8 @@ var render = function() {
                                             expression: "expense.expense_amount"
                                           }
                                         ],
-                                        staticClass: "form-control-sm w-100",
+                                        staticClass:
+                                          "form-control-sm w-100 text-center",
                                         class: {
                                           "is-invalid": _vm.form.errors.has(
                                             "expense.expense_amount"
@@ -50693,7 +50704,7 @@ var render = function() {
                                         },
                                         attrs: {
                                           placeholder: "Expense Amount",
-                                          type: "text",
+                                          type: "number",
                                           autocomplete: "off",
                                           required: ""
                                         },
@@ -50719,7 +50730,7 @@ var render = function() {
                                       _c("input", {
                                         staticClass: "form-control-sm w-100",
                                         staticStyle: { "text-align": "center" },
-                                        attrs: { type: "text", disabled: "" },
+                                        attrs: { type: "number", disabled: "" },
                                         domProps: {
                                           value:
                                             expense.expense_quantity *
@@ -50749,7 +50760,7 @@ var render = function() {
                               _vm._v(" "),
                               _c("tfoot", [
                                 _c("tr", { attrs: { id: "appssss" } }, [
-                                  _vm._m(3),
+                                  _vm._m(2),
                                   _vm._v(" "),
                                   _c("td", { staticClass: "text-center" }, [
                                     _c("input", {
@@ -50794,7 +50805,7 @@ var render = function() {
                                 ]),
                                 _vm._v(" "),
                                 _c("tr", [
-                                  _vm._m(4),
+                                  _vm._m(3),
                                   _vm._v(" "),
                                   _c("td", { staticClass: "text-right" }, [
                                     _c("input", {
@@ -50806,14 +50817,13 @@ var render = function() {
                                           expression: "form.expense_paid_amount"
                                         }
                                       ],
-                                      staticClass: "form-control-sm w-100",
-                                      staticStyle: { "text-align": "center" },
+                                      staticClass:
+                                        "form-control-sm w-100 text-center",
                                       attrs: {
                                         id: "paidAmount",
                                         value: "5455",
                                         name: "expense_paid_amount",
-                                        type: "number",
-                                        required: ""
+                                        type: "number"
                                       },
                                       domProps: {
                                         value: _vm.form.expense_paid_amount
@@ -50847,7 +50857,7 @@ var render = function() {
                                     ]
                                   },
                                   [
-                                    _vm._m(5),
+                                    _vm._m(4),
                                     _vm._v(" "),
                                     _c("td", { staticClass: "text-center" }, [
                                       _c("input", {
@@ -50922,22 +50932,6 @@ var staticRenderFns = [
       },
       [
         _vm._v("Expense Title "),
-        _c("i", { staticClass: "text-danger" }, [_vm._v("*")])
-      ]
-    )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "label",
-      {
-        staticClass: "col-sm-2 form-control-label",
-        staticStyle: { "margin-right": "-45px" }
-      },
-      [
-        _vm._v("Expense Detail "),
         _c("i", { staticClass: "text-danger" }, [_vm._v("*")])
       ]
     )
@@ -58182,30 +58176,21 @@ var render = function() {
                               })
                             ]),
                             _vm._v(" "),
-                            !_vm.img_url
-                              ? _c(
-                                  "div",
-                                  { attrs: { id: "preview col-sm-2" } },
-                                  [
-                                    _c("img", {
-                                      staticClass: "img-fluid table_img",
-                                      attrs: {
-                                        src: "/images/product/default.png",
-                                        alt: "image"
-                                      }
-                                    })
-                                  ]
-                                )
-                              : _vm._e(),
-                            _vm._v(" "),
-                            _c("div", { attrs: { id: "preview col-sm-2" } }, [
-                              _vm.img_url
-                                ? _c("img", {
-                                    staticClass: "img-fluid table_img",
-                                    attrs: { src: _vm.img_url }
-                                  })
-                                : _vm._e()
-                            ])
+                            _vm.form.image
+                              ? _c("img", {
+                                  staticClass: "img-fluid table_img",
+                                  attrs: {
+                                    src: _vm.getImgUrl(_vm.form.image),
+                                    alt: "image"
+                                  }
+                                })
+                              : _c("img", {
+                                  staticClass: "img-fluid table_img",
+                                  attrs: {
+                                    src: "/images/product/default.png",
+                                    alt: "image"
+                                  }
+                                })
                           ])
                         ])
                       ])
@@ -62986,7 +62971,7 @@ var render = function() {
           [
             _c("header", [
               _c("div", { staticClass: "row" }, [
-                _c("div", { staticClass: "col-1" }, [
+                _c("div", { staticClass: "col-2" }, [
                   _vm._m(0),
                   _vm._v(" "),
                   _vm.setting.store_logo
@@ -81191,8 +81176,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /home/mnbtech/Projects/EasyInventory/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /home/mnbtech/Projects/EasyInventory/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! E:\xampp\htdocs\EasyInventory\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! E:\xampp\htdocs\EasyInventory\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

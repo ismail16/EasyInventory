@@ -31,7 +31,7 @@
                                         <label class="col-sm-3 form-control-label" style="margin-right: -44px;">Expense Title <i class="text-danger">*</i></label>
                                         <div class="col-sm-9">
                                             <input v-model="form.expense_title" type="text" name="expense_title"
-                                            placeholder="Expense Title" class="form-control form-control-sm w-100 rounded-0" :class="{ 'is-invalid': form.errors.has('expense_title') }">
+                                            placeholder="Expense Title" class="form-control form-control-sm w-100 rounded-0" :class="{ 'is-invalid': form.errors.has('expense_title') }" required>
                                             <has-error :form="form" field="expense_title"></has-error>
                                         </div>
                                     </div>
@@ -41,8 +41,7 @@
                                    <div class="form-group row">
                                         <label for="inputPassword" class="col-sm-2 col-form-label">Date</label>
                                         <div class="col-sm-10">   
-                                            <input type="text" v-model="form.expense_date" name="" class="form-control-sm w-100 datetimepicker" :class="{ 'is-invalid': form.errors.has('expense_date') }" autocomplete="off">
-                                            <!-- <datetime format="DD/MM/YYYY h:i:s" width="300px" v-model="form.expense_date" class="form-control-sm w-100" :class="{ 'is-invalid': form.errors.has('expense_date') }" autocomplete="off"></datetime> -->
+                                            <input type="text" v-model="form.expense_date" name="" class="form-control-sm w-100 datetimepicker" :class="{ 'is-invalid': form.errors.has('expense_date') }" autocomplete="off" required>
                                             <has-error :form="form" field="expense_date"></has-error>
                                         </div>
                                     </div>
@@ -52,7 +51,7 @@
                             <div class="row">
                                 <div class="col-md-12">
                                    <div class="form-group row">
-                                        <label class="col-sm-2 form-control-label" style="margin-right: -45px;">Expense Detail <i class="text-danger">*</i></label>
+                                        <label class="col-sm-2 mr-n5 form-control-label">Expense Detail</label>
                                         <div class="col-sm-10">
                                             <textarea  rows="2" class="form-control" v-model="form.expense_detail"></textarea>
                                         </div>
@@ -79,14 +78,14 @@
                                                 <has-error :form="form" field="expense_purpose"></has-error>
                                             </td>
                                             <td style="width: 320px">
-                                                <input v-model="expense.expense_quantity" placeholder="Expense Quantity" type="text" class="form-control-sm w-100" :class="{ 'is-invalid': form.errors.has('expense_quantity') }" autocomplete="off" required>
+                                                <input v-model="expense.expense_quantity" placeholder="Expense Quantity" type="number" class="form-control-sm w-100 text-center" :class="{ 'is-invalid': form.errors.has('expense_quantity') }" autocomplete="off" required>
 
                                             </td>
                                             <td>
-                                                <input v-model="expense.expense_amount" placeholder="Expense Amount" type="text" class="form-control-sm w-100" :class="{ 'is-invalid': form.errors.has('expense.expense_amount') }" autocomplete="off" required>
+                                                <input v-model="expense.expense_amount" placeholder="Expense Amount" type="number" class="form-control-sm w-100 text-center" :class="{ 'is-invalid': form.errors.has('expense.expense_amount') }" autocomplete="off" required>
                                             </td>
                                             <td class="text-center">
-                                                <input class="form-control-sm w-100" :value="expense.expense_quantity * expense.expense_amount" type="text" style="text-align: center;" disabled>
+                                                <input class="form-control-sm w-100" :value="expense.expense_quantity * expense.expense_amount" type="number" style="text-align: center;" disabled>
                                             </td>
 
                                             <td class="text-center">
@@ -107,7 +106,7 @@
                                         <tr>
                                             <td style="text-align:right;" colspan="3"><b>Paid Amount:</b></td>
                                             <td class="text-right">
-                                                <input id="paidAmount" class="form-control-sm w-100" v-model="form.expense_paid_amount" value="5455" name="expense_paid_amount" type="number" required style="text-align: center;">
+                                                <input id="paidAmount" class="form-control-sm w-100 text-center" v-model="form.expense_paid_amount" value="5455" name="expense_paid_amount" type="number">
                                             </td>
                                         </tr>
                                         <tr v-show="expense_due">
@@ -139,9 +138,7 @@
 </template>
 
 <script>
-// import datetime from 'vuejs-datetimepicker'
 export default {
-    // components: { datetime },
     data() {
 
         var today = new Date();

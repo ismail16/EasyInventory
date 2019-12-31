@@ -125,18 +125,14 @@
                                                 <div class="col-sm-5">
                                                     <input type="file" :src="form.image" @change="uploadImage" class="form-control-sm w-100 border p-0"/>
                                                 </div>
-                                                <div v-if="!img_url" id="preview col-sm-2">
-                                                    <img  src="/images/product/default.png"  class="img-fluid table_img" alt="image">
-                                                </div>
-                                                <div id="preview col-sm-2">
-                                                    <img v-if="img_url" :src="img_url" class="img-fluid table_img"/>
-                                                </div>
+
+                                                <img v-if="form.image" :src="getImgUrl(form.image)"  class="img-fluid table_img" alt="image">
+
+                                                <img v-else src="/images/product/default.png"  class="img-fluid table_img" alt="image">
                                             </div>
                                         </div>
-
                                     </div>
                                 </div>
-
                             </div>
                             <div class="card-footer">
                                 <router-link to="/product" class="btn btn-sm btn-default float-left">
@@ -214,7 +210,13 @@
             },
 
             getImgUrl: function(image){
-                var photo = "/images/product/"+ image
+                var temp = this;
+                if (temp.img_url) {
+                    var photo = temp.img_url
+                }else{
+                    photo = "/images/product/"+ image
+                }
+               
                 return photo
             },
 
