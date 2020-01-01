@@ -18,17 +18,7 @@
   	<!-- Google Font: Source Sans Pro -->
   	<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
   	<link rel="stylesheet" href="{{ asset('css/customs.css')}}"> 
-
-  	<style type="text/css">
-  		.nav-link{
-  			padding-top: 0px !important;
-  			padding-bottom: 0px !important;
-  			/*margin-bottom: 0px !important;*/
-  		}
-  		h5 {
-            font-weight: bolder !important;
-        }
-  	</style>
+	<script src="{{ asset('js/customs.js')}}"></script> 
 
 	</head>
 
@@ -36,7 +26,7 @@
 
 		<?php $setting = \App\Models\Setting::orderBy('id','desc')->first(); ?>
 		<div class="wrapper" id="app">
-	 		<nav class="main-header navbar navbar-expand navbar-light" style="width: fit-content; margin-left: 0%; z-index: 99999;">
+	 		<nav class="main-header navbar navbar-expand navbar-light p-0 border-0 doc_res_icon">
 				<ul class="navbar-nav">
 					<li class="nav-item">
 						<a class="nav-link" data-widget="pushmenu" href="#"><i class="fas fa-bars"></i></a>
@@ -44,16 +34,13 @@
 				</ul>
 			</nav> 
 
-			<aside class="main-sidebar elevation-4 ">
+			<aside class="main-sidebar elevation-4  sidebar-light-navy">
 				<a href="{{ route('admin.dashboard') }}" class="brand-link bg-light text-center">
-					<!-- <img src="{{ asset('/images/store_logo/'.$setting->store_logo) }}" alt="Logo" class="brand-image img-circle elevation-3"
-					style="opacity: .8"> -->
 					<span class="brand-text font-weight-light">Documentation</span>
 				</a>
 
 				<div class="sidebar"> 
 					<nav class="mt-2 sidebar-nav">
-						
 						<ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
 
 							<li class="nav-item">

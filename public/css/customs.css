@@ -170,3 +170,15 @@
   max-height: 150px;
   overflow: auto;
 }
+
+
+/*ducomentation css*/
+.doc_res_icon{
+  width: fit-content; 
+  margin-left: 0%;
+  z-index: 99999 !important;
+}
+
+.doc_res_icon a{
+  padding: 7px !important;
+}
