@@ -124,8 +124,8 @@
                                 <div class="form-group mb-0 row">
                                     <label class="col-sm-3 col-form-label">User Name <span class="text-red">*</span></label>
                                     <div class="col-sm-9">
-                                        <input v-model="form.staff_user_name" type="text" name="staff_user_name" placeholder="User Name" class="form-control form-control-sm w-100" :class="{ 'is-invalid': form.errors.has('staff_user_name') }">
-                                        <has-error :form="form" field="staff_user_name"></has-error>
+                                        <input v-model="form.email" type="text" name="email" placeholder="User Name / Email" class="form-control form-control-sm w-100" :class="{ 'is-invalid': form.errors.has('email') }">
+                                        <has-error :form="form" field="email"></has-error>
                                     </div>
                                 </div>
                                 <div class="form-group mb-0 row">
@@ -144,20 +144,20 @@
                                 <div class="form-group mb-0 row">
                                     <label class="col-sm-3 col-form-label">User Type <span class="text-red">*</span></label>
                                     <div class="col-sm-9">
-                                        <select v-model="form.user_type" class="form-control form-control-sm w-100" :class="{ 'is-invalid': form.errors.has('user_type') }" name="user_type" id="fileds">
+                                        <select v-model="form.role_id" class="form-control form-control-sm w-100" :class="{ 'is-invalid': form.errors.has('role_id') }" name="role_id" id="fileds">
                                             <option value="1">Admin</option>
                                             <option value="2">Sales man</option>
                                         </select>
-                                        <has-error :form="form" field="user_type"></has-error>
+                                        <has-error :form="form" field="role_id"></has-error>
                                     </div>
                                 </div>
                                 <div class="form-group mb-0 row">
                                     <label class="col-sm-3 col-form-label">Password <span class="text-red">*</span></label>
                                     <div class="col-sm-9">
-                                        <input v-model="form.staff_password" type="text" name="staff_password"
+                                        <input v-model="form.password" type="text" name="staff_password"
                                         placeholder="staff password"
-                                        class="form-control form-control-sm w-100" :class="{ 'is-invalid': form.errors.has('staff_password') }">
-                                        <has-error :form="form" field="staff_password"></has-error>
+                                        class="form-control form-control-sm w-100" :class="{ 'is-invalid': form.errors.has('password') }">
+                                        <has-error :form="form" field="password"></has-error>
                                     </div>
                                 </div>
                             </div>
@@ -214,11 +214,11 @@
                 form: new Form({
                     id : '',
                     staff_name : '',
-                    staff_user_name : '',
-                    staff_email : '',
+                    email : '',
                     staff_phone : '',
                     staff_address : '',
-                    user_type : '',
+                    role_id : '',
+                    password : '',
                 }),
                 query: "",
                 queryFiled: "staff_name",

@@ -31,18 +31,18 @@ class StaffController extends Controller
     {
         $request->validate([
             'staff_name' => 'required',
-            'staff_user_name' => 'required|unique:staff',
-            'user_type' => 'required',
-            'staff_password' => 'required'
+            'email' => 'required|unique:users',
+            'role_id' => 'required',
+            'password' => 'required'
         ]);
 
-        $staff = new Staff;
+        $staff = new User;
         $staff->staff_name = $request->staff_name;
-        $staff->staff_user_name = $request->staff_user_name;
+        $staff->email = $request->email;
         $staff->staff_phone = $request->staff_phone;
         $staff->staff_address = $request->staff_address;
-        $staff->user_type = $request->user_type;
-        $staff->staff_password = Hash::make($request->staff_password);
+        $staff->role_id = $request->role_id;
+        $staff->password = Hash::make($request->password);
         $staff->status = 1;
         $staff->save();
         return $staff;

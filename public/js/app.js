@@ -6970,11 +6970,11 @@ __webpack_require__.r(__webpack_exports__);
       form: new Form({
         id: '',
         staff_name: '',
-        staff_user_name: '',
-        staff_email: '',
+        email: '',
         staff_phone: '',
         staff_address: '',
-        user_type: ''
+        role_id: '',
+        password: ''
       }),
       query: "",
       queryFiled: "staff_name",
@@ -59860,38 +59860,32 @@ var render = function() {
                               {
                                 name: "model",
                                 rawName: "v-model",
-                                value: _vm.form.staff_user_name,
-                                expression: "form.staff_user_name"
+                                value: _vm.form.email,
+                                expression: "form.email"
                               }
                             ],
                             staticClass: "form-control form-control-sm w-100",
                             class: {
-                              "is-invalid": _vm.form.errors.has(
-                                "staff_user_name"
-                              )
+                              "is-invalid": _vm.form.errors.has("email")
                             },
                             attrs: {
                               type: "text",
-                              name: "staff_user_name",
-                              placeholder: "User Name"
+                              name: "email",
+                              placeholder: "User Name / Email"
                             },
-                            domProps: { value: _vm.form.staff_user_name },
+                            domProps: { value: _vm.form.email },
                             on: {
                               input: function($event) {
                                 if ($event.target.composing) {
                                   return
                                 }
-                                _vm.$set(
-                                  _vm.form,
-                                  "staff_user_name",
-                                  $event.target.value
-                                )
+                                _vm.$set(_vm.form, "email", $event.target.value)
                               }
                             }
                           }),
                           _vm._v(" "),
                           _c("has-error", {
-                            attrs: { form: _vm.form, field: "staff_user_name" }
+                            attrs: { form: _vm.form, field: "email" }
                           })
                         ],
                         1
@@ -59990,15 +59984,15 @@ var render = function() {
                                 {
                                   name: "model",
                                   rawName: "v-model",
-                                  value: _vm.form.user_type,
-                                  expression: "form.user_type"
+                                  value: _vm.form.role_id,
+                                  expression: "form.role_id"
                                 }
                               ],
                               staticClass: "form-control form-control-sm w-100",
                               class: {
-                                "is-invalid": _vm.form.errors.has("user_type")
+                                "is-invalid": _vm.form.errors.has("role_id")
                               },
-                              attrs: { name: "user_type", id: "fileds" },
+                              attrs: { name: "role_id", id: "fileds" },
                               on: {
                                 change: function($event) {
                                   var $$selectedVal = Array.prototype.filter
@@ -60012,7 +60006,7 @@ var render = function() {
                                     })
                                   _vm.$set(
                                     _vm.form,
-                                    "user_type",
+                                    "role_id",
                                     $event.target.multiple
                                       ? $$selectedVal
                                       : $$selectedVal[0]
@@ -60032,7 +60026,7 @@ var render = function() {
                           ),
                           _vm._v(" "),
                           _c("has-error", {
-                            attrs: { form: _vm.form, field: "user_type" }
+                            attrs: { form: _vm.form, field: "role_id" }
                           })
                         ],
                         1
@@ -60051,22 +60045,20 @@ var render = function() {
                               {
                                 name: "model",
                                 rawName: "v-model",
-                                value: _vm.form.staff_password,
-                                expression: "form.staff_password"
+                                value: _vm.form.password,
+                                expression: "form.password"
                               }
                             ],
                             staticClass: "form-control form-control-sm w-100",
                             class: {
-                              "is-invalid": _vm.form.errors.has(
-                                "staff_password"
-                              )
+                              "is-invalid": _vm.form.errors.has("password")
                             },
                             attrs: {
                               type: "text",
                               name: "staff_password",
                               placeholder: "staff password"
                             },
-                            domProps: { value: _vm.form.staff_password },
+                            domProps: { value: _vm.form.password },
                             on: {
                               input: function($event) {
                                 if ($event.target.composing) {
@@ -60074,7 +60066,7 @@ var render = function() {
                                 }
                                 _vm.$set(
                                   _vm.form,
-                                  "staff_password",
+                                  "password",
                                   $event.target.value
                                 )
                               }
@@ -60082,7 +60074,7 @@ var render = function() {
                           }),
                           _vm._v(" "),
                           _c("has-error", {
-                            attrs: { form: _vm.form, field: "staff_password" }
+                            attrs: { form: _vm.form, field: "password" }
                           })
                         ],
                         1
