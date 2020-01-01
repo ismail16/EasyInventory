@@ -53,7 +53,7 @@
                                 <span class="info-box-icon bg-success elevation-1"><i class="fas fa-shopping-cart"></i></span>
                                 <div class="info-box-content">
                                     <span class="info-box-text">Sales</span>
-                                    <span class="info-box-number">{{ total_invoice }}</span>
+                                    <span class="info-box-number">{{ invoices.length }}</span>
                                 </div>
                             </div>
                         </router-link>
@@ -213,10 +213,12 @@
 
         mounted(){
             this.getSetting();
-            this.getCustomers();
-            this.getWarehouses();
-            this.getCategory();
-            this.getProducts();
+
+            this.getAllCustomer();
+            this.getAllCategory();
+            this.getAllProduct();
+            this.getAllInvoice();
+
             this.getThisMonthInvoices();
             this.getExpenses();
         },
@@ -252,11 +254,6 @@
         },
 
         methods:{
-            month_no_change(month_no){
-                this.getThisMonthInvoices(month_no)
-                this.getExpenses(month_no)
-            },
-
             getSetting(){
                 var temp = this;
                 axios.get('/api/setting/1')
@@ -268,9 +265,15 @@
                     toastr.error('Something is wrong Data Loaded')
                 });
             },
-            getCustomers(){
+            
+            month_no_change(month_no){
+                this.getThisMonthInvoices(month_no)
+                this.getExpenses(month_no)
+            },
+
+            getAllCustomer(){
                 var temp = this;
-                axios.get('/api/customers')
+                axios.get('/api/allCustomer')
                 .then((response) => {
                     temp.customers = response.data.data;
                 })
@@ -280,9 +283,9 @@
                 });
             },
 
-            getCategory(){
+            getAllCategory(){
                 var temp = this;
-                axios.get('/api/categories')
+                axios.get('/api/allCategory')
                 .then((response) => {
                     temp.categories = response.data.data;
                 })
@@ -291,9 +294,9 @@
                 });
             },
 
-            getProducts(){
+            getAllProduct(){
                 var temp = this;
-                axios.get('/api/products')
+                axios.get('/api/allProduct')
                 .then((response) => {
                     temp.products = response.data.data;
                 })
@@ -302,11 +305,11 @@
                 });
             },
 
-            getWarehouses(){
+            getAllInvoice(){
                 var temp = this;
-                axios.get('/api/warehouses')
+                axios.get('/api/allInvoice')
                 .then((response) => {
-                    temp.warehouses = response.data.data;
+                    temp.invoices = response.data.data;
                 })
                 .catch(function (error) {
                     toastr.error('Something is wrong Data Loaded')
@@ -314,8 +317,6 @@
             },
 
             getThisMonthInvoices(month_no){
-                // var date = new Date();
-                // var month_no = date.getMonth()+1
                 var temp = this;
                 axios.get('/api/getThisMonthInvoices/'+this.month_no)
                 .then((response) => {
@@ -345,20 +346,15 @@
                     'use strict'
 
                     var month_name = ["January", "February", "March", "April", "May", "June","July", "August", "September", "October", "November", "December"];
+
                     var total_seles = 0;
-
                     if (data.all_data.length > 0) {
-
                         var d = new Date(data.all_data[0].created_at);
-                        // $('#date_month').append(' '+month_name[d.getMonth()]+ ' ' + d.getFullYear())
-
                         for (let i = 0; i < data.all_data.length ; i++) {
                             total_seles+=parseFloat(data.all_data[i].paid_amount)
                         }
-
                     }else{
                         var now = new Date();
-                        // $('#date_month').append(' '+month_name[now.getMonth()]+ ' ' + now.getFullYear())
                     }
 
                     var monthNames = []
@@ -371,23 +367,22 @@
                         month_days.push(d)
                     }
 
-
                     var salesChartCanvas = $('#salesChart').get(0).getContext('2d')
                     var salesChartData = {
                         labels  : month_days,
                         datasets: [
-                        {
-                            label               : 'Sales',
-                            backgroundColor     : 'rgba(60,141,188,0.9)',
-                            borderColor         : 'rgba(60,141,188,0.8)',
-                            pointRadius          : true,
-                            pointColor          : '#3b8bba',
-                            pointStrokeColor    : 'rgba(60,141,188,1)',
-                            pointHighlightFill  : '#fff',
-                            pointHighlightStroke: 'rgba(60,141,188,1)',
-                            data                : monthNames
+                            {
+                                label               : 'Sales',
+                                backgroundColor     : 'rgba(60,141,188,0.9)',
+                                borderColor         : 'rgba(60,141,188,0.8)',
+                                pointRadius          : true,
+                                pointColor          : '#3b8bba',
+                                pointStrokeColor    : 'rgba(60,141,188,1)',
+                                pointHighlightFill  : '#fff',
+                                pointHighlightStroke: 'rgba(60,141,188,1)',
+                                data                : monthNames
 
-                        },
+                            },
                         ]
                     }
 

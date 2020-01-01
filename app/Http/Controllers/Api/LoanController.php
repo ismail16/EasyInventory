@@ -15,12 +15,15 @@ class LoanController extends Controller
         return  DefaultResource::collection(Loan::orderBy('id','desc')->paginate(10));
     }
 
+    public function allLoan()
+    {
+        return  DefaultResource::collection(Loan::orderBy('id','desc')->get());
+    }
+
     public function search($field,$query)
     {
         return  DefaultResource::collection(Loan::where($field,'LIKE',"%$query%")->latest()->paginate(10));
     }
-
-    
 
     public function store(Request $request)
     {

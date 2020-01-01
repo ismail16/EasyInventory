@@ -2452,10 +2452,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   },
   mounted: function mounted() {
     this.getSetting();
-    this.getCustomers();
-    this.getWarehouses();
-    this.getCategory();
-    this.getProducts();
+    this.getAllCustomer();
+    this.getAllCategory();
+    this.getAllProduct();
+    this.getAllInvoice();
     this.getThisMonthInvoices();
     this.getExpenses();
   },
@@ -2492,10 +2492,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     }
   },
   methods: {
-    month_no_change: function month_no_change(month_no) {
-      this.getThisMonthInvoices(month_no);
-      this.getExpenses(month_no);
-    },
     getSetting: function getSetting() {
       var temp = this;
       axios.get('/api/setting/1').then(function (response) {
@@ -2505,35 +2501,39 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         toastr.error('Something is wrong Data Loaded');
       });
     },
-    getCustomers: function getCustomers() {
+    month_no_change: function month_no_change(month_no) {
+      this.getThisMonthInvoices(month_no);
+      this.getExpenses(month_no);
+    },
+    getAllCustomer: function getAllCustomer() {
       var temp = this;
-      axios.get('/api/customers').then(function (response) {
+      axios.get('/api/allCustomer').then(function (response) {
         temp.customers = response.data.data;
       })["catch"](function (error) {
         this.loadin = true;
         toastr.error('Something is wrong Data Loaded');
       });
     },
-    getCategory: function getCategory() {
+    getAllCategory: function getAllCategory() {
       var temp = this;
-      axios.get('/api/categories').then(function (response) {
+      axios.get('/api/allCategory').then(function (response) {
         temp.categories = response.data.data;
       })["catch"](function (error) {
         toastr.error('Something is wrong Data Loaded');
       });
     },
-    getProducts: function getProducts() {
+    getAllProduct: function getAllProduct() {
       var temp = this;
-      axios.get('/api/products').then(function (response) {
+      axios.get('/api/allProduct').then(function (response) {
         temp.products = response.data.data;
       })["catch"](function (error) {
         toastr.error('Something is wrong Data Loaded');
       });
     },
-    getWarehouses: function getWarehouses() {
+    getAllInvoice: function getAllInvoice() {
       var temp = this;
-      axios.get('/api/warehouses').then(function (response) {
-        temp.warehouses = response.data.data;
+      axios.get('/api/allInvoice').then(function (response) {
+        temp.invoices = response.data.data;
       })["catch"](function (error) {
         toastr.error('Something is wrong Data Loaded');
       });
@@ -2541,8 +2541,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     getThisMonthInvoices: function getThisMonthInvoices(month_no) {
       var _this = this;
 
-      // var date = new Date();
-      // var month_no = date.getMonth()+1
       var temp = this;
       axios.get('/api/getThisMonthInvoices/' + this.month_no).then(function (response) {
         temp.thisMonthInvoices = response.data.all_data;
@@ -2569,13 +2567,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         var total_seles = 0;
 
         if (data.all_data.length > 0) {
-          var d = new Date(data.all_data[0].created_at); // $('#date_month').append(' '+month_name[d.getMonth()]+ ' ' + d.getFullYear())
+          var d = new Date(data.all_data[0].created_at);
 
           for (var i = 0; i < data.all_data.length; i++) {
             total_seles += parseFloat(data.all_data[i].paid_amount);
           }
         } else {
-          var now = new Date(); // $('#date_month').append(' '+month_name[now.getMonth()]+ ' ' + now.getFullYear())
+          var now = new Date();
         }
 
         var monthNames = [];
@@ -6227,6 +6225,21 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -6237,19 +6250,19 @@ __webpack_require__.r(__webpack_exports__);
       invoices: '',
       setting: '',
       thisYearInvoices: '',
-      expenses: ''
+      expenses: '',
+      report_year: new Date().getFullYear()
     };
   },
   mounted: function mounted() {
     this.getSetting();
-    this.getCustomers();
-    this.getSuppliers();
+    this.getAllCategory();
+    this.getAllProduct();
+    this.getAllInvoice();
+    this.getAllCustomer();
     this.getWarehouses();
-    this.getCategory();
-    this.getProducts();
-    this.getInvoices();
-    this.getThisYearInvoices();
-    this.getExpenses();
+    this.getThisYearInvoices(this.report_year);
+    this.getExpenses(this.report_year);
   },
   computed: {
     grant_total: function grant_total() {
@@ -6293,55 +6306,49 @@ __webpack_require__.r(__webpack_exports__);
         toastr.error('Something is wrong Data Loaded');
       });
     },
-    getCustomers: function getCustomers() {
+    report_year_change: function report_year_change(report_year) {
+      console.log(report_year);
+      this.getThisYearInvoices(report_year);
+      this.getExpenses(report_year);
+    },
+    getAllCategory: function getAllCategory() {
       var temp = this;
-      axios.get('/api/customers').then(function (response) {
+      axios.get('/api/allCategory').then(function (response) {
+        temp.categories = response.data.data;
+      })["catch"](function (error) {
+        toastr.error('Something is wrong Data Loaded');
+      });
+    },
+    getAllProduct: function getAllProduct() {
+      var temp = this;
+      axios.get('/api/allProduct').then(function (response) {
+        temp.products = response.data.data;
+      })["catch"](function (error) {
+        toastr.error('Something is wrong Data Loaded');
+      });
+    },
+    getAllInvoice: function getAllInvoice() {
+      var temp = this;
+      axios.get('/api/allInvoice').then(function (response) {
+        temp.invoices = response.data.data;
+      })["catch"](function (error) {
+        toastr.error('Something is wrong Data Loaded');
+      });
+    },
+    getAllCustomer: function getAllCustomer() {
+      var temp = this;
+      axios.get('/api/allCustomer').then(function (response) {
         temp.customers = response.data.data;
       })["catch"](function (error) {
         this.loadin = true;
         toastr.error('Something is wrong Data Loaded');
       });
     },
-    getSuppliers: function getSuppliers() {
-      var temp = this;
-      axios.get('/api/suppliers').then(function (response) {
-        temp.suppliers = response.data.data;
-      })["catch"](function (error) {
-        toastr.error('Something is wrong Data Loaded');
-      });
-    },
-    getCategory: function getCategory() {
-      var temp = this;
-      axios.get('/api/categories').then(function (response) {
-        temp.categories = response.data.data;
-      })["catch"](function (error) {
-        toastr.error('Something is wrong Data Loaded');
-      });
-    },
-    getProducts: function getProducts() {
-      var temp = this;
-      axios.get('/api/products').then(function (response) {
-        temp.products = response.data.data;
-      })["catch"](function (error) {
-        toastr.error('Something is wrong Data Loaded');
-      });
-    },
-    getInvoices: function getInvoices() {
-      var temp = this;
-      axios.get('/api/allInvoice').then(function (response) {
-        temp.Invoices = response.data.data;
-      })["catch"](function (error) {
-        this.loadin = true;
-        toastr.error('Something is wrong Data Loaded');
-      });
-    },
-    getThisYearInvoices: function getThisYearInvoices() {
+    getThisYearInvoices: function getThisYearInvoices(report_year) {
       var _this = this;
 
-      var date = new Date();
-      var year = date.getFullYear();
       var temp = this;
-      axios.get('/api/getThisYearInvoices/' + year).then(function (response) {
+      axios.get('/api/getThisYearInvoices/' + report_year).then(function (response) {
         temp.thisYearInvoices = response.data.all_data;
 
         _this.report(response.data);
@@ -6382,7 +6389,7 @@ __webpack_require__.r(__webpack_exports__);
           }
         } else {
           var now = new Date();
-          $('#date_month').append(' ' + month_name[now.getMonth()] + ' ' + now.getFullYear());
+          $('#date_month').append(' ' + now.getFullYear());
         }
 
         var monthNames = [];
@@ -6956,10 +6963,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -7036,7 +7039,7 @@ __webpack_require__.r(__webpack_exports__);
       this.$Progress.start();
       this.form.post('/api/staffs').then(function (response) {
         $('#addNew').modal('hide');
-        temp.getData();
+        temp.getStaffs();
         toastr.success('Saved staff Successfully');
         temp.$Progress.finish();
       })["catch"](function (error) {
@@ -7050,7 +7053,7 @@ __webpack_require__.r(__webpack_exports__);
       this.form.put('/api/staffs/' + this.form.id).then(function (response) {
         $('#addNew').modal('hide');
         toastr.success('Updated staff Successfully');
-        temp.getData();
+        temp.getStaffs();
         temp.$Progress.finish();
       })["catch"](function (error) {
         toastr.error('Updated staff Failed');
@@ -7082,7 +7085,7 @@ __webpack_require__.r(__webpack_exports__);
           var temp = _this;
           axios["delete"]('/api/staffs/' + id).then(function (response) {
             toastr.success('Deleted staff Successfully');
-            temp.getData();
+            temp.getStaffs();
           })["catch"](function (error) {
             toastr.error('Delete staff Failed');
           });
@@ -49479,7 +49482,7 @@ var render = function() {
                     ]),
                     _vm._v(" "),
                     _c("span", { staticClass: "info-box-number" }, [
-                      _vm._v(_vm._s(_vm.total_invoice))
+                      _vm._v(_vm._s(_vm.invoices.length))
                     ])
                   ])
                 ])
@@ -58389,7 +58392,7 @@ var render = function() {
                     ]),
                     _vm._v(" "),
                     _c("span", { staticClass: "info-box-number" }, [
-                      _vm._v(_vm._s(_vm.total_invoice))
+                      _vm._v(_vm._s(_vm.invoices.length))
                     ])
                   ])
                 ])
@@ -58429,24 +58432,117 @@ var render = function() {
         _c("div", { staticClass: "row" }, [
           _c("div", { staticClass: "col-md-12" }, [
             _c("div", { staticClass: "card" }, [
-              _vm._m(1),
+              _c("div", { staticClass: "card-header" }, [
+                _c("h5", { staticClass: "card-title" }, [
+                  _vm._v("The Report Year of")
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "card-tools" }, [
+                  _c("div", { staticClass: "btn-group" }, [
+                    _c(
+                      "select",
+                      {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.report_year,
+                            expression: "report_year"
+                          }
+                        ],
+                        staticClass: "form-control form-control-sm",
+                        on: {
+                          change: [
+                            function($event) {
+                              var $$selectedVal = Array.prototype.filter
+                                .call($event.target.options, function(o) {
+                                  return o.selected
+                                })
+                                .map(function(o) {
+                                  var val = "_value" in o ? o._value : o.value
+                                  return val
+                                })
+                              _vm.report_year = $event.target.multiple
+                                ? $$selectedVal
+                                : $$selectedVal[0]
+                            },
+                            function($event) {
+                              return _vm.report_year_change(_vm.report_year)
+                            }
+                          ]
+                        }
+                      },
+                      [
+                        _c("option", { attrs: { value: "2020" } }, [
+                          _vm._v("2020")
+                        ]),
+                        _vm._v(" "),
+                        _c("option", { attrs: { value: "2019" } }, [
+                          _vm._v("2019")
+                        ])
+                      ]
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _vm._m(1),
+                  _vm._v(" "),
+                  _vm._m(2)
+                ])
+              ]),
               _vm._v(" "),
               _c("div", { staticClass: "card-body" }, [
                 _c("div", { staticClass: "row" }, [
-                  _c("div", { staticClass: "col-md-4" }, [
-                    _c("p", { staticClass: "text-center" }, [
-                      _c("strong", [_vm._v("TOTAL INVOICE")]),
+                  _c("div", { staticClass: "col-md-3 border-right" }, [
+                    _c("p", { staticClass: "border-bottom mb-1" }, [
+                      _c("strong", [_vm._v("SELL INVOICE")]),
+                      _vm._v(" "),
                       _c("span", { staticClass: "m-1 pl-2 pr-2 bg-success" }, [
                         _vm._v(_vm._s(_vm.total_invoice))
                       ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "report_graph" }, [
+                      _vm.thisYearInvoices
+                        ? _c(
+                            "div",
+                            _vm._l(_vm.thisYearInvoices, function(
+                              invoice,
+                              index
+                            ) {
+                              return _c(
+                                "p",
+                                { staticClass: "mb-0 border-bottom" },
+                                [
+                                  _vm._v(
+                                    "\n                                                " +
+                                      _vm._s(index + 1) +
+                                      ". "
+                                  ),
+                                  _c("span", [
+                                    _vm._v(_vm._s(invoice.customer_name))
+                                  ]),
+                                  _vm._v(
+                                    " - \n                                                "
+                                  ),
+                                  _c("b", [
+                                    _vm._v(
+                                      _vm._s(_vm.setting.store_currency) +
+                                        " " +
+                                        _vm._s(invoice.grand_total_price)
+                                    )
+                                  ])
+                                ]
+                              )
+                            }),
+                            0
+                          )
+                        : _c("div", [
+                            _c("p", [_vm._v("Invoice Not Available")])
+                          ])
                     ])
                   ]),
                   _vm._v(" "),
-                  _vm._m(2),
-                  _vm._v(" "),
-                  _vm._m(3),
-                  _vm._v(" "),
-                  _vm._m(4)
+                  _vm._m(3)
                 ])
               ]),
               _vm._v(" "),
@@ -58455,7 +58551,7 @@ var render = function() {
                   _c("div", { staticClass: "col-sm-3" }, [
                     _c("div", { staticClass: "description-block" }, [
                       _c("div", { staticClass: "info-box mb-3" }, [
-                        _vm._m(5),
+                        _vm._m(4),
                         _vm._v(" "),
                         _c("div", { staticClass: "info-box-content" }, [
                           _c("span", { staticClass: "info-box-text" }, [
@@ -58477,7 +58573,7 @@ var render = function() {
                   _c("div", { staticClass: "col-sm-3" }, [
                     _c("div", { staticClass: "description-block" }, [
                       _c("div", { staticClass: "info-box mb-3" }, [
-                        _vm._m(6),
+                        _vm._m(5),
                         _vm._v(" "),
                         _c("div", { staticClass: "info-box-content" }, [
                           _c("span", { staticClass: "info-box-text" }, [
@@ -58499,7 +58595,7 @@ var render = function() {
                   _c("div", { staticClass: "col-sm-3" }, [
                     _c("div", { staticClass: "description-block" }, [
                       _c("div", { staticClass: "info-box mb-3" }, [
-                        _vm._m(7),
+                        _vm._m(6),
                         _vm._v(" "),
                         _c("div", { staticClass: "info-box-content" }, [
                           _c("span", { staticClass: "info-box-text" }, [
@@ -58521,7 +58617,7 @@ var render = function() {
                   _c("div", { staticClass: "col-sm-3" }, [
                     _c("div", { staticClass: "description-block" }, [
                       _c("div", { staticClass: "info-box mb-3" }, [
-                        _vm._m(8),
+                        _vm._m(7),
                         _vm._v(" "),
                         _c("div", { staticClass: "info-box-content" }, [
                           _c("span", { staticClass: "info-box-text" }, [
@@ -58583,55 +58679,33 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card-header" }, [
-      _c("h5", { staticClass: "card-title" }, [_vm._v("Yearly Report")]),
-      _vm._v(" "),
-      _c("div", { staticClass: "card-tools" }, [
-        _c(
-          "button",
-          {
-            staticClass: "btn btn-tool",
-            attrs: { type: "button", "data-widget": "collapse" }
-          },
-          [_c("i", { staticClass: "fas fa-minus" })]
-        ),
-        _vm._v(" "),
-        _c(
-          "button",
-          {
-            staticClass: "btn btn-tool",
-            attrs: { type: "button", "data-widget": "remove" }
-          },
-          [_c("i", { staticClass: "fas fa-times" })]
-        )
-      ])
-    ])
+    return _c(
+      "button",
+      {
+        staticClass: "btn btn-tool",
+        attrs: { type: "button", "data-widget": "collapse" }
+      },
+      [_c("i", { staticClass: "fas fa-minus" })]
+    )
   },
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-md-4" }, [
-      _c("p", { staticClass: "text-center" }, [
-        _c("strong", [_vm._v("This Month Sales Graph")])
-      ])
-    ])
+    return _c(
+      "button",
+      {
+        staticClass: "btn btn-tool",
+        attrs: { type: "button", "data-widget": "remove" }
+      },
+      [_c("i", { staticClass: "fas fa-times" })]
+    )
   },
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-md-4" }, [
-      _c("p", { staticClass: "text-center" }, [
-        _c("strong", { attrs: { id: "date_month" } }, [_vm._v("Report of ")])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-md-12" }, [
+    return _c("div", { staticClass: "col-md-9" }, [
       _c("div", { staticClass: "chart" }, [
         _c("canvas", {
           staticStyle: { height: "180px" },
@@ -59570,7 +59644,7 @@ var render = function() {
                                 ]),
                                 _vm._v(" "),
                                 _c("td", { staticClass: "text-center" }, [
-                                  _vm._v(_vm._s(staff.staff_user_name))
+                                  _vm._v(_vm._s(staff.email))
                                 ]),
                                 _vm._v(" "),
                                 _c("td", { staticClass: "text-center" }, [
@@ -59582,13 +59656,7 @@ var render = function() {
                                 ]),
                                 _vm._v(" "),
                                 _c("td", { staticClass: "text-center" }, [
-                                  _vm._v(
-                                    _vm._s(_vm._f("myDate")(staff.created_at))
-                                  )
-                                ]),
-                                _vm._v(" "),
-                                _c("td", { staticClass: "text-center" }, [
-                                  staff.user_type == 1
+                                  staff.role_id == 1
                                     ? _c("span", [_vm._v("Admin")])
                                     : _c("span", [_vm._v("Sales Man")])
                                 ]),
@@ -60167,8 +60235,6 @@ var staticRenderFns = [
         _c("th", { staticClass: "text-center" }, [_vm._v("Phone")]),
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [_vm._v("Address")]),
-        _vm._v(" "),
-        _c("th", { staticClass: "text-center" }, [_vm._v("Date")]),
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [_vm._v("Type")]),
         _vm._v(" "),
@@ -81135,8 +81201,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! E:\xampp\htdocs\EasyInventory\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! E:\xampp\htdocs\EasyInventory\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /home/mnbtech/Projects/EasyInventory/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /home/mnbtech/Projects/EasyInventory/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

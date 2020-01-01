@@ -3,10 +3,24 @@
   <component name="ChangeListManager">
     <list default="true" id="c6f5e779-8449-41cb-822e-66789a3fff32" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/CategoryController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/CategoryController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/CustomerController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/CustomerController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/ExpenseController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/ExpenseController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/InvoiceController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/InvoiceController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/LoanController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/LoanController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/ProductController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/ProductController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/SettingController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/SettingController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/StaffController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/StaffController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/SupllierController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/SupllierController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/SupllierInvoiceController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/SupllierInvoiceController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/WarehouseController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/WarehouseController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2014_10_12_000000_create_users_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2014_10_12_000000_create_users_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/seeds/UsersTableSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeds/UsersTableSeeder.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/Invoice.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/Invoice.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/Dashboard.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/Dashboard.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/js/components/Report.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/Report.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/Staff.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/Staff.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -235,11 +249,6 @@
                 <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
                 <item name="root:easyinventory@localhost" type="7427dc5b:ServiceModel$ServiceGroupNode" />
               </path>
-              <path>
-                <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
-                <item name="root:easyinventory@localhost" type="7427dc5b:ServiceModel$ServiceGroupNode" />
-                <item name="com.intellij.database.console.session.MessageBusSession@39f412b1" type="9fbbdea:ServiceModel$ServiceNode" />
-              </path>
             </expand>
             <select />
           </treeState>
@@ -278,6 +287,8 @@
       <workItem from="1575973227377" duration="949000" />
       <workItem from="1576910564500" duration="190000" />
       <workItem from="1576911178321" duration="873000" />
+      <workItem from="1577860431064" duration="203000" />
+      <workItem from="1577860881479" duration="1249000" />
     </task>
     <servers />
   </component>
@@ -327,13 +338,17 @@
       <screen x="0" y="27" width="1366" height="698" />
     </state>
     <state x="468" y="263" width="420" height="261" key="com.intellij.database.actions.DdlActions$CommentOnObjectAction$1/0.27.1366.698/1366.0.1366.768@0.27.1366.698" timestamp="1575973320039" />
-    <state x="520" y="272" width="367" height="230" key="com.intellij.database.actions.DdlActions$DeleteProvider2$1" timestamp="1575973330436">
+    <state x="520" y="272" width="377" height="230" key="com.intellij.database.actions.DdlActions$DeleteProvider2$1" timestamp="1577861884106">
       <screen x="0" y="27" width="1366" height="698" />
     </state>
-    <state x="520" y="272" width="367" height="230" key="com.intellij.database.actions.DdlActions$DeleteProvider2$1/0.27.1366.698/1366.0.1366.768@0.27.1366.698" timestamp="1575973330436" />
-    <state x="339" y="202" key="com.intellij.ide.util.TipDialog" timestamp="1576911210599">
+    <state x="520" y="272" width="377" height="230" key="com.intellij.database.actions.DdlActions$DeleteProvider2$1/0.27.1366.698/1366.0.1366.768@0.27.1366.698" timestamp="1577861884106" />
+    <state x="339" y="202" key="com.intellij.ide.util.TipDialog" timestamp="1577860906503">
       <screen x="0" y="27" width="1366" height="698" />
     </state>
-    <state x="339" y="202" key="com.intellij.ide.util.TipDialog/0.27.1366.698/1366.0.1366.768@0.27.1366.698" timestamp="1576911210599" />
+    <state x="339" y="202" key="com.intellij.ide.util.TipDialog/0.27.1366.698/1366.0.1366.768@0.27.1366.698" timestamp="1577860906503" />
+    <state x="347" y="164" key="run.anything.popup" timestamp="1577862143413">
+      <screen x="0" y="27" width="1366" height="698" />
+    </state>
+    <state x="347" y="164" key="run.anything.popup/0.27.1366.698/1366.0.1366.768@0.27.1366.698" timestamp="1577862143413" />
   </component>
 </project>

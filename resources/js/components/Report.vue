@@ -53,7 +53,7 @@
                                 <span class="info-box-icon bg-success elevation-1"><i class="fas fa-shopping-cart"></i></span>
                                 <div class="info-box-content">
                                     <span class="info-box-text">Sales</span>
-                                    <span class="info-box-number">{{ total_invoice }}</span>
+                                    <span class="info-box-number">{{ invoices.length }}</span>
                                 </div>
                             </div>
                         </router-link>
@@ -76,8 +76,14 @@
                     <div class="col-md-12">
                         <div class="card">
                             <div class="card-header">
-                                <h5 class="card-title">Yearly Report</h5>
+                                <h5 class="card-title">The Report Year of</h5>
                                 <div class="card-tools">
+                                    <div class="btn-group">
+                                        <select class="form-control form-control-sm" v-model="report_year" @change="report_year_change(report_year)">
+                                          <option value="2020">2020</option>
+                                          <option value="2019">2019</option>
+                                        </select>
+                                    </div>
                                     <button type="button" class="btn btn-tool" data-widget="collapse">
                                         <i class="fas fa-minus"></i>
                                     </button>
@@ -88,16 +94,25 @@
                             </div>
                             <div class="card-body">
                                 <div class="row">
-                                    <div class="col-md-4">
-                                        <p class="text-center"><strong>TOTAL INVOICE</strong><span class="m-1 pl-2 pr-2 bg-success">{{ total_invoice }}</span> </p>
+                                    <div class="col-md-3 border-right">
+                                        <p class="border-bottom mb-1">
+                                            <strong>SELL INVOICE</strong>
+                                            <span class="m-1 pl-2 pr-2 bg-success">{{ total_invoice }}</span>
+                                        </p>
+                                        <div class="report_graph">
+                                            <div v-if="thisYearInvoices">
+                                                <p class="mb-0 border-bottom" v-for="(invoice, index) in thisYearInvoices">
+                                                    {{index+1}}. <span>{{ invoice.customer_name }}</span> - 
+                                                    <b>{{ setting.store_currency }} {{ invoice.grand_total_price }}</b>
+                                                </p>
+                                            </div>
+                                            <div v-else>
+                                                <p>Invoice Not Available</p>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="col-md-4">
-                                        <p class="text-center"><strong>This Month Sales Graph</strong></p>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <p  class="text-center"><strong id="date_month">Report of </strong></p>
-                                    </div>
-                                    <div class="col-md-12">
+                                    
+                                    <div class="col-md-9">
                                         <div class="chart">
                                             <canvas id="salesChart" height="180" style="height: 180px;"></canvas>
                                         </div>
@@ -174,19 +189,22 @@
                 setting:'',
                 thisYearInvoices:'',
                 expenses:'',
+                report_year: new Date().getFullYear()
             }
         },
 
         mounted(){
             this.getSetting();
-            this.getCustomers();
-            this.getSuppliers();
+
+            this.getAllCategory();
+            this.getAllProduct();
+            this.getAllInvoice();
+            this.getAllCustomer();
+
             this.getWarehouses();
-            this.getCategory();
-            this.getProducts();
-            this.getInvoices();
-            this.getThisYearInvoices();
-            this.getExpenses();
+
+            this.getThisYearInvoices(this.report_year);
+            this.getExpenses(this.report_year);
         },
         computed: {
 
@@ -220,6 +238,7 @@
         },
 
         methods:{
+
             getSetting(){
                 var temp = this;
                 axios.get('/api/setting/1')
@@ -232,9 +251,48 @@
                 });
             },
 
-            getCustomers(){
+            report_year_change(report_year){
+                console.log(report_year)
+                this.getThisYearInvoices(report_year)
+                this.getExpenses(report_year)
+            },
+
+            getAllCategory(){
                 var temp = this;
-                axios.get('/api/customers')
+                axios.get('/api/allCategory')
+                .then((response) => {
+                    temp.categories = response.data.data;
+                })
+                .catch(function (error) {
+                    toastr.error('Something is wrong Data Loaded')
+                });
+            },
+
+            getAllProduct(){
+                var temp = this;
+                axios.get('/api/allProduct')
+                .then((response) => {
+                    temp.products = response.data.data;
+                })
+                .catch(function (error) {
+                    toastr.error('Something is wrong Data Loaded')
+                });
+            },
+
+            getAllInvoice(){
+                var temp = this;
+                axios.get('/api/allInvoice')
+                .then((response) => {
+                    temp.invoices = response.data.data;
+                })
+                .catch(function (error) {
+                    toastr.error('Something is wrong Data Loaded')
+                });
+            },
+
+            getAllCustomer(){
+                var temp = this;
+                axios.get('/api/allCustomer')
                 .then((response) => {
                     temp.customers = response.data.data;
                 })
@@ -244,56 +302,9 @@
                 });
             },
 
-            getSuppliers(){
+            getThisYearInvoices(report_year){
                 var temp = this;
-                axios.get('/api/suppliers')
-                .then((response) => {
-                    temp.suppliers = response.data.data;
-                })
-                .catch(function (error) {
-                    toastr.error('Something is wrong Data Loaded')
-                });
-            },
-
-            getCategory(){
-                var temp = this;
-                axios.get('/api/categories')
-                .then((response) => {
-                    temp.categories = response.data.data;
-                })
-                .catch(function (error) {
-                    toastr.error('Something is wrong Data Loaded')
-                });
-            },
-
-            getProducts(){
-                var temp = this;
-                axios.get('/api/products')
-                .then((response) => {
-                    temp.products = response.data.data;
-                })
-                .catch(function (error) {
-                    toastr.error('Something is wrong Data Loaded')
-                });
-            },
-
-            getInvoices(){
-                var temp = this;
-                axios.get('/api/allInvoice')
-                .then((response) => {
-                    temp.Invoices = response.data.data;
-                })
-                .catch(function (error) {
-                    this.loadin = true;
-                    toastr.error('Something is wrong Data Loaded')
-                });
-            },
-
-            getThisYearInvoices(){
-                var date = new Date();
-                var year = date.getFullYear()
-                var temp = this;
-                axios.get('/api/getThisYearInvoices/'+year)
+                axios.get('/api/getThisYearInvoices/'+report_year)
                 .then((response) => {
                     temp.thisYearInvoices = response.data.all_data;
                     this.report(response.data);
@@ -344,7 +355,7 @@
                         }
                     }else{
                         var now = new Date();
-                        $('#date_month').append(' '+month_name[now.getMonth()]+ ' ' + now.getFullYear())
+                        $('#date_month').append(' '+ now.getFullYear())
                     }
 
                     var monthNames = []

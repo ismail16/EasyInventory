@@ -10,9 +10,14 @@ use App\Http\Resources\DefaultResource;
 
 class CustomerController extends Controller
 {
-   public function index()
+    public function index()
     {
        return  DefaultResource::collection(Customer::orderBy('id','desc')->paginate(10));
+    }
+
+    public function allCustomer()
+    {
+       return  DefaultResource::collection(Customer::orderBy('id','desc')->get());
     }
 
     public function search($field,$query)

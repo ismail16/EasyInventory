@@ -16,6 +16,11 @@ class SupllierInvoiceController extends Controller
         return  DefaultResource::collection(SupplierInvoice::orderBy('id','desc')->paginate(10));
     }
 
+    public function allSupplierInvoice()
+    {
+        return  DefaultResource::collection(SupplierInvoice::orderBy('id','desc')->get());
+    }
+
     public function search($field,$query)
     {
         return  DefaultResource::collection(SupplierInvoice::where($field,'LIKE',"%$query%")->latest()->paginate(10));

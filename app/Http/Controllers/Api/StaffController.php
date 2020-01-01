@@ -8,12 +8,18 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\DefaultCollection;
 use App\Http\Resources\DefaultResource;
 use App\Models\Staff;
+use App\User;
 
 class StaffController extends Controller
 {
     public function index()
     {
-       return  DefaultResource::collection(Staff::orderBy('id','desc')->paginate(10));
+       return  DefaultResource::collection(User::orderBy('id','desc')->paginate(10));
+    }
+
+    public function allStaff()
+    {
+       return  DefaultResource::collection(Staff::orderBy('id','desc')->get());
     }
 
     public function search($field,$query)
@@ -25,7 +31,7 @@ class StaffController extends Controller
     {
         $request->validate([
             'staff_name' => 'required',
-            'staff_user_name' => 'required',
+            'staff_user_name' => 'required|unique:staff',
             'user_type' => 'required',
             'staff_password' => 'required'
         ]);

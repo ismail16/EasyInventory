@@ -37,7 +37,7 @@
                             </div>
                         </div>
 
-                        <div class="card-body p-2">                           
+                        <div class="card-body p-2">
                             <table id="example1-" class="table table-bordered table-striped table-sm">
                                 <thead>
                                     <tr>
@@ -46,7 +46,6 @@
                                         <th class="text-center">User Name</th>
                                         <th class="text-center">Phone</th>
                                         <th class="text-center">Address</th>
-                                        <th class="text-center">Date</th>
                                         <th class="text-center">Type</th>
                                         <th class="text-center">Action</th>
                                     </tr>
@@ -55,12 +54,11 @@
                                     <tr v-for="(staff, index) in staffs">
                                         <td class="text-center">{{ index+1 }}</td>
                                         <td class="text-center">{{ staff.staff_name }}</td>
-                                        <td class="text-center">{{ staff.staff_user_name }}</td>
+                                        <td class="text-center">{{ staff.email }}</td>
                                         <td class="text-center">{{ staff.staff_phone }}</td>
                                         <td class="text-center">{{ staff.staff_address }}</td>
-                                        <td class="text-center">{{ staff.created_at | myDate }}</td>
                                         <td class="text-center">
-                                            <span v-if="staff.user_type == 1">Admin</span>
+                                            <span v-if="staff.role_id == 1">Admin</span>
                                             <span v-else>Sales Man</span>
                                         </td>
                                         <td class="text-center">
@@ -126,9 +124,7 @@
                                 <div class="form-group mb-0 row">
                                     <label class="col-sm-3 col-form-label">User Name <span class="text-red">*</span></label>
                                     <div class="col-sm-9">
-                                        <input v-model="form.staff_user_name" type="text" name="staff_user_name"
-                                        placeholder="User Name"
-                                        class="form-control form-control-sm w-100" :class="{ 'is-invalid': form.errors.has('staff_user_name') }">
+                                        <input v-model="form.staff_user_name" type="text" name="staff_user_name" placeholder="User Name" class="form-control form-control-sm w-100" :class="{ 'is-invalid': form.errors.has('staff_user_name') }">
                                         <has-error :form="form" field="staff_user_name"></has-error>
                                     </div>
                                 </div>
@@ -199,7 +195,7 @@
                                     <h4 class="card-title">User Type : <b>{{ form.user_type == 1?'Admin':'Staff'}}</b></h4>
                                     <h4 class="card-title">Password : <b>**********</b></h4>
                                 </div>
-                            </div>   
+                            </div>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Close</button>
@@ -252,7 +248,7 @@
                 this.editMode = false;
                 this.form.reset()
                 $('#addNew').modal('show');
-            }, 
+            },
 
             editModal(staff){
                 this.editMode = true;
@@ -276,7 +272,7 @@
                     temp.pagination = response.data.meta;
                 })
                 .catch(function (error) {
-                    this.loadin = true; 
+                    this.loadin = true;
                     toastr.error('Something is wrong Data Loaded')
                 });
             },
@@ -298,11 +294,11 @@
 
             addNewstaff(){
                 var temp = this
-                this.$Progress.start() 
+                this.$Progress.start()
                 this.form.post('/api/staffs')
                 .then(function (response) {
                     $('#addNew').modal('hide')
-                    temp.getData();
+                    temp.getStaffs();
                     toastr.success('Saved staff Successfully')
                     temp.$Progress.finish()
                 })
@@ -313,13 +309,13 @@
             },
 
             updatestaff(id){
-                this.$Progress.start() 
+                this.$Progress.start()
                 var temp = this
                 this.form.put('/api/staffs/'+this.form.id)
                 .then(function (response) {
                     $('#addNew').modal('hide')
                     toastr.success('Updated staff Successfully');
-                    temp.getData();
+                    temp.getStaffs();
                     temp.$Progress.finish()
                 })
                 .catch(function (error) {
@@ -336,7 +332,7 @@
                     },
                     buttonsStyling: false
                 })
-                swalWithBootstrapButtons.fire({ 
+                swalWithBootstrapButtons.fire({
                     text: "Are you sure Delete ?",
                     icon: 'question',
                     position: 'top-end',
@@ -352,7 +348,7 @@
                         axios.delete('/api/staffs/'+id)
                         .then(function (response) {
                             toastr.success('Deleted staff Successfully')
-                            temp.getData();
+                            temp.getStaffs();
                         })
                         .catch(function (error) {
                             toastr.error('Delete staff Failed')

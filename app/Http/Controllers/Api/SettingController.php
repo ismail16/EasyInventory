@@ -23,8 +23,6 @@ class SettingController extends Controller
 
     public function update(Request $request, $id)
     {
-
-
         $req  = $request->setting;
         $settings = Setting::find($id);
 

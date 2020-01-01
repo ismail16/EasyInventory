@@ -15,6 +15,11 @@ class SupllierController extends Controller
     {
        return  SupplierResource::collection(Supplier::orderBy('id','desc')->paginate(10));
     }
+    
+    public function allSupplier()
+    {
+       return  SupplierResource::collection(Supplier::orderBy('id','desc')->get());
+    }
 
     public function search($field,$query)
     {

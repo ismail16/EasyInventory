@@ -16,6 +16,11 @@ class ExpenseController extends Controller
         return  DefaultResource::collection(Expense::orderBy('id','desc')->paginate(10));
     }
 
+    public function allExpense()
+    {
+        return  DefaultResource::collection(Expense::orderBy('id','desc')->get());
+    }
+
     public function search($field,$query)
     {
         return  DefaultResource::collection(Expense::where($field,'LIKE',"%$query%")->latest()->paginate(10));

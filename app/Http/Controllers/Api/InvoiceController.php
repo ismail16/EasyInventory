@@ -16,6 +16,11 @@ class InvoiceController extends Controller
         return  DefaultResource::collection(Invoice::orderBy('id','desc')->paginate(10));
     }
 
+    public function allInvoice()
+    {
+        return  DefaultResource::collection(Invoice::orderBy('id','asc')->get());
+    }
+
     public function search($field,$query)
     {
         return  DefaultResource::collection(Invoice::where($field,'LIKE',"%$query%")->latest()->paginate(10));
@@ -74,12 +79,12 @@ class InvoiceController extends Controller
     {
         $req = $request->Invoice;
 
-// $request->validate([
-//     'customer_name' => 'required',
-//     'customer_phone' => 'required',
-//     'invoice_date' => 'required',
-//     'grand_total_price' => 'required'
-// ]);
+        // $request->validate([
+        //     'customer_name' => 'required',
+        //     'customer_phone' => 'required',
+        //     'invoice_date' => 'required',
+        //     'grand_total_price' => 'required'
+        // ]);
 
         $invoice = Invoice::find($id);
 
@@ -119,11 +124,6 @@ class InvoiceController extends Controller
         $Invoice->delete();
     }
 
-    public function allInvoice()
-    {
-        return  DefaultResource::collection(Invoice::orderBy('id','asc')->get());
-    }
-
     public function getThisMonthInvoices($month)
     {
         $year = date('Y');
@@ -156,10 +156,9 @@ class InvoiceController extends Controller
 
     public function getThisYearInvoices($year)
     {
-        $yr = date('Y');
         $arrs = array();
         for($i=1; $i<=12; $i++) {
-            $month = Invoice::where('created_at', 'LIKE','%'. $yr.'-'.sprintf("%02d", $i).'%')->select('paid_amount')->get();
+            $month = Invoice::where('created_at', 'LIKE','%'. $year.'-'.sprintf("%02d", $i).'%')->select('paid_amount')->get();
             $month_total = 0;
             if (count($month) > 0) {
                 foreach($month as $total) {
@@ -169,7 +168,7 @@ class InvoiceController extends Controller
             array_push($arrs, $month_total);
         }
 
-        $all_data = DefaultResource::collection(Invoice::orderBy('id','desc')->whereYear('created_at', $yr)->get());
+        $all_data = DefaultResource::collection(Invoice::orderBy('id','desc')->whereYear('created_at', $year)->get());
         return array('all_data' => $all_data , 'months'=>$arrs );
     }
 }

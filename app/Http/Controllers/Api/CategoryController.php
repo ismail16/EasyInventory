@@ -15,6 +15,11 @@ class CategoryController extends Controller
         return  DefaultResource::collection(Category::orderBy('id','desc')->paginate(10));
     }
 
+    public function allCategory()
+    {
+        return  DefaultResource::collection(Category::orderBy('id','desc')->get());
+    }
+
     public function search($field,$query)
     {
         return  DefaultResource::collection(Category::where($field,'LIKE',"%$query%")->latest()->paginate(10));

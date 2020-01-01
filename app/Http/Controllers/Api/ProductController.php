@@ -11,11 +11,16 @@ use App\Http\Resources\DefaultResource;
 class ProductController extends Controller
 {
 
-   public function index()
+    public function index()
     {
         $products = DefaultResource::collection(Product::orderBy('id','desc')->paginate(10));
-        
-       return $products;
+        return $products;
+    }
+
+    public function allProduct()
+    {
+        $products = DefaultResource::collection(Product::orderBy('id','desc')->get());
+        return $products;
     }
 
     public function search($field,$query)

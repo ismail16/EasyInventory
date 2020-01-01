@@ -15,12 +15,15 @@ class WarehouseController extends Controller
         return  DefaultResource::collection(Warehouse::orderBy('id','desc')->paginate(10));
     }
 
+    public function allWarehouse()
+    {
+        return  DefaultResource::collection(Warehouse::orderBy('id','desc')->get());
+    }
+
     public function search($field,$query)
     {
         return  DefaultResource::collection(Warehouse::where($field,'LIKE',"%$query%")->latest()->paginate(10));
     }
-
-    
 
     public function store(Request $request)
     {
