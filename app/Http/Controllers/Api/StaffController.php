@@ -55,21 +55,21 @@ class StaffController extends Controller
 
     public function update(Request $request, $id)
     {
+        $staff = User::find($id);
+
         $request->validate([
             'staff_name' => 'required',
-            'staff_user_name' => 'required',
-            'user_type' => 'required'
+            'email' => 'required|email|unique:users,email,'.$staff->id,
+            'role_id' => 'required'
         ]);
 
-        $staff = Staff::find($id);
-
         $staff->staff_name = $request->staff_name;
-        $staff->staff_user_name = $request->staff_user_name;
+        $staff->email = $request->email;
         $staff->staff_phone = $request->staff_phone;
         $staff->staff_address = $request->staff_address;
-        $staff->user_type = $request->user_type;
-        if ($request->staff_password) {
-            $staff->staff_password = Hash::make($request->staff_password);
+        $staff->role_id = $request->role_id;
+         if ($request->password) {
+            $staff->password = Hash::make($request->password);
         }
         $staff->status = 1;
         $staff->save();
@@ -78,7 +78,7 @@ class StaffController extends Controller
 
     public function destroy($id)
     {
-        $staff = Staff::find($id);
+        $staff = User::find($id);
         $staff->delete();
     }
 }

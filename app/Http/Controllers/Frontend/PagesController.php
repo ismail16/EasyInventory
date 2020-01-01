@@ -16,7 +16,7 @@ class PagesController extends Controller
 
     public function documentation()
     {
-        return view('admin.documentation.index');
+        return view('documentation.index');
     }
 
 

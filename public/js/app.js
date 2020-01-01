@@ -3599,6 +3599,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -6625,8 +6627,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -6755,6 +6755,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
 //
 //
 //
@@ -7400,13 +7401,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -52052,165 +52046,183 @@ var render = function() {
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "card-body p-2" }, [
-                _c(
-                  "table",
-                  {
-                    staticClass: "table table-bordered table-striped table-sm",
-                    attrs: { id: "example1-" }
-                  },
-                  [
-                    _vm._m(1),
-                    _vm._v(" "),
-                    _vm.Invoices.length > 0
-                      ? _c(
-                          "tbody",
-                          _vm._l(_vm.Invoices, function(Invoice, index) {
-                            return _c("tr", [
-                              _c("td", { staticClass: "text-center" }, [
-                                _vm._v(_vm._s(index + 1))
-                              ]),
-                              _vm._v(" "),
-                              _c("td", { staticClass: "text-center" }, [
-                                _vm._v(_vm._s(Invoice.customer_name))
-                              ]),
-                              _vm._v(" "),
-                              _c("td", { staticClass: "text-center" }, [
-                                _vm._v(_vm._s(Invoice.customer_phone))
-                              ]),
-                              _vm._v(" "),
-                              _c("td", { staticClass: "text-center" }, [
-                                _vm._v(_vm._s(Invoice.customer_email))
-                              ]),
-                              _vm._v(" "),
-                              _c("td", { staticClass: "text-center" }, [
-                                _vm._v(
-                                  _vm._s(_vm.setting.store_currency) +
-                                    " " +
-                                    _vm._s(Invoice.grand_total_price)
-                                )
-                              ]),
-                              _vm._v(" "),
-                              _c("td", { staticClass: "text-center" }, [
-                                Invoice.paid_amount == Invoice.grand_total_price
-                                  ? _c(
-                                      "span",
-                                      { staticClass: "text-success" },
-                                      [
-                                        _vm._v(
-                                          "\n                                            Full paid\n                                        "
-                                        )
-                                      ]
-                                    )
-                                  : _c(
-                                      "span",
-                                      { staticClass: "text-primary" },
-                                      [
-                                        _vm._v(
-                                          "\n                                            " +
-                                            _vm._s(_vm.setting.store_currency) +
-                                            " " +
-                                            _vm._s(Invoice.paid_amount) +
-                                            "\n                                        "
-                                        )
-                                      ]
-                                    )
-                              ]),
-                              _vm._v(" "),
-                              _c("td", { staticClass: "text-center" }, [
-                                Invoice.due_amount == 0.0
-                                  ? _c(
-                                      "span",
-                                      { staticClass: "text-success" },
-                                      [
-                                        _vm._v(
-                                          "\n                                            Full paid\n                                        "
-                                        )
-                                      ]
-                                    )
-                                  : _c("span", { staticClass: "text-danger" }, [
-                                      _vm._v(
-                                        "\n                                            " +
-                                          _vm._s(_vm.setting.store_currency) +
-                                          " " +
-                                          _vm._s(Invoice.due_amount) +
-                                          "\n                                        "
-                                      )
-                                    ])
-                              ]),
-                              _vm._v(" "),
-                              _c("td", { staticClass: "text-center" }, [
-                                _vm._v(_vm._s(Invoice.invoice_date))
-                              ]),
-                              _vm._v(" "),
-                              _c("td", { staticClass: "text-center" }, [
-                                Invoice.status == 1
-                                  ? _c(
-                                      "span",
-                                      { staticClass: "text-success" },
-                                      [
-                                        _vm._v(
-                                          "\n                                            Active\n                                        "
-                                        )
-                                      ]
-                                    )
-                                  : _c("span", { staticClass: "text-danger" }, [
-                                      _vm._v(
-                                        "\n                                            Deactive\n                                        "
-                                      )
-                                    ])
-                              ]),
-                              _vm._v(" "),
-                              _c(
-                                "td",
-                                { staticClass: "text-center" },
-                                [
-                                  _c(
-                                    "router-link",
-                                    {
-                                      staticClass:
-                                        "btn btn-xs btn-success mr-1 ml-1",
-                                      attrs: {
-                                        to: "/invoice/" + Invoice.id + "/show"
-                                      }
-                                    },
-                                    [_c("i", { staticClass: "fa fa-eye" })]
-                                  ),
-                                  _vm._v(" "),
-                                  _c(
-                                    "router-link",
-                                    {
-                                      staticClass:
-                                        "btn btn-xs btn-success mr-1 ml-1",
-                                      attrs: {
-                                        to: "/invoice/" + Invoice.id + "/edit"
-                                      }
-                                    },
-                                    [_c("i", { staticClass: "fa fa-edit" })]
-                                  ),
-                                  _vm._v(" "),
-                                  _c(
-                                    "button",
-                                    {
-                                      staticClass: "btn btn-xs btn-danger",
-                                      on: {
-                                        click: function($event) {
-                                          $event.preventDefault()
-                                          return _vm.deleteSupplier(Invoice.id)
-                                        }
-                                      }
-                                    },
-                                    [_c("i", { staticClass: "fa fa-trash" })]
+                _c("div", { staticClass: "table-responsive-sm" }, [
+                  _c(
+                    "table",
+                    {
+                      staticClass:
+                        "table table-bordered table-striped table-sm",
+                      attrs: { id: "example1-" }
+                    },
+                    [
+                      _vm._m(1),
+                      _vm._v(" "),
+                      _vm.Invoices.length > 0
+                        ? _c(
+                            "tbody",
+                            _vm._l(_vm.Invoices, function(Invoice, index) {
+                              return _c("tr", [
+                                _c("td", { staticClass: "text-center" }, [
+                                  _vm._v(_vm._s(index + 1))
+                                ]),
+                                _vm._v(" "),
+                                _c("td", { staticClass: "text-center" }, [
+                                  _vm._v(_vm._s(Invoice.customer_name))
+                                ]),
+                                _vm._v(" "),
+                                _c("td", { staticClass: "text-center" }, [
+                                  _vm._v(_vm._s(Invoice.customer_phone))
+                                ]),
+                                _vm._v(" "),
+                                _c("td", { staticClass: "text-center" }, [
+                                  _vm._v(_vm._s(Invoice.customer_email))
+                                ]),
+                                _vm._v(" "),
+                                _c("td", { staticClass: "text-center" }, [
+                                  _vm._v(
+                                    _vm._s(_vm.setting.store_currency) +
+                                      " " +
+                                      _vm._s(Invoice.grand_total_price)
                                   )
-                                ],
-                                1
-                              )
-                            ])
-                          }),
-                          0
-                        )
-                      : _c("tbody", [_vm._m(2)])
-                  ]
-                )
+                                ]),
+                                _vm._v(" "),
+                                _c("td", { staticClass: "text-center" }, [
+                                  Invoice.paid_amount ==
+                                  Invoice.grand_total_price
+                                    ? _c(
+                                        "span",
+                                        { staticClass: "text-success" },
+                                        [
+                                          _vm._v(
+                                            "\n                                                Full paid\n                                            "
+                                          )
+                                        ]
+                                      )
+                                    : _c(
+                                        "span",
+                                        { staticClass: "text-primary" },
+                                        [
+                                          _vm._v(
+                                            "\n                                                " +
+                                              _vm._s(
+                                                _vm.setting.store_currency
+                                              ) +
+                                              " " +
+                                              _vm._s(Invoice.paid_amount) +
+                                              "\n                                            "
+                                          )
+                                        ]
+                                      )
+                                ]),
+                                _vm._v(" "),
+                                _c("td", { staticClass: "text-center" }, [
+                                  Invoice.due_amount == 0.0
+                                    ? _c(
+                                        "span",
+                                        { staticClass: "text-success" },
+                                        [
+                                          _vm._v(
+                                            "\n                                                Full paid\n                                            "
+                                          )
+                                        ]
+                                      )
+                                    : _c(
+                                        "span",
+                                        { staticClass: "text-danger" },
+                                        [
+                                          _vm._v(
+                                            "\n                                                " +
+                                              _vm._s(
+                                                _vm.setting.store_currency
+                                              ) +
+                                              " " +
+                                              _vm._s(Invoice.due_amount) +
+                                              "\n                                            "
+                                          )
+                                        ]
+                                      )
+                                ]),
+                                _vm._v(" "),
+                                _c("td", { staticClass: "text-center" }, [
+                                  _vm._v(_vm._s(Invoice.invoice_date))
+                                ]),
+                                _vm._v(" "),
+                                _c("td", { staticClass: "text-center" }, [
+                                  Invoice.status == 1
+                                    ? _c(
+                                        "span",
+                                        { staticClass: "text-success" },
+                                        [
+                                          _vm._v(
+                                            "\n                                                Active\n                                            "
+                                          )
+                                        ]
+                                      )
+                                    : _c(
+                                        "span",
+                                        { staticClass: "text-danger" },
+                                        [
+                                          _vm._v(
+                                            "\n                                                Deactive\n                                            "
+                                          )
+                                        ]
+                                      )
+                                ]),
+                                _vm._v(" "),
+                                _c(
+                                  "td",
+                                  { staticClass: "text-center" },
+                                  [
+                                    _c(
+                                      "router-link",
+                                      {
+                                        staticClass:
+                                          "btn btn-xs btn-success mr-1 ml-1",
+                                        attrs: {
+                                          to: "/invoice/" + Invoice.id + "/show"
+                                        }
+                                      },
+                                      [_c("i", { staticClass: "fa fa-eye" })]
+                                    ),
+                                    _vm._v(" "),
+                                    _c(
+                                      "router-link",
+                                      {
+                                        staticClass:
+                                          "btn btn-xs btn-success mr-1 ml-1",
+                                        attrs: {
+                                          to: "/invoice/" + Invoice.id + "/edit"
+                                        }
+                                      },
+                                      [_c("i", { staticClass: "fa fa-edit" })]
+                                    ),
+                                    _vm._v(" "),
+                                    _c(
+                                      "button",
+                                      {
+                                        staticClass: "btn btn-xs btn-danger",
+                                        on: {
+                                          click: function($event) {
+                                            $event.preventDefault()
+                                            return _vm.deleteSupplier(
+                                              Invoice.id
+                                            )
+                                          }
+                                        }
+                                      },
+                                      [_c("i", { staticClass: "fa fa-trash" })]
+                                    )
+                                  ],
+                                  1
+                                )
+                              ])
+                            }),
+                            0
+                          )
+                        : _c("tbody", [_vm._m(2)])
+                    ]
+                  )
+                ])
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "card-footer pb-0 pt-0" }, [
@@ -59620,98 +59632,113 @@ var render = function() {
                 "div",
                 { staticClass: "card-body p-2" },
                 [
-                  _c(
-                    "table",
-                    {
-                      staticClass:
-                        "table table-bordered table-striped table-sm",
-                      attrs: { id: "example1-" }
-                    },
-                    [
-                      _vm._m(1),
-                      _vm._v(" "),
-                      _vm.staffs.length > 0
-                        ? _c(
-                            "tbody",
-                            _vm._l(_vm.staffs, function(staff, index) {
-                              return _c("tr", [
-                                _c("td", { staticClass: "text-center" }, [
-                                  _vm._v(_vm._s(index + 1))
-                                ]),
-                                _vm._v(" "),
-                                _c("td", { staticClass: "text-center" }, [
-                                  _vm._v(_vm._s(staff.staff_name))
-                                ]),
-                                _vm._v(" "),
-                                _c("td", { staticClass: "text-center" }, [
-                                  _vm._v(_vm._s(staff.email))
-                                ]),
-                                _vm._v(" "),
-                                _c("td", { staticClass: "text-center" }, [
-                                  _vm._v(_vm._s(staff.staff_phone))
-                                ]),
-                                _vm._v(" "),
-                                _c("td", { staticClass: "text-center" }, [
-                                  _vm._v(_vm._s(staff.staff_address))
-                                ]),
-                                _vm._v(" "),
-                                _c("td", { staticClass: "text-center" }, [
-                                  staff.role_id == 1
-                                    ? _c("span", [_vm._v("Admin")])
-                                    : _c("span", [_vm._v("Sales Man")])
-                                ]),
-                                _vm._v(" "),
-                                _c("td", { staticClass: "text-center" }, [
-                                  _c(
-                                    "a",
-                                    {
-                                      staticClass: "btn btn-xs btn-success",
-                                      on: {
-                                        click: function($event) {
-                                          $event.preventDefault()
-                                          return _vm.showModal(staff)
-                                        }
-                                      }
-                                    },
-                                    [_c("i", { staticClass: "fa fa-eye" })]
-                                  ),
+                  _c("div", { staticClass: "table-responsive-sm" }, [
+                    _c(
+                      "table",
+                      {
+                        staticClass:
+                          "table table-bordered table-striped table-sm",
+                        attrs: { id: "example1-" }
+                      },
+                      [
+                        _vm._m(1),
+                        _vm._v(" "),
+                        _vm.staffs.length > 0
+                          ? _c(
+                              "tbody",
+                              _vm._l(_vm.staffs, function(staff, index) {
+                                return _c("tr", [
+                                  _c("td", { staticClass: "text-center" }, [
+                                    _vm._v(_vm._s(index + 1))
+                                  ]),
                                   _vm._v(" "),
-                                  _c(
-                                    "a",
-                                    {
-                                      staticClass:
-                                        "btn btn-xs btn-success mr-1",
-                                      on: {
-                                        click: function($event) {
-                                          $event.preventDefault()
-                                          return _vm.editModal(staff)
-                                        }
-                                      }
-                                    },
-                                    [_c("i", { staticClass: "fa fa-edit" })]
-                                  ),
+                                  _c("td", { staticClass: "text-center" }, [
+                                    _vm._v(_vm._s(staff.staff_name))
+                                  ]),
                                   _vm._v(" "),
-                                  _c(
-                                    "button",
-                                    {
-                                      staticClass: "btn btn-xs btn-danger",
-                                      on: {
-                                        click: function($event) {
-                                          $event.preventDefault()
-                                          return _vm.deletestaff(staff.id)
+                                  _c("td", { staticClass: "text-center" }, [
+                                    _vm._v(_vm._s(staff.email))
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("td", { staticClass: "text-center" }, [
+                                    _vm._v(_vm._s(staff.staff_phone))
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("td", { staticClass: "text-center" }, [
+                                    _vm._v(_vm._s(staff.staff_address))
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("td", { staticClass: "text-center" }, [
+                                    staff.role_id == 1
+                                      ? _c("span", [_vm._v("Admin")])
+                                      : _c("span", [_vm._v("Sales Man")])
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("td", { staticClass: "text-center" }, [
+                                    _c(
+                                      "a",
+                                      {
+                                        staticClass: "btn btn-xs btn-success",
+                                        on: {
+                                          click: function($event) {
+                                            $event.preventDefault()
+                                            return _vm.showModal(staff)
+                                          }
                                         }
-                                      }
-                                    },
-                                    [_c("i", { staticClass: "fa fa-trash" })]
-                                  )
+                                      },
+                                      [_c("i", { staticClass: "fa fa-eye" })]
+                                    ),
+                                    _vm._v(" "),
+                                    staff.id != 1
+                                      ? _c(
+                                          "a",
+                                          {
+                                            staticClass:
+                                              "btn btn-xs btn-success mr-1",
+                                            on: {
+                                              click: function($event) {
+                                                $event.preventDefault()
+                                                return _vm.editModal(staff)
+                                              }
+                                            }
+                                          },
+                                          [
+                                            _c("i", {
+                                              staticClass: "fa fa-edit"
+                                            })
+                                          ]
+                                        )
+                                      : _vm._e(),
+                                    _vm._v(" "),
+                                    staff.id != 2 && staff.id != 1
+                                      ? _c(
+                                          "button",
+                                          {
+                                            staticClass:
+                                              "btn btn-xs btn-danger",
+                                            on: {
+                                              click: function($event) {
+                                                $event.preventDefault()
+                                                return _vm.deletestaff(staff.id)
+                                              }
+                                            }
+                                          },
+                                          [
+                                            _c("i", {
+                                              staticClass: "fa fa-trash"
+                                            })
+                                          ]
+                                        )
+                                      : _vm._e()
+                                  ])
                                 ])
-                              ])
-                            }),
-                            0
-                          )
-                        : _c("tbody", [_vm._m(2)])
-                    ]
-                  ),
+                              }),
+                              0
+                            )
+                          : _c("tbody", [_vm._m(2)])
+                      ]
+                    )
+                  ]),
                   _vm._v(" "),
                   _vm.pagination.last_page > 1
                     ? _c("pagination", {
@@ -60108,7 +60135,7 @@ var render = function() {
                       },
                       [
                         _c("i", { staticClass: "fa fa-plus" }),
-                        _vm._v(" Create\n                            ")
+                        _vm._v(" Create\n                        ")
                       ]
                     ),
                     _vm._v(" "),
@@ -60128,7 +60155,7 @@ var render = function() {
                       },
                       [
                         _c("i", { staticClass: "fa fa-sync" }),
-                        _vm._v(" Update\n                            ")
+                        _vm._v(" Update\n                        ")
                       ]
                     )
                   ])
@@ -60164,7 +60191,7 @@ var render = function() {
                     _vm._v(" "),
                     _c("h4", { staticClass: "card-title" }, [
                       _vm._v("User Name : "),
-                      _c("b", [_vm._v(_vm._s(_vm.form.staff_user_name))])
+                      _c("b", [_vm._v(_vm._s(_vm.form.email))])
                     ]),
                     _vm._v(" "),
                     _c("h4", { staticClass: "card-title" }, [
@@ -61220,175 +61247,190 @@ var render = function() {
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "card-body p-2" }, [
-                _c(
-                  "table",
-                  {
-                    staticClass: "table table-bordered table-striped table-sm",
-                    attrs: { id: "example1-" }
-                  },
-                  [
-                    _vm._m(1),
-                    _vm._v(" "),
-                    _vm.supplierInvoices.length > 0
-                      ? _c(
-                          "tbody",
-                          _vm._l(_vm.supplierInvoices, function(
-                            supplierInvoice,
-                            index
-                          ) {
-                            return _c("tr", [
-                              _c("td", { staticClass: "text-center" }, [
-                                _vm._v(_vm._s(index + 1))
-                              ]),
-                              _vm._v(" "),
-                              _c("td", { staticClass: "text-center" }, [
-                                _vm._v(_vm._s(supplierInvoice.supplier_id))
-                              ]),
-                              _vm._v(" "),
-                              _c("td", { staticClass: "text-center" }, [
-                                _vm._v(_vm._s(supplierInvoice.warehouse_id))
-                              ]),
-                              _vm._v(" "),
-                              _c("td", { staticClass: "text-center" }, [
-                                _c("img", {
-                                  directives: [
-                                    {
-                                      name: "show",
-                                      rawName: "v-show",
-                                      value: supplierInvoice.image,
-                                      expression: "supplierInvoice.image"
+                _c("div", { staticClass: "table-responsive-sm" }, [
+                  _c(
+                    "table",
+                    {
+                      staticClass:
+                        "table table-bordered table-striped table-sm",
+                      attrs: { id: "example1-" }
+                    },
+                    [
+                      _vm._m(1),
+                      _vm._v(" "),
+                      _vm.supplierInvoices.length > 0
+                        ? _c(
+                            "tbody",
+                            _vm._l(_vm.supplierInvoices, function(
+                              supplierInvoice,
+                              index
+                            ) {
+                              return _c("tr", [
+                                _c("td", { staticClass: "text-center" }, [
+                                  _vm._v(_vm._s(index + 1))
+                                ]),
+                                _vm._v(" "),
+                                _c("td", { staticClass: "text-center" }, [
+                                  _vm._v(_vm._s(supplierInvoice.supplier_id))
+                                ]),
+                                _vm._v(" "),
+                                _c("td", { staticClass: "text-center" }, [
+                                  _vm._v(_vm._s(supplierInvoice.warehouse_id))
+                                ]),
+                                _vm._v(" "),
+                                _c("td", { staticClass: "text-center" }, [
+                                  _c("img", {
+                                    directives: [
+                                      {
+                                        name: "show",
+                                        rawName: "v-show",
+                                        value: supplierInvoice.image,
+                                        expression: "supplierInvoice.image"
+                                      }
+                                    ],
+                                    staticClass: "img-fluid",
+                                    staticStyle: {
+                                      "max-height": "50px",
+                                      "max-width": "50px"
+                                    },
+                                    attrs: {
+                                      src: _vm.getImgUrl(supplierInvoice.image),
+                                      alt: "User Avatar"
                                     }
-                                  ],
-                                  staticClass: "img-fluid",
-                                  staticStyle: {
-                                    "max-height": "50px",
-                                    "max-width": "50px"
-                                  },
-                                  attrs: {
-                                    src: _vm.getImgUrl(supplierInvoice.image),
-                                    alt: "User Avatar"
-                                  }
-                                })
-                              ]),
-                              _vm._v(" "),
-                              _c("td", { staticClass: "text-center" }, [
-                                supplierInvoice.paid_amount ==
-                                supplierInvoice.grand_total_price
-                                  ? _c(
-                                      "span",
-                                      { staticClass: "text-success" },
-                                      [
-                                        _vm._v(
-                                          "\n                                            Full paid\n                                        "
-                                        )
-                                      ]
-                                    )
-                                  : _c(
-                                      "span",
-                                      { staticClass: "text-primary" },
-                                      [
-                                        _vm._v(
-                                          "\n                                            " +
-                                            _vm._s(_vm.setting.store_currency) +
-                                            " " +
-                                            _vm._s(
-                                              supplierInvoice.paid_amount
-                                            ) +
-                                            "\n                                        "
-                                        )
-                                      ]
-                                    )
-                              ]),
-                              _vm._v(" "),
-                              _c("td", { staticClass: "text-center" }, [
-                                supplierInvoice.due_amount == 0.0
-                                  ? _c(
-                                      "span",
-                                      { staticClass: "text-success" },
-                                      [
-                                        _vm._v(
-                                          "\n                                            Full paid\n                                        "
-                                        )
-                                      ]
-                                    )
-                                  : _c("span", { staticClass: "text-danger" }, [
-                                      _vm._v(
-                                        "\n                                            " +
-                                          _vm._s(_vm.setting.store_currency) +
-                                          " " +
-                                          _vm._s(supplierInvoice.due_amount) +
-                                          "\n                                        "
-                                      )
-                                    ])
-                              ]),
-                              _vm._v(" "),
-                              _c("td", { staticClass: "text-center" }, [
-                                _vm._v(
-                                  _vm._s(
-                                    _vm._f("myDate")(supplierInvoice.created_at)
-                                  )
-                                )
-                              ]),
-                              _vm._v(" "),
-                              _c(
-                                "td",
-                                { staticClass: "text-center" },
-                                [
-                                  _c(
-                                    "router-link",
-                                    {
-                                      staticClass:
-                                        "btn btn-xs btn-success mr-1 ml-1",
-                                      attrs: {
-                                        to:
-                                          "/supplier-invoice/" +
-                                          supplierInvoice.id +
-                                          "/show"
-                                      }
-                                    },
-                                    [_c("i", { staticClass: "fa fa-eye" })]
-                                  ),
-                                  _vm._v(" "),
-                                  _c(
-                                    "router-link",
-                                    {
-                                      staticClass:
-                                        "btn btn-xs btn-success mr-1 ml-1",
-                                      attrs: {
-                                        to:
-                                          "/supplier-invoice/" +
-                                          supplierInvoice.id +
-                                          "/edit"
-                                      }
-                                    },
-                                    [_c("i", { staticClass: "fa fa-edit" })]
-                                  ),
-                                  _vm._v(" "),
-                                  _c(
-                                    "button",
-                                    {
-                                      staticClass: "btn btn-xs btn-danger",
-                                      on: {
-                                        click: function($event) {
-                                          $event.preventDefault()
-                                          return _vm.deleteSupplier(
-                                            supplierInvoice.id
+                                  })
+                                ]),
+                                _vm._v(" "),
+                                _c("td", { staticClass: "text-center" }, [
+                                  supplierInvoice.paid_amount ==
+                                  supplierInvoice.grand_total_price
+                                    ? _c(
+                                        "span",
+                                        { staticClass: "text-success" },
+                                        [
+                                          _vm._v(
+                                            "\n                                                Full paid\n                                            "
                                           )
-                                        }
-                                      }
-                                    },
-                                    [_c("i", { staticClass: "fa fa-trash" })]
+                                        ]
+                                      )
+                                    : _c(
+                                        "span",
+                                        { staticClass: "text-primary" },
+                                        [
+                                          _vm._v(
+                                            "\n                                                " +
+                                              _vm._s(
+                                                _vm.setting.store_currency
+                                              ) +
+                                              " " +
+                                              _vm._s(
+                                                supplierInvoice.paid_amount
+                                              ) +
+                                              "\n                                            "
+                                          )
+                                        ]
+                                      )
+                                ]),
+                                _vm._v(" "),
+                                _c("td", { staticClass: "text-center" }, [
+                                  supplierInvoice.due_amount == 0.0
+                                    ? _c(
+                                        "span",
+                                        { staticClass: "text-success" },
+                                        [
+                                          _vm._v(
+                                            "\n                                                Full paid\n                                            "
+                                          )
+                                        ]
+                                      )
+                                    : _c(
+                                        "span",
+                                        { staticClass: "text-danger" },
+                                        [
+                                          _vm._v(
+                                            "\n                                                " +
+                                              _vm._s(
+                                                _vm.setting.store_currency
+                                              ) +
+                                              " " +
+                                              _vm._s(
+                                                supplierInvoice.due_amount
+                                              ) +
+                                              "\n                                            "
+                                          )
+                                        ]
+                                      )
+                                ]),
+                                _vm._v(" "),
+                                _c("td", { staticClass: "text-center" }, [
+                                  _vm._v(
+                                    _vm._s(
+                                      _vm._f("myDate")(
+                                        supplierInvoice.created_at
+                                      )
+                                    )
                                   )
-                                ],
-                                1
-                              )
-                            ])
-                          }),
-                          0
-                        )
-                      : _c("tbody", [_vm._m(2)])
-                  ]
-                )
+                                ]),
+                                _vm._v(" "),
+                                _c(
+                                  "td",
+                                  { staticClass: "text-center" },
+                                  [
+                                    _c(
+                                      "router-link",
+                                      {
+                                        staticClass:
+                                          "btn btn-xs btn-success mr-1 ml-1",
+                                        attrs: {
+                                          to:
+                                            "/supplier-invoice/" +
+                                            supplierInvoice.id +
+                                            "/show"
+                                        }
+                                      },
+                                      [_c("i", { staticClass: "fa fa-eye" })]
+                                    ),
+                                    _vm._v(" "),
+                                    _c(
+                                      "router-link",
+                                      {
+                                        staticClass:
+                                          "btn btn-xs btn-success mr-1 ml-1",
+                                        attrs: {
+                                          to:
+                                            "/supplier-invoice/" +
+                                            supplierInvoice.id +
+                                            "/edit"
+                                        }
+                                      },
+                                      [_c("i", { staticClass: "fa fa-edit" })]
+                                    ),
+                                    _vm._v(" "),
+                                    _c(
+                                      "button",
+                                      {
+                                        staticClass: "btn btn-xs btn-danger",
+                                        on: {
+                                          click: function($event) {
+                                            $event.preventDefault()
+                                            return _vm.deleteSupplier(
+                                              supplierInvoice.id
+                                            )
+                                          }
+                                        }
+                                      },
+                                      [_c("i", { staticClass: "fa fa-trash" })]
+                                    )
+                                  ],
+                                  1
+                                )
+                              ])
+                            }),
+                            0
+                          )
+                        : _c("tbody", [_vm._m(2)])
+                    ]
+                  )
+                ])
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "card-footer pb-0 pt-0" }, [
@@ -81193,8 +81235,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /home/mnbtech/Projects/EasyInventory/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /home/mnbtech/Projects/EasyInventory/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! E:\xampp\htdocs\EasyInventory\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! E:\xampp\htdocs\EasyInventory\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

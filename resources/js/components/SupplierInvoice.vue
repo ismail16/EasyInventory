@@ -40,84 +40,77 @@
                         </div>
 
                         <div class="card-body p-2">
-                            <table id="example1-" class="table table-bordered table-striped table-sm">
-                                <thead>
-                                    <tr>
-                                        <th class="text-center">S.N</th>
-                                        <th class="text-center">Supplier Name</th>
-                                        <th class="text-center">Warehouse Name</th>
-                                        <th class="text-center">Image</th>
-                                        <th class="text-center">Paid Amount</th>
-                                        <th class="text-center">Due Amount</th>
-                                        <th class="text-center">Date</th>
-                                        <!-- <th class="text-center">status</th> -->
-                                        <th class="text-center">Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody v-if="supplierInvoices.length > 0 ">
+                            <div class="table-responsive-sm">
+                                <table id="example1-" class="table table-bordered table-striped table-sm">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-center">S.N</th>
+                                            <th class="text-center">Supplier Name</th>
+                                            <th class="text-center">Warehouse Name</th>
+                                            <th class="text-center">Image</th>
+                                            <th class="text-center">Paid Amount</th>
+                                            <th class="text-center">Due Amount</th>
+                                            <th class="text-center">Date</th>
+                                            <th class="text-center">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody v-if="supplierInvoices.length > 0 ">
 
-                                    <tr v-for="(supplierInvoice, index) in supplierInvoices">
-                                        <td class="text-center">{{ index+1 }}</td>
-                                        <td class="text-center">{{ supplierInvoice.supplier_id }}</td>
-                                        <td class="text-center">{{ supplierInvoice.warehouse_id }}</td>
-                                        <td class="text-center">
-                                            <img v-show="supplierInvoice.image" :src="getImgUrl(supplierInvoice.image)"  class="img-fluid" style="max-height: 50px; max-width: 50px;" alt="User Avatar">
-                                        </td>
+                                        <tr v-for="(supplierInvoice, index) in supplierInvoices">
+                                            <td class="text-center">{{ index+1 }}</td>
+                                            <td class="text-center">{{ supplierInvoice.supplier_id }}</td>
+                                            <td class="text-center">{{ supplierInvoice.warehouse_id }}</td>
+                                            <td class="text-center">
+                                                <img v-show="supplierInvoice.image" :src="getImgUrl(supplierInvoice.image)"  class="img-fluid" style="max-height: 50px; max-width: 50px;" alt="User Avatar">
+                                            </td>
 
-                                        <td class="text-center">
-                                            <span v-if="supplierInvoice.paid_amount == supplierInvoice.grand_total_price" class="text-success">
-                                                Full paid
-                                            </span>
-                                            <span v-else class="text-primary">
-                                                {{ setting.store_currency }} {{ supplierInvoice.paid_amount }}
-                                            </span>
-                                        </td>
+                                            <td class="text-center">
+                                                <span v-if="supplierInvoice.paid_amount == supplierInvoice.grand_total_price" class="text-success">
+                                                    Full paid
+                                                </span>
+                                                <span v-else class="text-primary">
+                                                    {{ setting.store_currency }} {{ supplierInvoice.paid_amount }}
+                                                </span>
+                                            </td>
 
-                                        <td class="text-center">
-                                            <span v-if="supplierInvoice.due_amount == 0.00" class="text-success">
-                                                Full paid
-                                            </span>
-                                            <span v-else class="text-danger">
-                                                {{ setting.store_currency }} {{ supplierInvoice.due_amount }}
-                                            </span>
-                                        </td>
+                                            <td class="text-center">
+                                                <span v-if="supplierInvoice.due_amount == 0.00" class="text-success">
+                                                    Full paid
+                                                </span>
+                                                <span v-else class="text-danger">
+                                                    {{ setting.store_currency }} {{ supplierInvoice.due_amount }}
+                                                </span>
+                                            </td>
 
-                                        <td class="text-center">{{ supplierInvoice.created_at | myDate }}</td>
-                                       <!--  <td class="text-center">
-                                            <span v-if="supplierInvoice.status == 1" class="text-success">
-                                                Active
-                                            </span>
-                                            <span v-else class="text-danger">
-                                                Deactive
-                                            </span>
-                                        </td> -->
-                                        <td class="text-center">
-                                            <router-link :to="'/supplier-invoice/'+ supplierInvoice.id +'/show'" class="btn btn-xs btn-success mr-1 ml-1">
-                                                <i class="fa fa-eye"></i>
-                                            </router-link>
+                                            <td class="text-center">{{ supplierInvoice.created_at | myDate }}</td>
+                                            <td class="text-center">
+                                                <router-link :to="'/supplier-invoice/'+ supplierInvoice.id +'/show'" class="btn btn-xs btn-success mr-1 ml-1">
+                                                    <i class="fa fa-eye"></i>
+                                                </router-link>
 
-                                            <router-link :to="'/supplier-invoice/'+ supplierInvoice.id +'/edit'" class="btn btn-xs btn-success mr-1 ml-1">
-                                                <i class="fa fa-edit"></i>
-                                            </router-link>
+                                                <router-link :to="'/supplier-invoice/'+ supplierInvoice.id +'/edit'" class="btn btn-xs btn-success mr-1 ml-1">
+                                                    <i class="fa fa-edit"></i>
+                                                </router-link>
 
-                                            <button class="btn btn-xs btn-danger" @click.prevent="deleteSupplier(supplierInvoice.id)">
-                                                <i class="fa fa-trash"></i>
-                                            </button>
-                                        </td>
-                                    </tr>
-                                </tbody>
+                                                <button class="btn btn-xs btn-danger" @click.prevent="deleteSupplier(supplierInvoice.id)">
+                                                    <i class="fa fa-trash"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
 
-                                <tbody v-else>
-                                    <tr>
-                                        <td colspan="8">
-                                            <div class="p-3 mb-2">
-                                                <h3 class="text-center text-danger">Opps!!</h3>
-                                                <p class="text-center">Data not found</p>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                                    <tbody v-else>
+                                        <tr>
+                                            <td colspan="8">
+                                                <div class="p-3 mb-2">
+                                                    <h3 class="text-center text-danger">Opps!!</h3>
+                                                    <p class="text-center">Data not found</p>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                         <div class="card-footer pb-0 pt-0">
                             <div class="float-right">

@@ -9,7 +9,7 @@ class UsersTableSeeder extends Seeder
     {
         DB::table('users')->insert([
             'role_id' => 1,
-            'staff_name' => 'Admin',
+            'staff_name' => 'Supper Admin',
             'email' => 'admin@email.com',
             'staff_phone' => '111111111',
             'staff_address' => 'Admin address',

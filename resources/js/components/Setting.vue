@@ -32,8 +32,6 @@
                                                 </div>
 
                                                 <div id="preview col-sm-2">
-                                                    <!-- <img v-if="store_logo_url" :src="store_logo_url" class="img-fluid" style="max-height: 50px; max-width: 50px;"/> -->
-
                                                     <img v-if="form.store_logo" :src="getImgUrl(form.store_logo)" class="img-fluid" style="max-height: 50px; max-width: 50px;"/>
 
                                                     <img v-else src="/images/logo.png" class="img-fluid" style="max-height: 50px; max-width: 50px;"/>

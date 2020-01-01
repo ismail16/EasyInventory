@@ -38,175 +38,176 @@
                         </div>
 
                         <div class="card-body p-2">
-                            <table id="example1-" class="table table-bordered table-striped table-sm">
-                                <thead>
-                                    <tr>
-                                        <th class="text-center">S.N</th>
-                                        <th class="text-center">Name</th>
-                                        <th class="text-center">User Name</th>
-                                        <th class="text-center">Phone</th>
-                                        <th class="text-center">Address</th>
-                                        <th class="text-center">Type</th>
-                                        <th class="text-center">Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody v-if="staffs.length > 0 ">
-                                    <tr v-for="(staff, index) in staffs">
-                                        <td class="text-center">{{ index+1 }}</td>
-                                        <td class="text-center">{{ staff.staff_name }}</td>
-                                        <td class="text-center">{{ staff.email }}</td>
-                                        <td class="text-center">{{ staff.staff_phone }}</td>
-                                        <td class="text-center">{{ staff.staff_address }}</td>
-                                        <td class="text-center">
-                                            <span v-if="staff.role_id == 1">Admin</span>
-                                            <span v-else>Sales Man</span>
-                                        </td>
-                                        <td class="text-center">
-                                            <a class="btn btn-xs btn-success" @click.prevent="showModal(staff)">
-                                                <i class="fa fa-eye"></i>
-                                            </a>
+                            <div class="table-responsive-sm">
+                                <table id="example1-" class="table table-bordered table-striped table-sm">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-center">S.N</th>
+                                            <th class="text-center">Name</th>
+                                            <th class="text-center">User Name</th>
+                                            <th class="text-center">Phone</th>
+                                            <th class="text-center">Address</th>
+                                            <th class="text-center">Type</th>
+                                            <th class="text-center">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody v-if="staffs.length > 0 ">
+                                        <tr v-for="(staff, index) in staffs">
+                                            <td class="text-center">{{ index+1 }}</td>
+                                            <td class="text-center">{{ staff.staff_name }}</td>
+                                            <td class="text-center">{{ staff.email }}</td>
+                                            <td class="text-center">{{ staff.staff_phone }}</td>
+                                            <td class="text-center">{{ staff.staff_address }}</td>
+                                            <td class="text-center">
+                                                <span v-if="staff.role_id == 1">Admin</span>
+                                                <span v-else>Sales Man</span>
+                                            </td>
+                                            <td class="text-center">
+                                                <a class="btn btn-xs btn-success" @click.prevent="showModal(staff)">
+                                                    <i class="fa fa-eye"></i>
+                                                </a>
 
-                                            <a class="btn btn-xs btn-success mr-1" @click.prevent="editModal(staff)">
-                                                <i class="fa fa-edit"></i>
-                                            </a>
-                                            <button class="btn btn-xs btn-danger" @click.prevent="deletestaff(staff.id)">
-                                                <i class="fa fa-trash"></i>
-                                            </button>
-                                        </td>
-                                    </tr>
-                                </tbody>
+                                                <a v-if="staff.id != 1" class="btn btn-xs btn-success mr-1" @click.prevent="editModal(staff)">
+                                                    <i class="fa fa-edit"></i>
+                                                </a>
+                                                <button v-if="staff.id != 2 && staff.id != 1" class="btn btn-xs btn-danger" @click.prevent="deletestaff(staff.id)">
+                                                    <i class="fa fa-trash"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
 
-                                <tbody v-else>
-                                    <tr>
-                                        <td colspan="8">
-                                            <div class="p-3 mb-2">
-                                                <h3 class="text-center text-danger">Opps!!</h3>
-                                                <p class="text-center">Data not found</p>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                                    <tbody v-else>
+                                        <tr>
+                                            <td colspan="8">
+                                                <div class="p-3 mb-2">
+                                                    <h3 class="text-center text-danger">Opps!!</h3>
+                                                    <p class="text-center">Data not found</p>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                             <pagination v-if="pagination.last_page > 1"
                                 :pagination="pagination"
                                 :offset="5"
                                 @paginate="query === '' ? getData() : searchData()"
-                                ></pagination>
-                            </div>
+                                >  
+                            </pagination>
                         </div>
-                    </div>
-                </div>
-            </section>
-
-
-            <div class="modal fade" id="addNew" tabindex="-1" role="dialog" aria-labelledby="addNewLabel" aria-hidden="true">
-                <div class="modal-dialog modal-md" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 v-show="!editMode" class="modal-title" id="addNewLabel">Add New staff</h5>
-                            <h5 v-show="editMode" class="modal-title" id="addNewLabel">Update staff</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <form @submit.prevent="editMode? updatestaff() : addNewstaff()">
-                            <div class="modal-body">
-                                <div class="form-group mb-0 row">
-                                    <label class="col-sm-3 col-form-label">Name <span class="text-red">*</span></label>
-                                    <div class="col-sm-9">
-                                        <input v-model="form.staff_name" type="text" name="staff_name"
-                                        placeholder="staff name"
-                                        class="form-control form-control-sm w-100" :class="{ 'is-invalid': form.errors.has('staff_name') }">
-                                        <has-error :form="form" field="staff_name"></has-error>
-                                    </div>
-                                </div>
-
-                                <div class="form-group mb-0 row">
-                                    <label class="col-sm-3 col-form-label">User Name <span class="text-red">*</span></label>
-                                    <div class="col-sm-9">
-                                        <input v-model="form.email" type="text" name="email" placeholder="User Name / Email" class="form-control form-control-sm w-100" :class="{ 'is-invalid': form.errors.has('email') }">
-                                        <has-error :form="form" field="email"></has-error>
-                                    </div>
-                                </div>
-                                <div class="form-group mb-0 row">
-                                    <label class="col-sm-3 col-form-label">Phone</label>
-                                    <div class="col-sm-9">
-                                        <input type="number" v-model="form.staff_phone" id="staff_phone" name="staff_phone" class="form-control form-control-sm w-100" placeholder="staff Phone">
-                                    </div>
-                                </div>
-                                <div class="form-group mb-0 row">
-                                    <label class="col-sm-3 col-form-label">Address</label>
-                                    <div class="col-sm-9">
-                                        <textarea v-model="form.staff_address" id="staff_address" name="staff_address" class="w-100" rows="2" placeholder="staff Address"></textarea>
-                                    </div>
-                                </div>
-
-                                <div class="form-group mb-0 row">
-                                    <label class="col-sm-3 col-form-label">User Type <span class="text-red">*</span></label>
-                                    <div class="col-sm-9">
-                                        <select v-model="form.role_id" class="form-control form-control-sm w-100" :class="{ 'is-invalid': form.errors.has('role_id') }" name="role_id" id="fileds">
-                                            <option value="1">Admin</option>
-                                            <option value="2">Sales man</option>
-                                        </select>
-                                        <has-error :form="form" field="role_id"></has-error>
-                                    </div>
-                                </div>
-                                <div class="form-group mb-0 row">
-                                    <label class="col-sm-3 col-form-label">Password <span class="text-red">*</span></label>
-                                    <div class="col-sm-9">
-                                        <input v-model="form.password" type="text" name="staff_password"
-                                        placeholder="staff password"
-                                        class="form-control form-control-sm w-100" :class="{ 'is-invalid': form.errors.has('password') }">
-                                        <has-error :form="form" field="password"></has-error>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Close</button>
-                                <button v-show="!editMode" type="submit" class="btn btn-primary btn-sm">
-                                    <i class="fa fa-plus"></i> Create
-                                </button>
-                                <button v-show="editMode" type="submit" class="btn btn-primary btn-sm">
-                                    <i class="fa fa-sync"></i> Update
-                                </button>
-                            </div>
-                        </form>
                     </div>
                 </div>
             </div>
+        </section>
 
-
-            <div class="modal fade" id="showModal" tabindex="-1" role="dialog">
-                <div class="modal-dialog modal-md" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title">Show staff</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
+        <div class="modal fade" id="addNew" tabindex="-1" role="dialog" aria-labelledby="addNewLabel" aria-hidden="true">
+            <div class="modal-dialog modal-md" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 v-show="!editMode" class="modal-title" id="addNewLabel">Add New staff</h5>
+                        <h5 v-show="editMode" class="modal-title" id="addNewLabel">Update staff</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <form @submit.prevent="editMode? updatestaff() : addNewstaff()">
                         <div class="modal-body">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h4 class="card-title">Name : <b>{{form.staff_name}}</b></h4>
-                                    <h4 class="card-title">User Name : <b>{{form.staff_user_name}}</b></h4>
-                                    <h4 class="card-title">Phone : <b>{{form.staff_phone}}</b></h4>
-                                    <h4 class="card-title">Address : <b>{{form.staff_address}}</b></h4>
-                                    <h4 class="card-title">User Type : <b>{{ form.user_type == 1?'Admin':'Staff'}}</b></h4>
-                                    <h4 class="card-title">Password : <b>**********</b></h4>
+                            <div class="form-group mb-0 row">
+                                <label class="col-sm-3 col-form-label">Name <span class="text-red">*</span></label>
+                                <div class="col-sm-9">
+                                    <input v-model="form.staff_name" type="text" name="staff_name"
+                                    placeholder="staff name"
+                                    class="form-control form-control-sm w-100" :class="{ 'is-invalid': form.errors.has('staff_name') }">
+                                    <has-error :form="form" field="staff_name"></has-error>
+                                </div>
+                            </div>
+
+                            <div class="form-group mb-0 row">
+                                <label class="col-sm-3 col-form-label">User Name <span class="text-red">*</span></label>
+                                <div class="col-sm-9">
+                                    <input v-model="form.email" type="text" name="email" placeholder="User Name / Email" class="form-control form-control-sm w-100" :class="{ 'is-invalid': form.errors.has('email') }">
+                                    <has-error :form="form" field="email"></has-error>
+                                </div>
+                            </div>
+                            <div class="form-group mb-0 row">
+                                <label class="col-sm-3 col-form-label">Phone</label>
+                                <div class="col-sm-9">
+                                    <input type="number" v-model="form.staff_phone" id="staff_phone" name="staff_phone" class="form-control form-control-sm w-100" placeholder="staff Phone">
+                                </div>
+                            </div>
+                            <div class="form-group mb-0 row">
+                                <label class="col-sm-3 col-form-label">Address</label>
+                                <div class="col-sm-9">
+                                    <textarea v-model="form.staff_address" id="staff_address" name="staff_address" class="w-100" rows="2" placeholder="staff Address"></textarea>
+                                </div>
+                            </div>
+
+                            <div class="form-group mb-0 row">
+                                <label class="col-sm-3 col-form-label">User Type <span class="text-red">*</span></label>
+                                <div class="col-sm-9">
+                                    <select v-model="form.role_id" class="form-control form-control-sm w-100" :class="{ 'is-invalid': form.errors.has('role_id') }" name="role_id" id="fileds">
+                                        <option value="1">Admin</option>
+                                        <option value="2">Sales man</option>
+                                    </select>
+                                    <has-error :form="form" field="role_id"></has-error>
+                                </div>
+                            </div>
+                            <div class="form-group mb-0 row">
+                                <label class="col-sm-3 col-form-label">Password <span class="text-red">*</span></label>
+                                <div class="col-sm-9">
+                                    <input v-model="form.password" type="text" name="staff_password"
+                                    placeholder="staff password"
+                                    class="form-control form-control-sm w-100" :class="{ 'is-invalid': form.errors.has('password') }">
+                                    <has-error :form="form" field="password"></has-error>
                                 </div>
                             </div>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Close</button>
+                            <button v-show="!editMode" type="submit" class="btn btn-primary btn-sm">
+                                <i class="fa fa-plus"></i> Create
+                            </button>
+                            <button v-show="editMode" type="submit" class="btn btn-primary btn-sm">
+                                <i class="fa fa-sync"></i> Update
+                            </button>
                         </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="showModal" tabindex="-1" role="dialog">
+            <div class="modal-dialog modal-md" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Show staff</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title">Name : <b>{{form.staff_name}}</b></h4>
+                                <h4 class="card-title">User Name : <b>{{form.email}}</b></h4>
+                                <h4 class="card-title">Phone : <b>{{form.staff_phone}}</b></h4>
+                                <h4 class="card-title">Address : <b>{{form.staff_address}}</b></h4>
+                                <h4 class="card-title">User Type : <b>{{ form.user_type == 1?'Admin':'Staff'}}</b></h4>
+                                <h4 class="card-title">Password : <b>**********</b></h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Close</button>
                     </div>
                 </div>
             </div>
         </div>
-    </template>
+    </div>
+</template>
 
-    <script>
+<script>
     export default {
         data() {
             return {
@@ -359,4 +360,4 @@
 
         },
     }
-    </script>
+</script>
