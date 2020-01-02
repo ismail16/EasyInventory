@@ -4,6 +4,8 @@ require('./bootstrap');
 window.Vue = require('vue');
 import Vue from 'vue'
 
+import 'vue-search-select/dist/VueSearchSelect.css'
+
 // import Vuex from 'vuex'
 // Vue.use(Vuex)
 // import { storage } from './state'
