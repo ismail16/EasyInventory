@@ -49,7 +49,7 @@
 						</router-link>
 			      	</li>
 			      	<li class="nav-item dropdown">
-			        	<router-link to="/setting" class="nav-link bg-light">
+			        	<router-link to="/setting" class="nav-link bg-light mr-3">
 							<i class="nav-icon fas fa-cogs text-danger"> Setting</i>
 						</router-link>
 			      	</li>
