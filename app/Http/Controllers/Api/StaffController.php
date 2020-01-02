@@ -59,7 +59,7 @@ class StaffController extends Controller
 
         $request->validate([
             'staff_name' => 'required',
-            'email' => 'required|email|unique:users,email,'.$staff->id,
+            'email' => 'required|unique:users,email,'.$staff->id,
             'role_id' => 'required'
         ]);
 

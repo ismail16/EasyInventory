@@ -3,7 +3,7 @@
         <section class="content mt-2">
             <div class="row">
                 <div class="col-12">
-                    <div class="card mt-2 rounded-0" style="margin-bottom: 5px !important;">
+                    <div class="card mt-2 rounded-0 mb-2">
                         <div class="card-header pb-0">
                           <div class="row">
                             <div class="col-md-3 float-left">
@@ -21,14 +21,14 @@
                         </div>
                     </div>
                 </div>
-                <div class="card-body" style="background-color: #f6f6f7;">
+                <div class="card-body bg_light_gray">
                     <form @submit.prevent="updateExpense">
                         <div class="panel-body">
                             <div class="row">
 
                                 <div class="col-md-8">
                                    <div class="form-group row">
-                                        <label class="col-sm-3 form-control-label" style="margin-right: -44px;">Expense Title <i class="text-danger">*</i></label>
+                                        <label class="col-sm-3 form-control-label mr-n5">Expense Title <i class="text-danger">*</i></label>
                                         <div class="col-sm-9">
                                             <input v-model="form.expense_title" type="text" name="expense_title"
                                             placeholder="Expense Title"
@@ -73,10 +73,10 @@
                                     <tbody id="add_row_to_Expense">
 
                                         <tr v-for="(expense, index) in expense_items">
-                                            <td style="width: 320px">
+                                            <td class="w-25">
                                                 <input v-model="expense.expense_purpose" placeholder="Expense Purpose" required type="text" class="form-control-sm w-100" autocomplete="off">
                                             </td>
-                                            <td style="width: 320px">
+                                            <td>
                                                 <input v-model="expense.expense_quantity" placeholder="Expense Quantity" type="text" class="form-control-sm w-100" autocomplete="off" required>
 
                                             </td>
@@ -84,7 +84,7 @@
                                                 <input v-model="expense.expense_amount" placeholder="Expense Amount" type="text" class="form-control-sm w-100" autocomplete="off" required>
                                             </td>
                                             <td class="text-center">
-                                                <input class="form-control-sm w-100" :value="expense.expense_quantity * expense.expense_amount" type="text" style="text-align: center;" disabled>
+                                                <input class="form-control-sm w-100 text-center" :value="expense.expense_quantity * expense.expense_amount" type="text" disabled>
                                             </td>
 
                                             <td class="text-center">
@@ -94,24 +94,24 @@
                                     </tbody>
                                     <tfoot>
                                         <tr id="appssss">
-                                            <td colspan="3" style="text-align:right;"><b>Grand Total:</b></td>
+                                            <td colspan="3" class="text-right" ><b>Grand Total:</b></td>
                                             <td class="text-center">
-                                                <input class="form-control-sm w-100" v-model="expense_total_amount" type="text" style="text-align: center;" disabled>
+                                                <input class="form-control-sm w-100 text-center" v-model="expense_total_amount" type="text" disabled>
                                             </td>
                                             <td align="center">
                                                 <input id="add-Expense-item" class="btn btn-info btn-sm" name="add-Expense-item" @click="add_new_row_to_Expense" value="Add New Item" type="button">
                                             </td>
                                         </tr> 
                                         <tr>
-                                            <td style="text-align:right;" colspan="3"><b>Paid Amount:</b></td>
+                                            <td class="text-right" colspan="3"><b>Paid Amount:</b></td>
                                             <td class="text-right">
-                                                <input id="paidAmount" class="form-control-sm w-100" v-model="form.expense_paid_amount" value="5455" name="expense_paid_amount" type="number" required style="text-align: center;">
+                                                <input id="paidAmount" class="form-control-sm w-100 text-center" v-model="form.expense_paid_amount" name="expense_paid_amount" type="number" required>
                                             </td>
                                         </tr>
                                         <tr v-show="expense_due">
-                                            <td style="text-align:right;" colspan="3"><b>Due:</b></td>
+                                            <td class="text-right" colspan="3"><b>Due:</b></td>
                                             <td  class="text-center">
-                                                <input class="form-control-sm w-100" :value="expense_due"  type="number" style="text-align: center;" disabled>
+                                                <input class="form-control-sm w-100 text-center" :value="expense_due"  type="number" disabled>
                                             </td>
                                         </tr>
                                     </tfoot>

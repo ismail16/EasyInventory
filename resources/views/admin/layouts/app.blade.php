@@ -28,7 +28,8 @@
 		@stack('css')
 	</head>
 	<body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed">
-		<?php $setting = \App\Models\Setting::orderBy('id','desc')->first(); ?>
+		<?php $setting = \App\Models\Setting::find(1); ?>
+
 		<div class="wrapper" id="app">
 			<nav class="main-header navbar navbar-expand {{$setting->navbar_color}}">
 			    <ul class="navbar-nav">
@@ -56,7 +57,7 @@
 			        	<ul class="navbar-nav ml-auto">
 							<li class="nav-item dropdown">
 								<a href="#" class="_dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
-									<img src="{{ asset('/images/owner_image/'.$setting->owner_image) }}" class="img-circle" alt="User Image" width="30" style="margin: 5px 10px 0px 10px;">
+									<img src="{{ asset('/images/owner_image/'.$setting->owner_image) }}" class="img-circle" alt="User Image" width="30">
 								</a>
 								<div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
 									<span class="dropdown-item dropdown-header">
@@ -69,11 +70,11 @@
 									<div class="dropdown-divider"></div>
 									<div class="container">
 										<div class="row">
-											<div class="d-flex justify-content-start" style="width: 50%">
+											<div class="d-flex justify-content-start w-50">
 												<a href="#" class="btn btn-default btn-flat">Profile</a>
 											</div>
-											<div class="d-flex justify-content-end" style="width: 50%">
-												<form id="logout-form" action="{{ route('logout') }}" method="POST" style="_display: none;">
+											<div class="d-flex justify-content-end w-50">
+												<form id="logout-form" action="{{ route('logout') }}" method="POST">
 													@csrf
 													<button type="submit" class="btn btn-default btn-flat">Sign out</button>
 												</form>
@@ -109,8 +110,7 @@
 
 			<aside class="main-sidebar elevation-4 {{$setting->sidebar_color}}">
 				<a href="{{ route('admin.dashboard') }}" class="brand-link">
-					<img src="{{ asset('/images/store_logo/'.$setting->store_logo) }}" alt="Logo" class="brand-image img-circle elevation-3"
-					style="opacity: .8">
+					<img src="{{ asset('/images/store_logo/'.$setting->store_logo) }}" alt="Logo" class="brand-image img-circle elevation-3">
 					<span class="brand-text font-weight-light">{{ $setting->store_name }}</span>
 				</a>
 				<div class="sidebar"> 
@@ -188,7 +188,7 @@
 
 			@yield('content')
 
-			<footer class="main-footer" style="position: relative;">
+			<footer class="main-footer position-relative">
 				<strong>Copyright &copy; 2019 <a href="{{ route('admin.dashboard') }}">{{ $setting->store_name }}</a>.</strong>
 				All rights reserved.
 				<div class="float-right d-none d-sm-inline-block">

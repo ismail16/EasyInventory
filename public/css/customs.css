@@ -182,3 +182,19 @@
 .doc_res_icon a{
   padding: 7px !important;
 }
+
+
+/*
+.search_dynamic_product{
+  z-index: 999; 
+  position: absolute; 
+  width: 29%; 
+  background-color: white; 
+  padding: 0px 10px; 
+  max-height: 150px; 
+  overflow: auto;
+}
+
+.product.product_name-active{
+  display: none;
+}*/

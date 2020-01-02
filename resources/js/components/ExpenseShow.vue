@@ -2,7 +2,7 @@
     <div class="container">
         <div id="invoice">
             <div class="invoice overflow-auto">
-                <div style="min-width: 600px" id="printableArea">
+                <div id="printableArea">
                     <header>
                         <div class="row">
                             <div class="col-md-12">
@@ -21,7 +21,7 @@
                         </div>
                     </header>
                     <main>
-                        <div class="table-responsive" style="margin-top: 10px">
+                        <div class="table-responsive mt-2">
                             <table class="table table-bordered table-sm table-hover" id="normalinvoice">
                                 <thead>
                                     <tr>
@@ -33,7 +33,7 @@
                                 </thead>
                                 <tbody>
                                     <tr v-for="(purpose, index) in expense_purpose">
-                                        <td style="width: 320px" class="text-center">
+                                        <td class="text-center w-50">
                                             <span>{{ purpose.expense_purpose }}</span>
                                         </td>
                                         <td class="text-center">
@@ -49,20 +49,20 @@
                                 </tbody>
                                 <tfoot>
                                     <tr id="appssss">
-                                        <td colspan="3" style="text-align:right;">Grand Total:</td>
+                                        <td colspan="3" class="text-right">Grand Total:</td>
                                         <td class="text-center">
                                             <span>{{ setting.store_currency }} {{ expense.expense_total_amount }}</span>
                                         </td>
                                     </tr> 
 
                                     <tr>
-                                        <td style="text-align:right;" colspan="3">Paid Amount:</td>
+                                        <td class="text-right" colspan="3">Paid Amount:</td>
                                         <td class="text-center">
                                             <span>{{ setting.store_currency }} {{ expense.expense_paid_amount }}</span>
                                         </td>
                                     </tr>
                                     <tr v-show="expense.expense_due">
-                                        <td style="text-align:right;" colspan="3">Due:</td>
+                                        <td class="text-right" colspan="3">Due:</td>
                                         <td  class="text-center">
                                             <span>{{ setting.store_currency }} {{ expense.expense_due }}</span>
                                         </td>

@@ -127,7 +127,7 @@
 
                                     <div class="col-md-9">
                                         <div class="chart">
-                                            <canvas id="salesChart" height="180" style="height: 180px;"></canvas>
+                                            <canvas id="salesChart" height="180"></canvas>
                                         </div>
                                     </div>
 

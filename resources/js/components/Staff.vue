@@ -70,7 +70,7 @@
                                                 <a v-if="staff.id != 1" class="btn btn-xs btn-success mr-1" @click.prevent="editModal(staff)">
                                                     <i class="fa fa-edit"></i>
                                                 </a>
-                                                <button v-if="staff.id != 2 && staff.id != 1" class="btn btn-xs btn-danger" @click.prevent="deletestaff(staff.id)">
+                                                <button v-if="staff.id != 1" class="btn btn-xs btn-danger" @click.prevent="deletestaff(staff.id)">
                                                     <i class="fa fa-trash"></i>
                                                 </button>
                                             </td>
@@ -117,8 +117,7 @@
                                 <label class="col-sm-3 col-form-label">Name <span class="text-red">*</span></label>
                                 <div class="col-sm-9">
                                     <input v-model="form.staff_name" type="text" name="staff_name"
-                                    placeholder="staff name"
-                                    class="form-control form-control-sm w-100" :class="{ 'is-invalid': form.errors.has('staff_name') }">
+                                    placeholder="staff name" class="form-control form-control-sm w-100" :class="{ 'is-invalid': form.errors.has('staff_name') }" required>
                                     <has-error :form="form" field="staff_name"></has-error>
                                 </div>
                             </div>
@@ -126,7 +125,7 @@
                             <div class="form-group mb-0 row">
                                 <label class="col-sm-3 col-form-label">User Name <span class="text-red">*</span></label>
                                 <div class="col-sm-9">
-                                    <input v-model="form.email" type="text" name="email" placeholder="User Name / Email" class="form-control form-control-sm w-100" :class="{ 'is-invalid': form.errors.has('email') }">
+                                    <input v-model="form.email" type="text" name="email" placeholder="User Name / Email" class="form-control form-control-sm w-100" :class="{ 'is-invalid': form.errors.has('email') }" required >
                                     <has-error :form="form" field="email"></has-error>
                                 </div>
                             </div>
@@ -146,7 +145,7 @@
                             <div class="form-group mb-0 row">
                                 <label class="col-sm-3 col-form-label">User Type <span class="text-red">*</span></label>
                                 <div class="col-sm-9">
-                                    <select v-model="form.role_id" class="form-control form-control-sm w-100" :class="{ 'is-invalid': form.errors.has('role_id') }" name="role_id" id="fileds">
+                                    <select v-model="form.role_id" class="form-control form-control-sm w-100" :class="{ 'is-invalid': form.errors.has('role_id') }" name="role_id" id="fileds" required>
                                         <option value="1">Admin</option>
                                         <option value="2">Sales man</option>
                                     </select>
@@ -154,12 +153,17 @@
                                 </div>
                             </div>
                             <div class="form-group mb-0 row">
-                                <label class="col-sm-3 col-form-label">Password <span class="text-red">*</span></label>
-                                <div class="col-sm-9">
+                                <label class="col-sm-3 col-form-label">Password <span class="text-red" v-show="!editMode">*</span></label>
+                                <div class="col-sm-9" v-if="!editMode">
                                     <input v-model="form.password" type="text" name="staff_password"
                                     placeholder="staff password"
-                                    class="form-control form-control-sm w-100" :class="{ 'is-invalid': form.errors.has('password') }">
+                                    class="form-control form-control-sm w-100" :class="{ 'is-invalid': form.errors.has('password') }" required>
                                     <has-error :form="form" field="password"></has-error>
+                                </div>
+                                <div class="col-sm-9" v-if="editMode">
+                                    <input v-model="form.password" type="text" name="staff_password"
+                                    placeholder="staff password"
+                                    class="form-control form-control-sm w-100">
                                 </div>
                             </div>
                         </div>
@@ -245,15 +249,19 @@
         },
 
         methods:{
+
             newModal(){
+                var temp = this;
                 this.editMode = false;
                 this.form.reset()
+                console.log(temp.errors)
                 $('#addNew').modal('show');
             },
 
             editModal(staff){
                 this.editMode = true;
                 this.form.reset()
+
                 $('#addNew').modal('show');
                 this.form.fill(staff);
             },

@@ -24,6 +24,8 @@ class SettingController extends Controller
     public function update(Request $request, $id)
     {
         $req  = $request->setting;
+
+        // return $req['sidebar_color'];
         $settings = Setting::find($id);
 
         $settings->store_name = $req['store_name'];
@@ -53,7 +55,6 @@ class SettingController extends Controller
             if(file_exists($old_owner_image)){
                 @unlink($old_owner_image);
             }
-
             $owner_image = time().'.' . explode('/', explode(':', substr($req['owner_image'], 0, strpos($req['owner_image'], ';')))[1])[1];
             \Image::make($req['owner_image'])->save(public_path('images/owner_image/').$owner_image);
             $settings->owner_image = $owner_image ;

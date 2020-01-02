@@ -56,8 +56,6 @@
                                                 </div>
 
                                                 <div id="preview col-sm-2">
-                                                    <!-- <img v-if="owner_img_url" :src="owner_img_url" class="img-fluid" style="max-height: 50px; max-width: 50px;"/> -->
-
                                                     <img v-if="form.owner_image" :src="getImgUrl1(form.owner_image)" class="img-fluid" style="max-height: 50px; max-width: 50px;"/>
 
                                                     <img v-else src="/images/default.png" class="img-fluid" style="max-height: 50px; max-width: 50px;"/>
@@ -177,10 +175,10 @@ export default {
                 owner_image : '',
                 store_mobile : '',
                 store_email : '',
-                store_website : 'admin.com',
-                store_currency : '$',
-                navbar_color : 'navbar-light',
-                sidebar_color : 'sidebar-light-navy',
+                store_website : '',
+                store_currency : '',
+                navbar_color : '',
+                sidebar_color : '',
                 text_size : 1,
                 store_address : ''
             }),
