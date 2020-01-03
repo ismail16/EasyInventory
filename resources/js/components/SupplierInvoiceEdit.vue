@@ -1,6 +1,5 @@
 <template>
     <div class="container">
-        <!-- hukTnOztP5tzBwH5jwVKqztE7OR6heUccNGizTPXp9QFTphl4pr4atir501a -->
         <section class="content mt-2">
             <div class="row">
                 <div class="col-12">
@@ -86,12 +85,17 @@
 
                                         <tr v-for="(product, index) in products">
                                             <td style="width: 320px">
-                                                <input v-model="product.product_name" placeholder="Item Name" required type="text" class="form-control-sm w-100" autocomplete="off">
-
+                                                <input @blur="onBlur=true" @focus="onFocus = true;onBlur = false;" v-model="product.product_name" @keyDown="keyDown"  type="text" placeholder="Product Name" class="form-control-sm w-100" required>
+                                                <div class="product.index-items search_dynamic_product">
+                                                    <div v-for="(i, index) in all_product_arr" v-if= "onFocus && i.product_name.substr(0, product.product_name.length).toUpperCase() == product.product_name.toUpperCase()" @click="product.product_name = i.product_name; product.sell_price = i.sell_price; onFocus = false;">
+                                                       <p class="product_name_active mb-0 border-bottom">  
+                                                          {{i.product_name.substr(product.product_name.length)}} 
+                                                        </p>
+                                                    </div>
+                                                </div>
                                             </td>
                                             <td style="width: 320px">
                                                 <input v-model="product.product_quantity" placeholder="Product Quantity" type="text" class="form-control-sm w-100" autocomplete="off" required>
-
                                             </td>
                                             <td>
                                                 <input v-model="product.supplier_price" placeholder="Product Price" type="text" class="form-control-sm w-100" autocomplete="off" required>
@@ -99,7 +103,6 @@
                                             <td class="text-center">
                                                 <input class="form-control-sm w-100" :value="product.product_quantity * product.supplier_price" tabindex="-1" type="text" style="text-align: center;" disabled>
                                             </td>
-
                                             <td class="text-center">
                                                 <span @click="deleteRow(index)" class="btn btn-danger btn-sm">&times;</span>
                                             </td>
@@ -114,7 +117,6 @@
                                             <td align="center">
                                                 <input id="add-invoice-item" class="btn btn-info btn-sm" name="add-invoice-item" @click="add_new_row_to_invoice" value="Add New Item" tabindex="5" type="button">
                                             </td>
-
                                         </tr>
                                         <tr>
                                             <td style="text-align:right;" colspan="3"><b>Paid Amount:</b></td>
@@ -168,10 +170,17 @@ export default {
               discount : '',
               due_amount : ''
             }),
+
             img_url: '',
             suppliers:{},
             warehouses:{},
-            products:[]
+            products:[],
+
+            all_product_arr: [],
+            currentFocus: '',
+            autocomplete: '',
+            onBlur: true,
+            onFocus: false,
         }
     },
 
@@ -179,6 +188,7 @@ export default {
         this.getSuppliers();
         this.getWarehouses();
         this.getSupplierInvoice();
+        this.getAllProduct();
     },
 
     computed: {
@@ -201,6 +211,24 @@ export default {
     },
 
     methods:{
+
+        // for product search
+        addActive(){
+            var vm = this;
+            if (!vm.array) return false;
+            if (vm.currentFocus >= vm.array.length) vm.currentFocus = 0;
+            if (vm.currentFocus < 0) vm.currentFocus = (vm.array.length - 1);
+        },
+        keyDown(e){ 
+            var vm = this;
+            if (e.keyCode == 40) {
+                vm.currentFocus++;
+                vm.addActive()
+            } else if (e.keyCode == 38) {
+                vm.currentFocus;
+                vm.addActive()
+            }
+        },
 
         updateSupplierInvoice: function(){
             this.$Progress.start()
@@ -288,6 +316,18 @@ export default {
                 toastr.error('Something is wrong Data Loaded')
             });
         },
+
+        getAllProduct(){
+                var temp = this;
+                axios.get('/api/allProduct')
+                .then((response) => {
+                    temp.all_product_arr = response.data.data;
+                })
+                .catch(function (error) {
+                    this.loadin = true; 
+                    toastr.error('Something is wrong Data Loaded')
+                });
+            },
     }
 }
 </script>

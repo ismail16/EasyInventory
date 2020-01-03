@@ -31,10 +31,12 @@
 
                                                     <input @blur="onBlur2=true" @focus="onFocus2 = true;onBlur2 = false;" v-model="form.customer_name" @keyDown="keyDown2"  type="text" placeholder="Customer Name" class="form-control form-control-sm w-100" required>
 
-                                                    <div class="form.customer_name-items" style="z-index: 999; position: absolute; width: 29%; background-color: white; padding: 0px 10px; max-height: 150px; overflow: auto;">
+                                                    <div class="form.customer_name-items search_dynamic_product w-100">
 
-                                                        <div :class="currentFocus2 == index ? 'form.customer_name-active' : ''" v-for="(i, index) in customer_arr" v-if= "onFocus2 && i.customer_name.substr(0, form.customer_name.length).toUpperCase() == form.customer_name.toUpperCase()" @click="form.customer_name = i.customer_name; form.customer_phone = i.customer_phone; form.customer_email = i.customer_email; form.customer_address = i.customer_address; onFocus2 = false;">
-                                                            <strong>{{i.customer_name.substr(0, form.customer_name.length)}}</strong>{{i.customer_name.substr(form.customer_name.length)}}
+                                                        <div v-for="(i, index) in customer_arr" v-if= "onFocus2 && i.customer_name.substr(0, form.customer_name.length).toUpperCase() == form.customer_name.toUpperCase()" @click="form.customer_name = i.customer_name; form.customer_phone = i.customer_phone; form.customer_email = i.customer_email; form.customer_address = i.customer_address; onFocus2 = false;">
+                                                            <p class="product_name_active mb-0 border-bottom">
+                                                                {{i.customer_name.substr(form.customer_name.length)}}
+                                                            </p>
                                                         </div>
 
                                                     </div>
@@ -97,14 +99,14 @@
                                                     <td style="width: 320px">
                                                         <input @blur="onBlur=true" @focus="onFocus = true;onBlur = false;" v-model="product.product_name" @keyDown="keyDown"  type="text" placeholder="Product Name" class="form-control-sm w-100" required>
 
-                                                        <div class="product.index-items search_dynamic_product">
-                                                            <div :class="currentFocus == index ? 'product.index-active' : ''" v-for="(i, index) in product_arr" v-if= "onFocus && i.product_name.substr(0, product.product_name.length).toUpperCase() == product.product_name.toUpperCase()" @click="product.product_name = i.product_name; product.sell_price = i.sell_price; onFocus = false;">
-                                                               <p class="product_name_active mb-0 border-bottom">  
-                                                                  {{i.product_name.substr(product.product_name.length)}} 
-                                                                </p>
-                                                            </div>
+                                                    <div class="product.index-items search_dynamic_product">
+                                                        <div v-for="(i, index) in all_product_arr" v-if= "onFocus && i.product_name.substr(0, product.product_name.length).toUpperCase() == product.product_name.toUpperCase()" @click="product.product_name = i.product_name; product.sell_price = i.sell_price; onFocus = false;">
+                                                           <p class="product_name_active mb-0 border-bottom">  
+                                                              {{i.product_name.substr(product.product_name.length)}} 
+                                                            </p>
                                                         </div>
-                                                        
+                                                    </div>
+
                                                     </td>
                                                     <td style="width: 320px" @click="onFocus = false;">
                                                         <input v-model="product.product_quantity" placeholder="Product Quantity" type="text" class="form-control-sm w-100" autocomplete="off" required>
@@ -199,12 +201,15 @@
                     due_amount : 0
                 }),
 
+                // for product
                 product_arr: [],
+                all_product_arr: [],
                 currentFocus: '',
                 autocomplete: '',
                 onBlur: true,
                 onFocus: false,
 
+                // for customer
                 customer_arr: [],
                 currentFocus2: '',
                 autocomplete2: '',
@@ -216,6 +221,7 @@
         mounted(){
             this.getInvoice();
             this.getCustomers();
+            this.getAllProduct();
         },
 
         computed: {
@@ -252,7 +258,7 @@
 
         methods:{
 
-
+            // for product
             addActive(){
                 var vm = this;
                 if (!vm.array) return false;
@@ -270,6 +276,7 @@
                 }
             },
 
+            // for customer
             addActive2(){
                 var vm2 = this;
                 if (!vm2.array) return false;
@@ -285,24 +292,6 @@
                     vm2.currentFocus;
                     vm2.addActive2()
                 }
-            },
-
-            updateInvoice: function(){
-                this.$Progress.start()
-                var temp = this
-                temp.form.products = temp.product_arr;
-                console.log(temp.form)
-                axios.put('/api/invoices/'+this.form.id,{
-                    Invoice:temp.form
-                })
-                .then(function (response) {
-                    toastr.success('Updated Invoice Successfully');
-                    temp.$Progress.finish()
-                })
-                .catch(function (error) {
-                    toastr.error('Updated Invoice Failed')
-                    temp.$Progress.fail()
-                });
             },
 
             add_new_row_to_invoice: function(){
@@ -325,9 +314,10 @@
                     toastr.error('Something is wrong Data Loaded')
                 });
             },
+
             getCustomers(){
                 var temp = this;
-                axios.get('/api/customers')
+                axios.get('/api/allCustomer')
                 .then((response) => {
                     temp.customer_arr = response.data.data;
                 })
@@ -336,6 +326,37 @@
                     toastr.error('Something is wrong Data Loaded')
                 });
             },
+
+            getAllProduct(){
+                var temp = this;
+                axios.get('/api/allProduct')
+                .then((response) => {
+                    temp.all_product_arr = response.data.data;
+                })
+                .catch(function (error) {
+                    this.loadin = true; 
+                    toastr.error('Something is wrong Data Loaded')
+                });
+            },
+
+            updateInvoice: function(){
+                this.$Progress.start()
+                var temp = this
+                temp.form.products = temp.product_arr;
+                console.log(temp.form)
+                axios.put('/api/invoices/'+this.form.id,{
+                    Invoice:temp.form
+                })
+                .then(function (response) {
+                    toastr.success('Updated Invoice Successfully');
+                    temp.$Progress.finish()
+                })
+                .catch(function (error) {
+                    toastr.error('Updated Invoice Failed')
+                    temp.$Progress.fail()
+                });
+            },
+
 
         }
     }

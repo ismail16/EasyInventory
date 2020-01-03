@@ -33,10 +33,10 @@
 
                                                     <div class="form.customer_name-items search_dynamic_product w-100">
 
-                                                        <div :class="currentFocus2 == index ? 'form.customer_name-active' : ''" v-for="(i, index) in customer_arr" v-if= "onFocus2 && i.customer_name.substr(0, form.customer_name.length).toUpperCase() == form.customer_name.toUpperCase()" @click="form.customer_name = i.customer_name; form.customer_phone = i.customer_phone; form.customer_email = i.customer_email; form.customer_address = i.customer_address; onFocus2 = false;">
+                                                        <div v-for="(i, index) in customer_arr" v-if= "onFocus2 && i.customer_name.substr(0, form.customer_name.length).toUpperCase() == form.customer_name.toUpperCase()" @click="form.customer_name = i.customer_name; form.customer_phone = i.customer_phone; form.customer_email = i.customer_email; form.customer_address = i.customer_address; onFocus2 = false;">
                                                             <p class="product_name_active mb-0 border-bottom">
-                                                            {{i.customer_name.substr(form.customer_name.length)}}
-                                                        </p>
+                                                                {{i.customer_name.substr(form.customer_name.length)}}
+                                                            </p>
                                                         </div>
 
                                                     </div>
@@ -102,7 +102,7 @@
 
                                                         <div class="product.product_name-items search_dynamic_product">
 
-                                                            <div :class="currentFocus == index ? '' : ''" v-for="(i, index) in product_arr" v-if= "onFocus && i.product_name.substr(0, product.product_name.length).toUpperCase() == product.product_name.toUpperCase()" @click="product.product_name = i.product_name; product.sell_price = i.sell_price; onFocus = false;">   
+                                                            <div :class="currentFocus == index ? '' : ''" v-for="(i, index) in all_product_arr" v-if= "onFocus && i.product_name.substr(0, product.product_name.length).toUpperCase() == product.product_name.toUpperCase()" @click="product.product_name = i.product_name; product.sell_price = i.sell_price; onFocus = false;">   
                                                                 <p class="product_name_active mb-0 border-bottom">  
                                                                   {{i.product_name.substr(product.product_name.length)}} 
                                                                 </p>
@@ -198,21 +198,21 @@ export default {
                 customer_email : '',
                 customer_address : '',
                 invoice_date : current_date,
-
                 products:[{product_name : '',product_quantity : 1,sell_price : 0 }],
-
                 grand_total_price : '',
                 discount : 0,
                 paid_amount : '',
                 due_amount : 0
             }), 
 
-            product_arr: [],
+            // for product search
+            all_product_arr: [],
             currentFocus: '',
             autocomplete: '',
             onBlur: true,
             onFocus: false,
 
+            // for customer search
             customer_arr: [],
             currentFocus2: '',
             autocomplete2: '',
@@ -222,12 +222,14 @@ export default {
     },
 
     mounted(){
-        this.getProducts();
+        // for product search
+        this.getAllProduct();
         var vm = this;
         document.addEventListener("click", function(e){
             vm.onBlur ?vm.onFocus = false: false
         });
 
+        // for customer search
         this.getCustomers();
         var vm2 = this;
         document.addEventListener("click", function(e){
@@ -268,6 +270,7 @@ export default {
 
     methods:{
 
+        // for product search
         addActive(){
             var vm = this;
             if (!vm.array) return false;
@@ -285,6 +288,7 @@ export default {
             }
         },
 
+        // for customer search
         addActive2(){
             var vm2 = this;
             if (!vm2.array) return false;
@@ -301,7 +305,6 @@ export default {
                 vm2.addActive2()
             }
         },
-
 
         addNewInvoice(){
             var temp = this
@@ -328,7 +331,7 @@ export default {
 
         getCustomers(){
             var temp = this;
-            axios.get('/api/customers')
+            axios.get('/api/allCustomer')
             .then((response) => {
                 temp.customer_arr = response.data.data;
             })
@@ -338,11 +341,11 @@ export default {
             });
         },
 
-        getProducts(){
+        getAllProduct(){
             var temp = this;
-            axios.get('/api/products')
+            axios.get('/api/allProduct')
             .then((response) => {
-                temp.product_arr = response.data.data;
+                temp.all_product_arr = response.data.data;
             })
             .catch(function (error) {
                 toastr.error('Something is wrong Data Loaded')

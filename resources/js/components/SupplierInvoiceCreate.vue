@@ -1,6 +1,5 @@
 <template>
     <div class="container">
-        <!-- hukTnOztP5tzBwH5jwVKqztE7OR6heUccNGizTPXp9QFTphl4pr4atir501a -->
         <section class="content mt-2">
             <div class="row">
                 <div class="col-12">
@@ -81,16 +80,16 @@
                                             <tbody id="add_row_to_invoice">
 
                                                 <tr v-for="(product, index) in form.products">
-                                                    <td style="width: 320px">
-                                                        <input @blur="onBlur=true" @focus="onFocus = true;onBlur = false;" v-model="product.product_name" @keyDown="keyDown"  type="text" placeholder="Product Name" class="form-control-sm w-100" required>
-                                                        <div class="product.product_name-items search_dynamic_product">
-                                                            <div :class="currentFocus == index ? 'product.product_name-active' : ''" v-for="(i, index) in product_arr" v-if= "onFocus && i.product_name.substr(0, product.product_name.length).toUpperCase() == product.product_name.toUpperCase()" @click="product.product_name = i.product_name; product.supplier_price = i.supplier_price; onFocus = false;">
-                                                                <p class="product_name_active mb-0 border-bottom">  
-                                                                  {{i.product_name.substr(product.product_name.length)}} 
-                                                                </p>
-                                                            </div>
+                                                <td style="width: 320px">
+                                                    <input @blur="onBlur=true" @focus="onFocus = true;onBlur = false;" v-model="product.product_name" @keyDown="keyDown"  type="text" placeholder="Product Name" class="form-control-sm w-100" required>
+                                                    <div class="product.product_name-items search_dynamic_product">
+                                                        <div v-for="(i, index) in all_product_arr" v-if= "onFocus && i.product_name.substr(0, product.product_name.length).toUpperCase() == product.product_name.toUpperCase()" @click="product.product_name = i.product_name; product.supplier_price = i.supplier_price; onFocus = false;">
+                                                            <p class="product_name_active mb-0 border-bottom">  
+                                                              {{i.product_name.substr(product.product_name.length)}} 
+                                                            </p>
                                                         </div>
-                                                    </td>
+                                                    </div>
+                                                </td>
                                                     <td style="width: 320px">
                                                         <input v-model="product.product_quantity" placeholder="Product Quantity" type="text" class="form-control-sm w-100" :class="{ 'is-invalid': form.errors.has('product_quantity') }" autocomplete="off" required>
                                                     </td>
@@ -178,14 +177,14 @@ export default {
             autocomplete: '',
             onBlur: true,
             onFocus: false,
-            product_arr: []
+            all_product_arr: []
         }
     },
 
     mounted(){
         this.getSuppliers();
         this.getWarehouses();
-        this.getProducts();
+        this.getAllProduct();
 
         var vm = this;
         document.addEventListener("click", function(e){
@@ -211,14 +210,13 @@ export default {
     },
 
     methods:{
-
+        // for produsct search
         addActive(){
             var vm = this;
             if (!vm.array) return false;
             if (vm.currentFocus >= vm.array.length) vm.currentFocus = 0;
             if (vm.currentFocus < 0) vm.currentFocus = (vm.array.length - 1);
         },
-
         keyDown(e){ 
             var vm = this;
             if (e.keyCode == 40) {
@@ -230,18 +228,44 @@ export default {
             }
         },
 
-        addNewSupplierInvoice(){
-            var temp = this
-            temp.$Progress.start()
-            temp.form.post('/api/supllier-invoice')
-            .then(function (response) {
-                console.log(response)
-                toastr.success('Saved Supplier Invoice Successfully')
-                temp.$Progress.finish()
+        add_new_row_to_invoice: function(){
+            this.form.products.push({product_name : '',product_quantity : 1,supplier_price : 0,sub_total_price : '' })
+        },
+
+        deleteRow: function(index){
+            this.form.products.splice(index, 1)
+        },
+
+        getSuppliers(){
+            var temp = this;
+            axios.get('/api/suppliers')
+            .then((response) => {
+                temp.suppliers = response.data.data;
             })
             .catch(function (error) {
-                toastr.error('Saved Supplier Invoice Failed')
-                temp.$Progress.fail()
+                toastr.error('Something is wrong Data Loaded')
+            });
+        },
+
+        getAllProduct(){
+            var temp = this;
+            axios.get('/api/allProduct')
+            .then((response) => {
+                temp.all_product_arr = response.data.data;
+            })
+            .catch(function (error) {
+                toastr.error('Something is wrong Data Loaded')
+            });
+        },
+
+        getWarehouses(){
+            var temp = this;
+            axios.get('/api/warehouses')
+            .then((response) => {
+                temp.warehouses = response.data.data;
+            })
+            .catch(function (error) {
+                toastr.error('Something is wrong Data Loaded')
             });
         },
 
@@ -266,44 +290,18 @@ export default {
             reader.readAsDataURL(file);
         },
 
-        add_new_row_to_invoice: function(){
-            this.form.products.push({product_name : '',product_quantity : 1,supplier_price : 0,sub_total_price : '' })
-        },
-
-        deleteRow: function(index){
-            this.form.products.splice(index, 1)
-        },
-
-        getSuppliers(){
-            var temp = this;
-            axios.get('/api/suppliers')
-            .then((response) => {
-                temp.suppliers = response.data.data;
+        addNewSupplierInvoice(){
+            var temp = this
+            temp.$Progress.start()
+            temp.form.post('/api/supllier-invoice')
+            .then(function (response) {
+                console.log(response)
+                toastr.success('Saved Supplier Invoice Successfully')
+                temp.$Progress.finish()
             })
             .catch(function (error) {
-                toastr.error('Something is wrong Data Loaded')
-            });
-        },
-
-        getProducts(){
-            var temp = this;
-            axios.get('/api/products')
-            .then((response) => {
-                temp.product_arr = response.data.data;
-            })
-            .catch(function (error) {
-                toastr.error('Something is wrong Data Loaded')
-            });
-        },
-
-        getWarehouses(){
-            var temp = this;
-            axios.get('/api/warehouses')
-            .then((response) => {
-                temp.warehouses = response.data.data;
-            })
-            .catch(function (error) {
-                toastr.error('Something is wrong Data Loaded')
+                toastr.error('Saved Supplier Invoice Failed')
+                temp.$Progress.fail()
             });
         },
     }
