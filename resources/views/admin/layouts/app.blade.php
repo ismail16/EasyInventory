@@ -24,8 +24,6 @@
 	  	<!-- customs css and js -->
 	  	<link rel="stylesheet" href="{{ asset('css/customs.css')}}"> 
 	  	<script src="{{ asset('js/customs.js')}}"></script>
-	  	<!-- <script src="{{ mix('css/app.css') }}"></script> -->
-
 	  	<!-- pushing css -->
 		@stack('css')
 	</head>
