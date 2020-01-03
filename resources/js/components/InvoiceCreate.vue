@@ -29,22 +29,14 @@
                                             <div class="form-group row">
                                                 <label class="col-sm-3 form-control-label">Name <i class="text-danger">*</i></label>
                                                 <div class="col-sm-8">
+                                                    <input @blur="onBlur2=true" @focus="onFocus2 = true;onBlur2 = false;" v-model="form.customer_name" @keyDown="keyDown2"  type="text" placeholder="Customer Name" class="form-control form-control-sm w-100" required>
 
-       <model-list-select :list="options1"
-                     v-model="objectItem"
-                     option-value="customer_name"
-                     option-text="customer_name"
-                     placeholder="select item">
-  </model-list-select>
-
-                                                    <!-- <input @blur="onBlur2=true" @focus="onFocus2 = true;onBlur2 = false;" v-model="form.customer_name" @keyDown="keyDown2"  type="text" placeholder="Customer Name" class="form-control form-control-sm w-100" required> -->
-
-                                                  <!--   <div class="form.customer_name-items" style="z-index: 999; position: absolute; width: 29%; background-color: white; padding: 0px 10px; max-height: 150px; overflow: auto;">
+                                                    <div class="form.customer_name-items" style="z-index: 999; position: absolute; width: 29%; background-color: white; padding: 0px 10px; max-height: 150px; overflow: auto;">
 
                                                         <div :class="currentFocus2 == index ? 'form.customer_name-active' : ''" v-for="(i, index) in customer_arr" v-if= "onFocus2 && i.customer_name.substr(0, form.customer_name.length).toUpperCase() == form.customer_name.toUpperCase()" @click="form.customer_name = i.customer_name; form.customer_phone = i.customer_phone; form.customer_email = i.customer_email; form.customer_address = i.customer_address; onFocus2 = false;">
                                                             <strong>{{i.customer_name.substr(0, form.customer_name.length)}}</strong>{{i.customer_name.substr(form.customer_name.length)}}
                                                         </div>
-                                                    </div> -->
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -187,23 +179,12 @@
 </template>
 
 <script>
-import { ModelListSelect } from 'vue-search-select'
 export default {
     data() {
         var today = new Date();
         var current_date = today.getDate()+'-'+(today.getMonth()+1)+'-'+today.getFullYear();
 
         return {
-            options1: [
-          ],
-
-        objectItem: {},
-         stringItem: '',
-
-            item: {
-              value: '',
-              text: ''
-            },
 
             form: new Form({
                 id : '',
@@ -221,7 +202,7 @@ export default {
                 due_amount : 0
             }), 
 
-            // options: [],
+            product_arr: [],
             currentFocus: '',
             autocomplete: '',
             onBlur: true,
@@ -280,29 +261,7 @@ export default {
         }
     },
 
-    components: {
-      ModelListSelect
-    },
-
     methods:{
-
-        codeAndNameAndDesc (item) {
-        return `${item.customer_name} - ${item.customer_name} - ${item.customer_name}`
-      },
-      reset1 () {
-        this.objectItem = {}
-      },
-      selectFromParentComponent1 () {
-        // select option from parent component
-        this.objectItem = this.options[0]
-      },
-      reset2 () {
-        this.stringItem = ''
-      },
-      selectFromParentComponent2 () {
-        // select option from parent component
-        this.stringItem = this.options[0].code
-      },
 
         addActive(){
             var vm = this;
@@ -366,7 +325,7 @@ export default {
             var temp = this;
             axios.get('/api/customers')
             .then((response) => {
-                temp.options1 = response.data.data;
+                temp.customer_arr = response.data.data;
             })
             .catch(function (error) {
                 this.loadin = true; 
