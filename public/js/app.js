@@ -3893,6 +3893,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     var today = new Date();
@@ -4056,6 +4061,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
 //
 //
 //
@@ -7702,6 +7708,8 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
 //
 //
 //
@@ -52270,16 +52278,8 @@ var render = function() {
                               _c(
                                 "div",
                                 {
-                                  staticClass: "form.customer_name-items",
-                                  staticStyle: {
-                                    "z-index": "999",
-                                    position: "absolute",
-                                    width: "29%",
-                                    "background-color": "white",
-                                    padding: "0px 10px",
-                                    "max-height": "150px",
-                                    overflow: "auto"
-                                  }
+                                  staticClass:
+                                    "form.customer_name-items search_dynamic_product w-100"
                                 },
                                 _vm._l(_vm.customer_arr, function(i, index) {
                                   return _vm.onFocus2 &&
@@ -52309,23 +52309,24 @@ var render = function() {
                                           }
                                         },
                                         [
-                                          _c("strong", [
-                                            _vm._v(
-                                              _vm._s(
-                                                i.customer_name.substr(
-                                                  0,
-                                                  _vm.form.customer_name.length
-                                                )
+                                          _c(
+                                            "p",
+                                            {
+                                              staticClass:
+                                                "product_name_active mb-0 border-bottom"
+                                            },
+                                            [
+                                              _vm._v(
+                                                "\n                                                        " +
+                                                  _vm._s(
+                                                    i.customer_name.substr(
+                                                      _vm.form.customer_name
+                                                        .length
+                                                    )
+                                                  ) +
+                                                  "\n                                                    "
                                               )
-                                            )
-                                          ]),
-                                          _vm._v(
-                                            _vm._s(
-                                              i.customer_name.substr(
-                                                _vm.form.customer_name.length
-                                              )
-                                            ) +
-                                              "\n                                                    "
+                                            ]
                                           )
                                         ]
                                       )
@@ -52578,16 +52579,7 @@ var render = function() {
                                           "div",
                                           {
                                             staticClass:
-                                              "product.product_name-items",
-                                            staticStyle: {
-                                              "z-index": "999",
-                                              position: "absolute",
-                                              width: "29%",
-                                              "background-color": "white",
-                                              padding: "0px 10px",
-                                              "max-height": "150px",
-                                              overflow: "auto"
-                                            }
+                                              "product.product_name-items search_dynamic_product"
                                           },
                                           _vm._l(_vm.product_arr, function(
                                             i,
@@ -52606,7 +52598,7 @@ var render = function() {
                                                   {
                                                     class:
                                                       _vm.currentFocus == index
-                                                        ? "product.product_name-active"
+                                                        ? ""
                                                         : "",
                                                     on: {
                                                       click: function($event) {
@@ -52619,25 +52611,25 @@ var render = function() {
                                                     }
                                                   },
                                                   [
-                                                    _c("strong", [
-                                                      _vm._v(
-                                                        _vm._s(
-                                                          i.product_name.substr(
-                                                            0,
-                                                            product.product_name
-                                                              .length
-                                                          )
+                                                    _c(
+                                                      "p",
+                                                      {
+                                                        staticClass:
+                                                          "product_name_active mb-0 border-bottom"
+                                                      },
+                                                      [
+                                                        _vm._v(
+                                                          "  \n                                                              " +
+                                                            _vm._s(
+                                                              i.product_name.substr(
+                                                                product
+                                                                  .product_name
+                                                                  .length
+                                                              )
+                                                            ) +
+                                                            " \n                                                            "
                                                         )
-                                                      )
-                                                    ]),
-                                                    _vm._v(
-                                                      _vm._s(
-                                                        i.product_name.substr(
-                                                          product.product_name
-                                                            .length
-                                                        )
-                                                      ) +
-                                                        "\n                                                        "
+                                                      ]
                                                     )
                                                   ]
                                                 )
@@ -53576,16 +53568,8 @@ var render = function() {
                                         _c(
                                           "div",
                                           {
-                                            staticClass: "product.index-items",
-                                            staticStyle: {
-                                              "z-index": "99999",
-                                              position: "absolute",
-                                              width: "29%",
-                                              "background-color": "red",
-                                              padding: "0px 10px",
-                                              "max-height": "150px",
-                                              overflow: "auto"
-                                            }
+                                            staticClass:
+                                              "product.index-items search_dynamic_product"
                                           },
                                           _vm._l(_vm.product_arr, function(
                                             i,
@@ -53617,25 +53601,25 @@ var render = function() {
                                                     }
                                                   },
                                                   [
-                                                    _c("strong", [
-                                                      _vm._v(
-                                                        _vm._s(
-                                                          i.product_name.substr(
-                                                            0,
-                                                            product.product_name
-                                                              .length
-                                                          )
+                                                    _c(
+                                                      "p",
+                                                      {
+                                                        staticClass:
+                                                          "product_name_active mb-0 border-bottom"
+                                                      },
+                                                      [
+                                                        _vm._v(
+                                                          "  \n                                                              " +
+                                                            _vm._s(
+                                                              i.product_name.substr(
+                                                                product
+                                                                  .product_name
+                                                                  .length
+                                                              )
+                                                            ) +
+                                                            " \n                                                            "
                                                         )
-                                                      )
-                                                    ]),
-                                                    _vm._v(
-                                                      _vm._s(
-                                                        i.product_name.substr(
-                                                          product.product_name
-                                                            .length
-                                                        )
-                                                      ) +
-                                                        "\n                                                        "
+                                                      ]
                                                     )
                                                   ]
                                                 )
@@ -61763,16 +61747,7 @@ var render = function() {
                                         "div",
                                         {
                                           staticClass:
-                                            "product.product_name-items",
-                                          staticStyle: {
-                                            "z-index": "999",
-                                            position: "absolute",
-                                            width: "29%",
-                                            "background-color": "white",
-                                            padding: "0px 10px",
-                                            "max-height": "150px",
-                                            overflow: "auto"
-                                          }
+                                            "product.product_name-items search_dynamic_product"
                                         },
                                         _vm._l(_vm.product_arr, function(
                                           i,
@@ -61804,25 +61779,25 @@ var render = function() {
                                                   }
                                                 },
                                                 [
-                                                  _c("strong", [
-                                                    _vm._v(
-                                                      _vm._s(
-                                                        i.product_name.substr(
-                                                          0,
-                                                          product.product_name
-                                                            .length
-                                                        )
+                                                  _c(
+                                                    "p",
+                                                    {
+                                                      staticClass:
+                                                        "product_name_active mb-0 border-bottom"
+                                                    },
+                                                    [
+                                                      _vm._v(
+                                                        "  \n                                                              " +
+                                                          _vm._s(
+                                                            i.product_name.substr(
+                                                              product
+                                                                .product_name
+                                                                .length
+                                                            )
+                                                          ) +
+                                                          " \n                                                            "
                                                       )
-                                                    )
-                                                  ]),
-                                                  _vm._v(
-                                                    _vm._s(
-                                                      i.product_name.substr(
-                                                        product.product_name
-                                                          .length
-                                                      )
-                                                    ) +
-                                                      "\n                                                        "
+                                                    ]
                                                   )
                                                 ]
                                               )

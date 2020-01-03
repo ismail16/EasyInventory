@@ -97,13 +97,14 @@
                                                     <td style="width: 320px">
                                                         <input @blur="onBlur=true" @focus="onFocus = true;onBlur = false;" v-model="product.product_name" @keyDown="keyDown"  type="text" placeholder="Product Name" class="form-control-sm w-100" required>
 
-                                                        <div class="product.index-items" style="z-index: 99999; position: absolute; width: 29%; background-color: red; padding: 0px 10px; max-height: 150px; overflow: auto;">
-
+                                                        <div class="product.index-items search_dynamic_product">
                                                             <div :class="currentFocus == index ? 'product.index-active' : ''" v-for="(i, index) in product_arr" v-if= "onFocus && i.product_name.substr(0, product.product_name.length).toUpperCase() == product.product_name.toUpperCase()" @click="product.product_name = i.product_name; product.sell_price = i.sell_price; onFocus = false;">
-                                                                <strong>{{i.product_name.substr(0, product.product_name.length)}}</strong>{{i.product_name.substr(product.product_name.length)}}
+                                                               <p class="product_name_active mb-0 border-bottom">  
+                                                                  {{i.product_name.substr(product.product_name.length)}} 
+                                                                </p>
                                                             </div>
-
                                                         </div>
+                                                        
                                                     </td>
                                                     <td style="width: 320px" @click="onFocus = false;">
                                                         <input v-model="product.product_quantity" placeholder="Product Quantity" type="text" class="form-control-sm w-100" autocomplete="off" required>

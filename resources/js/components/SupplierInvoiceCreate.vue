@@ -83,9 +83,11 @@
                                                 <tr v-for="(product, index) in form.products">
                                                     <td style="width: 320px">
                                                         <input @blur="onBlur=true" @focus="onFocus = true;onBlur = false;" v-model="product.product_name" @keyDown="keyDown"  type="text" placeholder="Product Name" class="form-control-sm w-100" required>
-                                                        <div class="product.product_name-items" style="z-index: 999; position: absolute; width: 29%; background-color: white; padding: 0px 10px; max-height: 150px; overflow: auto;">
+                                                        <div class="product.product_name-items search_dynamic_product">
                                                             <div :class="currentFocus == index ? 'product.product_name-active' : ''" v-for="(i, index) in product_arr" v-if= "onFocus && i.product_name.substr(0, product.product_name.length).toUpperCase() == product.product_name.toUpperCase()" @click="product.product_name = i.product_name; product.supplier_price = i.supplier_price; onFocus = false;">
-                                                                <strong>{{i.product_name.substr(0, product.product_name.length)}}</strong>{{i.product_name.substr(product.product_name.length)}}
+                                                                <p class="product_name_active mb-0 border-bottom">  
+                                                                  {{i.product_name.substr(product.product_name.length)}} 
+                                                                </p>
                                                             </div>
                                                         </div>
                                                     </td>

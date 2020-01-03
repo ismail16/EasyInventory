@@ -24,6 +24,31 @@
 	  	<!-- customs css and js -->
 	  	<link rel="stylesheet" href="{{ asset('css/customs.css')}}"> 
 	  	<script src="{{ asset('js/customs.js')}}"></script>
+	  	<!-- <script src="{{ mix('css/app.css') }}"></script> -->
+
+	  	<style type="text/css">
+	  		 .search_dynamic_product{
+			      z-index: 999;
+				    position: absolute;
+				    width: 29%;
+				    background-color: #b9b9b9;
+				    padding: 0px 0px 0px 10px;
+				    max-height: 150px;
+				    overflow: auto;
+			}
+			.product_name_active{
+				color: #000;
+				padding: 0px 0px 0px 5px;
+			}
+			.product_name_active:hover{
+				color: #fff;
+				background-color: gray;
+				cursor: pointer;
+				font-weight: bolder;
+			}
+
+	  	</style>
+
 	  	<!-- pushing css -->
 		@stack('css')
 	</head>

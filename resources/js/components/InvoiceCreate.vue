@@ -31,11 +31,14 @@
                                                 <div class="col-sm-8">
                                                     <input @blur="onBlur2=true" @focus="onFocus2 = true;onBlur2 = false;" v-model="form.customer_name" @keyDown="keyDown2"  type="text" placeholder="Customer Name" class="form-control form-control-sm w-100" required>
 
-                                                    <div class="form.customer_name-items" style="z-index: 999; position: absolute; width: 29%; background-color: white; padding: 0px 10px; max-height: 150px; overflow: auto;">
+                                                    <div class="form.customer_name-items search_dynamic_product w-100">
 
                                                         <div :class="currentFocus2 == index ? 'form.customer_name-active' : ''" v-for="(i, index) in customer_arr" v-if= "onFocus2 && i.customer_name.substr(0, form.customer_name.length).toUpperCase() == form.customer_name.toUpperCase()" @click="form.customer_name = i.customer_name; form.customer_phone = i.customer_phone; form.customer_email = i.customer_email; form.customer_address = i.customer_address; onFocus2 = false;">
-                                                            <strong>{{i.customer_name.substr(0, form.customer_name.length)}}</strong>{{i.customer_name.substr(form.customer_name.length)}}
+                                                            <p class="product_name_active mb-0 border-bottom">
+                                                            {{i.customer_name.substr(form.customer_name.length)}}
+                                                        </p>
                                                         </div>
+
                                                     </div>
                                                 </div>
                                             </div>
@@ -97,10 +100,12 @@
 
                                                         <input @blur="onBlur=true" @focus="onFocus = true;onBlur = false;" v-model="product.product_name" @keyDown="keyDown"  type="text" placeholder="Product Name" class="form-control-sm w-100" required>
 
-                                                        <div class="product.product_name-items" style="z-index: 999; position: absolute; width: 29%; background-color: white; padding: 0px 10px; max-height: 150px; overflow: auto;">
+                                                        <div class="product.product_name-items search_dynamic_product">
 
-                                                            <div :class="currentFocus == index ? 'product.product_name-active' : ''" v-for="(i, index) in product_arr" v-if= "onFocus && i.product_name.substr(0, product.product_name.length).toUpperCase() == product.product_name.toUpperCase()" @click="product.product_name = i.product_name; product.sell_price = i.sell_price; onFocus = false;">
-                                                                <strong>{{i.product_name.substr(0, product.product_name.length)}}</strong>{{i.product_name.substr(product.product_name.length)}}
+                                                            <div :class="currentFocus == index ? '' : ''" v-for="(i, index) in product_arr" v-if= "onFocus && i.product_name.substr(0, product.product_name.length).toUpperCase() == product.product_name.toUpperCase()" @click="product.product_name = i.product_name; product.sell_price = i.sell_price; onFocus = false;">   
+                                                                <p class="product_name_active mb-0 border-bottom">  
+                                                                  {{i.product_name.substr(product.product_name.length)}} 
+                                                                </p>
                                                             </div>
 
                                                         </div>
