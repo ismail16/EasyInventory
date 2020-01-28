@@ -46,7 +46,14 @@
 
 /*Navbar and sidebar css*/
 .nav-link { display: block; padding: 5px 1rem !important; }
-.sidebar-nav ul li { border-bottom: 1px solid #545d67; }
+
+.sidebar-nav ul li { 
+  /*border-bottom: 1px solid #545d67; */
+}
+
+.sidebar-nav ul li:hover { 
+   background-color: rgba(6, 4, 4, 0.22);
+}
 
 .nav-pills .nav-link {
     color: #000;

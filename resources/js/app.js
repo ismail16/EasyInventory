@@ -76,9 +76,6 @@ const router = new VueRouter({
     routes, // short for `routes: routes`
 });
 
-
-
-// Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 Vue.component('pagination-component', require('./components/partials/PaginationComponent.vue').default);
 
 
