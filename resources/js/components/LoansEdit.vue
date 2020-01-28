@@ -109,11 +109,7 @@
 </template>
 
 <script>
-import datetime from 'vuejs-datetimepicker'
 export default {
-
-    components: { datetime },
-
     data() {
         return {
             form: new Form({

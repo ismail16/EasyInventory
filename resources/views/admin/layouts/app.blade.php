@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 	<meta http-equiv="content-type" content="text/html;charset=utf-8" />
@@ -39,17 +38,17 @@
 			    </ul>
 			    <ul class="navbar-nav ml-auto">
 			      	<li class="nav-item dropdown">
-			        	<a href="{{ route('admin.documentation') }}" target="_blank" class="nav-link bg-light mr-1">
+			        	<a href="{{ route('admin.documentation') }}" target="_blank" class="nav-link mr-1">
 							<i class="nav-icon far fa-file-alt text-info"> Documentation</i>
 						</a>
 			      	</li>
 			      	<li class="nav-item dropdown">
-			       		<router-link to="/report" class="nav-link bg-light mr-1">
+			       		<router-link to="/report" class="nav-link mr-1">
 							<i class="fas fa-chart-line text-success"> Reports</i>
 						</router-link>
 			      	</li>
 			      	<li class="nav-item dropdown">
-			        	<router-link to="/setting" class="nav-link bg-light mr-3">
+			        	<router-link to="/setting" class="nav-link mr-3">
 							<i class="nav-icon fas fa-cogs text-danger"> Setting</i>
 						</router-link>
 			      	</li>
@@ -233,4 +232,3 @@
 		@stack('scripts')
 	</body>
 </html>
-

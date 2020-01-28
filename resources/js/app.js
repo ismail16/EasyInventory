@@ -4,11 +4,6 @@ require('./bootstrap');
 window.Vue = require('vue');
 import Vue from 'vue'
 
-// import Vuex from 'vuex'
-// Vue.use(Vuex)
-// import { storage } from './state'
-// const store = new Vuex.Store(storage)
-
 import moment from 'moment'
 Vue.filter('myDate', function(created){
     return moment(created).format('DD-MM-YYYY');
@@ -31,7 +26,6 @@ import { Form, HasError, AlertError } from 'vform'
 window.Form = Form;
 Vue.component(HasError.name, HasError)
 Vue.component(AlertError.name, AlertError)
-
 
 
 const routes = [
@@ -82,27 +76,6 @@ Vue.component('pagination-component', require('./components/partials/PaginationC
 const app= new Vue({
     el: '#app',
     router,
-    // store,
-
-    data() {
-        return {
-            all_setting: 'llllllllllllll',
-           
-        }
-    },
-
-    created() {
-        var vm = this;
-        axios.get('/api/setting/1')
-        .then((response) => {
-            vm.all_setting = response.data;
-            console.log(response.data)
-        })
-        .catch(function (error) {
-            this.loadin = true; 
-            toastr.error('Something is wrong Data Loaded')
-        });
-    }
 });
 
 
