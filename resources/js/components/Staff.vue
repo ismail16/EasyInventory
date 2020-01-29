@@ -77,7 +77,7 @@
                                         </tr>
                                     </tbody>
 
-                                    <tbody v-else-if="products.length == 0">
+                                    <tbody v-else-if="staffs.length == 0">
                                         <tr>
                                             <td colspan="8">
                                                 <div class="p-3 mb-2">

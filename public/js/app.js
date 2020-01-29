@@ -45459,7 +45459,7 @@ var render = function() {
                           }),
                           0
                         )
-                      : _vm.products.length == 0
+                      : _vm.categories.length == 0
                       ? _c("tbody", [_vm._m(2)])
                       : _c("tbody", [_vm._m(3)])
                   ]
@@ -46012,7 +46012,7 @@ var render = function() {
                             }),
                             0
                           )
-                        : _vm.products.length == 0
+                        : _vm.customers.length == 0
                         ? _c("tbody", [_vm._m(2)])
                         : _c("tbody", [_vm._m(3)])
                     ]
@@ -47235,7 +47235,7 @@ var render = function() {
                           }),
                           0
                         )
-                      : _vm.products.length == 0
+                      : _vm.expenses.length == 0
                       ? _c("tbody", [_vm._m(2)])
                       : _c("tbody", [_vm._m(3)])
                   ]
@@ -49161,7 +49161,7 @@ var render = function() {
                             }),
                             0
                           )
-                        : _vm.products.length == 0
+                        : _vm.Invoices.length == 0
                         ? _c("tbody", [_vm._m(2)])
                         : _c("tbody", [_vm._m(3)])
                     ]
@@ -51955,7 +51955,7 @@ var render = function() {
                               }),
                               0
                             )
-                          : _vm.products.length == 0
+                          : _vm.loans.length == 0
                           ? _c("tbody", [_vm._m(2)])
                           : _c("tbody", [_vm._m(3)])
                       ]
@@ -56723,7 +56723,7 @@ var render = function() {
                               }),
                               0
                             )
-                          : _vm.products.length == 0
+                          : _vm.staffs.length == 0
                           ? _c("tbody", [_vm._m(2)])
                           : _c("tbody", [_vm._m(3)])
                       ]
@@ -57704,7 +57704,7 @@ var render = function() {
                               }),
                               0
                             )
-                          : _vm.products.length == 0
+                          : _vm.suppliers.length == 0
                           ? _c("tbody", [_vm._m(2)])
                           : _c("tbody", [_vm._m(3)])
                       ]
@@ -58527,7 +58527,7 @@ var render = function() {
                             }),
                             0
                           )
-                        : _vm.products.length == 0
+                        : _vm.supplierInvoices.length == 0
                         ? _c("tbody", [_vm._m(2)])
                         : _c("tbody", [_vm._m(3)])
                     ]
@@ -60737,7 +60737,7 @@ var render = function() {
                             }),
                             0
                           )
-                        : _vm.products.length == 0
+                        : _vm.warehouses.length == 0
                         ? _c("tbody", [_vm._m(2)])
                         : _c("tbody", [_vm._m(3)])
                     ]
