@@ -10,7 +10,7 @@
                             <section id="start">
                                 <h1>Easy Inventory</h1>
                                 <h3 style="font-size: 15px; margin:0;">Inventory Control and Inventory Management System - Version 1.0.1</h3>
-                                 <h4  class="text-success">[ System is Fully Live Time. Created by Vue, Laravel ]</h4>
+                                 <h4  class="text-success">[ System is Fully Live Time. Developed by Vue, Laravel ]</h4>
                                 <hr>
                                 <p style="text-align: justify;">If you have any questions and You face any kind of problem during installation phase of Easy Inventory - <strong>Do Not Worry - We are here to help you!! Contact us directly at below information</strong>
                                     <br>
@@ -114,7 +114,7 @@
                                     <div class="col-md-5 border-right">
                                         <p style="text-align: justify;">To log-in to admin panel - please use the following login credentials provided below.</p>
                                         <p style="text-align: justify;">
-                                            <strong style="color: red">Please Note:</strong> Once you installed the system and you are on login page, if the login page not showing correctly OR not logging to system then you need to check again the .env file which is in side root of main folder, make sure your server have 7.1  version installed. if still problem exist you may contact us at <b>ismail32cse@gmail.com</b>, we will reply you as soon as possible.
+                                            <strong style="color: red">Please Note:</strong> Once you installed the system and you are on login page, if the login page not showing correctly OR not logging to system then you need to check again the .env file which is in side root of main folder, make sure your php have 7.1  version installed. if still problem exist you may contact us at <b>ismail32cse@gmail.com</b>, we will reply you as soon as possible.
                                             <br>
                                             <br>
 
