@@ -138,7 +138,7 @@ class InvoiceController extends Controller
         $month_val_arr = array();
         for($i= 1; $i<= count($month_arr); $i++) {
 
-            $this_months = Invoice::where('created_at', 'LIKE','%'. $year.'-'.$month.'-'.sprintf("%02d", $i). '%')->select('paid_amount')->get();
+            $this_months = Invoice::where('created_at', 'LIKE','%'. $year.'-'.sprintf("%02d", $month).'-'.sprintf("%02d", $i). '%')->select('paid_amount')->get();
 
             $month_total = 0;
             if (count($this_months) > 0) {

@@ -2611,6 +2611,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           monthNames.push(data.days[k] == 0 ? 0 : data.days[k]);
         }
 
+        console.log(data);
         var month_days = [];
 
         for (var d = 1; d <= data.days.length; d++) {
