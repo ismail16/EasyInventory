@@ -104,10 +104,15 @@
                                 <tbody v-else>
                                     <tr>
                                         <td colspan="8">
-                                            <div class="p-3 mb-2">
-                                                <h3 class="text-center text-danger">Opps!!</h3>
-                                                <p class="text-center">Data expense not found</p>
-                                            </div>
+                                            <div class="d-flex flex-column align-items-center justify-content-center p-5">
+                                                <div class="row">
+                                                   <div class="spinner-border" role="status">
+                                                   </div>
+                                                </div>
+                                                <div class="row">
+                                                  <strong>Loading...</strong>
+                                                </div>
+                                            </div> 
                                         </td>
                                     </tr>
                                 </tbody>
