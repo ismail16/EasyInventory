@@ -78,6 +78,17 @@
                                         </tr>
                                     </tbody>
 
+                                    <tbody v-else-if="products.length == 0">
+                                        <tr >
+                                            <td colspan="9">
+                                                <div class="d-flex flex-column align-items-center justify-content-center p-5">
+                                                    <div class="row">
+                                                      <strong>Nodata Found !!</strong>
+                                                    </div>
+                                                </div> 
+                                            </td>
+                                        </tr>
+                                    </tbody>
                                     <tbody v-else>
                                         <tr>
                                             <td colspan="9">
@@ -202,7 +213,8 @@ export default {
             },
             setting:'',
 
-            product:''
+            product:'',
+            loading: true
         }
     },
 
@@ -252,8 +264,10 @@ export default {
             .then((response) => {
                 temp.products = response.data.data;
                 temp.pagination = response.data.meta;
+                temp.loadin = false;
             })
             .catch(function (error) {
+                temp.loadin = false;
                 toastr.error('Something is wrong Data Loaded')
             });
         },
@@ -266,6 +280,8 @@ export default {
             .then(response => {
                 temp.products = response.data.data;
                 temp.pagination = response.data.meta;
+                console.log(response.data.data)
+                temp.loadin = false;
             })
             .catch(e => {
                 console.log(e);

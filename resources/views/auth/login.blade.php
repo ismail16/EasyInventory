@@ -58,10 +58,12 @@
                     </div>
                 </form>
             </div>
-           {{--  <div class="card-footer text-center">
-                User ID: <b>admin@email.com</b> <br>
-                Password: <b>11111111</b>
-            </div> --}}
+            <div class="card-footer text-center">
+               {{--  User ID: <b>admin@email.com</b> <br>
+                Password: <b>11111111</b> --}}
+
+                <a href="{{ route('admin.documentation') }}" title="documentation">Documentation</a>
+            </div>
         </div>
     </div>
 
