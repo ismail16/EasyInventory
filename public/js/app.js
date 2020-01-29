@@ -1827,6 +1827,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -1958,6 +1968,16 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -2790,6 +2810,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -3477,6 +3507,16 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -4796,6 +4836,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -5248,7 +5298,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-//
 //
 //
 //
@@ -7030,6 +7079,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -7337,6 +7396,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -7474,6 +7543,16 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -8607,6 +8686,16 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -45369,7 +45458,9 @@ var render = function() {
                           }),
                           0
                         )
-                      : _c("tbody", [_vm._m(2)])
+                      : _vm.products.length == 0
+                      ? _c("tbody", [_vm._m(2)])
+                      : _c("tbody", [_vm._m(3)])
                   ]
                 )
               ])
@@ -45455,7 +45546,7 @@ var render = function() {
                   [_vm._v("Update category")]
                 ),
                 _vm._v(" "),
-                _vm._m(3)
+                _vm._m(4)
               ]),
               _vm._v(" "),
               _c(
@@ -45474,7 +45565,7 @@ var render = function() {
                       "div",
                       { staticClass: "form-group" },
                       [
-                        _vm._m(4),
+                        _vm._m(5),
                         _vm._v(" "),
                         _c("input", {
                           directives: [
@@ -45603,6 +45694,22 @@ var staticRenderFns = [
         _c("th", { staticClass: "text-center" }, [_vm._v("Date")]),
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [_vm._v("Action")])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("tr", [
+      _c("td", { attrs: { colspan: "7" } }, [
+        _c("div", { staticClass: "p-3 mb-2" }, [
+          _c("h3", { staticClass: "text-center text-danger" }, [
+            _vm._v("Opps!!")
+          ]),
+          _vm._v(" "),
+          _c("p", { staticClass: "text-center" }, [_vm._v("Data not found")])
+        ])
       ])
     ])
   },
@@ -45904,7 +46011,9 @@ var render = function() {
                             }),
                             0
                           )
-                        : _c("tbody", [_vm._m(2)])
+                        : _vm.products.length == 0
+                        ? _c("tbody", [_vm._m(2)])
+                        : _c("tbody", [_vm._m(3)])
                     ]
                   ),
                   _vm._v(" "),
@@ -45980,7 +46089,7 @@ var render = function() {
                   [_vm._v("Update customer")]
                 ),
                 _vm._v(" "),
-                _vm._m(3)
+                _vm._m(4)
               ]),
               _vm._v(" "),
               _c(
@@ -45996,7 +46105,7 @@ var render = function() {
                 [
                   _c("div", { staticClass: "modal-body" }, [
                     _c("div", { staticClass: "form-group row" }, [
-                      _vm._m(4),
+                      _vm._m(5),
                       _vm._v(" "),
                       _c(
                         "div",
@@ -46253,6 +46362,22 @@ var staticRenderFns = [
         _c("th", { staticClass: "text-center" }, [_vm._v("Address")]),
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [_vm._v("Action")])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("tr", [
+      _c("td", { attrs: { colspan: "7" } }, [
+        _c("div", { staticClass: "p-3 mb-2" }, [
+          _c("h3", { staticClass: "text-center text-danger" }, [
+            _vm._v("Opps!!")
+          ]),
+          _vm._v(" "),
+          _c("p", { staticClass: "text-center" }, [_vm._v("Data not found")])
+        ])
       ])
     ])
   },
@@ -47109,7 +47234,9 @@ var render = function() {
                           }),
                           0
                         )
-                      : _c("tbody", [_vm._m(2)])
+                      : _vm.products.length == 0
+                      ? _c("tbody", [_vm._m(2)])
+                      : _c("tbody", [_vm._m(3)])
                   ]
                 )
               ])
@@ -47174,6 +47301,22 @@ var staticRenderFns = [
         _c("th", { staticClass: "text-center" }, [_vm._v("Date")]),
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [_vm._v("Action")])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("tr", [
+      _c("td", { attrs: { colspan: "8" } }, [
+        _c("div", { staticClass: "p-3 mb-2" }, [
+          _c("h3", { staticClass: "text-center text-danger" }, [
+            _vm._v("Opps!!")
+          ]),
+          _vm._v(" "),
+          _c("p", { staticClass: "text-center" }, [_vm._v("Data not found")])
+        ])
       ])
     ])
   },
@@ -49017,7 +49160,9 @@ var render = function() {
                             }),
                             0
                           )
-                        : _c("tbody", [_vm._m(2)])
+                        : _vm.products.length == 0
+                        ? _c("tbody", [_vm._m(2)])
+                        : _c("tbody", [_vm._m(3)])
                     ]
                   )
                 ])
@@ -49089,6 +49234,22 @@ var staticRenderFns = [
         _c("th", { staticClass: "text-center" }, [_vm._v("status")]),
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [_vm._v("Action")])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("tr", [
+      _c("td", { attrs: { colspan: "10" } }, [
+        _c("div", { staticClass: "p-3 mb-2" }, [
+          _c("h3", { staticClass: "text-center text-danger" }, [
+            _vm._v("Opps!!")
+          ]),
+          _vm._v(" "),
+          _c("p", { staticClass: "text-center" }, [_vm._v("Data not found")])
+        ])
       ])
     ])
   },
@@ -51793,7 +51954,9 @@ var render = function() {
                               }),
                               0
                             )
-                          : _c("tbody", [_vm._m(2)])
+                          : _vm.products.length == 0
+                          ? _c("tbody", [_vm._m(2)])
+                          : _c("tbody", [_vm._m(3)])
                       ]
                     ),
                     _vm._v(" "),
@@ -51837,7 +52000,7 @@ var render = function() {
           { staticClass: "modal-dialog modal-md", attrs: { role: "document" } },
           [
             _c("div", { staticClass: "modal-content" }, [
-              _vm._m(3),
+              _vm._m(4),
               _vm._v(" "),
               _vm.loan
                 ? _c("div", { staticClass: "modal-body" }, [
@@ -51896,7 +52059,7 @@ var render = function() {
                   ])
                 : _vm._e(),
               _vm._v(" "),
-              _vm._m(4)
+              _vm._m(5)
             ])
           ]
         )
@@ -51936,6 +52099,22 @@ var staticRenderFns = [
         _c("th", { staticClass: "text-center" }, [_vm._v("Loan End Date")]),
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [_vm._v("Action")])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("tr", [
+      _c("td", { attrs: { colspan: "7" } }, [
+        _c("div", { staticClass: "p-3 mb-2" }, [
+          _c("h3", { staticClass: "text-center text-danger" }, [
+            _vm._v("Opps!!")
+          ]),
+          _vm._v(" "),
+          _c("p", { staticClass: "text-center" }, [_vm._v("Data not found")])
+        ])
       ])
     ])
   },
@@ -53532,18 +53711,13 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("tr", [
       _c("td", { attrs: { colspan: "9" } }, [
-        _c(
-          "div",
-          {
-            staticClass:
-              "d-flex flex-column align-items-center justify-content-center p-5"
-          },
-          [
-            _c("div", { staticClass: "row" }, [
-              _c("strong", [_vm._v("Nodata Found !!")])
-            ])
-          ]
-        )
+        _c("div", { staticClass: "p-3 mb-2" }, [
+          _c("h3", { staticClass: "text-center text-danger" }, [
+            _vm._v("Opps!!")
+          ]),
+          _vm._v(" "),
+          _c("p", { staticClass: "text-center" }, [_vm._v("Data not found")])
+        ])
       ])
     ])
   },
@@ -56548,7 +56722,9 @@ var render = function() {
                               }),
                               0
                             )
-                          : _c("tbody", [_vm._m(2)])
+                          : _vm.products.length == 0
+                          ? _c("tbody", [_vm._m(2)])
+                          : _c("tbody", [_vm._m(3)])
                       ]
                     )
                   ]),
@@ -56625,7 +56801,7 @@ var render = function() {
                   [_vm._v("Update staff")]
                 ),
                 _vm._v(" "),
-                _vm._m(3)
+                _vm._m(4)
               ]),
               _vm._v(" "),
               _c(
@@ -56641,7 +56817,7 @@ var render = function() {
                 [
                   _c("div", { staticClass: "modal-body" }, [
                     _c("div", { staticClass: "form-group mb-0 row" }, [
-                      _vm._m(4),
+                      _vm._m(5),
                       _vm._v(" "),
                       _c(
                         "div",
@@ -56690,7 +56866,7 @@ var render = function() {
                     ]),
                     _vm._v(" "),
                     _c("div", { staticClass: "form-group mb-0 row" }, [
-                      _vm._m(5),
+                      _vm._m(6),
                       _vm._v(" "),
                       _c(
                         "div",
@@ -56813,7 +56989,7 @@ var render = function() {
                     ]),
                     _vm._v(" "),
                     _c("div", { staticClass: "form-group mb-0 row" }, [
-                      _vm._m(6),
+                      _vm._m(7),
                       _vm._v(" "),
                       _c(
                         "div",
@@ -57053,7 +57229,7 @@ var render = function() {
           { staticClass: "modal-dialog modal-md", attrs: { role: "document" } },
           [
             _c("div", { staticClass: "modal-content" }, [
-              _vm._m(7),
+              _vm._m(8),
               _vm._v(" "),
               _c("div", { staticClass: "modal-body" }, [
                 _c("div", { staticClass: "card" }, [
@@ -57087,12 +57263,12 @@ var render = function() {
                       ])
                     ]),
                     _vm._v(" "),
-                    _vm._m(8)
+                    _vm._m(9)
                   ])
                 ])
               ]),
               _vm._v(" "),
-              _vm._m(9)
+              _vm._m(10)
             ])
           ]
         )
@@ -57132,6 +57308,22 @@ var staticRenderFns = [
         _c("th", { staticClass: "text-center" }, [_vm._v("Type")]),
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [_vm._v("Action")])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("tr", [
+      _c("td", { attrs: { colspan: "8" } }, [
+        _c("div", { staticClass: "p-3 mb-2" }, [
+          _c("h3", { staticClass: "text-center text-danger" }, [
+            _vm._v("Opps!!")
+          ]),
+          _vm._v(" "),
+          _c("p", { staticClass: "text-center" }, [_vm._v("Data not found")])
+        ])
       ])
     ])
   },
@@ -57511,7 +57703,9 @@ var render = function() {
                               }),
                               0
                             )
-                          : _c("tbody", [_vm._m(2)])
+                          : _vm.products.length == 0
+                          ? _c("tbody", [_vm._m(2)])
+                          : _c("tbody", [_vm._m(3)])
                       ]
                     ),
                     _vm._v(" "),
@@ -57590,7 +57784,7 @@ var render = function() {
                   [_vm._v("Update Supplier")]
                 ),
                 _vm._v(" "),
-                _vm._m(3)
+                _vm._m(4)
               ]),
               _vm._v(" "),
               _c(
@@ -57606,7 +57800,7 @@ var render = function() {
                 [
                   _c("div", { staticClass: "modal-body" }, [
                     _c("div", { staticClass: "form-group row" }, [
-                      _vm._m(4),
+                      _vm._m(5),
                       _vm._v(" "),
                       _c(
                         "div",
@@ -57904,6 +58098,22 @@ var staticRenderFns = [
         _c("th", { staticClass: "text-center" }, [_vm._v("Address")]),
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [_vm._v("Action")])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("tr", [
+      _c("td", { attrs: { colspan: "8" } }, [
+        _c("div", { staticClass: "p-3 mb-2" }, [
+          _c("h3", { staticClass: "text-center text-danger" }, [
+            _vm._v("Opps!!")
+          ]),
+          _vm._v(" "),
+          _c("p", { staticClass: "text-center" }, [_vm._v("Data not found")])
+        ])
       ])
     ])
   },
@@ -58316,7 +58526,9 @@ var render = function() {
                             }),
                             0
                           )
-                        : _c("tbody", [_vm._m(2)])
+                        : _vm.products.length == 0
+                        ? _c("tbody", [_vm._m(2)])
+                        : _c("tbody", [_vm._m(3)])
                     ]
                   )
                 ])
@@ -58384,6 +58596,22 @@ var staticRenderFns = [
         _c("th", { staticClass: "text-center" }, [_vm._v("Date")]),
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [_vm._v("Action")])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("tr", [
+      _c("td", { attrs: { colspan: "8" } }, [
+        _c("div", { staticClass: "p-3 mb-2" }, [
+          _c("h3", { staticClass: "text-center text-danger" }, [
+            _vm._v("Opps!!")
+          ]),
+          _vm._v(" "),
+          _c("p", { staticClass: "text-center" }, [_vm._v("Data not found")])
+        ])
       ])
     ])
   },
@@ -60508,7 +60736,9 @@ var render = function() {
                             }),
                             0
                           )
-                        : _c("tbody", [_vm._m(2)])
+                        : _vm.products.length == 0
+                        ? _c("tbody", [_vm._m(2)])
+                        : _c("tbody", [_vm._m(3)])
                     ]
                   )
                 ])
@@ -60597,7 +60827,7 @@ var render = function() {
                   [_vm._v("Update warehouse")]
                 ),
                 _vm._v(" "),
-                _vm._m(3)
+                _vm._m(4)
               ]),
               _vm._v(" "),
               _c(
@@ -60618,7 +60848,7 @@ var render = function() {
                       "div",
                       { staticClass: "form-group" },
                       [
-                        _vm._m(4),
+                        _vm._m(5),
                         _vm._v(" "),
                         _c("input", {
                           directives: [
@@ -60747,6 +60977,22 @@ var staticRenderFns = [
         _c("th", { staticClass: "text-center" }, [_vm._v("Date")]),
         _vm._v(" "),
         _c("th", { staticClass: "text-center" }, [_vm._v("Action")])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("tr", [
+      _c("td", { attrs: { colspan: "7" } }, [
+        _c("div", { staticClass: "p-3 mb-2" }, [
+          _c("h3", { staticClass: "text-center text-danger" }, [
+            _vm._v("Opps!!")
+          ]),
+          _vm._v(" "),
+          _c("p", { staticClass: "text-center" }, [_vm._v("Data not found")])
+        ])
       ])
     ])
   },
