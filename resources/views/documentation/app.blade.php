@@ -19,6 +19,11 @@
   	<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
   	<link rel="stylesheet" href="{{ asset('css/customs.css')}}"> 
 	<script src="{{ asset('js/customs.js')}}"></script> 
+	<style type="text/css" media="screen">
+		.nav-link {
+           padding: 2px 1rem !important;
+        }
+	</style>
 
 	</head>
 

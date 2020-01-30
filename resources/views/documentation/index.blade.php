@@ -10,7 +10,7 @@
                             <section id="start">
                                 <h1>Easy Inventory</h1>
                                 <h3 style="font-size: 15px; margin:0;">Inventory Control and Inventory Management System - Version 1.0.1</h3>
-                                 <h4  class="text-success">[ System is Fully Live Time. Developed by Vue, Laravel ]</h4>
+                                 <h4  class="text-success">[ System is Fully Real Time. Developed by Vue, Laravel ]</h4>
                                 <hr>
                                 <p style="text-align: justify;">If you have any questions and You face any kind of problem during installation phase of Easy Inventory - <strong>Do Not Worry - We are here to help you!! Contact us directly at below information</strong>
                                     <br>
