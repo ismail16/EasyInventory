@@ -3,7 +3,7 @@
         <section class="content mt-2">
             <div class="row">
                 <div class="col-12">
-                    <div class="card mt-2 rounded-0" style="margin-bottom: 5px !important;">
+                    <div class="card mt-2 rounded-0">
                         <div class="card-header pb-0">
                             <div class="row">
                                 <div class="col-md-3 float-left">
@@ -152,6 +152,7 @@
 </template>
 
 <script>
+"use strict";
     export default {
         data() {
             return {
@@ -187,7 +188,6 @@
                     updateImgUrl:temp.img_url
                 })
                 .then(function (response) {
-                    console.log(response.data)
                     toastr.success('Updated Supplier Successfully');
                     temp.$Progress.finish()
                 })
@@ -201,7 +201,6 @@
                 var temp = this;
                 axios.get('/api/products/'+this.$route.params.id)
                 .then((response) => {
-                    console.log(response)
                     temp.form = response.data
                 })
                 .catch(function (error) {

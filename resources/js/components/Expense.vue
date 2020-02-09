@@ -76,15 +76,6 @@
                                         </td>
 
                                         <td class="text-center">{{ expense.expense_date }}</td>
-
-                                        <!-- <td class="text-center">
-                                            <span v-if="expense.status == 1" class="text-success">
-                                                Active
-                                            </span>
-                                            <span v-else class="text-danger">
-                                                Deactive
-                                            </span>
-                                        </td> -->
                                         
                                         <td class="text-center">
                                             <router-link :to="'/expense/'+ expense.id +'/show'" class="btn btn-xs btn-success mr-1 ml-1">
@@ -147,6 +138,7 @@
 </template>
 
 <script>
+"use strict";
 export default {
     data() {
         return {
@@ -214,7 +206,6 @@ export default {
                 temp.pagination = response.data.meta;
             })
             .catch(e => {
-                console.log(e);
                 toastr.error('Something is wrong Search Data')
             });
         },

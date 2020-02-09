@@ -137,17 +137,13 @@
 </template>
 
 <script>
-// import datetime from 'vuejs-datetimepicker'
+"use strict";
 export default {
-    // components: { datetime },
-
     data() {
         return {
             form: new Form({
               id : '',
               expense_items:[],
-
-              // expenses:[{expense_purpose : '', expense_quantity : 1, expense_amount : 0}],
               expense_date :'',
               expense_total_amount : '',
               expense_paid_amount : '',
@@ -189,7 +185,6 @@ export default {
                 expenses:temp.form
             })
             .then(function (response) {
-                console.log(response)
               toastr.success('Updated Supplier Successfully');
               temp.$Progress.finish()
             })
@@ -212,8 +207,6 @@ export default {
             var temp = this;
             axios.get('/api/expenses/'+this.$route.params.id)
             .then((response) => {
-
-                console.log(response);
               temp.form = response.data.expense;
               temp.expense_items = response.data.expense_items;
             })

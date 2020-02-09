@@ -1,31 +1,18 @@
 
 <!DOCTYPE html>
 <html lang="en">
-<meta http-equiv="content-type" content="text/html;charset=utf-8" />
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta http-equiv="x-ua-compatible" content="ie=edge">
 	<meta name="csrf-token" content="{{ csrf_token() }}">
 	<title>@yield('title')</title>
-	<!-- Font Awesome Icons -->
 	<link rel="stylesheet" href="{{ asset('backend_assets/plugins/fontawesome-free/css/all.min.css')}}">
-	<!-- overlayScrollbars -->
 	<link rel="stylesheet" href="{{ asset('backend_assets/plugins/overlayScrollbars/css/OverlayScrollbars.min.css')}}">
-	<!-- Theme style -->
 	<link rel="stylesheet" href="{{ asset('backend_assets/dist/css/adminlte.min.css')}}">
-
-  	<!-- Google Font: Source Sans Pro -->
   	<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
   	<link rel="stylesheet" href="{{ asset('css/customs.css')}}"> 
-	<script src="{{ asset('js/customs.js')}}"></script> 
-	<style type="text/css" media="screen">
-		.nav-link {
-           padding: 2px 1rem !important;
-        }
-	</style>
-
-	</head>
+  	<link rel="stylesheet" href="{{ asset('css/document_customs.css')}}"> 
+</head>
 
 	<body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed">
 
@@ -169,14 +156,11 @@
 							<li><a href="#supplier_hr" title="Supplier"><h3>Supplier</h3></a></li>
 							<li><a href="#supplier" title="Supplier">Add New Supplier</a></li>
 							<li><a href="#SuppliersList" title="Suppliers List">Suppliers List </a></li>
-							<li><a href="#ViewSuppliers" title="View Suppliers">View Suppliers</a></li>    
-							<!-- <li><a href="#category" title="Category"><h3>Category</h3></a></li> -->
+							<li><a href="#ViewSuppliers" title="View Suppliers">View Suppliers</a></li>  
 							<li><a href="#addcategory" title="Add Category">Add Category</a></li>
 							<li><a href="#CategoriesList" title="Categories List">Categories List</a></li>
-							<!-- <li><a href="#warehouse" title="Warehouse"><h3>Warehouse</h3></a></li> -->
 							<li><a href="#addwarehouse" title="Add Warehouse">Add Warehouse</a></li>
 							<li><a href="#warehouseList" title="Warehouse List">Warehouse List</a></li>
-							<!-- <li><a href="#Products" title="Products"><h3>Products</h3></a></li> -->
 							<li><a href="#addProducts" title="Add Products">Add Products</a></li>
 							<li><a href="#ProductsList" title="Products List">Products List</a></li>
 							<li><a href="#ViewProduct" title="View Product">View Product</a></li>
@@ -187,29 +171,24 @@
 							<li><a href="#ExportExpireProduct" title="Export Expire Product">Export Expire Product</a></li>
 							<li><a href="#DeadStock" title="Dead Stock Products"><h3>Dead Stock Products</h3></a></li>
 							<li><a href="#DeadStock" title="Dead Stock Products">View Dead Stock Products</a></li>
-							<!-- <li><a href="#Customers" title="Customers"><h3>Customers</h3></a></li> -->
 							<li><a href="#Customers" title="Add Customers">Add Customers</a></li>
 							<li><a href="#Customers" title="Customers List">Customers List</a></li>
 							<li><a href="#Customers" title="Credit Customers List">Credit Customers List</a></li>
 							<li><a href="#Customers" title="Paid  Customers List">Paid  Customers List</a></li>
-							<!-- <li><a href="#Invoices" title="Invoices"><h3>Invoices</h3></a></li> -->
 							<li><a href="#Invoices" title="Add Invoices">Add Invoice</a></li>
 							<li><a href="#Invoices" title="Invoices List">Invoices List</a></li>
 							<li><a href="#Invoices" title="UnPaid Invoices List">UnPaid Invoices List</a></li>
 							<li><a href="#Invoices" title="Paid Invoices List">Paid Invoices List</a></li>
-							<!-- <li><a href="#ExpenseInvoices" title="Expense Invoices"><h3>Expense Invoices</h3></a></li> -->
 							<li><a href="#ExpenseInvoices" title="Add Expense Type">Add Expense Type</a></li>
 							<li><a href="#ExpenseInvoices" title="Manage Expense Invoics">Manage Expense Invoice</a></li>
 							<li><a href="#ExpenseInvoices" title="Add Expense Invoics">Add Expense Invoice</a></li>
 							<li><a href="#ExpenseInvoices" title="Expense Invoices List">Expense Invoices List</a></li>
 							<li><a href="#ExpenseInvoices" title="UnPaid Expense Invoice List">UnPaid Expense Invoices List</a></li>
 							<li><a href="#ExpenseInvoices" title="Paid Expense Invoices List">Paid Expense Invoices List</a></li>
-							<!-- <li><a href="#Loan" title="Loan"><h3>Loan</h3></a></li> -->
 							<li><a href="#Loan" title="Add Loaner Type">Add Loaner Type</a></li>
 							<li><a href="#Loan" title="Manage Loaner Type">Manage Loaner Type</a></li>
 							<li><a href="#Loan" title="Add Loan">Add Loan</a></li>
 							<li><a href="#Loan" title="Manage Loan List">Manage Loan List</a></li>
-							<!-- <li><a href="#Staff" title="Staff"><h3>Staff</h3></a></li> -->
 							<li><a href="#Staff" title="Staff">Manage Staff</a></li>
 							<li><a href="#Reports" title="Reports"><h3>Reports</h3></a></li>
 							<li><a href="#Reports" title="Reports">Profit/Loss Reports</a></li>
@@ -224,12 +203,10 @@
 					</nav>
 				</div>
 			</aside>
-
 			
 			@yield('content')
 
-
-			<footer class="main-footer" style="position: relative;">
+			<footer class="main-footer">
 				<strong>Copyright &copy; 2019 <a href="{{'/'}}">{{ $setting->store_name }}</a>.</strong>
 				All rights reserved.
 				<div class="float-right d-none d-sm-inline-block">
@@ -238,35 +215,15 @@
 			</footer>
 
 		</div>
-		<!-- ./wrapper -->
 
-		<!-- jQuery -->
 		<script src="{{ asset('backend_assets/plugins/jquery/jquery.min.js') }}"></script>
-		<!-- Bootstrap -->
 		<script src="{{ asset('backend_assets/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-		<!-- overlayScrollbars -->
 		<script src="{{ asset('backend_assets/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js') }}"></script>
-		<!-- AdminLTE App -->
 		<script src="{{ asset('backend_assets/dist/js/adminlte.js') }}"></script>
-		<!-- OPTIONAL SCRIPTS -->
 		<script src="{{ asset('backend_assets/dist/js/demo.js') }}"></script>
 
-		<!-- ChartJS -->
 		<script src="{{ asset('backend_assets/plugins/chart.js/Chart.min.js') }}"></script>
-
 		<script src="{{ mix('js/app.js') }}"></script>
-		
-		@stack('scripts')
-		<script>
-			$('#printInvoice').click(function(){
-	            // Popup($('.invoice')[0].outerHTML);
-	            // function Popup(data) 
-	            // {
-	            	window.print();
-	                // return true;
-	            // }
-	        });
-	    </script>
 	</body>
-	</html>
+</html>
 

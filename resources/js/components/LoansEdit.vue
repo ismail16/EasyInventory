@@ -3,7 +3,7 @@
         <section class="content mt-2">
             <div class="row">
                 <div class="col-12">
-                    <div class="card mt-2 rounded-0" style="margin-bottom: 5px !important;">
+                    <div class="card mt-2 rounded-0">
                         <div class="card-header pb-0">
                           <div class="row">
                             <div class="col-md-3 float-left">
@@ -21,7 +21,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="card-body" style="background-color: #f6f6f7;">
+                <div class="card-body">
                     <form @submit.prevent="updateLoan">
                         <div class="panel-body">
                             <div class="row">
@@ -109,6 +109,7 @@
 </template>
 
 <script>
+"use strict";
 export default {
     data() {
         return {
@@ -158,7 +159,6 @@ export default {
             temp.$Progress.start()
             temp.form.post('/api/loans')
             .then(function (response) {
-                console.log(response)
                 toastr.success('Saved Loan Successfully')
                 temp.$Progress.finish()
             })

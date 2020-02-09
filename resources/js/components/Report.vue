@@ -114,7 +114,7 @@
                                     
                                     <div class="col-md-9">
                                         <div class="chart">
-                                            <canvas id="salesChart" height="180" style="height: 180px;"></canvas>
+                                            <canvas id="salesChart"></canvas>
                                         </div>
                                     </div>
                                 </div>
@@ -177,6 +177,7 @@
 </template>
 
 <script>
+"use strict";
     export default {
 
         data() {
@@ -252,7 +253,6 @@
             },
 
             report_year_change(report_year){
-                console.log(report_year)
                 this.getThisYearInvoices(report_year)
                 this.getExpenses(report_year)
             },

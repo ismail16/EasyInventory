@@ -200,6 +200,7 @@
 </template>
 
 <script>
+"use strict";
 export default {
     data() {
         return {
@@ -254,7 +255,6 @@ export default {
         getImgUrl: function(image){
             var photo = "/images/product/"+ image
             return photo
-            console.log(photo)
         },
 
         getData(){
@@ -279,11 +279,9 @@ export default {
             .then(response => {
                 temp.products = response.data.data;
                 temp.pagination = response.data.meta;
-                console.log(response.data.data)
                 temp.loadin = false;
             })
             .catch(e => {
-                console.log(e);
                 toastr.error('Something is wrong Search Data')
             });
         },
@@ -327,7 +325,6 @@ export default {
                     var temp = this
                     axios.delete('/api/products/'+id)
                     .then(function (response) {
-                        console.log(response.data)
                         toastr.success('Deleted product Successfully')
                         temp.getData();
                     })

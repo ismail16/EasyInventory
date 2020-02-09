@@ -3,7 +3,7 @@
         <section class="content mt-2">
             <div class="row">
                 <div class="col-12">
-                    <div class="card mt-2 rounded-0" style="margin-bottom: 5px !important;">
+                    <div class="card mt-2 rounded-0">
                         <div class="card-header pb-0">
                             <div class="row">
                                 <div class="col-md-3 float-left">
@@ -11,7 +11,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="card-body" style="background-color: #f6f6f7;">
+                        <div class="card-body">
                             <form @submit.prevent="updateSetting">
                                 <div class="panel-body">
                                     <div class="row">
@@ -32,9 +32,9 @@
                                                 </div>
 
                                                 <div id="preview col-sm-2">
-                                                    <img v-if="form.store_logo" :src="getImgUrl(form.store_logo)" class="img-fluid" style="max-height: 50px; max-width: 50px;"/>
+                                                    <img v-if="form.store_logo" :src="getImgUrl(form.store_logo)" class="img-fluid setting_logo"/>
 
-                                                    <img v-else src="/images/logo.png" class="img-fluid" style="max-height: 50px; max-width: 50px;"/>
+                                                    <img v-else src="/images/logo.png" class="img-fluid setting_logo"/>
                                                 </div>
                                             </div>
                                         </div>
@@ -56,9 +56,9 @@
                                                 </div>
 
                                                 <div id="preview col-sm-2">
-                                                    <img v-if="form.owner_image" :src="getImgUrl1(form.owner_image)" class="img-fluid" style="max-height: 50px; max-width: 50px;"/>
+                                                    <img v-if="form.owner_image" :src="getImgUrl1(form.owner_image)" class="img-fluid setting_logo"/>
 
-                                                    <img v-else src="/images/default.png" class="img-fluid" style="max-height: 50px; max-width: 50px;"/>
+                                                    <img v-else src="/images/default.png" class="img-fluid setting_logo"/>
                                                 </div>
                                             </div>
                                         </div>
@@ -163,6 +163,7 @@
 </template>
 
 <script>
+"use strict";
 export default {
 
     data() {
@@ -201,13 +202,11 @@ export default {
         getImgUrl: function(image){
           var photo = "/images/store_logo/"+ image
           return photo
-          console.log(photo)
       }, 
 
       getImgUrl1: function(image){
           var photo = "/images/owner_image/"+ image
           return photo
-          console.log(photo)
       },
 
 

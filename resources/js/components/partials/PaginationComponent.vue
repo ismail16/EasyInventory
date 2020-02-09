@@ -29,6 +29,7 @@
 </template>
 
 <script>
+    "use strict";
     export default {
         props:['pagination', 'offset'],
         methods: {

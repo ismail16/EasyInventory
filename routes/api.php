@@ -3,13 +3,6 @@
 use Illuminate\Http\Request;
 
 
-// Route::middleware('auth:api')->get('/user', function (Request $request) {
-//     return $request->user();
-// });
-
-// Route::middleware('auth:api')->get('/user', function (Request $request) {
-//     return $request->user();
-// });
 Route::apiResource('suppliers','Api\SupllierController');
 Route::get('search/suppliers/{field}/{query}','Api\SupllierController@search');
 Route::get('allSupplier','Api\SupllierController@allSupplier');

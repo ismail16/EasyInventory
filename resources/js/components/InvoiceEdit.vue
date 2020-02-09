@@ -3,7 +3,7 @@
         <section class="content mt-2">
             <div class="row">
                 <div class="col-12">
-                    <div class="card mt-2 rounded-0" style="margin-bottom: 5px !important;">
+                    <div class="card mt-2 rounded-0">
                         <div class="card-header pb-0">
                             <div class="row">
                                 <div class="col-md-3 float-left">
@@ -65,7 +65,7 @@
 
                                         <div class="col-md-8">
                                             <div class="form-group row mb-0">
-                                                <label class="col-sm-2 form-control-label" style="margin-right: -28px;">Address <i class="text-danger">*</i></label>
+                                                <label class="col-sm-2 form-control-label mr-n4">Address <i class="text-danger">*</i></label>
                                                 <div class="col-sm-8">
                                                     <textarea  v-model="form.customer_address" cols="70" rows="1"></textarea>
                                                 </div> 
@@ -82,7 +82,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="table-responsive" style="margin-top: 10px">
+                                    <div class="table-responsive">
                                         <table class="table table-bordered table-sm table-hover" id="normalinvoice">
                                             <thead @click="onFocus = false;">
                                                 <tr>
@@ -96,7 +96,7 @@
                                             <tbody id="add_row_to_invoice">
 
                                                 <tr v-for="(product, index) in product_arr">
-                                                    <td style="width: 320px">
+                                                    <td>
                                                         <input @blur="onBlur=true" @focus="onFocus = true;onBlur = false;" v-model="product.product_name" @keyDown="keyDown"  type="text" placeholder="Product Name" class="form-control-sm w-100" required>
 
                                                     <div class="product.index-items search_dynamic_product">
@@ -108,14 +108,14 @@
                                                     </div>
 
                                                     </td>
-                                                    <td style="width: 320px" @click="onFocus = false;">
-                                                        <input v-model="product.product_quantity" placeholder="Product Quantity" type="text" class="form-control-sm w-100" autocomplete="off" required>
+                                                    <td @click="onFocus = false;">
+                                                        <input v-model="product.product_quantity" placeholder="Product Quantity" type="text" class="form-control-sm w-100 text-center" autocomplete="off" required>
                                                     </td>
                                                     <td @click="onFocus = false;"> 
-                                                        <input v-model="product.sell_price" placeholder="Product Price" type="text" class="form-control-sm w-100" autocomplete="off" required>
+                                                        <input v-model="product.sell_price" placeholder="Product Price" type="text" class="form-control-sm w-100 text-center" autocomplete="off" required>
                                                     </td @click="onFocus = false;">
                                                     <td class="text-center">
-                                                        <input class="form-control-sm w-100" :value="product.product_quantity * product.sell_price" type="text" style="text-align: center;" disabled>
+                                                        <input class="form-control-sm w-100 text-center" :value="product.product_quantity * product.sell_price" type="text" disabled>
                                                     </td>
                                                     <td class="text-center" @click="onFocus = false;">
                                                         <span @click="deleteRow(index)" class="btn btn-danger btn-sm">&times;</span>
@@ -124,9 +124,9 @@
                                             </tbody>
                                             <tfoot @click="onFocus = false;">
                                                 <tr>
-                                                    <td style="text-align:right;" colspan="3"><b>Discount:</b></td>
+                                                    <td class="text-right" colspan="3"><b>Discount:</b></td>
                                                     <td class="text-right">
-                                                        <input id="paidAmount" class="form-control-sm w-100" v-model="form.discount" value="" name="discount" type="number" required style="text-align: center;">
+                                                        <input id="paidAmount" class="form-control-sm w-100 text-center" v-model="form.discount" value="" name="discount" type="number" required>
                                                     </td>
                                                     <td align="center">
                                                         <input id="add-invoice-item" class="btn btn-info btn-sm" name="add-invoice-item" @click="add_new_row_to_invoice" value="Add New Item" type="button">
@@ -134,29 +134,29 @@
                                                 </tr>
 
                                                 <tr id="appssss">
-                                                    <td colspan="3" style="text-align:right;"><b>Grand Total:</b></td>
+                                                    <td class="text-right" colspan="3"><b>Grand Total:</b></td>
                                                     <td class="text-center">
-                                                        <input class="form-control-sm w-100" v-model="grand_total_price" type="text" style="text-align: center;" disabled>
+                                                        <input class="form-control-sm w-100 text-center" v-model="grand_total_price" type="text" disabled>
                                                     </td>
                                                 </tr> 
 
                                                 <tr v-show="total">
-                                                    <td colspan="3" style="text-align:right;"><b>Final Total:</b></td>
+                                                    <td class="text-right" colspan="3"><b>Final Total:</b></td>
                                                     <td class="text-center">
-                                                        <input class="form-control-sm w-100" v-model="total" type="text" style="text-align: center;" disabled>
+                                                        <input class="form-control-sm w-100 text-center" v-model="total" type="text"  disabled>
                                                     </td>
                                                 </tr>
 
                                                 <tr>
-                                                    <td style="text-align:right;" colspan="3"><b>Paid Amount:</b></td>
+                                                    <td class="text-right" colspan="3"><b>Paid Amount:</b></td>
                                                     <td class="text-right">
-                                                        <input id="paidAmount" class="form-control-sm w-100" v-model="form.paid_amount" value="5455" name="paid_amount" type="number" required style="text-align: center;">
+                                                        <input id="paidAmount" class="form-control-sm w-100 text-center" v-model="form.paid_amount" value="" name="paid_amount" type="number" required>
                                                     </td>
                                                 </tr>
                                                 <tr v-show="due_amount">
-                                                    <td style="text-align:right;" colspan="3"><b>Due:</b></td>
+                                                    <td class="text-right" colspan="3"><b>Due:</b></td>
                                                     <td  class="text-center">
-                                                        <input class="form-control-sm w-100"  :value="due_amount"  type="number" style="text-align: center;" disabled>
+                                                        <input class="form-control-sm w-100 text-center"  :value="due_amount"  type="number" disabled>
                                                     </td>
                                                 </tr>
                                             </tfoot>
@@ -182,6 +182,7 @@
 </template>
 
 <script>
+"use strict";
     export default {
         data() {
             return {
@@ -343,7 +344,6 @@
                 this.$Progress.start()
                 var temp = this
                 temp.form.products = temp.product_arr;
-                console.log(temp.form)
                 axios.put('/api/invoices/'+this.form.id,{
                     Invoice:temp.form
                 })

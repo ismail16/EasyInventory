@@ -136,6 +136,7 @@
 </template>
 
 <script>
+"use strict";
 export default {
     data() {
 
@@ -181,7 +182,6 @@ export default {
             temp.$Progress.start()
             temp.form.post('/api/expenses')
             .then(function (response) {
-                console.log(response)
                 toastr.success('Saved Expense Successfully')
                 temp.$Progress.finish()
             })

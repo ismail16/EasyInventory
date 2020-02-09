@@ -37,21 +37,6 @@
 			      	</li>
 			    </ul>
 			    <ul class="navbar-nav ml-auto">
-			      	<!-- <li class="nav-item dropdown">
-			        	<a href="{{ route('admin.documentation') }}" target="_blank" class="nav-link bg-light mr-1">
-							<i class="nav-icon far fa-file-alt text-info"> Documentation</i>
-						</a>
-			      	</li>
-			      	<li class="nav-item dropdown">
-			       		<router-link to="/report" class="nav-link bg-light mr-1">
-							<i class="fas fa-chart-line text-success"> Reports</i>
-						</router-link>
-			      	</li>
-			      	<li class="nav-item dropdown">
-			        	<router-link to="/setting" class="nav-link bg-light">
-							<i class="nav-icon fas fa-cogs text-danger"> Setting</i>
-						</router-link>
-			      	</li> -->
 			      	<li class="nav-item">
 			        	<ul class="navbar-nav ml-auto">
 							<li class="nav-item dropdown">
@@ -85,22 +70,7 @@
 							<li class="nav-item dropdown">
 								<a class="nav-link text-red font-weight-bold" data-toggle="dropdown" href="#">
 									ENG
-									{{-- <i class="fas fa-angle-down"></i> --}}
 								</a>
-								{{-- <div class="dropdown-menu dropdown-menu-right p-0">
-									<a href="#" class="dropdown-item active">
-										<i class="flag-icon flag-icon-us mr-2"></i> English
-									</a>
-									<a href="#" class="dropdown-item">
-										<i class="flag-icon flag-icon-de mr-2"></i> German
-									</a>
-									<a href="#" class="dropdown-item">
-										<i class="flag-icon flag-icon-fr mr-2"></i> French
-									</a>
-									<a href="#" class="dropdown-item">
-										<i class="flag-icon flag-icon-es mr-2"></i> Spanish
-									</a>
-								</div> --}}
 							</li>
 						</ul>
 			    	</li>
@@ -121,66 +91,6 @@
 					              <i class="nav-icon fas fa-tachometer-alt"></i><p> Dashboard </p>
 					            </a>
 					        </li>
-							<!-- <li class="nav-item">
-								<router-link to="/supplier" class="nav-link">
-									<i class="nav-icon fas fa-users"></i>
-									<p>Suppliers</p>
-								</router-link>
-							</li>
-							<li class="nav-item">
-								<router-link to="/category" class="nav-link">
-									<i class="nav-icon fas fa-th-large"></i>
-									<p>Categories</p>
-								</router-link>
-							</li>
-							<li class="nav-item">
-								<router-link to="/warehouse" class="nav-link">
-									<i class="nav-icon fas fa-home"></i>
-									<p> Warehouse</p>
-								</router-link>
-							</li>
-							<li class="nav-item">
-								<router-link to="/product" class="nav-link">
-									<i class="nav-icon fab fa-product-hunt"></i>
-									<p>Products</p>
-								</router-link>
-							</li> 
-							<li class="nav-item">
-								<router-link to="/supplier-invoice" class="nav-link">
-									<i class="nav-icon far fa-file-alt"></i>
-									<p>Suppliers Invoice</p>
-								</router-link>
-							</li> 
-							<li class="nav-item">
-								<router-link to="/customer" class="nav-link">
-									<i class="nav-icon fas fa-user-friends"></i>
-									<p>Customers</p>
-								</router-link>
-							</li>
-							<li class="nav-item">
-								<router-link to="/invoice" class="nav-link">
-									<i class="nav-icon far fa-file-alt"></i>
-									<p>Invoice</p>
-								</router-link>
-							</li>
-							<li class="nav-item">
-								<router-link to="/expense" class="nav-link">
-									<i class="nav-icon fas fa-dollar-sign"></i>
-									<p>Expenses</p>
-								</router-link>
-							</li>
-							<li class="nav-item">
-								<router-link to="/loan" class="nav-link">
-									<i class="nav-icon far fa-money-bill-alt"></i>
-									<p>Loan</p>
-								</router-link>
-							</li>
-							<li class="nav-item">
-								<router-link to="/staff" class="nav-link">
-									<i class="nav-icon fas fa-users-cog"></i>
-									<p>Staff</p>
-								</router-link>
-							</li>  -->
 						</ul>
 					</nav>
 				</div>

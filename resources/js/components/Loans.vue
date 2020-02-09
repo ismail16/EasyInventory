@@ -3,7 +3,7 @@
         <section class="content mt-2">
             <div class="row">
                 <div class="col-12">
-                    <div class="card mt-2 rounded-0" style="margin-bottom: 5px !important;">
+                    <div class="card mt-2 rounded-0">
                         <div class="card-header pb-0">
                             <div class="row">
                                 <div class="col-md-3 float-left">
@@ -149,6 +149,7 @@
 </template>
 
 <script>
+"use strict";
     export default {
         data() {
             return {
@@ -219,7 +220,6 @@
                     temp.pagination = response.data.meta;
                 })
                 .catch(e => {
-                    console.log(e);
                     toastr.error('Something is wrong Search Data')
                 });
             },

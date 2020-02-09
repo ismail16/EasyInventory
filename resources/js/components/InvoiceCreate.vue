@@ -3,7 +3,7 @@
         <section class="content mt-2">
             <div class="row">
                 <div class="col-12">
-                    <div class="card mt-2 rounded-0" style="margin-bottom: 5px !important;">
+                    <div class="card mt-2 rounded-0">
                         <div class="card-header pb-0">
                             <div class="row">
                                 <div class="col-md-3 float-left">
@@ -82,7 +82,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="table-responsive" style="margin-top: 10px">
+                                    <div class="table-responsive">
                                         <table class="table table-bordered table-sm table-hover" id="normalinvoice">
                                             <thead>
                                                 <tr>
@@ -96,9 +96,9 @@
                                             <tbody id="add_row_to_invoice">
 
                                                 <tr v-for="(product, index) in form.products">
-                                                    <td style="width: 320px">
+                                                    <td>
 
-                                                        <input @blur="onBlur=true" @focus="onFocus = true;onBlur = false;" v-model="product.product_name" @keyDown="keyDown"  type="text" placeholder="Product Name" class="form-control-sm w-100" required>
+                                                        <input @blur="onBlur=true" @focus="onFocus = true;onBlur = false;" v-model="product.product_name" @keyDown="keyDown"  type="text" placeholder="Product Name" class="form-control-sm w-100 text-center" required>
 
                                                         <div class="product.product_name-items search_dynamic_product">
 
@@ -110,14 +110,14 @@
 
                                                         </div>
                                                     </td>
-                                                    <td style="width: 320px">
-                                                        <input v-model="product.product_quantity" placeholder="Product Quantity" type="text" class="form-control-sm w-100" :class="{ 'is-invalid': form.errors.has('product_quantity') }" autocomplete="off" required>
+                                                    <td>
+                                                        <input v-model="product.product_quantity" placeholder="Product Quantity" type="text" class="form-control-sm w-100 text-center" :class="{ 'is-invalid': form.errors.has('product_quantity') }" autocomplete="off" required>
                                                     </td>
                                                     <td>
-                                                        <input v-model="product.sell_price" placeholder="Product Price" type="text" class="form-control-sm w-100" :class="{ 'is-invalid': form.errors.has('product.sell_price') }" autocomplete="off" required>
+                                                        <input v-model="product.sell_price" placeholder="Product Price" type="text" class="form-control-sm w-100 text-center" :class="{ 'is-invalid': form.errors.has('product.sell_price') }" autocomplete="off" required>
                                                     </td>
                                                     <td class="text-center">
-                                                        <input class="form-control-sm w-100" :value="product.product_quantity * product.sell_price" type="text" style="text-align: center;" disabled>
+                                                        <input class="form-control-sm w-100 text-center" :value="product.product_quantity * product.sell_price" type="text" disabled>
                                                     </td>
                                                     <td class="text-center">
                                                         <span @click="deleteRow(index)" class="btn btn-danger btn-sm">&times;</span>
@@ -126,7 +126,7 @@
                                             </tbody>
                                             <tfoot>
                                                 <tr>
-                                                    <td style="text-align:right;" colspan="3"><b>Discount:</b></td>
+                                                    <td class="text-right" colspan="3"><b>Discount:</b></td>
                                                     <td class="text-right">
                                                         <input id="paidAmount" class="form-control-sm w-100 text-center" v-model="form.discount" value="0" name="discount" type="number">
                                                     </td>
@@ -136,27 +136,27 @@
                                                 </tr>
 
                                                 <tr id="appssss">
-                                                    <td colspan="3" style="text-align:right;"><b>Grand Total:</b></td>
+                                                    <td class="text-right" colspan="3"><b>Grand Total:</b></td>
                                                     <td class="text-center">
                                                         <input class="form-control-sm w-100 text-center" v-model="grand_total_price" type="number" disabled>
                                                     </td>
                                                 </tr> 
 
                                                 <tr v-show="total">
-                                                    <td colspan="3" style="text-align:right;"><b>Final Total:</b></td>
+                                                    <td class="text-right" colspan="3"><b>Final Total:</b></td>
                                                     <td class="text-center">
                                                         <input class="form-control-sm w-100 text-center" v-model="total" type="number" disabled>
                                                     </td>
                                                 </tr>
 
                                                 <tr>
-                                                    <td style="text-align:right;" colspan="3"><b>Paid Amount:</b></td>
+                                                    <td class="text-right" colspan="3"><b>Paid Amount:</b></td>
                                                     <td class="text-right">
                                                         <input id="paidAmount" class="form-control-sm w-100 text-center" v-model="form.paid_amount" value="" name="paid_amount" type="number" required>
                                                     </td>
                                                 </tr>
                                                 <tr v-show="due_amount">
-                                                    <td style="text-align:right;" colspan="3"><b>Due:</b></td>
+                                                    <td class="text-right" colspan="3"><b>Due:</b></td>
                                                     <td  class="text-center">
                                                         <input class="form-control-sm w-100 text-center"  :value="due_amount"  type="number" disabled>
                                                     </td>
@@ -184,6 +184,7 @@
 </template>
 
 <script>
+"use strict";
 export default {
     data() {
         var today = new Date();
@@ -311,7 +312,6 @@ export default {
             temp.$Progress.start()
             temp.form.post('/api/invoices')
             .then(function (response) {
-                console.log(response)
                 toastr.success('Saved Invoice Successfully')
                 temp.$Progress.finish()
             })

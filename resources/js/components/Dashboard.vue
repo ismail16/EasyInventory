@@ -195,6 +195,7 @@
 </template>
 
 <script>
+"use strict";
     export default {
 
         data() {
@@ -361,9 +362,7 @@
                     for(var k = 0; k<data.days.length; k++){
                         monthNames.push(data.days[k] == 0? 0: data.days[k])
                     }
-
-                    console.log(data)
-
+                    
                     var month_days = []
                     for(var d = 1; d<=data.days.length; d++){
                         month_days.push(d)

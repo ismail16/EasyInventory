@@ -139,6 +139,7 @@
 </template>
 
 <script>
+"use strict";
     export default {
 
         data() {
@@ -209,7 +210,6 @@
                     temp.pagination = response.data.meta;
                 })
                 .catch(e => {
-                    console.log(e);
                     toastr.error('Something is wrong Search Data')
                 });
             },

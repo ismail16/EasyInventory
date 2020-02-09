@@ -2,23 +2,23 @@
 @section('title','Documentation') @section('content')
 <div class="content-wrapper mt-0">
     <div class="container">
-        <section class="content">
+        <div class="content">
             <div class="row">
                 <div class="col-12">
                     <div class="_card p-3">
                         <div id="documenter_content">
-                            <section id="start">
+                            <div id="start">
                                 <h1>Easy Inventory</h1>
-                                <h3 style="font-size: 15px; margin:0;">Inventory Control and Inventory Management System - Version 1.0.1</h3>
+                                <h3 class="version_title">Inventory Control and Inventory Management System - Version 1.0.1</h3>
                                  <h4  class="text-success">[ System is Fully Real Time. Developed by Vue, Laravel ]</h4>
                                 <hr>
-                                <p style="text-align: justify;">If you have any questions and You face any kind of problem during installation phase of Easy Inventory - <strong>Do Not Worry - We are here to help you!! Contact us directly at below information</strong>
+                                <p class="text-justify">If you have any questions and You face any kind of problem during installation phase of Easy Inventory - <strong>Do Not Worry - We are here to help you!! Contact us directly at below information</strong>
                                     <br>
                                 </p>
                                 <p>E-mail Address : <b>ismail32cse@gmail.com</b></p>
-                            </section>
+                            </div>
 
-                            <section id="Features" class="mb-4">
+                            <div id="Features" class="mb-4">
                                 <div class="row">
                                     <div class="col-12">
                                         <div class="page-header">
@@ -52,9 +52,9 @@
                                         </ul>
                                     </div>
                                 </div>
-                            </section>
+                            </div>
 
-                            <section id="install">
+                            <div id="install">
                                 <div class="row">
                                     <div class="col-12">
                                         <div class="page-header">
@@ -101,9 +101,9 @@
                                         <img class="img-fluid" src="{{ asset('backend_assets/dist/img/documentation/phpMyAdmin.png') }}" width="">
                                     </div>
                                 </div>
-                            </section>
+                            </div>
 
-                            <section id="login">
+                            <div id="login">
                                 <div class="row">
                                     <div class="col-12">
                                         <div class="page-header">
@@ -112,9 +112,9 @@
                                         </div>
                                     </div>
                                     <div class="col-md-5 border-right">
-                                        <p style="text-align: justify;">To log-in to admin panel - please use the following login credentials provided below.</p>
-                                        <p style="text-align: justify;">
-                                            <strong style="color: red">Please Note:</strong> Once you installed the system and you are on login page, if the login page not showing correctly OR not logging to system then you need to check again the .env file which is in side root of main folder, make sure your php have 7.1  version installed. if still problem exist you may contact us at <b>ismail32cse@gmail.com</b>, we will reply you as soon as possible.
+                                        <p class="text-justify">To log-in to admin panel - please use the following login credentials provided below.</p>
+                                        <p class="text-justify">
+                                            <strong class="text-danger">Please Note:</strong> Once you installed the system and you are on login page, if the login page not showing correctly OR not logging to system then you need to check again the .env file which is in side root of main folder, make sure your php have 7.1  version installed. if still problem exist you may contact us at <b>ismail32cse@gmail.com</b>, we will reply you as soon as possible.
                                             <br>
                                             <br>
 
@@ -138,9 +138,9 @@
                                         </div>
                                     </div>
                                 </div>
-                            </section>
+                            </div>
 
-                            <section id="admin_dashboard" class="pb-4">
+                            <div id="admin_dashboard" class="pb-4">
                                 <div class="row">
                                     <div class="col-12">
                                         <div class="page-header">
@@ -169,9 +169,9 @@
 
                                     </div>
                                 </div>
-                            </section>
+                            </div>
 
-                            <section id="supplier">
+                            <div id="supplier">
                                 <div class="row">
                                     <div class="col-12">
                                         <div class="page-header">
@@ -180,14 +180,14 @@
                                         </div>
                                     </div>
                                     <div class="col-md-5 border-right">
-                                        <p style="text-align: justify;"> Adding a new supplier in the system is very easy. you can add all related information of supplier. The facilities that Supplier management holds in Easy Inventory are listed below:
+                                        <p class="text-justify"> Adding a new supplier in the system is very easy. you can add all related information of supplier. The facilities that Supplier management holds in Easy Inventory are listed below:
                                             <br>
                                             <br> To click <b>Supplier</b> from sidebar</p>
                                         <ul>
                                             <li><strong>Add New Supplier</strong></li>
-                                            <li style="list-style: none; text-align: justify;"> You can easily add new Supplier in the system. The form is elaborate with all possible information you might need to add for a new supplier. During addition of new supplier you just have to provide the Supplier name ( <span class="text-danger">Name is required</span>), Supplier Contact Person Name, Email, Phone and Address. </li>
+                                            <p class="text-justify" >You can easily add new Supplier in the system. The form is elaborate with all possible information you might need to add for a new supplier. During addition of new supplier you just have to provide the Supplier name ( <span class="text-danger">Name is required</span>), Supplier Contact Person Name, Email, Phone and Address.</p>
                                             <li><strong>Supplier List</strong></li>
-                                            <li style="list-style: none; text-align: justify;"> You can see list of all supplier at a glance. You Can Edit, Delete From here </li>
+                                            <p class="text-justify">You can see list of all supplier at a glance. You Can Edit, Delete From here</p>
                                         </ul>
                                         <br>
                                     </div>
@@ -200,9 +200,9 @@
 
                                     </div>
                                 </div>
-                            </section>
+                            </div>
 
-                            <section id="category">
+                            <div id="category">
                                 <div class="row">
                                     <div class="col-12">
                                         <div class="page-header">
@@ -211,12 +211,12 @@
                                         </div>
                                     </div>
                                     <div class="col-md-5 border-right">
-                                        <p style="text-align: justify;"> Adding a new Category in the system is very easy. You can just click on add category. and put the category name. click submit.
+                                        <p class="text-justify"> Adding a new Category in the system is very easy. You can just click on add category. and put the category name. click submit.
                                             <br>
                                             <br> Click to Category From sidebar </p>
                                         <ul>
                                             <li><strong>Categories List</strong></li>
-                                            <li style="list-style: none; text-align: justify;"> You can see list of all Categories. You Can Edit, Delete From here</li>
+                                            <p class="text-justify"> You can see list of all Categories. You Can Edit, Delete From here</p>
                                         </ul>
                                         <br>
                                     </div>
@@ -228,9 +228,9 @@
                                     </div>
                                 </div>
 
-                            </section>
+                            </div>
 
-                            <section id="warehouse">
+                            <div id="warehouse">
                                 <div class="row">
                                     <div class="col-12">
                                         <div class="page-header">
@@ -239,15 +239,16 @@
                                         </div>
                                     </div>
                                     <div class="col-md-5 border-right">
-                                        <p style="text-align: justify;"> Adding a new warehouse in the system is very easy. You can just click on Warehouse. and put the warehouse name. click submit.
+                                        <p class="text-justify"> Adding a new warehouse in the system is very easy. You can just click on Warehouse. and put the warehouse name. click submit.
                                             <br>
                                             <br> Click to warehouse from Sidebar </p>
                                         <ul>
 
                                             <li><strong>Add New warehouse</strong></li>
-                                            <li style="list-style: none; text-align: justify;"> You can easily add new warehouse in the system. </li>
+                                            <p class="text-justify"> You can easily add new warehouse in the system. </p>
+
                                             <li><strong>warehouse List</strong></li>
-                                            <li style="list-style: none; text-align: justify;"> You can see list of all warehouse.  You Can Edit, Delete From here</li>
+                                            <p class="text-justify"> You can see list of all warehouse.  You Can Edit, Delete From here</p>
                                         </ul>
                                     </div>
                                     <div class="col-7">
@@ -260,9 +261,9 @@
                                     </div>
                                 </div>
 
-                            </section>
+                            </div>
 
-                            <section id="Products">
+                            <div id="Products">
                                 <div class="row">
                                     <div class="col-12">
                                         <div class="page-header">
@@ -271,14 +272,15 @@
                                         </div>
                                     </div>
                                     <div class="col-md-5 border-right">
-                                        <p style="text-align: justify;"> Adding a new Product in the system is very easy. you can add all related information of Product. The facilities that Product management holds in Easy Inventory are listed below:
+                                        <p class="text-justify"> Adding a new Product in the system is very easy. you can add all related information of Product. The facilities that Product management holds in Easy Inventory are listed below:
                                             <br>
                                             <br> Click to ProductsFrom sidebar </p>
                                         <ul>
                                             <li id="addProducts"><strong>Add New Product</strong></li>
-                                            <li style="list-style: none; text-align: justify; "> You can easily add new Product in the system. The form is elaborate with all possible information you might need to add for a new Product. During addition of new Product you just have to provide the Product, Category, Warehouse, Mfg.Date, Exp.Date, Image, Detail, Quantity, Sell Price, Supplier Price, Model, SKU, Supplier. </li>
+                                            <p class="text-justify"> You can easily add new Product in the system. The form is elaborate with all possible information you might need to add for a new Product. During addition of new Product you just have to provide the Product, Category, Warehouse, Mfg.Date, Exp.Date, Image, Detail, Quantity, Sell Price, Supplier Price, Model, SKU, Supplier. </p>
+
                                             <li><strong>Products List</strong></li>
-                                            <li style="list-style: none; text-align: justify; "> You can see list of all Products. You Can View, Edit, Delete From here</li>
+                                            <p class="text-justify"> You can see list of all Products. You Can View, Edit, Delete From here</p>
                                         </ul>
                                     </div>
                                     <div class="col-7">
@@ -292,9 +294,9 @@
                                     </div>
                                 </div>
 
-                            </section>
+                            </div>
 
-                            <section id="Customers">
+                            <div id="Customers">
                                 <div class="row">
                                     <div class="col-12">
                                         <div class="page-header">
@@ -303,14 +305,15 @@
                                         </div>
                                     </div>
                                     <div class="col-md-5 border-right">
-                                        <p style="text-align: justify;"> Adding a new customer in the system is very easy. You can add all related information of a customer. The facilities that customer management holds in Easy Inventory are listed below:
+                                        <p class="text-justify"> Adding a new customer in the system is very easy. You can add all related information of a customer. The facilities that customer management holds in Easy Inventory are listed below:
                                             <br>
                                             <br> Click Customers from sidebar </p>
                                         <ul>
                                             <li><strong>Add New Customer</strong></li>
-                                            <li style="list-style: none; text-align: justify; "> You can easily add new customer in the system. The form is elaborate with all possible information you might need to add for a new customer. During addition of new customer you just have to provide the Customer Name, Mobile #, Email, Address. </li>
+                                            <p class="text-justify"> You can easily add new customer in the system. The form is elaborate with all possible information you might need to add for a new customer. During addition of new customer you just have to provide the Customer Name, Mobile #, Email, Address. </p>
+
                                             <li><strong>Customers List</strong></li>
-                                            <li style="list-style: none; text-align: justify; "> You can see list of all customers. You Can Edit, Delete From here </li>
+                                            <p class="text-justify"> You can see list of all customers. You Can Edit, Delete From here </p>
                                         </ul>
                                     </div>
                                     <div class="col-7">
@@ -321,9 +324,9 @@
                                     </div>
                                 </div>
 
-                            </section>
+                            </div>
 
-                            <section id="Invoices">
+                            <div id="Invoices">
                                 <div class="row">
                                     <div class="col-12">
                                         <div class="page-header">
@@ -332,16 +335,18 @@
                                         </div>
                                     </div>
                                     <div class="col-md-5 border-right">
-                                        <p style="text-align: justify;"> Adding a new Invoices in the system is very easy. The facilities that invoice management holds in Easy Inventory are listed below:
+                                        <p class="text-justify"> Adding a new Invoices in the system is very easy. The facilities that invoice management holds in Easy Inventory are listed below:
                                             <br>
                                             <br> Click Invoices From Sidebar </p>
                                         <ul>
                                             <li><strong>Add New Invoice</strong></li>
-                                            <li style="list-style: none; text-align: justify; "> You can easily add new invoice in the system. The form is elaborate with all possible information you might need to add for a new invoice. You can search the customer name by putting the customer first name first alphabet in search box the system will automatically pull out the customer full name. if the customer is new all you will have to click on new customer name button and fill the name, Mobile, Address. </li>
+                                            <p class="text-justify"> You can easily add new invoice in the system. The form is elaborate with all possible information you might need to add for a new invoice. You can search the customer name by putting the customer first name first alphabet in search box the system will automatically pull out the customer full name. if the customer is new all you will have to click on new customer name button and fill the name, Mobile, Address. </p>
+
                                             <li><strong>Invoice List</strong></li>
-                                            <li style="list-style: none; text-align: justify; "> You can see list of all Invoice at a glance. </li>
+                                            <p class="text-justify"> You can see list of all Invoice at a glance. </p>
+
                                             <li><strong>Print/View Invoice</strong></li>
-                                            <li style="list-style: none; text-align: justify; "> once you created invoice then go to invoice view, Edit, Delete invoice and print. </li>
+                                            <p class="text-justify"> once you created invoice then go to invoice view, Edit, Delete invoice and print. </p>
                                         </ul>
                                     </div>
                                     <div class="col-7">
@@ -355,9 +360,9 @@
                                     </div>
                                 </div>
 
-                            </section>
+                            </div>
 
-                            <section id="ExpenseInvoices">
+                            <div id="ExpenseInvoices">
                                 <div class="row">
                                     <div class="col-12">
                                         <div class="page-header">
@@ -366,17 +371,19 @@
                                         </div>
                                     </div>
                                     <div class="col-md-5 border-right">
-                                        <p style="text-align: justify;"> Adding a new Expense Invoices in the system is very easy. The facilities that invoice management holds in Easy Inventory are listed below:
+                                        <p class="text-justify"> Adding a new Expense Invoices in the system is very easy. The facilities that invoice management holds in Easy Inventory are listed below:
                                             <br>
                                             <br> Click Expenses Invoices From Sidebar </p>
                                             
                                         <ul>
                                             <li><strong>Add New Expense Invoice</strong></li>
-                                            <li style="list-style: none; text-align: justify; "> once you add expense type to the system then you can easily add new expense invoice in the system. add the Item info , Quantity, Rate, the system will automatially do calculation.</li>
+                                            <p class="text-justify"> once you add expense type to the system then you can easily add new expense invoice in the system. add the Item info , Quantity, Rate, the system will automatially do calculation.</p>
+
                                             <li><strong>Expense Invoice List</strong></li>
-                                            <li style="list-style: none; text-align: justify; "> You can see list of all expense invoice at a glance. </li>
+                                            <p class="text-justify"> You can see list of all expense invoice at a glance. </p>
+
                                             <li><strong>Print/View Expense Invoice</strong></li>
-                                            <li style="list-style: none; text-align: justify; "> once you created invoice then go to invoice view, Edit, Delete invoice and print. </li>
+                                            <p class="text-justify"> once you created invoice then go to invoice view, Edit, Delete invoice and print. </p>
                                         </ul>
                                     </div>
                                     <div class="col-7">
@@ -389,9 +396,9 @@
                                     </div>
                                 </div>
 
-                            </section>
+                            </div>
 
-                            <section id="Loan">
+                            <div id="Loan">
                                 <div class="row">
                                     <div class="col-12">
                                         <div class="page-header">
@@ -400,14 +407,16 @@
                                         </div>
                                     </div>
                                     <div class="col-md-5 border-right">
-                                         <p style="text-align: justify;"> Adding a new Loans in the system is very easy. You can add all related information of a Loans. The facilities that Loans management holds in Easy Inventory are listed below:
+                                         <p class="text-justify"> Adding a new Loans in the system is very easy. You can 
+                                            add all related information of a Loans. The facilities that Loans management holds in Easy Inventory are listed below:
                                             <br>
                                             <br> Click Loans from sidebar </p>
                                         <ul>
                                             <li><strong>Add New Loans</strong></li>
-                                            <li style="list-style: none; text-align: justify; "> You can easily add new Loans in the system. The form is elaborate with all possible information you might need to add for a new Loans. During addition of new Loan you just have to provide the Loaner name, Loaner Mobile, Loaner Email, Taken date, End date Loaner Address. </li>
+                                            <p class="text-justify"> You can easily add new Loans in the system. The form is elaborate with all possible information you might need to add for a new Loans. During addition of new Loan you just have to provide the Loaner name, Loaner Mobile, Loaner Email, Taken date, End date Loaner Address. </p>
+
                                             <li><strong>Loans List</strong></li>
-                                            <li style="list-style: none; text-align: justify; "> You can see list of all Loans. You Can View, Edit, Delete From here </li>
+                                            <p class="text-justify"> You can see list of all Loans. You Can View, Edit, Delete From here </p>
                                         </ul>
 
                                         </ul>
@@ -422,9 +431,9 @@
                                     </div>
                                 </div>
 
-                            </section>
+                            </div>
 
-                            <section id="Staff">
+                            <div id="Staff">
                                 <div class="row">
                                     <div class="col-12">
                                         <div class="page-header">
@@ -433,16 +442,18 @@
                                         </div>
                                     </div>
                                     <div class="col-md-5 border-right">
-                                        <p style="text-align: justify;"> Adding a new Staff in the system is very easy. You can add all related information of a Staff. The facilities that staff management holds in Easy Inventory are listed below:
+                                        <p class="text-justify"> Adding a new Staff in the system is very easy. You can add all related information of a Staff. The facilities that staff management holds in Easy Inventory are listed below:
                                             <br>
                                             <br> Click Staff From Sidebar </p>
                                         <ul>
                                             <li><strong>Add New Staff</strong></li>
-                                            <li style="list-style: none; text-align: justify; "> You can easily add new staff in the system. The form is elaborate with all possible information you might need to add for a new staff. During addition of new staff you just have to provide the Name, User Name, Phone, Address, User Type, Password. </li>
+                                            <p class="text-justify"> You can easily add new staff in the system. The form is elaborate with all possible information you might need to add for a new staff. During addition of new staff you just have to provide the Name, User Name, Phone, Address, User Type, Password. </p>
+
                                             <li><strong>User Type</strong></li>
-                                            <li style="list-style: none; text-align: justify; ">There are 2 kind of User type,  Admin, saleman. admin can control full system, Salesman can only add and view product invoice only. while Accountant can add,edit,delete product invoices and expense invoices only. </li>
+                                            <p class="text-justify">There are 2 kind of User type,  Admin, saleman. admin can control full system, Salesman can only add and view product invoice only. while Accountant can add,edit,delete product invoices and expense invoices only. </p>
+
                                             <li><strong>Staff List</strong></li>
-                                            <li style="list-style: none; text-align: justify; "> You can see list of all staff. You Can View, Edit, Delete From here</li>
+                                            <p class="text-justify"> You can see list of all staff. You Can View, Edit, Delete From here</p>
                                         </ul>
                                     </div>
                                     <div class="col-7">
@@ -453,9 +464,9 @@
                                     </div>
                                 </div>
 
-                            </section>
+                            </div>
 
-                            <section id="Reports">
+                            <div id="Reports">
                                 <div class="row">
                                     <div class="col-12">
                                         <div class="page-header">
@@ -464,7 +475,7 @@
                                         </div>
                                     </div>
                                     <div class="col-md-5 border-right">
-                                        <p style="text-align: justify;"> Reports is an important feature every company needs Reports to see there Profit/Loss, Expense and sales. The various features the Reports provides are listed below:
+                                        <p class="text-justify"> Reports is an important feature every company needs Reports to see there Profit/Loss, Expense and sales. The various features the Reports provides are listed below:
                                             <br>
                                             <br> To view Reports go to Reports </p>
                                         <ul>
@@ -478,9 +489,9 @@
                                     </div>
                                 </div>
 
-                            </section>
+                            </div>
 
-                            <section id="Setting">
+                            <div id="Setting">
                                 <div class="row">
                                     <div class="col-12">
                                         <div class="page-header">
@@ -489,7 +500,7 @@
                                         </div>
                                     </div>
                                     <div class="col-md-5 border-right">
-                                        <p style="text-align: justify;"> Adding company info in the system is very easy. You have to add all related information of company in form.
+                                        <p class="text-justify"> Adding company info in the system is very easy. You have to add all related information of company in form.
                                             <br>
                                             <br> To view company info go to " <b>Setting</b> " </p>
                                     </div>
@@ -498,9 +509,9 @@
                                         <img class="img-fluid" src="{{ asset('backend_assets/dist/img/documentation/Company-info.png')}}">
                                     </div>
                                 </div>
-                            </section>
+                            </div>
 
-                            <section id="customer_support">
+                            <div id="customer_support">
                                 <div class="row">
                                     <div class="col-12">
                                         <div class="page-header">
@@ -509,16 +520,16 @@
                                         </div>
                                     </div>
                                     <div class="col-12">
-                                        <p style="text-align: justify;"><strong>All the support related issue should be emailed directly to <span class="text-danger">ismail32cse@gmail.com</span> Please be informed that CodeCanyon comments page isn't for support.</strong>
+                                        <p class="text-justify"><strong>All the support related issue should be emailed directly to <span class="text-danger">ismail32cse@gmail.com</span> Please be informed that CodeCanyon comments page isn't for support.</strong>
                                             <br>Support is available from 6:00 PM - 1:00 AM (GMT+6), Sunday - Thursday. If you are having any difficulty in understanding the product or you have any question, We encourage you to contact us. Email us at <strong><span class="text-danger">ismail32cse@gmail.com</span></strong> for fast response. We will be glad to help you. </p>
 
                                     </div>
 
                                 </div>
 
-                            </section>
+                            </div>
 
-                            <section id="product_customization">
+                            <div id="product_customization">
                                 <div class="row">
                                     <div class="col-12">
                                         <div class="page-header">
@@ -527,16 +538,16 @@
                                         </div>
                                     </div>
                                     <div class="col-12">
-                                        <p style="text-align: justify;"> <strong>Easy Inventory can be customize depending on your need. Our charges are affordable.</strong> We work and charge for customization as <span class="font-weight-bold text-danger">$12/hour</span>.  </p>
+                                        <p class="text-justify"> <strong>Easy Inventory can be customize depending on your need. Our charges are affordable.</strong> We work and charge for customization as <span class="font-weight-bold text-danger">$12/hour</span>.  </p>
                                     </div>
                                 </div>
-                            </section>
+                            </div>
                         </div>
                     </div>
 
                 </div>
             </div>
-        </section>
+        </div>
     </div>
 </div>
 

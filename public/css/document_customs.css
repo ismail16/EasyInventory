@@ -1,0 +1,11 @@
+.nav-link {
+   padding: 2px 1rem !important;
+}
+
+.main-footer{
+  position: relative;
+}
+
+.version_title{
+  font-size: 15px; margin:0;
+}

@@ -211,3 +211,15 @@
   cursor: pointer;
   font-weight: bolder;
 }
+
+#printableArea{
+  min-width: 600px;
+}
+
+#salesChart{
+  height: 180px;
+}
+
+.setting_logo{
+  max-height: 50px; max-width: 50px;
+}

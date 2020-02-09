@@ -2,7 +2,7 @@
     <div class="container">
         <div id="invoice">
             <div class="invoice overflow-auto">
-                <div style="min-width: 600px" id="printableArea">
+                <div id="printableArea">
                     <header>
                         <div class="row">
                             <div class="col-2">
@@ -17,7 +17,7 @@
                                 <div class="email">{{ setting.store_email }}</div>
                             </div>
 
-                            <div class="col company-details" style="text-align:right">
+                            <div class="col company-details text-right">
                                 <div class="text-gray-light"><b>INVOICE TO:</b></div>
                                 <h5  class="name">supplier ID: {{form.supplier_id}}</h5>
                                 <div class="address">Warehouse ID: {{form.warehouse_id}}</div>
@@ -27,7 +27,7 @@
                         </div>
                     </header>
                     <main>
-                        <div class="table-responsive" style="margin-top: 10px">
+                        <div class="table-responsive">
                             <table class="table table-bordered table-sm table-hover" id="normalinvoice">
                                 <thead>
                                     <tr>
@@ -39,7 +39,7 @@
                                 </thead>
                                 <tbody>
                                     <tr v-for="(product, index) in product_arr">
-                                        <td style="width: 320px" class="text-center">
+                                        <td class="text-center">
                                             <span>{{ product.product_name }}</span>
                                         </td>
                                         <td class="text-center">
@@ -55,20 +55,20 @@
                                 </tbody>
                                 <tfoot>
                                     <tr id="appssss">
-                                        <td colspan="3" style="text-align:right;">Grand Total:</td>
+                                        <td class="text-right" colspan="3">Grand Total:</td>
                                         <td class="text-center">
                                             <span>{{ setting.store_currency }} {{ grand_total_price }}</span>
                                         </td>
                                     </tr> 
 
                                     <tr>
-                                        <td style="text-align:right;" colspan="3">Paid Amount:</td>
+                                        <td class="text-right" colspan="3">Paid Amount:</td>
                                         <td class="text-center">
                                             <span>{{ setting.store_currency }} {{form.paid_amount}}</span>
                                         </td>
                                     </tr>
                                     <tr v-show="form.due_amount">
-                                        <td style="text-align:right;" colspan="3">Due:</td>
+                                        <td class="text-right" colspan="3">Due:</td>
                                         <td  class="text-center">
                                             <span>{{ setting.store_currency }} {{form.due_amount}}</span>
                                         </td>
@@ -78,8 +78,6 @@
 
                             <div class="notices">
                                 Thank you!
-                                <div>NOTICE:</div>
-                                <div class="notice">A finance charge of 1.5% will be made on unpaid balances after 30 days.</div>
                             </div>
 
                         </div>                
@@ -103,6 +101,7 @@
 </template>
 
 <script>
+"use strict";
     export default {
         data() {
             return {
@@ -191,7 +190,6 @@
             getImgUrl: function(image){
                 var photo = "/images/store_logo/"+ image
                 return photo
-                console.log(photo)
             }, 
         }
     }

@@ -3,7 +3,7 @@
         <section class="content mt-2">
             <div class="row">
                 <div class="col-12">
-                    <div class="card mt-2 rounded-0" style="margin-bottom: 5px !important;">
+                    <div class="card mt-2 rounded-0">
 
                         <div class="card-header pb-0">
                             <div class="row">
@@ -61,7 +61,7 @@
                                             <td class="text-center">{{ supplierInvoice.supplier_id }}</td>
                                             <td class="text-center">{{ supplierInvoice.warehouse_id }}</td>
                                             <td class="text-center">
-                                                <img v-show="supplierInvoice.image" :src="getImgUrl(supplierInvoice.image)"  class="img-fluid" style="max-height: 50px; max-width: 50px;" alt="User Avatar">
+                                                <img v-show="supplierInvoice.image" :src="getImgUrl(supplierInvoice.image)"  class="img-fluid setting_logo" alt="User Avatar">
                                             </td>
 
                                             <td class="text-center">
@@ -145,6 +145,7 @@
 </template>
 
 <script>
+"use strict";
 export default {
     data() {
         return {
@@ -211,7 +212,6 @@ export default {
                 return "/images/supplier_invoice/"+ 'default.png'
             }
             return photo
-            console.log(photo)
         },
 
 
@@ -238,7 +238,6 @@ export default {
                 temp.pagination = response.data.meta;
             })
             .catch(e => {
-                console.log(e);
                 toastr.error('Something is wrong Search Data')
             });
         },
@@ -253,7 +252,6 @@ export default {
                 supplier_address : temp.supplier_address,
             })
             .then(function (response) {
-                console.log(response.data)
                 temp.getData();
                 toastr.success('Saved Supplier Successfully'),
 

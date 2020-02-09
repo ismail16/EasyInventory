@@ -16,6 +16,7 @@
     </div>
 </template>
 <script>
+"use strict";
     export default {
         data() {
           return {
@@ -31,9 +32,7 @@
             var temp = this;
               axios.get('/api/setting/1')
                 .then((response) => {
-                  temp.settingaaaa = response.data;
-              // temp.$store.commit('setSetting',response.data)
-                  
+                  temp.settingaaaa = response.data;                 
 
                 })
                 .catch(function (error) {
